@@ -10,9 +10,6 @@ const Login = () => {
         email: "",
         pw: "",
     });
-    const handleValidation = (data: LoginType) => {
-
-    }
 
     const handleSubmit = (data: LoginType) => {
         console.log(data);
@@ -42,7 +39,7 @@ const Login = () => {
                 </View>
                 <TouchableOpacity 
                     onPress={() => handleSubmit(form)}
-                    disabled={(form.email === "") && (form.pw === "")}
+                    disabled={(form.email === "") || (form.pw === "")}
                     >
                     <Text>로그인</Text>
                 </TouchableOpacity>
