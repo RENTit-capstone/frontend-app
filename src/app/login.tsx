@@ -10,6 +10,9 @@ const Login = () => {
         email: "",
         pw: "",
     });
+    const handleValidation = (data: LoginType) => {
+
+    }
 
     const handleSubmit = (data: LoginType) => {
         console.log(data);
@@ -37,7 +40,10 @@ const Login = () => {
                         secureTextEntry={true}
                     />
                 </View>
-                <TouchableOpacity onPress={() => handleSubmit(form)}>
+                <TouchableOpacity 
+                    onPress={() => handleSubmit(form)}
+                    disabled={(form.email === "") && (form.pw === "")}
+                    >
                     <Text>로그인</Text>
                 </TouchableOpacity>
                 <Link
@@ -47,7 +53,6 @@ const Login = () => {
                 </Link>
             </SafeAreaView>
     )
-
 }
 
 export default Login;
