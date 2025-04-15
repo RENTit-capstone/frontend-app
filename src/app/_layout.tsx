@@ -5,7 +5,7 @@ import { Stack, Redirect } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-import useAuth from '@/stores/useAuth';
+import useAuthStore from '@/stores/useAuthStore';
 
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -50,9 +50,9 @@ export default function RootLayout() {
 // 실제 화면 렌더링(라우팅 구조 정의)
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-  const isLoggedIn = useAuth((state) => state.isLoggedIn);
+  const token = useAuthStore((state) => state.token);
 
-  // if (!isLoggedIn) {
+  // if (!token) {
   //   // 로그인 되어있지 않다면 로그인 화면으로 이동 -> 에러 발생하여 splash screen 구현 이후 재시도
   //   return <Redirect href={"/login"} />;
   // }

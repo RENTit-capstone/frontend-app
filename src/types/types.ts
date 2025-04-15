@@ -14,9 +14,14 @@ export interface TextInputProps extends DefaultTextInputProps {
     keyboardType?: KeyboardTypeOptions;
 }
 
+export type UserType = {
+    email: string;
+    nickname: string;
+}
+
 // 로그인 상태관리
 export type AuthType = {
-    isLoggedIn: boolean;
-    login: () => void;
+    token: string | null;
+    login: (token: string) => void;
     logout: () => void;
 }
