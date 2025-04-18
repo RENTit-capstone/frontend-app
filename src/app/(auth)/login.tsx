@@ -34,7 +34,7 @@ const Login = () => {
             <View style={Styles.container}>
                 <Logo />
                 <Text>RENTit 로그인</Text>
-                <View>
+                <View style={Styles.fullYStack}>
                     <TextInput 
                         label="email" 
                         handleChangeText={handleChange("email")}
@@ -48,18 +48,17 @@ const Login = () => {
                         value={form.pw}
                         secureTextEntry={true}
                     />
+                    <Button 
+                        onPress={() => handleSubmit(form)}
+                        disabled={(form.email === "") || (form.pw === "")}
+                    >
+                        로그인
+                    </Button>
+
+                    <Link href={{pathname: "/"}}>
+                        <Text style={[Styles.textOption]}>회원가입</Text>
+                    </Link>
                 </View>
-                <Button 
-                    onPress={() => handleSubmit(form)}
-                    disabled={(form.email === "") || (form.pw === "")}
-                >
-                    로그인
-                </Button>
-
-                <Link href={{pathname: "/"}}>
-                    <Text style={[Styles.textOption]}>회원가입</Text>
-                </Link>
-
             </View>
     )
 }

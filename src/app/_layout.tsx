@@ -50,7 +50,7 @@ export default function RootLayout() {
 // 실제 화면 렌더링(라우팅 구조 정의)
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-  const token = useAuthStore((state) => state.token);
+  const token = useAuthStore((state) => state.accessToken);
 
   // if (!token) {
   //   // 로그인 되어있지 않다면 로그인 화면으로 이동 -> 에러 발생하여 splash screen 구현 이후 재시도
@@ -60,7 +60,8 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)/login" options={{headerShown: false}} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: true }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
