@@ -4,16 +4,18 @@ import { Text, TouchableOpacity } from "react-native"
 import { Themes } from "@/styles/theme";
 
 type ButtonType = {
-    text?: string,
     onPress: () => void,
     disabled?: boolean,
     children: ReactNode,
 }
 
 const Button = (props: ButtonType) => {
-    const {text, onPress, disabled=true, children} = props;
+    const {onPress, disabled=true, children} = props;
     return (
-        <TouchableOpacity style={[Styles.button, Themes.primary]}>
+        <TouchableOpacity 
+            onPress={onPress}
+            disabled={disabled}
+            style={[Styles.button, Themes.primary]}>
             <Text style={Themes.primary}>{children}</Text>
         </TouchableOpacity>
     )

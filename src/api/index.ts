@@ -17,6 +17,7 @@ const getNewToken = () => {
 axiosInstance.interceptors.request.use(
     async (config) => {
         const token = useAuthStore.getState().accessToken;
+        console.log(token);
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
