@@ -5,7 +5,7 @@ import TextInput from "@/components/TextInput";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import Button from "@/components/Button";
 import { Styles } from "@/styles/styles";
-import { Themes } from "@/styles/theme";
+import Logo from "@/assets/images/logo.svg";
 
 
 const Login = () => {
@@ -24,6 +24,7 @@ const Login = () => {
 
     return (
             <View style={Styles.container}>
+                <Logo />
                 <Text>RENTit 로그인</Text>
                 <View>
                     <TextInput 
