@@ -5,11 +5,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const useAuthStore = create<AuthType>()(
    persist(
-      (set) => ({
+      (set, get) => ({
          //defaultValues
-         token: null,
-         login: (token) => set({token}),
-         logout: () => set({ token: null }),
+         accessToken: null,
+         setToken: (accessToken) => set({ accessToken }),
+         clearToken: () => set({ accessToken: null }),
    }),
    {
       name: "accessToken",

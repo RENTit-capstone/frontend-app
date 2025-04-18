@@ -1,5 +1,11 @@
 import { TextInputProps as DefaultTextInputProps, KeyboardTypeOptions } from "react-native";
 
+export type ResponseType<T> = {
+    data: T;
+    message?: string;
+    status: number;
+}
+
 export type LoginType = {
     email: string;
     pw: string;
@@ -21,7 +27,7 @@ export type UserType = {
 
 // 로그인 상태관리
 export type AuthType = {
-    token: string | null;
-    login: (token: string) => void;
-    logout: () => void;
+    accessToken: string | null;
+    setToken: (accessToken: string) => void;
+    clearToken: () => void;
 }

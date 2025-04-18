@@ -8,9 +8,15 @@ export const axiosInstance = axios.create({
     }
 });
 
+const getNewToken = () => {
+    const newAccessToken = undefined;
+
+    return newAccessToken;
+}
+
 axiosInstance.interceptors.request.use(
     async (config) => {
-        const token = useAuthStore.getState().token;
+        const token = useAuthStore.getState().accessToken;
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -29,16 +35,19 @@ axiosInstance.interceptors.response.use(
     async (error) => {
         // access token 만료 시
         const originalRequest = error.config;
-        // 백엔드 JWT 만료 시 response 반환값 보고 수정
+        // 백엔드 JWT 만료 시 response 반환값 보고 response.status수정
         if (error.response.status && !originalRequest._retry){
             originalRequest._retry = true;
+
             try {
-                const newAccessToken = await getNewAccessToken(); // 리프레시 토큰으로 access token 재발급급
+                const newAccessToken = await getNewToken(); // 리프레시 토큰으로 access token 재발급급
                 if (newAccessToken){
                     originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
                     return axiosInstance(originalRequest);
                 }                
-            } catch(refreshError) {
+            } 
+            
+            catch(refreshError) {
                 if (refreshError.response?.data.error === "INVALID_TOKEN"){
                     //리프레시 토큰 삭제
                     

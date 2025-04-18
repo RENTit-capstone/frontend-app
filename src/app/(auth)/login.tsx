@@ -6,9 +6,11 @@ import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import Button from "@/components/Button";
 import { Styles } from "@/styles/styles";
 import Logo from "@/assets/images/logo.svg";
+import login from "@/api/login";
 
 
 const Login = () => {
+    const [error, setError] = useState(false);
     const [form, setForm] = useState({
         email: "",
         pw: "",
@@ -16,6 +18,12 @@ const Login = () => {
 
     const handleSubmit = (data: LoginType) => {
         console.log(data);
+        try {
+            login(data);
+        } 
+        catch (error) {
+            console.log(error);
+        }
     }
 
     const handleChange = (prop: string) => (value: string) => {
@@ -47,11 +55,11 @@ const Login = () => {
                 >
                     로그인
                 </Button>
-                <Link
-                    href={{pathname: "/"}}
-                >
+
+                <Link href={{pathname: "/"}}>
                     <Text style={[Styles.textOption]}>회원가입</Text>
                 </Link>
+
             </View>
     )
 }
