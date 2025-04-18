@@ -1,10 +1,12 @@
 import { Link } from "expo-router"
 import { LoginType } from "@/types/types";
 import { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import TextInput from "@/components/TextInput";
-import { Text, View, TouchableOpacity } from "react-native";
-import { axiosInstance } from "@/api";
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import Button from "@/components/Button";
+import { Styles } from "@/styles/styles";
+import { Themes } from "@/styles/theme";
+
 
 const Login = () => {
     const [form, setForm] = useState({
@@ -21,7 +23,7 @@ const Login = () => {
     }
 
     return (
-            <SafeAreaView>
+            <View style={Styles.container}>
                 <Text>RENTit 로그인</Text>
                 <View>
                     <TextInput 
@@ -38,18 +40,18 @@ const Login = () => {
                         secureTextEntry={true}
                     />
                 </View>
-                <TouchableOpacity 
+                <Button 
                     onPress={() => handleSubmit(form)}
                     disabled={(form.email === "") || (form.pw === "")}
-                    >
-                    <Text>로그인</Text>
-                </TouchableOpacity>
+                >
+                    로그인
+                </Button>
                 <Link
                     href={{pathname: "/"}}
                 >
-                    <Text>회원가입</Text>
+                    <Text style={[Styles.textOption]}>회원가입</Text>
                 </Link>
-            </SafeAreaView>
+            </View>
     )
 }
 
