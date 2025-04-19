@@ -7,6 +7,7 @@ export const Styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         paddingHorizontal: 10,
+        width: '100%'
     },
     textInput: {
         backgroundColor: '#f9f9f9',
