@@ -5,7 +5,6 @@ import Button from "@/components/Button";
 import { Styles } from "@/styles/styles";
 import login from "@/api/login";
 import useInput from "@/hooks/useInput";
-import { SignupType } from "@/types/types";
 import Logo from "@/assets/images/logo.svg";
 import { useState } from "react";
 
@@ -120,27 +119,32 @@ const Signup = () => {
                             />                            
                         </>
                     }
-                    <Button 
-                        onPress={() => (setPage(page-1))}
-                        disabled={page<=0}
-                    >
-                        이전
-                    </Button>
-                    {page===totalPage-1?(
+                    <View style={Styles.XStack}>
                         <Button 
-                            onPress={() => console.log(values)}
-                            disabled={blockNext(page)}
+                            onPress={() => (setPage(page-1))}
+                            disabled={page<=0}
+                            type="option"
                         >
-                            가입하기
+                            이전
                         </Button>
-                    ) : (
-                        <Button 
-                            onPress={() => (setPage(page+1))}
-                            disabled={blockNext(page)}
-                        >
-                            다음
-                        </Button>
-                    )}
+                        {page===totalPage-1?(
+                            <Button 
+                                onPress={() => console.log(values)}
+                                disabled={blockNext(page)}
+                                type="primary"
+                            >
+                                가입하기
+                            </Button>
+                        ) : (
+                            <Button 
+                                onPress={() => (setPage(page+1))}
+                                disabled={blockNext(page)}
+                                type="primary"
+                            >
+                                다음
+                            </Button>
+                        )}
+                    </View>
 
                     <Link href={{pathname: "/(auth)/login"}}>
                         <Text style={[Styles.textOption]}>로그인</Text>

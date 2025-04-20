@@ -19,8 +19,11 @@ export default {
   
   primary: "#455464",
   secondary: "#F4EDE1",
-  background: "#FFFFFF",    
-  option: "#D3D3D7",
-  error: "#A03C3C",
+  white: "#FFFFFF",    
+  option: "#D4D4D8",
+  optionText: "#505050",
+  error: "#B84C4C",
+  available: "#3F5466",
+  notAvailable: "#9F5A00",
 };
 

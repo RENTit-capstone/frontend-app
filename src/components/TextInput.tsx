@@ -1,7 +1,7 @@
 import { Text, View, TextInput as DefaultTextInput } from "react-native";
 import { TextInputProps } from "@/types/types";
 import { Styles } from "@/styles/styles";
-import { Themes } from "@/styles/theme";
+import { TextThemes } from "@/styles/theme";
 
 const TextInput = (props: TextInputProps) => {
     const {label, name, handleChangeText, placeholder="", value, secureTextEntry=false, keyboardType="default", errorMsg=""} = props;
@@ -20,7 +20,7 @@ const TextInput = (props: TextInputProps) => {
                 autoCapitalize="none"
                 style={Styles.textInput}
             />
-            {errorMsg?.length>0 && <Text style={[Styles.errorMsg, Themes.error]}>{errorMsg}</Text>}
+            {errorMsg?.length>0 && <Text style={[Styles.errorMsg, TextThemes.error]}>{errorMsg}</Text>}
         </View>
     )
 }
