@@ -13,7 +13,8 @@ export type LoginType = {
 
 export interface TextInputProps extends DefaultTextInputProps {
     label: string;
-    handleChangeText: (text: string) => void;
+    name: string;
+    handleChangeText: (name: string, text: string) => void;
     value: string;
     placeholder?: string;
     secureTextEntry?: boolean;

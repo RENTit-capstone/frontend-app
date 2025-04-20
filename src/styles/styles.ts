@@ -5,8 +5,9 @@ export const Styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F4EDE1',
         flex: 1,
-        justifyContent: 'center',
+        // justifyContent: 'center',
         paddingHorizontal: 10,
+        paddingVertical: '10%',
         width: '100%'
     },
     textInput: {
@@ -37,4 +38,7 @@ export const Styles = StyleSheet.create({
         opacity: 0.6,
         fontSize: 14,
     },
+    errorMsg: {
+        fontSize: 14,
+    }
 });

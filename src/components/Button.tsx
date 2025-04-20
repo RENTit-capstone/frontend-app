@@ -10,7 +10,7 @@ type ButtonType = {
 }
 
 const Button = (props: ButtonType) => {
-    const {onPress, disabled=true, children} = props;
+    const {onPress, disabled=false, children} = props;
     return (
         <TouchableOpacity 
             onPress={onPress}

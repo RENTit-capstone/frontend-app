@@ -7,9 +7,12 @@ import login from "@/api/login";
 import useInput from "@/hooks/useInput";
 import { SignupType } from "@/types/types";
 import Logo from "@/assets/images/logo.svg";
+import { useState } from "react";
 
 const Signup = () => {
-    const {values, handleChange} = useInput({
+    const totalPage = 3;
+    const [page, setPage] = useState(0);
+    const {values, errors, handleChange, isEmpty} = useInput({
         email: "",
         pw: "",
         pwConfirm: "",
@@ -25,7 +28,7 @@ const Signup = () => {
         //제출 시 백엔드에 정보 보내고 email 인증하는 코드 입력하는 창으로 리다이렉션
         console.log(values);
         try {
-            signup(values);
+            // signup(values);
         } 
         catch (error) {
             console.log(error);
@@ -38,63 +41,106 @@ const Signup = () => {
                 <Logo />
                 <Text>RENTit 회원가입</Text>
                 <View style={Styles.fullYStack}>
-                    <TextInput 
-                        label="이메일" 
-                        handleChangeText={handleChange}
-                        value={values.email}
-                        keyboardType="email-address"
-                    />
-                    <TextInput 
-                        label="비밀번호" 
-                        handleChangeText={handleChange}
-                        value={values.pw}
-                        secureTextEntry={true}
-                    />
-                    <TextInput 
-                        label="비밀번호 확인" 
-                        handleChangeText={handleChange}
-                        value={values.pwConfirm}
-                        secureTextEntry={true}
-                    />
-                    <TextInput 
-                        label="이름" 
-                        handleChangeText={handleChange}
-                        value={values.name}
-                    />
-                    <TextInput 
-                        label="닉네임" 
-                        handleChangeText={handleChange}
-                        value={values.nickname}
-                    />
-                    <TextInput      //드롭다운인풋 -> react-native-dropdown-picker 사용
-                        label="성별" 
-                        handleChangeText={handleChange}
-                        value={values.gender}
-                    />
-                    <TextInput 
-                        label="전화번호" 
-                        handleChangeText={handleChange}
-                        value={values.phone}
-                        keyboardType="name-phone-pad"
-                    />
-                    <TextInput 
-                        label="학교" 
-                        handleChangeText={handleChange}
-                        value={values.name}
-                        keyboardType="email-address"
-                    />
-                    <TextInput 
-                        label="학번" 
-                        handleChangeText={handleChange}
-                        value={values.name}
-                        keyboardType="email-address"
-                    />
+                    {page==0 && 
+                        <>
+                            <TextInput 
+                                label="이메일" 
+                                name="email"
+                                handleChangeText={handleChange}
+                                value={values.email}
+                                keyboardType="email-address"
+                                errorMsg={errors.email}
+                            />
+                            <TextInput 
+                                label="비밀번호" 
+                                name="pw"
+                                handleChangeText={handleChange}
+                                value={values.pw}
+                                secureTextEntry={true}
+                                errorMsg={errors.pw}
+                            />
+                            <TextInput 
+                                label="비밀번호 확인" 
+                                name="pwConfirm"
+                                handleChangeText={handleChange}
+                                value={values.pwConfirm}
+                                secureTextEntry={true}
+                                errorMsg={errors.pwConfirm}
+                            />
+                        </>
+                    }
+                    {page===1 &&
+                        <>
+                            <TextInput 
+                                label="이름" 
+                                name="name"
+                                handleChangeText={handleChange}
+                                value={values.name}
+                                errorMsg={errors.name}
+                            />
+                            <TextInput 
+                                label="닉네임" 
+                                name="nickname"
+                                handleChangeText={handleChange}
+                                value={values.nickname}
+                                errorMsg={errors.nickname}
+                            />
+                            <TextInput      //드롭다운인풋 -> react-native-dropdown-picker 사용
+                                label="성별" 
+                                name="gender"
+                                handleChangeText={handleChange}
+                                value={values.gender}
+                                errorMsg={errors.gender}
+                            />
+                            <TextInput 
+                                label="전화번호" 
+                                name="phone"
+                                handleChangeText={handleChange}
+                                value={values.phone}
+                                keyboardType="name-phone-pad"
+                                errorMsg={errors.phone}
+                            />
+                        </>
+                    }
+                    {page===2 &&
+                        <>
+                            <TextInput 
+                                label="학교" 
+                                name="university"
+                                handleChangeText={handleChange}
+                                value={values.university}
+                                errorMsg={errors.university}
+                            />
+                            <TextInput 
+                                label="학번" 
+                                name="studentId"
+                                handleChangeText={handleChange}
+                                value={values.studentId}
+                                errorMsg={errors.studentId}
+                            />                            
+                        </>
+                    }
                     <Button 
-                        onPress={handleSubmit}
-                        disabled={(form.email === "") || (form.pw === "")}
+                        onPress={() => (setPage(page-1))}
+                        disabled={page<=0}
                     >
-                        가입하기
+                        이전
                     </Button>
+                    {page===totalPage-1?(
+                        <Button 
+                            onPress={() => console.log(errors)}
+                            // disabled={errors}
+                        >
+                            가입하기
+                        </Button>
+                    ) : (
+                        <Button 
+                            onPress={() => (setPage(page+1))}
+                            disabled={isEmpty(page)}
+                        >
+                            다음
+                        </Button>
+                    )}
 
                     <Link href={{pathname: "/(auth)/login"}}>
                         <Text style={[Styles.textOption]}>로그인</Text>
