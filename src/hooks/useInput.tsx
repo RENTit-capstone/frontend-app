@@ -40,12 +40,12 @@ function useInput(initialValues: SignupType) {
 
         if (page===0){
             isError = !(!errors.email && !errors.pw && !errors.pwConfirm) ||
-                    (!values.email && !values.pw && !values.pwConfirm);
+                    (!values.email || !values.pw || !values.pwConfirm);
             return isError;
         }
         else if (page===1){
             isError = !(!errors.phone) ||
-            (!values.name && !values.nickname && !values.gender && !values.phone);
+            (!values.name || !values.nickname || !values.gender || !values.phone);
             return isError;
         }
         else{

@@ -48,6 +48,7 @@ const Signup = () => {
                                 handleChangeText={handleChange}
                                 value={values.email}
                                 keyboardType="email-address"
+                                placeholder="email@email.com"
                                 errorMsg={errors.email}
                             />
                             <TextInput 
@@ -97,6 +98,7 @@ const Signup = () => {
                                 handleChangeText={handleChange}
                                 value={values.phone}
                                 keyboardType="name-phone-pad"
+                                placeholder="01012345678"
                                 errorMsg={errors.phone}
                             />
                         </>

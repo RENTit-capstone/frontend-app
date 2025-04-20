@@ -12,6 +12,7 @@ const TextInput = (props: TextInputProps) => {
             <DefaultTextInput
                 onChangeText={(text) => handleChangeText(name, text)}
                 placeholder={placeholder}
+                placeholderTextColor="#767676"
                 value={value}
                 secureTextEntry={secureTextEntry}
                 keyboardType={keyboardType}
