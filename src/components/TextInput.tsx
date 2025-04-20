@@ -20,7 +20,7 @@ const TextInput = (props: TextInputProps) => {
                 autoCapitalize="none"
                 style={Styles.textInput}
             />
-            {errorMsg && <Text style={[Styles.errorMsg, Themes.error]}>{errorMsg}</Text>}
+            {errorMsg?.length>0 && <Text style={[Styles.errorMsg, Themes.error]}>{errorMsg}</Text>}
         </View>
     )
 }
