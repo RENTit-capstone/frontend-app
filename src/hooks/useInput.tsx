@@ -21,30 +21,39 @@ function useInput(initialValues: SignupType) {
     const validateField = (name: string, value: string) => {
         let error = "";
         if (!value)      error=`${name}을 입력해주세요.`;
-        else if (name==="pw" && !pwRegex.test(value))
-            error="비밀번호는 8자 이상, 문자, 숫자, 특수문자(!@#$%&?)을 포함해야 합니다";
-        else if (name==="pwConfirm" && value!==values.pw)    
+        if (name==="pw" && !pwRegex.test(value))
+            error="비밀번호는 8자 이상, 문자, 숫자, 특수문자(!@#$%&?)을 포함해야 합니다.";
+        if (name==="pwConfirm" && value!==values.pw)    
             error="비밀번호가 일치하지 않습니다.";
-        else if (name==="email" && !emailRegex.test(value))  
+        if (name==="email" && !emailRegex.test(value))  
             error="이메일 형식으로 입력해주세요.";
-        else if (name==="phone" && !phoneRegex.test(value))         
+        if (name==="phone" && !phoneRegex.test(value))         
             error="유효한 전화번호 형식으로 입력해주세요.";
 
         setErrors(prev => ({...prev, [name]: error}));
+        console.log(!(!errors.email && !errors.pw && !errors.pwConfirm))
+        console.log((!values.email && !values.pw && !values.pwConfirm))
     }
 
-    const isEmpty = (page: number) => {
+    const blockNext = (page: number) => {
+        let isError = true;
+
         if (page===0){
-            return true;
+            isError = !(!errors.email && !errors.pw && !errors.pwConfirm) ||
+                    (!values.email && !values.pw && !values.pwConfirm);
+            return isError;
         }
         else if (page===1){
-            return true;
+            isError = !(!errors.phone) ||
+            (!values.name && !values.nickname && !values.gender && !values.phone);
+            return isError;
         }
         else{
-            return true;
-        }
+            isError = !values.university && !values.studentId;
+            return isError;
+       }
     }
-    return {values, errors, handleChange, isEmpty};
+    return {values, errors, handleChange, blockNext};
 
 }
 export default useInput;

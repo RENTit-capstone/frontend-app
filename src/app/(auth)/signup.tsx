@@ -12,7 +12,7 @@ import { useState } from "react";
 const Signup = () => {
     const totalPage = 3;
     const [page, setPage] = useState(0);
-    const {values, errors, handleChange, isEmpty} = useInput({
+    const {values, errors, handleChange, blockNext} = useInput({
         email: "",
         pw: "",
         pwConfirm: "",
@@ -128,15 +128,15 @@ const Signup = () => {
                     </Button>
                     {page===totalPage-1?(
                         <Button 
-                            onPress={() => console.log(errors)}
-                            // disabled={errors}
+                            onPress={() => console.log(values)}
+                            disabled={blockNext(page)}
                         >
                             가입하기
                         </Button>
                     ) : (
                         <Button 
                             onPress={() => (setPage(page+1))}
-                            disabled={isEmpty(page)}
+                            disabled={blockNext(page)}
                         >
                             다음
                         </Button>
