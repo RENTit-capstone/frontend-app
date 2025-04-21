@@ -6,9 +6,10 @@ import { Styles } from "@/styles/styles";
 import useInput from "@/hooks/useInput";
 import Logo from "@/assets/images/logo.svg";
 import { useState } from "react";
+import {sendEmailVerifyCode, signup, verifyEmail} from "@/api/auth";
 
 const Signup = () => {
-    const lastPage = 2;
+    const lastPage = 3;
     const [page, setPage] = useState(0);
     const {values, errors, handleChange, blockNext} = useInput({
         email: "",
@@ -19,19 +20,60 @@ const Signup = () => {
         gender: "",
         phone: "",
         university: "",
-        studentId: "",        
+        studentId: "",
+        emailVerifyCode: "",        
     });
 
-    const handleSubmit = () => {
-        //제출 시 백엔드에 정보 보내고 email 인증하는 코드 입력하는 창으로 리다이렉션
+    const handleSubmit = async () => {
+        //page 2에서 회원가입 폼 전송 시 호출
         console.log(values);
-        try {
-            // signup(values);
+
+        try {                
+            const response = await signup(values);
+            if (response.data){
+                handleSendCode();       //이메일로 코드 전송  
+                const newPage = page+1;
+                setPage(newPage);
+            }
         } 
         catch (error) {
             console.log(error);
+
+            //실패 dialog 띄우기
+            console.log("네트워크가 불안정합니다.\n 다시 시도해 주세요.");
         }
     };
+
+    const handleSendCode = async () => {
+        //이메일 인증 코드 전송 API 호출
+        try{
+            const response = await sendEmailVerifyCode(values.email);
+            if (response.data) {
+            }
+        }
+        catch (error){
+            console.log(error);
+            //실패 dialog
+        }
+    }
+
+    const handleEmailVerify = async () => {
+        // 이메일 코드 일치 확인 API 호출
+        console.log(values.emailVerifyCode);
+
+        try{
+            const response = await verifyEmail(values.emailVerifyCode);
+            if (response.data) {
+                //성공 시 가입완료 dialog 띄우고 로그인 창으로 리다이렉션
+                console.log("성공했습니다. 로그인해주세요");
+                
+            }
+        }
+        catch (error){
+            console.log(error);
+            //실패 dialog
+        }
+    }
 
     return (
         <SafeAreaView style={Styles.container}>
@@ -120,6 +162,17 @@ const Signup = () => {
                             />                            
                         </>
                     }
+                    {page==lastPage && 
+                        <>
+                            <Text>{`${values.email}로 확인 코드가 전송되었습니다.`}</Text>
+                            <TextInput
+                                label="이메일 인증 코드"
+                                name="emailVerifyCode"
+                                handleChangeText={handleChange}
+                                value={values.emailVerifyCode}
+                            />                                
+                        </>
+                    }
                     <View style={Styles.XStack}>
                         <Button 
                             onPress={() => (setPage(page-1))}
@@ -129,16 +182,19 @@ const Signup = () => {
                             이전
                         </Button>
                         {page===lastPage?(
+                            //email 인증 코드 전부 입력 시 가입 완료 
                             <Button 
-                                onPress={() => console.log(values)}
+                                onPress={handleEmailVerify}
                                 disabled={blockNext(page)}
                                 type="primary"
                             >
                                 가입하기
                             </Button>
                         ) : (
+                            //정보 입력이 끝나는 page 2에서는 handleSubmit로 백엔드에 정보 전송
+                            //그렇지 않은 page 0, 1에서는 다음 페이지로 이동
                             <Button 
-                                onPress={() => (setPage(page+1))}
+                                onPress={page===2? handleSubmit : () => (setPage(page+1))}
                                 disabled={blockNext(page)}
                                 type="primary"
                             >
