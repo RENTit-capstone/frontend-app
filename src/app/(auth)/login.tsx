@@ -36,6 +36,7 @@ const Login = () => {
                 <Text>RENTit 로그인</Text>
                 <View style={Common.fullYStack}>
                     <TextInput 
+                        name="email"
                         label="email" 
                         handleChangeText={handleChange("email")}
                         value={form.email}
@@ -43,6 +44,7 @@ const Login = () => {
                         keyboardType="email-address"
                     />
                     <TextInput 
+                        name="pw"
                         label="password" 
                         handleChangeText={handleChange("pw")}
                         value={form.pw}
@@ -51,6 +53,7 @@ const Login = () => {
                     <Button 
                         onPress={() => handleSubmit(form)}
                         disabled={(form.email === "") || (form.pw === "")}
+                        type="primary"
                     >
                         로그인
                     </Button>
