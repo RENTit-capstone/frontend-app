@@ -10,6 +10,9 @@ export const Styles = StyleSheet.create({
         paddingVertical: '10%',
         width: '100%'
     },
+    componentWrapper: {
+        width: '100%',
+    },
     textInput: {
         backgroundColor: '#f9f9f9',
         borderColor: '#D3D3D7',
@@ -53,7 +56,8 @@ export const Styles = StyleSheet.create({
     disabled: {
         opacity: 0.5,
     },
-    able: {
-        opacity: 1,
-    }
+    listItemImage: {
+        width: 100,
+        height: 100,
+    },
 });

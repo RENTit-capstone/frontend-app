@@ -18,7 +18,7 @@ const Button = (props: ButtonType) => {
             onPress={onPress}
             disabled={disabled}
             style={[Styles.button, ViewThemes[type],
-                    disabled? Styles.disabled:Styles.able
+                    disabled? Styles.disabled:null
                     ]}>
             <Text style={TextThemes[type]}>{children}</Text>
         </TouchableOpacity>
