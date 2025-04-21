@@ -3,13 +3,12 @@ import { Link } from "expo-router"
 import TextInput from "@/components/TextInput";
 import Button from "@/components/Button";
 import { Styles } from "@/styles/styles";
-import login from "@/api/login";
 import useInput from "@/hooks/useInput";
 import Logo from "@/assets/images/logo.svg";
 import { useState } from "react";
 
 const Signup = () => {
-    const totalPage = 3;
+    const lastPage = 2;
     const [page, setPage] = useState(0);
     const {values, errors, handleChange, blockNext} = useInput({
         email: "",
@@ -129,7 +128,7 @@ const Signup = () => {
                         >
                             이전
                         </Button>
-                        {page===totalPage-1?(
+                        {page===lastPage?(
                             <Button 
                                 onPress={() => console.log(values)}
                                 disabled={blockNext(page)}

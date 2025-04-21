@@ -6,7 +6,7 @@ import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import Button from "@/components/Button";
 import { Styles } from "@/styles/styles";
 import Logo from "@/assets/images/logo.svg";
-import login from "@/api/login";
+import login from "@/api/auth";
 
 
 const Login = () => {

@@ -29,6 +29,7 @@ export type UserType = {
 
 // 로그인 상태관리
 export type AuthType = {
+    id: number | null;
     accessToken: string | null;
     setToken: (accessToken: string) => void;
     clearToken: () => void;

@@ -1,4 +1,4 @@
-import { LoginType } from "@/types/types";
+import { LoginType, SignupType } from "@/types/types";
 import { axiosInstance } from ".";
 import useAuthStore from "@/stores/useAuthStore";
 
@@ -20,4 +20,16 @@ const login = async (payload: LoginType) => {
     }
 }
 
-export default login;
+const signup = async (payload: SignupType) => {
+    //JWT token 관여X
+    try{
+        const res = await axiosInstance.post("/api/signup", payload);
+        return res;
+    } 
+    catch(error) {
+        console.error(error);
+        throw(error);
+    }
+}
+
+export default [login, signup];
