@@ -31,6 +31,7 @@ export type UserType = {
 export type AuthType = {
     id: number | null;
     accessToken: string | null;
+    setId: (id: number) => void;
     setToken: (accessToken: string) => void;
     clearToken: () => void;
 }
@@ -44,7 +45,8 @@ export type SignupType = {
     gender: string,
     phone: string,
     university: string,
-    studentId: string,        
+    studentId: string,       
+    emailVerifyCode: string,
 }
 
 export type ListItemProps = {
