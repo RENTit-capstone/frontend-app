@@ -13,11 +13,13 @@ export type LoginType = {
 
 export interface TextInputProps extends DefaultTextInputProps {
     label: string;
-    handleChangeText: (text: string) => void;
+    name: string;
+    handleChangeText: (name: string, text: string) => void;
     value: string;
     placeholder?: string;
     secureTextEntry?: boolean;
     keyboardType?: KeyboardTypeOptions;
+    errorMsg?: string;
 }
 
 export type UserType = {
@@ -30,4 +32,16 @@ export type AuthType = {
     accessToken: string | null;
     setToken: (accessToken: string) => void;
     clearToken: () => void;
+}
+
+export type SignupType = {
+    email: string,
+    pw: string,
+    pwConfirm: string,
+    name: string,
+    nickname: string,
+    gender: string,
+    phone: string,
+    university: string,
+    studentId: string,        
 }
