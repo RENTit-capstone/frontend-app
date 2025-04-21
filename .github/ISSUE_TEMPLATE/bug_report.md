@@ -1,3 +1,12 @@
+---
+name: Bug report
+about: 버그 리포트 이슈 템플릿
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 ## 📃이슈 내용
 > 요청하신 작업의 내용을 작성해 주세요
 
