@@ -8,7 +8,7 @@ const ListItem = () => {
     // const {} = props;
 
     return (
-        <View style={Styles.componentWrapper}>
+        <View style={Styles.XStack}>
             <Image source={require("@/assets/images/icon.png")} style={Styles.listItemImage}/>
             <View style={Styles.fullYStack}>
                 <Text>대여가능</Text>

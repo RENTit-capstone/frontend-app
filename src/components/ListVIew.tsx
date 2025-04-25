@@ -9,10 +9,10 @@ const ListView = () => {
     // const {} = props;
 
     return (
-        <View style={Styles.componentWrapper}>
+        <View style={Styles.listView}>
             <ListItem />
             <ListItem />
-            
+            <ListItem />
         </View>
     )
 };

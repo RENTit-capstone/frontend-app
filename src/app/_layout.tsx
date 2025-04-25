@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import useAuthStore from '@/stores/useAuthStore';
 
-import { useColorScheme } from '@/components/useColorScheme';
+// import { useColorScheme } from '@/components/useColorScheme';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -48,7 +48,7 @@ export default function RootLayout() {
 
 // 실제 화면 렌더링(라우팅 구조 정의)
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
   const token = useAuthStore((state) => state.accessToken);
 
   // if (!token) {
@@ -59,9 +59,9 @@ function RootLayoutNav() {
   return (
     // <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(auth)/signup" options={{headerShown: false}} />
-        {/* <Stack.Screen name="(tabs)" options={{ headerShown: true }} /> */}
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        {/* <Stack.Screen name="(auth)/signup" options={{headerShown: false}} /> */}
+        <Stack.Screen name="(tabs)" options={{ headerShown: true }} />
+        {/* <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
       </Stack>
     // </ThemeProvider>
   );

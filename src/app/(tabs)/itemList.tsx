@@ -7,8 +7,7 @@ import ListView from "@/components/ListVIew";
 export default function TabTwoScreen() {
   return (
     <SafeAreaView style={Styles.container}>
-        <ScrollView style={Styles.container}>
-            <Logo />
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <ListView />
         </ScrollView>
     </SafeAreaView>

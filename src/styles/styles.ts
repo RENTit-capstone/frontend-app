@@ -1,4 +1,6 @@
+import Colors from '@/constants/Colors';
 import { StyleSheet } from 'react-native';
+import { blue } from 'react-native-reanimated/lib/typescript/Colors';
 
 export const Styles = StyleSheet.create({
     container: {
@@ -60,4 +62,21 @@ export const Styles = StyleSheet.create({
         width: 100,
         height: 100,
     },
+    listView: {
+        alignItems: "center",
+    },
+    headerWrapper: {
+        flexDirection: "row",
+        marginHorizontal: 10,
+        gap: 15,
+        alignItems: "center",
+    },
+    avatar: {
+        width: 32,
+        height: 32,
+        borderRadius: "100%",
+        textAlign: "center",
+        fontWeight: "600",
+        fontSize: 24,
+    }
 });
