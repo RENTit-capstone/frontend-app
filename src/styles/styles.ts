@@ -103,5 +103,11 @@ export const Styles = StyleSheet.create({
         flex: 1,
         marginBottom: 0,
         marginTop: 0,
+    },
+    badge: {
+        borderWidth: 1,
+        borderRadius: 50,
+        paddingHorizontal: 8,
+        alignSelf: "flex-start",
     }
 });

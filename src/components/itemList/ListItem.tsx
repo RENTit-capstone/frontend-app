@@ -2,6 +2,7 @@ import { Text, View, Image } from "react-native";
 import { TextInputProps } from "@/types/types";
 import { Styles } from "@/styles/styles";
 import { TextThemes } from "@/styles/theme";
+import Badge from "../Badge";
 
 const ListItem = () => {
     // props: ListItemProps
@@ -11,7 +12,7 @@ const ListItem = () => {
         <View style={Styles.XStack}>
             <Image source={require("@/assets/images/icon.png")} style={Styles.listItemImage}/>
             <View style={Styles.fullYStack}>
-                <Text>대여가능</Text>
+                <Badge available={false} />
                 <Text>asdf</Text>
                 <View style={Styles.XStack}>
                     <Text>50,000원</Text>

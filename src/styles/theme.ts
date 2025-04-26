@@ -17,6 +17,12 @@ export const ViewThemes = StyleSheet.create({
     },
     transparent: {
         borderWidth: 0,
+    },
+    available: {
+        borderColor: Colors.available,
+    },
+    notAvailable: {
+        borderColor: Colors.notAvailable,
     }
 });
 
@@ -47,5 +53,11 @@ export const TextThemes = StyleSheet.create({
     statusOverdue: {
         color: Colors.statusOverdue,
     },
+    available: {
+        color: Colors.available,
+    },
+    notAvailable: {
+        color: Colors.notAvailable,
+    }
   
 });
