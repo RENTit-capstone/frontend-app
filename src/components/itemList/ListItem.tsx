@@ -11,13 +11,15 @@ const ListItem = () => {
     return (
         <View style={Styles.XStack}>
             <Image source={require("@/assets/images/icon.png")} style={Styles.listItemImage}/>
-            <View style={Styles.fullYStack}>
+            <View style={Styles.cardWrapper}>
                 <Badge available={false} />
-                <Text>asdf</Text>
+                <Text style={{fontSize: 20}}>asdf</Text>
                 <View style={Styles.XStack}>
-                    <Text>50,000원</Text>
-                    <Text>|</Text>
-                    <Text>7일</Text>
+                    <Text style={{fontSize: 20}}>
+                        <Text style={{fontWeight: 600}}>50,000</Text> 원
+                    </Text>
+                    <Text style={[{fontSize: 10}, TextThemes.option]}>|</Text>
+                    <Text style={{fontSize: 17}}>7일</Text>
                 </View>
             </View>
         </View>

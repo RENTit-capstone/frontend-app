@@ -109,5 +109,8 @@ export const Styles = StyleSheet.create({
         borderRadius: 50,
         paddingHorizontal: 8,
         alignSelf: "flex-start",
+    },
+    cardWrapper: {
+        alignSelf: "flex-start"
     }
 });
