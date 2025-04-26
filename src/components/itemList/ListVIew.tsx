@@ -7,12 +7,17 @@ import ListItem from "./ListItem";
 const ListView = () => {
     // props: ListItemProps
     // const {} = props;
+    const exampleArray = [1, 1, 1];
 
     return (
         <View style={Styles.listView}>
-            <ListItem />
-            <ListItem />
-            <ListItem />
+            {exampleArray.map((item, index) => {
+                return (
+                    <>
+                        <ListItem />
+                        <View style={[Styles.divider, Styles.rowDivider]} />
+                    </>
+            )})}
         </View>
     )
 };

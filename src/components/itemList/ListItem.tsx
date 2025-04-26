@@ -11,17 +11,19 @@ const ListItem = () => {
     // const {} = props;
 
     return (
-        <View style={Styles.XStack}>
-            <Image source={require("@/assets/images/icon.png")} style={Styles.listItemImage}/>
-            <View style={Styles.cardWrapper}>
-                <Badge available={false} />
-                <Text style={{fontSize: 20}}>asdf</Text>
-                <View style={Styles.XStack}>
-                    <Text style={{fontSize: 20}}>
-                        <Text style={{fontWeight: 600}}>50,000</Text> 원
-                    </Text>
-                    <Text style={[{fontSize: 10}, TextThemes.option]}>|</Text>
-                    <Text style={{fontSize: 17}}>7일</Text>
+        <View style={[Styles.XStack, Styles.cardWrapper]}>
+            <View style={Styles.XStack}>
+                <Image source={require("@/assets/images/icon.png")} style={Styles.listItemImage}/>
+                <View style={Styles.textWrapper}>
+                    <Badge available={false} />
+                    <Text style={{fontSize: 20}}>asdf</Text>
+                    <View style={Styles.XStack}>
+                        <Text style={{fontSize: 20}}>
+                            <Text style={{fontWeight: 600}}>50,000</Text> 원
+                        </Text>
+                        <Text style={[{fontSize: 10}, TextThemes.option]}>|</Text>
+                        <Text style={{fontSize: 17}}>7일</Text>
+                    </View>
                 </View>
             </View>
             <View style={[Styles.textOption, Styles.alignLeft]}>

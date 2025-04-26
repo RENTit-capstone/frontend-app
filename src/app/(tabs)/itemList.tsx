@@ -9,7 +9,10 @@ export default function TabTwoScreen() {
   return (
     <SafeAreaView style={Styles.container}>
         <StatusButtonGroup />
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView 
+            contentContainerStyle={{ flexGrow: 1 }}  
+            style={Styles.wideView}
+        >
             <ListView />
         </ScrollView>
     </SafeAreaView>

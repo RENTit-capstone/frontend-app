@@ -1,5 +1,5 @@
 import Colors from '@/constants/Colors';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { blue } from 'react-native-reanimated/lib/typescript/Colors';
 
 export const Styles = StyleSheet.create({
@@ -61,9 +61,26 @@ export const Styles = StyleSheet.create({
     listItemImage: {
         width: 100,
         height: 100,
+        borderRadius: 6,
     },
     listView: {
+        flex: 1,
         alignItems: "center",
+        backgroundColor: "#fff",
+        borderTopRightRadius: 16,
+        borderTopLeftRadius: 16,
+        paddingTop: 24,
+        ...Platform.select({
+        ios: {
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 5,        
+            },
+        android: {
+            elevation: 5,
+            },
+        })
     },
     headerWrapper: {
         flexDirection: "row",
@@ -109,8 +126,9 @@ export const Styles = StyleSheet.create({
         paddingHorizontal: 8,
         alignSelf: "flex-start",
     },
-    cardWrapper: {
+    textWrapper: {
         alignSelf: "flex-start",
+        marginLeft: 10,
     },
     alignLeft: {
         flexDirection: "row",
@@ -118,4 +136,19 @@ export const Styles = StyleSheet.create({
         alignSelf: "flex-end",
         gap: 2
     },
+    wideView: {
+        flex: 1,
+        alignSelf: "stretch"
+    },
+    cardWrapper: {
+        justifyContent: "space-between",
+        marginHorizontal: "5%",
+    },
+    rowDivider: {
+        width: "90%",
+        height: 0,
+        borderColor: "#E5E5E5CC",
+        borderWidth: 1,
+        margin: 15,
+    }
 });

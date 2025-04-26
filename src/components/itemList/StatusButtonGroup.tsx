@@ -18,7 +18,7 @@ const StatusButtonGroup = () => {
     }
 
     return (
-        <View style={Styles.XStack}>
+        <View>
             <View style={[Styles.XStack, Styles.buttonGroup]}>
                 {options.map((option, index) => {
                     return (

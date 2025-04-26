@@ -13,7 +13,7 @@ const Badge = (props: BadgeType) => {
     return (
         <View style={[Styles.badge, ViewThemes[theme]]}>
             <Text style={TextThemes[theme]}>
-                {available? "대여가능" : "대여불가"}
+                {available? "대여가능" : "대여중"}
             </Text>
         </View>
     )
