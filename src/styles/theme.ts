@@ -14,6 +14,9 @@ export const ViewThemes = StyleSheet.create({
         borderColor: Colors.option,
     },
     error: {
+    },
+    transparent: {
+        borderWidth: 0,
     }
 });
 
@@ -29,5 +32,20 @@ export const TextThemes = StyleSheet.create({
     },
     error: {
         color: Colors.error,
-    }
+    },
+    status: {
+        color: Colors.status,
+    },
+    transparent: {
+    }, 
+    statusRequest: {
+        color: Colors.statusRequested,
+    }, 
+    statusAccepted: {
+        color: Colors.statusAccepted,
+    },
+    statusOverdue: {
+        color: Colors.statusOverdue,
+    },
+  
 });

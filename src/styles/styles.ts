@@ -5,7 +5,7 @@ import { blue } from 'react-native-reanimated/lib/typescript/Colors';
 export const Styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        backgroundColor: '#F4EDE1',
+        backgroundColor: '#FBF5ED',
         flex: 1,
         // justifyContent: 'center',
         paddingHorizontal: 10,
@@ -24,12 +24,13 @@ export const Styles = StyleSheet.create({
         padding: 12,
         height: 40,
     },
-    fullYStack: {
+    YStack: {
         flexDirection: 'column',
         alignSelf: 'stretch',
         alignItems: 'center',
         marginHorizontal: '10%',
         justifyContent: 'center',
+
     },
     XStack: {
         flexDirection: 'row',
@@ -45,7 +46,7 @@ export const Styles = StyleSheet.create({
         marginVertical: 15,
         paddingVertical: 15,
         flexGrow: 1,
-        alignSelf:'stretch'
+        alignSelf:'stretch',
     },   
     textOption: {
         marginTop: 20,
@@ -80,6 +81,27 @@ export const Styles = StyleSheet.create({
         fontSize: 24,
     },
     buttonGroup: {
-        backgroundColor: "#F6EDE0",
+        backgroundColor: Colors.secondary,
+        borderRadius: "6px",
+        margin: 24,
+        textAlign: "center",
+        alignSelf: "stretch",
+        flex: 1,
+    },
+    divider: {
+        height: "40%",
+        borderColor: Colors.option,
+        borderWidth: 1
+    },
+    statusNumber: {
+        fontSize: 25,
+        fontWeight: 600,
+    }, 
+    statusButton: {
+        alignSelf: "stretch",
+        padding: 40,
+        flex: 1,
+        marginBottom: 0,
+        marginTop: 0,
     }
 });
