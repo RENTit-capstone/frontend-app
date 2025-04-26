@@ -30,7 +30,6 @@ export const Styles = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: '10%',
         justifyContent: 'center',
-
     },
     XStack: {
         flexDirection: 'row',
@@ -111,6 +110,12 @@ export const Styles = StyleSheet.create({
         alignSelf: "flex-start",
     },
     cardWrapper: {
-        alignSelf: "flex-start"
-    }
+        alignSelf: "flex-start",
+    },
+    alignLeft: {
+        flexDirection: "row",
+        alignItems: "center",
+        alignSelf: "flex-end",
+        gap: 2
+    },
 });

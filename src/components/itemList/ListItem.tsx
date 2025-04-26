@@ -3,6 +3,8 @@ import { TextInputProps } from "@/types/types";
 import { Styles } from "@/styles/styles";
 import { TextThemes } from "@/styles/theme";
 import Badge from "../Badge";
+import Messages from "@/assets/images/message.svg";
+import Likes from "@/assets/images/heart.svg";
 
 const ListItem = () => {
     // props: ListItemProps
@@ -22,6 +24,11 @@ const ListItem = () => {
                     <Text style={{fontSize: 17}}>7일</Text>
                 </View>
             </View>
+            <View style={[Styles.textOption, Styles.alignLeft]}>
+                    <Messages /> 2
+                    <Likes /> 3
+            </View>
+
         </View>
     )
 };
