@@ -78,5 +78,8 @@ export const Styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "600",
         fontSize: 24,
+    },
+    buttonGroup: {
+        backgroundColor: "#F6EDE0",
     }
 });
