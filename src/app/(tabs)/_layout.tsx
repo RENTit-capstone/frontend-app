@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import { View, Pressable } from "react-native";
-import { Styles } from "@/styles/styles";
+import { Common } from "@/styles/common";
 import Logo from "@/assets/images/logo.svg";
 import SearchIcon from "@/assets/images/search.svg";
 import Notification from "@/assets/images/notification.svg";
@@ -16,14 +16,14 @@ const TabLayout = () => {
                 options={{
                     title: "",
                     headerLeft: () => (
-                        <View style={Styles.headerWrapper}>
+                        <View style={Common.headerWrapper}>
                             <Pressable>
                                 <Logo />
                             </Pressable>
                         </View>
                     ), 
                     headerRight: () => (
-                        <View style={Styles.headerWrapper}>
+                        <View style={Common.headerWrapper}>
                             <Pressable>
                                 <SearchIcon />
                             </Pressable>

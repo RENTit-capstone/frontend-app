@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { SafeAreaView, useWindowDimensions } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ListView from './ListVIew';
-import { Styles } from '@/styles/styles';
-import { ListViewProps } from '@/types/types';
+import { itemList } from '@/styles/components/itemList';
 
 const ItemListTab = () => {
 
@@ -38,8 +37,8 @@ const ItemListTab = () => {
         renderTabBar={props => (
           <TabBar
             {...props}
-            indicatorStyle={Styles.topTabIndicator}
-            style={[Styles.topTab]}
+            indicatorStyle={itemList.topTabIndicator}
+            style={[itemList.topTab]}
             activeColor="#455464"
             inactiveColor="#767676"
           />

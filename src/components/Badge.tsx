@@ -1,4 +1,4 @@
-import { Styles } from "@/styles/styles"
+import { Common } from "@/styles/common"
 import { View, Text } from "react-native"
 import { TextThemes, ViewThemes } from "@/styles/theme";
 
@@ -11,7 +11,7 @@ const Badge = (props: BadgeType) => {
     const theme = available? "available" : "notAvailable";
     
     return (
-        <View style={[Styles.badge, ViewThemes[theme]]}>
+        <View style={[Common.badge, ViewThemes[theme]]}>
             <Text style={TextThemes[theme]}>
                 {available? "대여가능" : "대여중"}
             </Text>

@@ -2,7 +2,7 @@ import { KeyboardAvoidingView, SafeAreaView, Text, View } from "react-native";
 import { Link } from "expo-router"
 import TextInput from "@/components/TextInput";
 import Button from "@/components/Button";
-import { Styles } from "@/styles/styles";
+import { Common } from "@/styles/common";
 import login from "@/api/login";
 import useInput from "@/hooks/useInput";
 import Logo from "@/assets/images/logo.svg";
@@ -35,11 +35,11 @@ const Signup = () => {
     };
 
     return (
-        <SafeAreaView style={Styles.container}>
-            <KeyboardAvoidingView style={Styles.container}>
+        <SafeAreaView style={Common.container}>
+            <KeyboardAvoidingView style={Common.container}>
                 <Logo />
                 <Text>RENTit 회원가입</Text>
-                <View style={Styles.fullYStack}>
+                <View style={Common.YStack}>
                     {page==0 && 
                         <>
                             <TextInput 
@@ -121,7 +121,7 @@ const Signup = () => {
                             />                            
                         </>
                     }
-                    <View style={Styles.XStack}>
+                    <View style={Common.XStack}>
                         <Button 
                             onPress={() => (setPage(page-1))}
                             disabled={page<=0}
@@ -149,7 +149,7 @@ const Signup = () => {
                     </View>
 
                     <Link href={{pathname: "/(auth)/login"}}>
-                        <Text style={[Styles.textOption]}>로그인</Text>
+                        <Text style={[Common.textOption]}>로그인</Text>
                     </Link>
                 </View>
             </KeyboardAvoidingView>

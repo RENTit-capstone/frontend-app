@@ -1,19 +1,13 @@
 import Colors from '@/constants/Colors';
 import { Platform, StyleSheet } from 'react-native';
-import { blue } from 'react-native-reanimated/lib/typescript/Colors';
 
-export const Styles = StyleSheet.create({
+export const Common = StyleSheet.create({
     container: {
-        alignItems: 'center',
         backgroundColor: '#FBF5ED',
         flex: 1,
-        // justifyContent: 'center',
         paddingHorizontal: 10,
         paddingVertical: '10%',
         width: '100%'
-    },
-    componentWrapper: {
-        width: '100%',
     },
     textInput: {
         backgroundColor: '#f9f9f9',
@@ -24,18 +18,23 @@ export const Styles = StyleSheet.create({
         padding: 12,
         height: 40,
     },
+    componentWrapper: {
+        width: '100%',
+    },
+    fullScreen: {
+        width: "100%",
+    },
     YStack: {
-        flexDirection: 'column',
-        alignSelf: 'stretch',
-        alignItems: 'center',
-        marginHorizontal: '10%',
-        justifyContent: 'center',
+        paddingHorizontal: 10,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        alignContent: "center",
+        flex: 1,        
     },
     XStack: {
-        flexDirection: 'row',
-        alignSelf: 'stretch',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flexDirection: "row",
+        justifyContent: "center",
         gap: 10,
     },
     button: {
@@ -58,17 +57,6 @@ export const Styles = StyleSheet.create({
     disabled: {
         opacity: 0.5,
     },
-    listItemImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 6,
-    },
-    listView: {
-        flex: 1,
-        alignItems: "center",
-        backgroundColor: "#fff",
-        paddingTop: 24,
-    },
     headerWrapper: {
         flexDirection: "row",
         marginHorizontal: 10,
@@ -82,30 +70,6 @@ export const Styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "600",
         fontSize: 24,
-    },
-    buttonGroup: {
-        backgroundColor: Colors.secondary,
-        borderRadius: "6px",
-        margin: 24,
-        textAlign: "center",
-        alignSelf: "stretch",
-        flex: 1,
-    },
-    divider: {
-        height: "40%",
-        borderColor: Colors.option,
-        borderWidth: 1
-    },
-    statusNumber: {
-        fontSize: 25,
-        fontWeight: 600,
-    }, 
-    statusButton: {
-        alignSelf: "stretch",
-        padding: 40,
-        flex: 1,
-        marginBottom: 0,
-        marginTop: 0,
     },
     badge: {
         borderWidth: 1,
@@ -138,25 +102,5 @@ export const Styles = StyleSheet.create({
         borderWidth: 1,
         margin: 15,
     },
-    topTabIndicator: {
-        backgroundColor: Colors.primary,
-    },
-    topTab: {
-        backgroundColor: Colors.white,
-        borderTopLeftRadius: 16,
-        borderTopRightRadius: 16,
-        marginTop: 10,
-        ...Platform.select({
-            default: {
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: -4 },
-                shadowOpacity: 0.08,
-                shadowRadius: 5,
-                },
-            android: {
-                elevation: 5,
-                },
-            })
-    
-    }
+
 });

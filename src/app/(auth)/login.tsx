@@ -4,7 +4,7 @@ import { useState } from "react";
 import TextInput from "@/components/TextInput";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import Button from "@/components/Button";
-import { Styles } from "@/styles/styles";
+import { Common } from "@/styles/common";
 import Logo from "@/assets/images/logo.svg";
 import login from "@/api/login";
 
@@ -31,10 +31,10 @@ const Login = () => {
     }
 
     return (
-            <View style={Styles.container}>
+            <View style={Common.container}>
                 <Logo />
                 <Text>RENTit 로그인</Text>
-                <View style={Styles.fullYStack}>
+                <View style={Common.fullYStack}>
                     <TextInput 
                         label="email" 
                         handleChangeText={handleChange("email")}
@@ -56,7 +56,7 @@ const Login = () => {
                     </Button>
 
                     <Link href={{pathname: "/"}}>
-                        <Text style={[Styles.textOption]}>회원가입</Text>
+                        <Text style={[Common.textOption]}>회원가입</Text>
                     </Link>
                 </View>
             </View>
