@@ -3,6 +3,7 @@ import Logo from "@/assets/images/logo.svg";
 import { Styles } from "@/styles/styles";
 import ListView from "@/components/itemList/ListVIew";
 import StatusButtonGroup from "@/components/itemList/StatusButtonGroup";
+import ItemListTab from "@/components/itemList/ItemListTab";
 
 
 export default function TabTwoScreen() {
@@ -13,7 +14,7 @@ export default function TabTwoScreen() {
             contentContainerStyle={{ flexGrow: 1 }}  
             style={Styles.wideView}
         >
-            <ListView />
+            <ItemListTab />
         </ScrollView>
     </SafeAreaView>
 );

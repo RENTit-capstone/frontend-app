@@ -13,10 +13,10 @@ const ListView = () => {
         <View style={Styles.listView}>
             {exampleArray.map((item, index) => {
                 return (
-                    <>
-                        <ListItem />
-                        <View style={[Styles.divider, Styles.rowDivider]} />
-                    </>
+                <>
+                    <ListItem />
+                    <View style={[Styles.divider, Styles.rowDivider]} />
+                </>
             )})}
         </View>
     )
