@@ -3,21 +3,23 @@ import { SafeAreaView, useWindowDimensions } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ListView from './ListVIew';
 import { Styles } from '@/styles/styles';
-
-const IndividualRoute = () => (
-  <ListView />
-);
-
-const GroupRoute = () => (
-  <ListView />
-);
-
-const renderScene = SceneMap({
-  individual: IndividualRoute,
-  group: GroupRoute,
-});
+import { ListViewProps } from '@/types/types';
 
 const ItemListTab = () => {
+
+  const IndividualRoute = () => (
+    <ListView type={"individual"}/>
+  );
+  
+  const GroupRoute = () => (
+    <ListView type={"group"}/>
+  );
+  
+  const renderScene = SceneMap({
+    individual: IndividualRoute,
+    group: GroupRoute,
+  });
+
   const layout = useWindowDimensions();
 
   const [index, setIndex] = useState(0);

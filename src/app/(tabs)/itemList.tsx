@@ -1,12 +1,10 @@
 import { SafeAreaView, ScrollView } from "react-native";
-import Logo from "@/assets/images/logo.svg";
 import { Styles } from "@/styles/styles";
-import ListView from "@/components/itemList/ListVIew";
 import StatusButtonGroup from "@/components/itemList/StatusButtonGroup";
 import ItemListTab from "@/components/itemList/ItemListTab";
+import { useEffect } from "react";
 
-
-export default function TabTwoScreen() {
+const ItemList = () => {
   return (
     <SafeAreaView style={Styles.container}>
         <StatusButtonGroup />
@@ -17,5 +15,7 @@ export default function TabTwoScreen() {
             <ItemListTab />
         </ScrollView>
     </SafeAreaView>
-);
+    );
 }
+
+export default ItemList;
