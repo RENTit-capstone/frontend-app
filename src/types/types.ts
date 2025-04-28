@@ -57,6 +57,6 @@ export type ListItemProps = {
     likes: number,
 }
 
-export type ListViewProps = {
+export type ListContainerProps = {
     type: string,
 }

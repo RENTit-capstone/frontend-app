@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { SafeAreaView, useWindowDimensions } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import ListView from './ListVIew';
+import ListContainer from './ListContainer';
 import { itemList } from '@/styles/components/itemList';
 
 const ItemListTab = () => {
 
   const IndividualRoute = () => (
-    <ListView type={"individual"}/>
+    <ListContainer type={"individual"}/>
   );
   
   const GroupRoute = () => (
-    <ListView type={"group"}/>
+    <ListContainer type={"group"}/>
   );
   
   const renderScene = SceneMap({

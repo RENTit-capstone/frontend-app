@@ -25,8 +25,8 @@ export const itemList = StyleSheet.create({
         marginHorizontal: 5,
     },
 
-    //ListView
-    listView: {
+    //ListContainer
+    listContainer: {
         flex: 1,
         alignItems: "center",
         backgroundColor: "#fff",

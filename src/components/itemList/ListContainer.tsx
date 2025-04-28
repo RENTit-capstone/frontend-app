@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import { ListItemProps, ListViewProps } from "@/types/types";
+import { ListItemProps, ListContainerProps } from "@/types/types";
 import { Common } from "@/styles/common";
 import ListItem from "./ListItem";
 import { itemList } from "@/styles/components/itemList";
@@ -8,7 +8,7 @@ import { itemList } from "@/styles/components/itemList";
 const sampleData: ListItemProps = {id: 0, title: "string", img: "", available: false, price: 50000, period: 7, messages: 2, likes: 3}
 const sampleList: ListItemProps[] = [sampleData, sampleData, sampleData];
 
-const ListView = (props: ListViewProps) => {
+const ListContainer = (props: ListContainerProps) => {
     const [data, setData] = useState(sampleList);
     const {type} = props;
 
@@ -18,7 +18,7 @@ const ListView = (props: ListViewProps) => {
     }, [type])
 
     return (
-        <View style={itemList.listView}>
+        <View style={itemList.listContainer}>
             {data.map((item: ListItemProps, index:number) => {
                 console.log(item.title);
                 return (
@@ -40,4 +40,4 @@ const ListView = (props: ListViewProps) => {
     )
 };
 
-export default ListView;
+export default ListContainer;
