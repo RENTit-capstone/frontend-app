@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { SafeAreaView, View, useWindowDimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { SafeAreaView, useWindowDimensions } from 'react-native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ListView from './ListVIew';
+import { Styles } from '@/styles/styles';
 
 const IndividualRoute = () => (
   <ListView />
@@ -32,6 +33,15 @@ const ItemListTab = () => {
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
+        renderTabBar={props => (
+          <TabBar
+            {...props}
+            indicatorStyle={Styles.topTabIndicator}
+            style={[Styles.topTab]}
+            activeColor="#455464"
+            inactiveColor="#767676"
+          />
+        )}
       />
     </SafeAreaView>
   );

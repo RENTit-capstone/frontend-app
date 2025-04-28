@@ -67,20 +67,7 @@ export const Styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         backgroundColor: "#fff",
-        borderTopRightRadius: 16,
-        borderTopLeftRadius: 16,
         paddingTop: 24,
-        ...Platform.select({
-        ios: {
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.25,
-            shadowRadius: 5,        
-            },
-        android: {
-            elevation: 5,
-            },
-        })
     },
     headerWrapper: {
         flexDirection: "row",
@@ -150,5 +137,26 @@ export const Styles = StyleSheet.create({
         borderColor: "#E5E5E5CC",
         borderWidth: 1,
         margin: 15,
+    },
+    topTabIndicator: {
+        backgroundColor: Colors.primary,
+    },
+    topTab: {
+        backgroundColor: Colors.white,
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+        marginTop: 10,
+        ...Platform.select({
+            default: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: -4 },
+                shadowOpacity: 0.08,
+                shadowRadius: 5,
+                },
+            android: {
+                elevation: 5,
+                },
+            })
+    
     }
 });
