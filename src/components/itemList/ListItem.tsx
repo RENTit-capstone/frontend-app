@@ -27,8 +27,8 @@ const ListItem = (props: ListItemProps) => {
                 </View>
             </View>
             <View style={[Styles.textOption, Styles.alignLeft]}>
-                    <Messages /> {messages}
-                    <Likes /> {likes}
+                    <Messages /><Text>{messages}</Text>
+                    <Likes /><Text>{likes}</Text>
             </View>
 
         </View>

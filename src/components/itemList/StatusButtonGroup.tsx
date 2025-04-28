@@ -22,7 +22,7 @@ const StatusButtonGroup = () => {
             <View style={[Styles.XStack, Styles.buttonGroup]}>
                 {options.map((option, index) => {
                     return (
-                      <View style={Styles.XStack}>
+                      <View key={option} style={Styles.XStack}>
                         <Button
                             key={option}
                             type="transparent"

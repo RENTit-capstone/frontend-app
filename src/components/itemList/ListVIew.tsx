@@ -3,34 +3,37 @@ import { View } from "react-native";
 import { ListItemProps, ListViewProps } from "@/types/types";
 import { Styles } from "@/styles/styles";
 import ListItem from "./ListItem";
-import fetchItemList from "@/api/itemList";
+
+const sampleData: ListItemProps = {id: 0, title: "string", img: "", available: false, price: 50000, period: 7, messages: 2, likes: 3}
+const sampleList: ListItemProps[] = [sampleData, sampleData, sampleData];
 
 const ListView = (props: ListViewProps) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(sampleList);
     const {type} = props;
-    
+
     useEffect (() => {
-        const data = fetchItemList();
+        //const data = fetchItemList();
         // setData(data);
     }, [type])
 
     return (
         <View style={Styles.listView}>
-            {data.map((item: ListItemProps) => {
+            {data.map((item: ListItemProps, index:number) => {
+                console.log(item.title);
                 return (
-                <>
+                <View key={index}>
                     <ListItem 
                         id={item.id}
-                        title={item.title || "string"}
+                        title={item.title}
                         img={item.img}
-                        available={item.available || false}
-                        price={item.price || 50000}
-                        period={item.period || 7}
-                        messages={item.messages || 2}
-                        likes={item.likes || 3}
+                        available={item.available}
+                        price={item.price}
+                        period={item.period}
+                        messages={item.messages}
+                        likes={item.likes}
                     />
                     <View style={[Styles.divider, Styles.rowDivider]} />
-                </>
+                </View>
             )})}
         </View>
     )
