@@ -60,3 +60,9 @@ export type ListItemProps = {
 export type ListContainerProps = {
     type: string,
 }
+
+export type AccordionCardProps = ListItemProps & {
+    action: string[],
+    handleAction: (id: number, actionItem: string) => void,
+    handleDetails: () => void,
+}
