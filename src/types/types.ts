@@ -45,3 +45,18 @@ export type SignupType = {
     university: string,
     studentId: string,        
 }
+
+export type ListItemProps = {
+    id: number,
+    title: string,
+    img: string,
+    available: boolean,
+    price: number,
+    period: number,
+    messages: number, 
+    likes: number,
+}
+
+export type ListContainerProps = {
+    type: string,
+}

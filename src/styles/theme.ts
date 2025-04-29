@@ -14,6 +14,15 @@ export const ViewThemes = StyleSheet.create({
         borderColor: Colors.option,
     },
     error: {
+    },
+    transparent: {
+        borderWidth: 0,
+    },
+    available: {
+        borderColor: Colors.available,
+    },
+    notAvailable: {
+        borderColor: Colors.notAvailable,
     }
 });
 
@@ -29,5 +38,26 @@ export const TextThemes = StyleSheet.create({
     },
     error: {
         color: Colors.error,
+    },
+    status: {
+        color: Colors.status,
+    },
+    transparent: {
+    }, 
+    statusRequest: {
+        color: Colors.statusRequested,
+    }, 
+    statusAccepted: {
+        color: Colors.statusAccepted,
+    },
+    statusOverdue: {
+        color: Colors.statusOverdue,
+    },
+    available: {
+        color: Colors.available,
+    },
+    notAvailable: {
+        color: Colors.notAvailable,
     }
+  
 });

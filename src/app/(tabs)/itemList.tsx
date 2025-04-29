@@ -1,16 +1,17 @@
-import { SafeAreaView, ScrollView } from "react-native";
-import Logo from "@/assets/images/logo.svg";
-import { Styles } from "@/styles/styles";
-import ListView from "@/components/ListVIew";
+import { SafeAreaView, ScrollView, View } from "react-native";
+import { Common } from "@/styles/common";
+import StatusButtonGroup from "@/components/itemList/StatusButtonGroup";
+import ItemListTab from "@/components/itemList/ItemListTab";
+import { useEffect } from "react";
+import { itemList } from "@/styles/components/itemList";
 
-
-export default function TabTwoScreen() {
+const ItemList = () => {
   return (
-    <SafeAreaView style={Styles.container}>
-        <ScrollView style={Styles.container}>
-            <Logo />
-            <ListView />
-        </ScrollView>
+    <SafeAreaView style={Common.container}>
+        <StatusButtonGroup />
+        <ItemListTab />
     </SafeAreaView>
-);
+    );
 }
+
+export default ItemList;

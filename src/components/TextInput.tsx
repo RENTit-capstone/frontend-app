@@ -1,6 +1,6 @@
 import { Text, View, TextInput as DefaultTextInput } from "react-native";
 import { TextInputProps } from "@/types/types";
-import { Styles } from "@/styles/styles";
+import { Common } from "@/styles/common";
 import { TextThemes } from "@/styles/theme";
 
 const TextInput = (props: TextInputProps) => {
@@ -19,9 +19,9 @@ const TextInput = (props: TextInputProps) => {
 
                 autoCorrect={false}
                 autoCapitalize="none"
-                style={Styles.textInput}
+                style={Common.textInput}
             />
-            {errorMsg?.length>0 && <Text style={[Styles.errorMsg, TextThemes.error]}>{errorMsg}</Text>}
+            {errorMsg?.length>0 && <Text style={[Common.errorMsg, TextThemes.error]}>{errorMsg}</Text>}
         </View>
     )
 }
