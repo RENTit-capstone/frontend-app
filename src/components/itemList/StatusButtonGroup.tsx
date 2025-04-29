@@ -19,7 +19,7 @@ const StatusButtonGroup = () => {
     }
 
     return (
-        <View style={Common.container}>
+        <View style={Common.wrapper}>
             <View style={[Common.XStack, Common.fullScreen, itemList.statusButtonWrapper]}>
                 {options.map((option, index) => {
                     return (

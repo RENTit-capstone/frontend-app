@@ -15,14 +15,14 @@ const ListContainer = (props: ListContainerProps) => {
     useEffect (() => {
         //const data = fetchItemList();
         // setData(data);
+        console.log("type: ", `${type}`);
     }, [type])
 
     return (
-        <View style={itemList.listContainer}>
+        <>
             {data.map((item: ListItemProps, index:number) => {
-                console.log(item.title);
                 return (
-                <View key={index}>
+                <View key={index} style={itemList.listContainer}>
                     <ListItem 
                         id={item.id}
                         title={item.title}
@@ -33,10 +33,10 @@ const ListContainer = (props: ListContainerProps) => {
                         messages={item.messages}
                         likes={item.likes}
                     />
-                    <View style={[itemList.divider, Common.rowDivider]} />
+                    <View style={[itemList.rowDivider]} />
                 </View>
             )})}
-        </View>
+        </>
     )
 };
 

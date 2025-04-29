@@ -1,17 +1,23 @@
 import { useState } from 'react';
-import { SafeAreaView, useWindowDimensions } from 'react-native';
+import { ScrollView, useWindowDimensions, View } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ListContainer from './ListContainer';
 import { itemList } from '@/styles/components/itemList';
+import { Common } from '@/styles/common';
 
 const ItemListTab = () => {
 
   const IndividualRoute = () => (
-    <ListContainer type={"individual"}/>
+    <ScrollView style={Common.container}>
+      <ListContainer type={"individual"}/>
+    </ScrollView>
+    
   );
   
   const GroupRoute = () => (
-    <ListContainer type={"group"}/>
+    <ScrollView style={Common.container}>
+      <ListContainer type={"group"}/>
+    </ScrollView>
   );
   
   const renderScene = SceneMap({
@@ -26,25 +32,23 @@ const ItemListTab = () => {
     { key: 'individual', title: '개인' },
     { key: 'group', title: '단체' },
   ]);
-
+  console.log("layout width:", layout.width);
   return (
-    <SafeAreaView>
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-        renderTabBar={props => (
-          <TabBar
-            {...props}
-            indicatorStyle={itemList.topTabIndicator}
-            style={[itemList.topTab]}
-            activeColor="#455464"
-            inactiveColor="#767676"
-          />
-        )}
-      />
-    </SafeAreaView>
+    <TabView
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      initialLayout={{ width: layout.width }}
+      renderTabBar={props => (
+        <TabBar
+          {...props}
+          indicatorStyle={itemList.topTabIndicator}
+          style={[itemList.topTab]}
+          activeColor="#455464"
+          inactiveColor="#767676"
+        />
+      )}
+    />
   );
 }
 

@@ -12,26 +12,24 @@ const ListItem = (props: ListItemProps) => {
     const {id, title, img, available, price, period, messages, likes} = props;
 
     return (
-        <View style={[Common.XStack, Common.cardWrapper]}>
-            <View style={Common.XStack}>
-                <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
-                <View style={Common.textWrapper}>
-                    <Badge available={available} />
-                    <Text style={{fontSize: 20}}>{title}</Text>
-                    <View style={Common.XStack}>
-                        <Text style={{fontSize: 20}}>
-                            <Text style={{fontWeight: 600}}>{price.toLocaleString()}</Text> 원
-                        </Text>
-                        <Text style={[{fontSize: 10}, TextThemes.option]}>|</Text>
-                        <Text style={{fontSize: 17}}>{period}일</Text>
-                    </View>
+        <View style={[Common.XStack, itemList.cardWrapper]}>
+            <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
+
+            <View style={[Common.wideView]}>
+                <Badge available={available} />
+                <Text style={{fontSize: 20}}>{title}</Text>
+                <View style={[Common.textWrapper]}>
+                    <Text style={{fontSize: 20, fontWeight: 600}}>{price.toLocaleString()}</Text>
+                    <Text style={{fontSize: 20}}> 원</Text>
+                    <Text style={[{fontSize: 15}, TextThemes.option]}>  |  </Text>
+                    <Text style={{fontSize: 17}}>{period}일</Text>
                 </View>
-            </View>
-            <View style={[Common.textOption, Common.alignLeft]}>
+
+                <View style={[Common.textOption, itemList.interactions]}>
                     <Messages /><Text>{messages}</Text>
                     <Likes /><Text>{likes}</Text>
+                </View>
             </View>
-
         </View>
     )
 };

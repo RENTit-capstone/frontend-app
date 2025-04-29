@@ -28,16 +28,36 @@ export const itemList = StyleSheet.create({
     //ListContainer
     listContainer: {
         flex: 1,
+        width: "100%",
         alignItems: "center",
         backgroundColor: "#fff",
         paddingTop: 24,
     },
+    rowDivider: {
+        width: "90%",
+        height: 0,
+        borderColor: "#E5E5E5CC",
+        borderWidth: 1,
+        marginTop: 10,
+    },
 
     //ListItem
+    cardWrapper: {
+        justifyContent: "flex-start",
+        width: "90%",
+    },
     listItemImage: {
         width: 100,
         height: 100,
         borderRadius: 6,
+        marginRight: 5,
+    },
+    interactions: {
+        flexDirection: "row",
+        alignItems: "center",
+        alignSelf: "flex-end",
+        marginRight: 0,
+        gap: 2,
     },
 
     //ItemListTab

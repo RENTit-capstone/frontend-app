@@ -5,9 +5,12 @@ export const Common = StyleSheet.create({
     container: {
         backgroundColor: '#FBF5ED',
         flex: 1,
-        paddingHorizontal: 10,
-        paddingVertical: '10%',
-        width: '100%'
+        width: '100%',
+        alignSelf: "flex-start"
+    },
+    wrapper: {
+        paddingHorizontal: "8%",
+        paddingVertical: "5%",
     },
     textInput: {
         backgroundColor: '#f9f9f9',
@@ -77,30 +80,19 @@ export const Common = StyleSheet.create({
         paddingHorizontal: 8,
         alignSelf: "flex-start",
     },
-    textWrapper: {
-        alignSelf: "flex-start",
-        marginLeft: 10,
-    },
-    alignLeft: {
-        flexDirection: "row",
-        alignItems: "center",
-        alignSelf: "flex-end",
-        gap: 2
-    },
     wideView: {
         flex: 1,
-        alignSelf: "stretch"
+        alignSelf: "stretch",
     },
-    cardWrapper: {
-        justifyContent: "space-between",
-        marginHorizontal: "5%",
+    test: {
+        backgroundColor: "gray",
+        alignItems: "center",
+        alignContent: "center",
+        justifyContent: 'center',
+        flexDirection: "row"
     },
-    rowDivider: {
-        width: "90%",
-        height: 0,
-        borderColor: "#E5E5E5CC",
-        borderWidth: 1,
-        margin: 15,
-    },
-
+    textWrapper: {
+        flexDirection: "row",
+        alignItems: "center",
+    }
 });
