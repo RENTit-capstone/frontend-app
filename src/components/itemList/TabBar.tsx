@@ -10,9 +10,9 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     const secondaryColor = Colors.secondary;
     const whiteColor = Colors.white;
 
-    const icons: Record<string, (props: any) => ReactElement> = {
-        itemList: (props: ReactElement) => <Home color={whiteColor} {...props} />
-        // history: (props: ReactElement) => <Home color={"#ccc"} {...props} />
+    const icons: Record<string, (props: { color: string} ) => ReactElement> = {
+        itemList: ({ color }) => <Home color={whiteColor} />,
+        history: ({ color }) => <Home color={"#ccc"} />
     }
     
     return (
