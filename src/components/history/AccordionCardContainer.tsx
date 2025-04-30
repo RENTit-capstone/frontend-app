@@ -1,6 +1,8 @@
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import AccordionCard from "./AccordionCard";
 import {AccordionContainerType, ActionType, StatusType} from "@/types/types";
+import { history } from "@/styles/components/history";
+import { itemList } from "@/styles/components/itemList";
 
 const sampleList2: AccordionContainerType[] = [
     {
@@ -50,6 +52,7 @@ const AccordionCardContainer = () => {
 
     return (
         <ScrollView>
+            <View style={itemList.listContainer}>
             {sampleList2.map((item: AccordionContainerType) => {
                 const actionByStatus = determineAction(item.status);
 
@@ -71,7 +74,9 @@ const AccordionCardContainer = () => {
                     getDetails={getDetails}
                     handleAction={actionByStatus.handler}
                 />
-        )})}
+            )})}
+            <View style={[itemList.rowDivider]} />
+            </View>
         </ScrollView>
     );
 }

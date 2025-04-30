@@ -14,7 +14,9 @@ export const itemList = StyleSheet.create({
     statusButton: {
         marginVertical: 5, 
         width: "25%",
-        alignSelf: "center"
+        alignSelf: "center",
+        flex: 0,
+        flexGrow: 1,
     },
     divider: {
         height: "50%",
