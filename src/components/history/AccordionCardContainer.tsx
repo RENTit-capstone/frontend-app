@@ -1,70 +1,61 @@
 import { ScrollView } from "react-native";
 import AccordionCard from "./AccordionCard";
-import {AccordionCardProps} from "@/types/types";
+import {AccordionContainerType, ActionType, StatusType} from "@/types/types";
 
-const sampleList = [
-    { 
-        status: "inRent",
-        badge: "대여 중",
-        action: ["반납하기"],
-        details: "상세정보",
-        information: {
-            user: "빌려준 사람",
-            period: "기간",
-            fee: "요금",
-        }
-    },
+const sampleList2: AccordionContainerType[] = [
     {
+        id: 0,
+        title: "asdf",
+        img: "undefined",
+        available: false,
+        price: 2000,
+        period: 3,
+        messages: 1,
+        likes: 0,
         status: "returned",
-        badge: "반납완료",
-        action: ["후기작성"],
-        details: "상세정보",
-        information: {
-            user: "빌려준 사람",
-            period: "기간",
-            fee: "요금",
-        }
     },
-    {
-        status: "pending",
-        badge: "대여요청",
-        action: ["승인", "거절"],
-        details: "상세정보",
-        information: {
-            user: "빌리는 사람",
-            period: "기간",
-            fee: "요금",
-            checked: "파손정책 동의 여부",
-        }
-    }
-];
+]
 
 const AccordionCardContainer = () => {
-    const handleAction = () => {
-        // action API 호출
-        if (status==="inRent" && action[0]==="반납하기"){
-            console.log("반납");
-        }
-        if (status==="returned" && action[0]==="후기작성"){
-            console.log("후기작성");
-        }
-        if (status==="pending" && action[0]==="승인"){
+    const determineAction = (status: StatusType) => {
+        if (status==="pending")         return {actions: ["approve", "disapprove"] as ActionType[], handler: handleApprove};
+        else if (status==="inRent")     return {actions: ["return"] as ActionType[], handler: handleReturn};
+        else if (status==="returned")   return {actions: ["writeReview"] as ActionType[], handler: handleWriteReview};
+        else                            return {actions: undefined, handler: handleUnknownAction};
+    }
+
+    const getDetails = () => {
+        // detailInfo API 호출
+        console.log("getDetails"); 
+        return ["details"];       
+    }
+
+    const handleApprove = (isApproved: boolean) => {
+        if (isApproved) {
             console.log("승인");
         }
-        if (status==="pending" && action[1]==="거절"){
-            console.log("거절");
-        }
-    };
+    }
 
-    const handleDetails = () => {
-        setOpenDetails(!openDetails);
-        // 세부정보 API 호출
-    };
+    const handleReturn = () => {
+        console.log("반납");
+    }
+
+    const handleWriteReview = () => {
+        console.log("후기작성");
+    }
+
+    const handleUnknownAction = () => {
+        console.log("unknown action");
+    }
 
     return (
         <ScrollView>
-            {sampleList.map((item: AccordionCardProps) => (
+            {sampleList2.map((item: AccordionContainerType) => {
+                const actionByStatus = determineAction(item.status);
+
+                return(
                 <AccordionCard 
+                    key={item.id}
                     id={item.id}
                     title={item.title}
                     img={item.img}
@@ -74,12 +65,13 @@ const AccordionCardContainer = () => {
                     messages={item.messages}
                     likes={item.likes}
 
-                    action={item.action}
-                    handleAction={handleAction}
-                    handleDetails={handleDetails}
-                />
+                    status={item.status}
 
-            ))}
+                    actions={actionByStatus.actions}
+                    getDetails={getDetails}
+                    handleAction={actionByStatus.handler}
+                />
+        )})}
         </ScrollView>
     );
 }

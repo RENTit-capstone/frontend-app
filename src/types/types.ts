@@ -61,8 +61,16 @@ export type ListContainerProps = {
     type: string,
 }
 
-export type AccordionCardProps = ListItemProps & {
-    action: string[],
-    handleAction: (id: number, actionItem: string) => void,
-    handleDetails: () => void,
+export type StatusType = "pending" | "inRent" | "returned";
+export type ActionType = "approve" | "disapprove" | "return" | "writeReview";
+
+export type AccordionContainerType = ListItemProps & {
+    status: StatusType,
 }
+
+export type AccordionCardProps = AccordionContainerType & {
+    actions: ActionType[] | undefined,
+    getDetails: () => string[],
+    handleAction: ((isApproved: boolean) => void) | (() => void)
+}
+

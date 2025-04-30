@@ -3,13 +3,26 @@ import ListItem from "../itemList/ListItem";
 import { useState } from "react";
 import Button from "../Button";
 import { Common } from "@/styles/common";
-import { AccordionCardProps } from "@/types/types";
+import { AccordionCardProps, ActionType } from "@/types/types";
 
 const AccordionCard = (props: AccordionCardProps) => {
-    const {action, handleAction, handleDetails} = props;
-    const [openDetails, setOpenDetails] = useState(true);
+    const {status, actions, getDetails, handleAction} = props;
+    const [isOpened, setIsOpened] = useState(false);
+    const [details, setDetails] = useState([""]);
 
-        return (
+    const handleDetails = () => {
+        if (!isOpened) {
+            const response = getDetails();
+            setDetails(response);
+        }
+        setIsOpened(!isOpened);
+    }
+
+    const onPress = (itemId: number, action: ActionType) => {
+        console.log(itemId, action);
+    }
+
+    return (
         <View>
             <ListItem
                 id={props.id}
@@ -21,21 +34,21 @@ const AccordionCard = (props: AccordionCardProps) => {
                 messages={props.messages}
                 likes={props.likes}
             />
-            {openDetails &&
+            {isOpened &&
                 <View>
-                    <Text>details</Text>
+                    <Text>{details}</Text>
                 </View>
             }
 
             <View style={Common.XStack}>
-                {action.map((actionItem: string) => (
-                <Button onPress={() => handleAction(props.id, actionItem)} type="primary">
-                    {actionItem}
+                {actions && actions.map((action: ActionType, index) => (
+                <Button onPress={() => onPress(props.id, action)} type="primary" key={action+props.id}>
+                    {action}
                 </Button>
                 ))}
 
-                <Button onPress={() => handleDetails()} type="secondary">
-                    {openDetails? "닫기" : "상세정보"}
+                <Button onPress={handleDetails} type="secondary">
+                    {isOpened? "닫기" : "상세정보"}
                 </Button>
             </View>
         </View>
