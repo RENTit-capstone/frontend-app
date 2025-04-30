@@ -7,7 +7,7 @@ import { AccordionCardProps, ActionType } from "@/types/types";
 import { history } from "@/styles/components/history";
 
 const AccordionCard = (props: AccordionCardProps) => {
-    const {status, actions, getDetails, handleAction} = props;
+    const {status, actions, actionNames, getDetails, handleAction} = props;
     const [isOpened, setIsOpened] = useState(false);
     const [details, setDetails] = useState([""]);
 
@@ -21,6 +21,15 @@ const AccordionCard = (props: AccordionCardProps) => {
 
     const onPress = (itemId: number, action: ActionType) => {
         console.log(itemId, action);
+        if (action==="approve") {
+            handleAction(true);
+        }
+        else if (action==="disapprove") {
+            handleAction(false);
+        }
+        else {
+            handleAction(false);
+        }
     }
 
     return (
@@ -44,7 +53,7 @@ const AccordionCard = (props: AccordionCardProps) => {
             <View style={Common.XStack}>
                 {actions && actions.map((action: ActionType, index) => (
                 <Button onPress={() => onPress(props.id, action)} type="primary" key={action+props.id} style={history.button}>
-                    {action}
+                    {actionNames[index]}
                 </Button>
                 ))}
 

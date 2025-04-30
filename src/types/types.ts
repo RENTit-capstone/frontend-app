@@ -70,6 +70,7 @@ export type AccordionContainerType = ListItemProps & {
 
 export type AccordionCardProps = AccordionContainerType & {
     actions: ActionType[] | undefined,
+    actionNames: string[],
     getDetails: () => string[],
     handleAction: ((isApproved: boolean) => void) | (() => void)
 }
