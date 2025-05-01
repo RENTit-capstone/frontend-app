@@ -9,7 +9,7 @@ type ButtonType = {
     disabled?: boolean,
     children: ReactNode,
     type: keyof typeof ViewThemes,
-    style: StyleProps
+    style?: StyleProps
 }
 
 const Button = (props: ButtonType) => {

@@ -54,6 +54,12 @@ const TabLayout = () => {
                     )
                 }}
             />
+            <Tabs.Screen
+                name="history"
+                options={{
+                    title: "히스토리"
+                }}
+            />
         </Tabs>
     );
 }

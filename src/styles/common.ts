@@ -43,10 +43,9 @@ export const Common = StyleSheet.create({
     button: {
         alignItems: 'center',
         borderRadius: 8,
-        borderWidth: 1,
         marginVertical: 15,
         paddingVertical: 15,
-        flexGrow: 1,
+        flex: 1,
         alignSelf:'stretch',
     },   
     textOption: {
