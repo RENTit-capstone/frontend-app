@@ -18,6 +18,28 @@ const sampleList2: AccordionContainerType[] = [
         likes: 0,
         status: "inRent",
     },
+    {
+        id: 2,
+        title: "asdf",
+        img: "undefined",
+        available: false,
+        price: 2000,
+        period: 3,
+        messages: 1,
+        likes: 0,
+        status: "pending",
+    },
+    {
+        id: 3,
+        title: "asdf",
+        img: "undefined",
+        available: false,
+        price: 2000,
+        period: 3,
+        messages: 1,
+        likes: 0,
+        status: "returned",
+    },
 ]
 
 const AccordionCardContainer = () => {
@@ -41,10 +63,22 @@ const AccordionCardContainer = () => {
 
 
     const determineAction = (status: StatusType) => {
-        if (status==="pending")         return {actions: ["approve", "disapprove"] as ActionType[], actionName: ["승인", "거절"], handler: handleApprove};
-        else if (status==="inRent")     return {actions: ["return"] as ActionType[], actionName: ["반납하기"], handler: handleReturn};
-        else if (status==="returned")   return {actions: ["writeReview"] as ActionType[], actionName: ["후기작성"], handler: handleWriteReview};
-        else                            return {actions: undefined, actionName: ["null"], handler: handleUnknownAction};
+        if (status==="pending")         
+            return {actions: ["approve", "disapprove"] as ActionType[],
+                    actionName: ["승인", "거절"], 
+                    handler: handleApprove};
+        else if (status==="inRent")     
+            return {actions: ["return"] as ActionType[], 
+                    actionName: ["반납하기"], 
+                    handler: handleReturn};
+        else if (status==="returned")   
+            return {actions: ["writeReview"] as ActionType[], 
+                    actionName: ["후기작성"], 
+                    handler: handleWriteReview};
+        else                            
+            return {actions: undefined, 
+                    actionName: ["null"], 
+                    handler: handleUnknownAction};
     }
 
     const getDetails = () => {
