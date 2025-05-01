@@ -1,8 +1,9 @@
 import { ScrollView, View } from "react-native";
 import AccordionCard from "./AccordionCard";
-import {AccordionContainerType, ActionType, StatusType} from "@/types/types";
-import { history } from "@/styles/components/history";
+import {AccordionCardProps, AccordionContainerType, ActionType, StatusType} from "@/types/types";
 import { itemList } from "@/styles/components/itemList";
+import { useEffect, useState } from "react";
+import { fetchHistory } from "@/api/history";
 
 const sampleList2: AccordionContainerType[] = [
     {
@@ -19,6 +20,24 @@ const sampleList2: AccordionContainerType[] = [
 ]
 
 const AccordionCardContainer = () => {
+    const [data, setData] = useState<AccordionCardProps[]>([]);
+
+    useEffect(() => {
+        const loadData = async () => {
+            const response = await fetchHistory();
+            setData(response.data);
+        }
+        
+        try {
+            loadData();
+        }
+        catch(error) {
+            console.error(error);
+        }
+        
+    })
+
+
     const determineAction = (status: StatusType) => {
         if (status==="pending")         return {actions: ["approve", "disapprove"] as ActionType[], actionName: ["승인", "거절"], handler: handleApprove};
         else if (status==="inRent")     return {actions: ["return"] as ActionType[], actionName: ["반납하기"], handler: handleReturn};
@@ -42,6 +61,7 @@ const AccordionCardContainer = () => {
     }
 
     const handleReturn = () => {
+        
         console.log("반납");
     }
 
