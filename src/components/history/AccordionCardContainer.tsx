@@ -4,6 +4,7 @@ import {AccordionCardProps, AccordionContainerType, ActionType, StatusType} from
 import { itemList } from "@/styles/components/itemList";
 import { useEffect, useState } from "react";
 import { fetchHistory } from "@/api/history";
+import { useRouter } from "expo-router";
 
 const sampleList2: AccordionContainerType[] = [
     {
@@ -15,11 +16,12 @@ const sampleList2: AccordionContainerType[] = [
         period: 3,
         messages: 1,
         likes: 0,
-        status: "pending",
+        status: "inRent",
     },
 ]
 
 const AccordionCardContainer = () => {
+    const router = useRouter();
     const [data, setData] = useState<AccordionCardProps[]>([]);
 
     useEffect(() => {
@@ -27,9 +29,9 @@ const AccordionCardContainer = () => {
             const response = await fetchHistory();
             setData(response.data);
         }
-        
+
         try {
-            loadData();
+            // loadData();
         }
         catch(error) {
             console.error(error);
@@ -61,7 +63,7 @@ const AccordionCardContainer = () => {
     }
 
     const handleReturn = () => {
-        
+        router.navigate("/myPage/otp");
         console.log("반납");
     }
 
