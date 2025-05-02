@@ -5,6 +5,7 @@ import { itemList } from "@/styles/components/itemList";
 import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import { axiosGet, axiosPost } from "@/api";
+import { generateUrl } from "@/utils/generateUrl";
 
 const sampleList2: AccordionContainerType[] = [
     {
@@ -47,43 +48,20 @@ const AccordionCardContainer = () => {
     const [data, setData] = useState<AccordionCardProps[]>([]);
 
     useEffect(() => {
-
-        
-        loadData();
+        fetchHistory();
     }, []);
 
-    const fetchHistory = () => {
-        // 일단 모든 status, page=0, size=20(고정), sort=requestDate, desc
-        const statuses = ["REQUESTED", "APPROVED"];
-        const page = 0;
-        const size = 20;
-        const sort = {
-            criterion: "requestDate",
-            sequence: "desc",
-        }
-        
-        let queryParams = "?";
-        statuses.map((condition: string) => {
-            queryParams = queryParams + `statuses=${condition}&`;
-        })
-        queryParams = queryParams + `page=${page}&`;
-        queryParams = queryParams + `size=${size}`;
-        queryParams = queryParams + `sort=${sort.criterion},${sort.sequence}`;
-        console.log(queryParams);
-    
-        const responseData = axiosGet(`/api/v1/rentals?${queryParams}`);
-        return responseData;
-    };
-
-    const loadData = async () => {
+    const fetchHistory = async () => {
+        const params = generateUrl();
         try {
-            const response = await fetchHistory();
-            setData(response.data);    
+            const response = await axiosGet(`/api/v1/rentals?${params}`);
+            console.log("Response for fetchHistory: ", response.data);
+            setData(response.data);
         }
         catch(error) {
             console.error(error);
         }
-    };
+    }
 
     const getDetails = () => {
         // detailInfo API 호출
@@ -93,9 +71,14 @@ const AccordionCardContainer = () => {
 
     const submitApprove = async (itemId: number, isApproved: boolean=false) => {
         const approvement = isApproved? "approve" : "reject";
-        const response = await axiosPost(`/api/v1/rentals/${itemId}/${approvement}`);
-        
-        console.log("submitApprove: ", response);
+        try {
+            const response = await axiosPost(`/api/v1/rentals/${itemId}/${approvement}`);
+            console.log("Response for submitApprovee: ", response.data);
+            // TODO: button 비활성화로 만들고 toastMessage 띄우기
+        }
+        catch(error) {
+            console.error(error);
+        }
     }
 
     const handleReturn = () => {
