@@ -1,6 +1,6 @@
 import { ScrollView, View } from "react-native";
 import AccordionCard from "./AccordionCard";
-import {AccordionCardProps, AccordionContainerType, ActionType, StatusType} from "@/types/types";
+import {AccordionCardProps, AccordionContainerType, ActionType, RentalDetailsType, StatusType} from "@/types/types";
 import { itemList } from "@/styles/components/itemList";
 import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
@@ -63,10 +63,16 @@ const AccordionCardContainer = () => {
         }
     }
 
-    const getDetails = () => {
-        // detailInfo API 호출
-        console.log("getDetails"); 
-        return ["details"];       
+    const fetchDetails = async (itemId: number) => {
+        try { 
+            const response = await axiosGet(`/api/v1/rentals/${itemId}`);
+            const details: RentalDetailsType = response.data;
+            console.log("Response for fetchDetails: ", details);
+            return details || ["detials"];    // "details" -> dummy
+        }
+        catch(error) {
+            console.error(error);
+        }   
     }
 
     const submitApprove = async (itemId: number, isApproved: boolean=false) => {
@@ -143,7 +149,7 @@ const AccordionCardContainer = () => {
 
                     actions={actionByStatus.actions}
                     actionNames={actionByStatus.actionName}
-                    getDetails={getDetails}
+                    getDetails={fetchDetails}
                     handleAction={actionByStatus.handler}
                 />
             )})}

@@ -71,7 +71,20 @@ export type AccordionContainerType = ListItemProps & {
 export type AccordionCardProps = AccordionContainerType & {
     actions: ActionType[] | undefined,
     actionNames: string[],
-    getDetails: () => string[],
+    getDetails: (itemId: number) => Promise<RentalDetailsType | undefined>,
     handleAction: ((itemId: number, isApproved?: boolean) => void) | ((itemId: number) => void);
 }
 
+export type RentalDetailsType = {
+    owner: string,
+    requestDate: string,
+    approvedDate: string | null,
+    rejectedDate: string | null,
+    startDate: string,
+    dueDate: string,
+    leftByOwnerAt: string | null,
+    pickedUpByRenterAt: string | null,
+    returnedByRenterAt: string | null,
+    retrievedByOwnerAt: string | null,
+    lockerId: string | null,
+}
