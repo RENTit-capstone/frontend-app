@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import { View, Pressable } from "react-native";
 import { Common } from "@/styles/common";
 import Logo from "@/assets/images/logo.svg";
@@ -12,6 +12,8 @@ import { ReactElement } from "react";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 
 const TabLayout = () => {
+    const router = useRouter();
+
     return (
         <Tabs
             tabBar={(props) => <TabBar {...props} />}
@@ -41,7 +43,7 @@ const TabLayout = () => {
                     ), 
                     headerRight: () => (
                         <View style={Common.headerWrapper}>
-                            <Pressable>
+                            <Pressable onPress={() => (router.navigate("/search"))}>
                                 <SearchIcon />
                             </Pressable>
                             <Pressable>
