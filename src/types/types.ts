@@ -72,6 +72,6 @@ export type AccordionCardProps = AccordionContainerType & {
     actions: ActionType[] | undefined,
     actionNames: string[],
     getDetails: () => string[],
-    handleAction: ((isApproved: boolean) => void) | (() => void)
+    handleAction: ((itemId: number, isApproved?: boolean) => void) | ((itemId: number) => void);
 }
 

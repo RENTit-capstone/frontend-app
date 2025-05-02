@@ -3,8 +3,8 @@ import AccordionCard from "./AccordionCard";
 import {AccordionCardProps, AccordionContainerType, ActionType, StatusType} from "@/types/types";
 import { itemList } from "@/styles/components/itemList";
 import { useEffect, useState } from "react";
-import { fetchHistory } from "@/api/history";
 import { useRouter } from "expo-router";
+import { axiosGet, axiosPost } from "@/api";
 
 const sampleList2: AccordionContainerType[] = [
     {
@@ -47,26 +47,76 @@ const AccordionCardContainer = () => {
     const [data, setData] = useState<AccordionCardProps[]>([]);
 
     useEffect(() => {
-        const loadData = async () => {
-            try {
-                const response = await fetchHistory();
-                setData(response.data);    
-            }
-            catch(error) {
-                console.error(error);
-            }
-        };
+
         
         loadData();
     }, []);
 
+    const fetchHistory = () => {
+        // 일단 모든 status, page=0, size=20(고정), sort=requestDate, desc
+        const statuses = ["REQUESTED", "APPROVED"];
+        const page = 0;
+        const size = 20;
+        const sort = {
+            criterion: "requestDate",
+            sequence: "desc",
+        }
+        
+        let queryParams = "?";
+        statuses.map((condition: string) => {
+            queryParams = queryParams + `statuses=${condition}&`;
+        })
+        queryParams = queryParams + `page=${page}&`;
+        queryParams = queryParams + `size=${size}`;
+        queryParams = queryParams + `sort=${sort.criterion},${sort.sequence}`;
+        console.log(queryParams);
+    
+        const responseData = axiosGet(`/api/v1/rentals?${queryParams}`);
+        return responseData;
+    };
+
+    const loadData = async () => {
+        try {
+            const response = await fetchHistory();
+            setData(response.data);    
+        }
+        catch(error) {
+            console.error(error);
+        }
+    };
+
+    const getDetails = () => {
+        // detailInfo API 호출
+        console.log("getDetails"); 
+        return ["details"];       
+    }
+
+    const submitApprove = async (itemId: number, isApproved: boolean=false) => {
+        const approvement = isApproved? "approve" : "reject";
+        const response = await axiosPost(`/api/v1/rentals/${itemId}/${approvement}`);
+        
+        console.log("submitApprove: ", response);
+    }
+
+    const handleReturn = () => {
+        router.navigate("/myPage/otp");
+        console.log("반납");
+    }
+
+    const handleWriteReview = () => {
+        console.log("후기작성");
+    }
+
+    const handleUnknownAction = () => {
+        console.log("unknown action");
+    }
 
     const determineAction = (status: StatusType) => {
         if (status==="pending")         
             return {
                 actions: ["approve", "disapprove"] as ActionType[],
                 actionName: ["승인", "거절"], 
-                handler: handleApprove
+                handler: submitApprove,
             };
         else if (status==="inRent")     
             return {
@@ -86,34 +136,6 @@ const AccordionCardContainer = () => {
                 actionName: ["null"], 
                 handler: handleUnknownAction
             };
-    }
-
-    const getDetails = () => {
-        // detailInfo API 호출
-        console.log("getDetails"); 
-        return ["details"];       
-    }
-
-    const handleApprove = (isApproved: boolean) => {
-        if (isApproved) {
-            console.log("승인");
-        }
-        else{
-            console.log("거절");
-        }
-    }
-
-    const handleReturn = () => {
-        router.navigate("/myPage/otp");
-        console.log("반납");
-    }
-
-    const handleWriteReview = () => {
-        console.log("후기작성");
-    }
-
-    const handleUnknownAction = () => {
-        console.log("unknown action");
     }
 
     return (

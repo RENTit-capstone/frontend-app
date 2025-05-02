@@ -71,3 +71,11 @@ export const axiosGet = async (url: string) => {
     }
     return res.data;
 }
+
+export const axiosPost = async (url: string, payload?: any) => {
+    const res = await axiosInstance.post(url, payload);
+    if (!res.data.success){
+        throw new Error(res.data.message);
+    }
+    return res.data;
+}

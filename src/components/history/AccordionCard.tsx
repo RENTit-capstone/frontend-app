@@ -22,13 +22,13 @@ const AccordionCard = (props: AccordionCardProps) => {
     const onPress = (itemId: number, action: ActionType) => {
         console.log(itemId, action);
         if (action==="approve") {
-            handleAction(true);
+            handleAction(itemId, true);
         }
         else if (action==="disapprove") {
-            handleAction(false);
+            handleAction(itemId, false);
         }
         else {
-            handleAction(false);
+            handleAction(itemId);
         }
     }
 
