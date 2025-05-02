@@ -1,7 +1,4 @@
-import { AccordionCardProps } from "@/types/types";
-import { axiosInstance } from "."
-
-export const fetchHistory = async () => {
+export const generateUrl = () => {
     // 일단 모든 status, page=0, size=20(고정), sort=requestDate, desc
     const statuses = ["REQUESTED", "APPROVED"];
     const page = 0;
@@ -20,9 +17,5 @@ export const fetchHistory = async () => {
     queryParams = queryParams + `sort=${sort.criterion},${sort.sequence}`;
     console.log(queryParams);
 
-    const res = await axiosInstance.get(`/api/v1/rentals?${queryParams}`);
-    if (!res.data.success){
-        throw new Error(res.data.message);
-    }
-    return res.data;        
-};
+    return queryParams;    
+}

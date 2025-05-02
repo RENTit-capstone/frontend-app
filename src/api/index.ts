@@ -64,8 +64,18 @@ axiosInstance.interceptors.response.use(
     }
 )
 
-// useUserStore.setState(response.data, true);와 같이 호출되면, 다음과 같은 프로세스가 진행됩니다:
+export const axiosGet = async (url: string) => {
+    const res = await axiosInstance.get(url);
+    if (!res.data.success){
+        throw new Error(res.data.message);
+    }
+    return res.data;
+}
 
-// setState 메소드는 Zustand 상태 저장소의 상태를 업데이트합니다.
-// true 매개변수는 이 변경 사항이 AsyncStorage에도 저장되어야 함을 나타냅니다.
-// 이로써, 애플리케이션이 재시작되더라도 사용자 상태는 유지됩니다.
+export const axiosPost = async (url: string, payload?: any) => {
+    const res = await axiosInstance.post(url, payload);
+    if (!res.data.success){
+        throw new Error(res.data.message);
+    }
+    return res.data;
+}
