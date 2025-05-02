@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import { View, Pressable } from "react-native";
 import { Common } from "@/styles/common";
 import TabBar from "@/components/itemList/TabBar";
@@ -7,6 +7,8 @@ import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import Header from "@/components/Header";
 
 const TabLayout = () => {
+    const router = useRouter();
+
     return (
         <Tabs
             screenOptions={{ headerShown: false }}
@@ -27,6 +29,30 @@ const TabLayout = () => {
                 name="itemList"
                 options={{
                     title: "홈",
+<<<<<<< HEAD
+=======
+                    tabBarIcon: () => <Home />,
+                    headerLeft: () => (
+                        <View style={Common.headerWrapper}>
+                            <Pressable>
+                                <Logo />
+                            </Pressable>
+                        </View>
+                    ), 
+                    headerRight: () => (
+                        <View style={Common.headerWrapper}>
+                            <Pressable onPress={() => (router.navigate("/search"))}>
+                                <SearchIcon />
+                            </Pressable>
+                            <Pressable>
+                                <Notification />
+                            </Pressable>
+                            <Pressable>
+                                <Avatar />
+                            </Pressable>
+                        </View> 
+                    )
+>>>>>>> ded24cd (Feat: 검색 페이지 추가)
                 }}
 
             />
