@@ -5,6 +5,8 @@ import { SafeAreaView } from "react-native";
 import { Common } from "@/styles/common";
 
 const TabLayout = () => {
+    const router = useRouter();
+
     return (
         <SafeAreaView style={{ flex: 1 }}> 
             <Tabs
