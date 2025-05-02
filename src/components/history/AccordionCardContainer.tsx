@@ -48,37 +48,44 @@ const AccordionCardContainer = () => {
 
     useEffect(() => {
         const loadData = async () => {
-            const response = await fetchHistory();
-            setData(response.data);
-        }
-
-        try {
-            // loadData();
-        }
-        catch(error) {
-            console.error(error);
-        }
+            try {
+                const response = await fetchHistory();
+                setData(response.data);    
+            }
+            catch(error) {
+                console.error(error);
+            }
+        };
         
-    })
+        loadData();
+    }, []);
 
 
     const determineAction = (status: StatusType) => {
         if (status==="pending")         
-            return {actions: ["approve", "disapprove"] as ActionType[],
-                    actionName: ["승인", "거절"], 
-                    handler: handleApprove};
+            return {
+                actions: ["approve", "disapprove"] as ActionType[],
+                actionName: ["승인", "거절"], 
+                handler: handleApprove
+            };
         else if (status==="inRent")     
-            return {actions: ["return"] as ActionType[], 
-                    actionName: ["반납하기"], 
-                    handler: handleReturn};
+            return {
+                actions: ["return"] as ActionType[], 
+                actionName: ["반납하기"], 
+                handler: handleReturn
+            };
         else if (status==="returned")   
-            return {actions: ["writeReview"] as ActionType[], 
-                    actionName: ["후기작성"], 
-                    handler: handleWriteReview};
+            return {
+                actions: ["writeReview"] as ActionType[], 
+                actionName: ["후기작성"], 
+                handler: handleWriteReview
+            };
         else                            
-            return {actions: undefined, 
-                    actionName: ["null"], 
-                    handler: handleUnknownAction};
+            return {
+                actions: undefined, 
+                actionName: ["null"], 
+                handler: handleUnknownAction
+            };
     }
 
     const getDetails = () => {
