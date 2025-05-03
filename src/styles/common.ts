@@ -93,5 +93,13 @@ export const Common = StyleSheet.create({
     textWrapper: {
         flexDirection: "row",
         alignItems: "center",
+    },
+    floatingIcon: {
+        position: "absolute",
+        alignSelf: "flex-end",
+        marginVertical: 8,
+        paddingRight: 12,
+        paddingTop: 20,
+        transform: [{ translateY: -12 }],
     }
 });
