@@ -1,11 +1,10 @@
 import ItemListTab from "@/components/itemList/ItemListTab";
 import TextInput from "@/components/TextInput";
 import { useState } from "react";
-import { Pressable, SafeAreaView, Text, View } from "react-native"
+import { Pressable, SafeAreaView } from "react-native"
 import SearchIcon from "@/assets/images/search.svg";
 import { Common } from "@/styles/common";
-import { axiosGet, axiosInstance } from "@/api";
-import { generateUrl } from "@/utils/generateUrl";
+import { axiosGet } from "@/api";
 import useUrl from "@/hooks/useUrl";
 import { ListItemProps } from "@/types/types";
 
