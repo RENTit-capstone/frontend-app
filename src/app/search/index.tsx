@@ -13,22 +13,20 @@ const Search = () => {
     }
 
     return (
-        <SafeAreaView style={Common.container}>
-            <View style={Common.wrapper}>
-                <TextInput 
-                    label=""
-                    name="keyword"
-                    handleChangeText={setKeyword}
-                    placeholder="검색어를 입력해주세요"
-                    value={keyword}
-                    style={{paddingRight: 42}}
-                />
-                <Pressable style={Common.floatingIcon} onPress={submitKeyword}>
-                    <SearchIcon />
-                </Pressable>
+        <SafeAreaView style={[Common.container, Common.wrapper]}>
+            <TextInput 
+                label=""
+                name="keyword"
+                handleChangeText={setKeyword}
+                placeholder="검색어를 입력해주세요"
+                value={keyword}
+                style={{paddingRight: 42, marginHorizontal: 20, marginTop: 15,}}
+            />
+            <Pressable style={Common.floatingIcon} onPress={submitKeyword}>
+                <SearchIcon />
+            </Pressable>
 
-                <ItemListTab />
-            </View>
+            <ItemListTab />
         </SafeAreaView>
     );
 }
