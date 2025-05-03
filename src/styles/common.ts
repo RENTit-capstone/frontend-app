@@ -178,8 +178,10 @@ export const Common = StyleSheet.create({
     floatingIcon: {
         position: "absolute",
         alignSelf: "flex-end",
-        marginVertical: 15,
-        paddingRight: 32,
+        // marginVertical: 15,
+        // paddingRight: 32,
+        marginVertical: 8,
+        paddingRight: 12,
         paddingTop: 20,
         transform: [{ translateY: -12 }],
     }
