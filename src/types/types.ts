@@ -1,4 +1,4 @@
-import { TextInputProps as DefaultTextInputProps, KeyboardTypeOptions } from "react-native";
+import { TextInputProps as DefaultTextInputProps, KeyboardTypeOptions, StyleProp, TextStyle } from "react-native";
 
 export type ResponseType<T> = {
     data: T;
@@ -20,6 +20,7 @@ export interface TextInputProps extends DefaultTextInputProps {
     secureTextEntry?: boolean;
     keyboardType?: KeyboardTypeOptions;
     errorMsg?: string;
+    style?: StyleProp<TextStyle>;
 }
 
 export type UserType = {

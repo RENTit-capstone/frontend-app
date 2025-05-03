@@ -29,30 +29,6 @@ const TabLayout = () => {
                 name="itemList"
                 options={{
                     title: "홈",
-<<<<<<< HEAD
-=======
-                    tabBarIcon: () => <Home />,
-                    headerLeft: () => (
-                        <View style={Common.headerWrapper}>
-                            <Pressable>
-                                <Logo />
-                            </Pressable>
-                        </View>
-                    ), 
-                    headerRight: () => (
-                        <View style={Common.headerWrapper}>
-                            <Pressable onPress={() => (router.navigate("/search"))}>
-                                <SearchIcon />
-                            </Pressable>
-                            <Pressable>
-                                <Notification />
-                            </Pressable>
-                            <Pressable>
-                                <Avatar />
-                            </Pressable>
-                        </View> 
-                    )
->>>>>>> ded24cd (Feat: 검색 페이지 추가)
                 }}
 
             />
