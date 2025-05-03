@@ -21,7 +21,7 @@ const TextInput = (props: TextInputProps) => {
         <View style={{width: "100%"}}>
             {label && <Text>{label}</Text>}
             <DefaultTextInput
-                onChangeText={(text) => handleChangeText(name, text)}
+                onChangeText={(text) => handleChangeText(text, name)}
                 placeholder={placeholder}
                 placeholderTextColor="#767676"
                 value={value}

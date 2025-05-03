@@ -1,6 +1,3 @@
-import { TextInputProps as DefaultTextInputProps, KeyboardTypeOptions } from "react-native";
-import { StyleProps } from "react-native-reanimated";
-
 export type ResponseType<T> = {
     data: T;
     message?: string;
