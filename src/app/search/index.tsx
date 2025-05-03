@@ -1,3 +1,4 @@
+import ListContainer from "@/components/itemList/ListContainer";
 import { SafeAreaView, Text, View } from "react-native"
 
 const Search = () => {
@@ -5,6 +6,7 @@ const Search = () => {
         <SafeAreaView>
             <View>
                 <Text>search</Text>
+                <ListContainer type="search" />
             </View>
         </SafeAreaView>
     );
