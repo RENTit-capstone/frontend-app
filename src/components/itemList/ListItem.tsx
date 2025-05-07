@@ -1,4 +1,4 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, Pressable } from "react-native";
 import { ListItemProps } from "@/types/types";
 import { Common } from "@/styles/common";
 import { TextThemes } from "@/styles/theme";
@@ -6,13 +6,15 @@ import Badge from "../Badge";
 import Messages from "@/assets/images/message.svg";
 import Likes from "@/assets/images/heart.svg";
 import { itemList } from "@/styles/components/itemList";
+import { useRouter } from "expo-router";
 
 
 const ListItem = (props: ListItemProps) => {
+    const router = useRouter();
     const {id, title, img, available, price, period, messages, likes} = props;
 
     return (
-        <View style={[Common.XStack, itemList.cardWrapper]}>
+        <Pressable style={[Common.XStack, itemList.cardWrapper]} onPress={() => (router.navigate(`/postings/${id}`))}>
             <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
 
             <View style={[Common.wideView]}>
@@ -30,7 +32,7 @@ const ListItem = (props: ListItemProps) => {
                     <Likes /><Text>{likes}</Text>
                 </View>
             </View>
-        </View>
+        </Pressable>
     )
 };
 
