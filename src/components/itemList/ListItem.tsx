@@ -14,7 +14,7 @@ const ListItem = (props: ListItemProps) => {
     const {id, title, img, available, price, period, messages, likes} = props;
 
     return (
-        <Pressable style={[Common.XStack, itemList.cardWrapper]} onPress={() => (router.navigate(`/postings/${id}`))}>
+        <Pressable style={[Common.XStack, itemList.cardWrapper]} onPress={() => (router.navigate(`/(tabs)/itemList/${id}`))}>
             <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
 
             <View style={[Common.wideView]}>

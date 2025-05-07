@@ -52,6 +52,9 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
                 testID={options.tabBarButtonTestID}
                 onPress={onPress}
             >
+                <>
+                    {console.log(route.name)}
+                </>
                 {
                     icons[route.name]({
                         color: isFocused? whiteColor : primaryColor,
