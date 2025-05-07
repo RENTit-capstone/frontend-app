@@ -60,8 +60,11 @@ export const Common = StyleSheet.create({
         opacity: 0.5,
     },
     headerWrapper: {
+        backgroundColor: "#FBF5ED",
+        height: 64,
         flexDirection: "row",
-        marginHorizontal: 10,
+        justifyContent: "space-between",
+        paddingHorizontal: 10,
         gap: 15,
         alignItems: "center",
     },
