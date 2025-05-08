@@ -10,7 +10,7 @@ import { PostingsType } from "@/types/types";
 import { useEffect, useState } from "react";
 import { axiosGet } from "@/api";
 
-    const sampleData: PostingsType = {
+const sampleData: PostingsType = {
     id: 0,
     owner: "string", 
     name: "string",
@@ -28,7 +28,6 @@ import { axiosGet } from "@/api";
 const Postings = () => {
     const { id } = useLocalSearchParams();
     const [data, setData] = useState<PostingsType>(sampleData);
-    const OUT = false;
 
     useEffect(() => {
         fetchItemDetails();
@@ -50,7 +49,7 @@ const Postings = () => {
             <Image source={require("@/assets/images/icon.png")} style={itemList.detailImage} />
             
             {/* bottom sheet */}
-            <View style={[itemList.bottomSheet, Common.container]}>
+            <ScrollView style={[itemList.bottomSheet, Common.container]}>
 
                 <View style={[itemList.detailsHeader, Common.wrapper]}>
                     <View style={[Common.textWrapper, itemList.detailsHeader]}>
@@ -78,7 +77,7 @@ const Postings = () => {
 
 
                 
-                <ScrollView style={[itemList.detailInfo, Common.wrapper]}>
+                <View style={[itemList.detailInfo, Common.wrapper]}>
                     <View style={Common.section}>
                         <Text style={itemList.title}>내용</Text>
                         <Text>
@@ -99,8 +98,8 @@ const Postings = () => {
                             {data.damagedPolicy}
                         </Text>
                     </View>
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }  
