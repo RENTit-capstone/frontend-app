@@ -9,8 +9,8 @@ export const Common = StyleSheet.create({
         alignSelf: "flex-start"
     },
     wrapper: {
-        paddingHorizontal: "8%",
-        paddingVertical: "5%",
+        paddingHorizontal: 16,
+        paddingVertical: 12,
     },
     textInput: {
         backgroundColor: '#f9f9f9',
@@ -60,8 +60,11 @@ export const Common = StyleSheet.create({
         opacity: 0.5,
     },
     headerWrapper: {
+        backgroundColor: "#FBF5ED",
+        height: 64,
         flexDirection: "row",
-        marginHorizontal: 10,
+        justifyContent: "space-between",
+        paddingHorizontal: 10,
         gap: 15,
         alignItems: "center",
     },
@@ -93,5 +96,12 @@ export const Common = StyleSheet.create({
     textWrapper: {
         flexDirection: "row",
         alignItems: "center",
+    },
+    bold: {
+        fontSize: 20, 
+        fontWeight: 600
+    },
+    section: {
+        marginVertical: 12,
     }
 });

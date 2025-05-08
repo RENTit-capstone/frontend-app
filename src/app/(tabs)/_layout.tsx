@@ -1,19 +1,15 @@
 import { Tabs } from "expo-router";
 import { View, Pressable } from "react-native";
 import { Common } from "@/styles/common";
-import Logo from "@/assets/images/logo.svg";
-import Home from "@/assets/images/home.svg";
-import SearchIcon from "@/assets/images/search.svg";
-import Notification from "@/assets/images/notification.svg";
-import Avatar from "@/components/Avatar";
-import Colors from "@/constants/Colors";
 import TabBar from "@/components/itemList/TabBar";
 import { ReactElement } from "react";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import Header from "@/components/Header";
 
 const TabLayout = () => {
     return (
         <Tabs
+            screenOptions={{ headerShown: false }}
             tabBar={(props) => <TabBar {...props} />}
             // screenOptions={{
             //     headerShown: true, 
@@ -31,33 +27,15 @@ const TabLayout = () => {
                 name="itemList"
                 options={{
                     title: "홈",
-                    tabBarIcon: () => <Home />,
-                    headerLeft: () => (
-                        <View style={Common.headerWrapper}>
-                            <Pressable>
-                                <Logo />
-                            </Pressable>
-                        </View>
-                    ), 
-                    headerRight: () => (
-                        <View style={Common.headerWrapper}>
-                            <Pressable>
-                                <SearchIcon />
-                            </Pressable>
-                            <Pressable>
-                                <Notification />
-                            </Pressable>
-                            <Pressable>
-                                <Avatar />
-                            </Pressable>
-                        </View> 
-                    )
                 }}
+
             />
             <Tabs.Screen
                 name="history"
                 options={{
-                    title: "히스토리"
+                    title: "히스토리",
+                    header: () => <Header />,
+
                 }}
             />
         </Tabs>
