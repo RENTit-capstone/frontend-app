@@ -139,6 +139,7 @@ export const itemList = StyleSheet.create({
         gap: 10,
     },
     detailInfo: {
+        flex: 1,
         backgroundColor: "#fff",
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,

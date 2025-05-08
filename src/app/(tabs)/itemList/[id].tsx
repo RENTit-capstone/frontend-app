@@ -3,14 +3,14 @@ import Badge from "@/components/Badge";
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
 import { useLocalSearchParams } from "expo-router";
-import { Image, ScrollView, Text, View } from "react-native"
+import { Image, SafeAreaView, ScrollView, Text, View, ViewBase } from "react-native"
 import Messages from "@/assets/images/message.svg";
 import Likes from "@/assets/images/heart.svg";
 import { PostingsType } from "@/types/types";
 import { useEffect, useState } from "react";
 import { axiosGet } from "@/api";
 
-const sampleData = {
+    const sampleData: PostingsType = {
     id: 0,
     owner: "string", 
     name: "string",
@@ -46,11 +46,11 @@ const Postings = () => {
     }
 
     return (
-        <View style={Common.container}>
+        <SafeAreaView style={Common.container}>
             <Image source={require("@/assets/images/icon.png")} style={itemList.detailImage} />
             
             {/* bottom sheet */}
-            <View style={itemList.bottomSheet}>
+            <View style={[itemList.bottomSheet, Common.container]}>
 
                 <View style={[itemList.detailsHeader, Common.wrapper]}>
                     <View style={[Common.textWrapper, itemList.detailsHeader]}>
@@ -58,8 +58,10 @@ const Postings = () => {
                             <Avatar /> 
                             <Text>판매자 {data.owner}</Text>    
                         </View>
-                        <Messages /><Text>{data.messages}</Text>
-                        <Likes /> <Text>{data.likes}</Text>
+                        <View style={[Common.textWrapper, {gap: 3}]}>
+                            <Messages /><Text>{data.messages}</Text>
+                            <Likes /> <Text>{data.likes}</Text>
+                        </View>
                     </View>
                     <View style={[itemList.rowDivider, {marginTop: 0, width: "100%"}]} />
 
@@ -70,12 +72,12 @@ const Postings = () => {
 
                     <View style={[Common.textWrapper, itemList.detailsHeader]}>    
                         <Text style={Common.bold}>{data.name}</Text>
-                        <Text style={Common.bold}>{data.price.toLocaleString()}원 | 일</Text>
+                        <Text style={Common.bold}>{data.price.toLocaleString()}원</Text>
                     </View>
                 </View>
 
 
-
+                
                 <ScrollView style={[itemList.detailInfo, Common.wrapper]}>
                     <View style={Common.section}>
                         <Text style={itemList.title}>내용</Text>
@@ -99,7 +101,7 @@ const Postings = () => {
                     </View>
                 </ScrollView>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }  
 

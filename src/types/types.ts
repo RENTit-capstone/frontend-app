@@ -98,7 +98,7 @@ export type PostingsType = {
     itemImg: string, 
     description: string,
     price: number, 
-    status: string,
+    status: ItemStatusType,
     damagedPolicy: string,
     startDate: string,
     endDate: string,

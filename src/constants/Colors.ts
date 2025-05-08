@@ -10,7 +10,7 @@ export default {
   optionText: "#505050",
   error: "#B84C4C",
   available: "#3F5466",
-  notAvailable: "#9F5A00",
+  out: "#9F5A00",
   status: "#111111",
   statusRequested: "#767676",
   statusAccepted: "#3F5466",
