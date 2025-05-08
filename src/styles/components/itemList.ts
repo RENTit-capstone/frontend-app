@@ -115,9 +115,38 @@ export const itemList = StyleSheet.create({
     // [id]
     detailImage: {
         width: "100%",
-        height: "100%", // 모바일뷰 확인 필요
+        maxHeight: "40%",
+    },
+    bottomSheet: {
+        backgroundColor: "#FBF5ED",
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+        paddingVertical: 16,
+        ...Platform.select({
+            default: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: -4 },
+                shadowOpacity: 0.08,
+                shadowRadius: 5,
+                },
+            android: {
+                elevation: 5,
+                },
+            })
+    },
+    detailsHeader: {        
+        justifyContent: "space-between",
+        gap: 10,
     },
     detailInfo: {
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+    },
+    title: {
+        color: "#767676",
+        fontWeight: 600,
+        marginVertical: 10,
     }
+
 });
