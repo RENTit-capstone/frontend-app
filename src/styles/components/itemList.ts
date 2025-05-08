@@ -82,7 +82,6 @@ export const itemList = StyleSheet.create({
                 elevation: 5,
                 },
             })
-    
     },
 
     //TabBar
@@ -111,6 +110,14 @@ export const itemList = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         gap: 4,
-    }
+    },
 
+    // [id]
+    detailImage: {
+        width: "100%",
+        height: "100%", // 모바일뷰 확인 필요
+    },
+    detailInfo: {
+        backgroundColor: "#fff"
+    }
 });

@@ -16,6 +16,7 @@ export default function ItemListLayout() {
                 options={{
                     title: "asdf",
                     header: () => <Header />,
+                    tabBarStyle: { display: 'none' },   // 동작X..
                 }}
             />
         </Stack>
