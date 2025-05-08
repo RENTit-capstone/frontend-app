@@ -5,6 +5,8 @@ import Home from "@/assets/images/home.svg";
 import { ReactElement } from "react";
 import Colors from "@/constants/Colors";
 import { usePathname } from "expo-router";
+import ItemDetailsTabBar from "./ItemDetailsTabBar";
+import { bottomTabBar } from "@/styles/components/bottomTabBar";
 
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     const primaryColor = Colors.primary;
@@ -16,10 +18,10 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         history: ({ color }) => <Home color={"#ccc"} />
     }
     
-    if (usePathname().includes("/itemList/"))   return null;
+    if (usePathname().includes("/itemList/"))   return <ItemDetailsTabBar />;
 
     return (
-        <View style={itemList.tabBar}>
+        <View style={bottomTabBar.defaultTabBar}>
             {state.routes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
@@ -48,7 +50,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         return (
             <TouchableOpacity
                 key={route.name}
-                style={[itemList.tabBarItem, {backgroundColor: isFocused ? primaryColor : secondaryColor}] }
+                style={[bottomTabBar.tabBarItem, {backgroundColor: isFocused ? primaryColor : secondaryColor}] }
                 accessibilityRole="button"
                 accessibilityState={isFocused ? { selected: true } : {}}
                 accessibilityLabel={options.tabBarAccessibilityLabel}

@@ -1,0 +1,19 @@
+import { View } from "react-native";
+import Button from "../Button";
+import { bottomTabBar } from "@/styles/components/bottomTabBar";
+
+const ItemDetailsTabBar = () => {
+    const handlePress = () => {
+
+    }
+
+    return (
+        <View style={bottomTabBar.itemDetailsTabBar}>
+            <Button onPress={handlePress} type="primary" style={bottomTabBar.tabBarItem}>
+                일정 선택하기      
+            </Button>
+        </View>
+    );
+}
+
+export default ItemDetailsTabBar;
