@@ -3,12 +3,14 @@ import Badge from "@/components/Badge";
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
 import { useLocalSearchParams } from "expo-router";
-import { Image, SafeAreaView, ScrollView, Text, View } from "react-native"
+import { Image, ScrollView, Text, View } from "react-native"
 import Messages from "@/assets/images/message.svg";
 import Likes from "@/assets/images/heart.svg";
 import { PostingsType } from "@/types/types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { axiosGet } from "@/api";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 
 const sampleData: PostingsType = {
     id: 0,
@@ -28,6 +30,7 @@ const sampleData: PostingsType = {
 const Postings = () => {
     const { id } = useLocalSearchParams();
     const [data, setData] = useState<PostingsType>(sampleData);
+    const bottomSheetRef = useRef<BottomSheet>(null);
 
     useEffect(() => {
         fetchItemDetails();
@@ -45,10 +48,11 @@ const Postings = () => {
     }
 
     return (
-        <SafeAreaView style={Common.container}>
+        <GestureHandlerRootView style={Common.container}>
             <Image source={require("@/assets/images/icon.png")} style={itemList.detailImage} />
             
             {/* bottom sheet */}
+            <BottomSheet
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={[itemList.bottomSheet]}>
 
                 <View style={[itemList.detailsHeader, Common.wrapper]}>
@@ -100,7 +104,7 @@ const Postings = () => {
                     </View>
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </GestureHandlerRootView>
     )
 }  
 
