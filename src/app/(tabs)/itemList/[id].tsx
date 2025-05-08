@@ -7,10 +7,10 @@ import { Image, ScrollView, Text, View } from "react-native"
 import Messages from "@/assets/images/message.svg";
 import Likes from "@/assets/images/heart.svg";
 import { PostingsType } from "@/types/types";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { axiosGet } from "@/api";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetScrollView, useBottomSheetSpringConfigs } from "@gorhom/bottom-sheet";
 
 const sampleData: PostingsType = {
     id: 0,
@@ -47,63 +47,81 @@ const Postings = () => {
         }
     }
 
+    const snapPoints = useMemo(() => ["50%", "60%", "70%", "80%"], []);
+
+    const animationConfigs = useBottomSheetSpringConfigs({
+        damping: 20,
+        overshootClamping: false,
+        restDisplacementThreshold: 0.5,
+        restSpeedThreshold: 0.5,
+        stiffness: 150,
+    });
+
     return (
         <GestureHandlerRootView style={Common.container}>
             <Image source={require("@/assets/images/icon.png")} style={itemList.detailImage} />
             
             {/* bottom sheet */}
-            <BottomSheet
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={[itemList.bottomSheet]}>
+            <BottomSheet 
+                ref={bottomSheetRef} 
+                index={0} 
+                snapPoints={snapPoints}
+                animationConfigs={animationConfigs}
+                enableDynamicSizing={false}
+                backgroundStyle={itemList.bottomSheet}
+                >
+                <BottomSheetScrollView contentContainerStyle={{flexGrow: 1}}>
 
-                <View style={[itemList.detailsHeader, Common.wrapper]}>
-                    <View style={[Common.textWrapper, itemList.detailsHeader]}>
+                    <View style={[itemList.detailsHeader, Common.wrapper]}>
                         <View style={[Common.textWrapper, itemList.detailsHeader]}>
-                            <Avatar /> 
-                            <Text>판매자 {data.owner}</Text>    
+                            <View style={[Common.textWrapper, itemList.detailsHeader]}>
+                                <Avatar /> 
+                                <Text>판매자 {data.owner}</Text>    
+                            </View>
+                            <View style={[Common.textWrapper, {gap: 3}]}>
+                                <Messages /><Text>{data.messages}</Text>
+                                <Likes /> <Text>{data.likes}</Text>
+                            </View>
                         </View>
-                        <View style={[Common.textWrapper, {gap: 3}]}>
-                            <Messages /><Text>{data.messages}</Text>
-                            <Likes /> <Text>{data.likes}</Text>
+                        <View style={[itemList.rowDivider, {marginTop: 0, width: "100%"}]} />
+
+                        <View style={[Common.textWrapper, {gap: 10}]}>
+                            <Badge status={data.status} />
+                            {data.status==="OUT" && <Text>반납일: 2025.05.01</Text> }
+                        </View>
+
+                        <View style={[Common.textWrapper, itemList.detailsHeader]}>    
+                            <Text style={Common.bold}>{data.name}</Text>
+                            <Text style={Common.bold}>{data.price.toLocaleString()}원</Text>
                         </View>
                     </View>
-                    <View style={[itemList.rowDivider, {marginTop: 0, width: "100%"}]} />
-
-                    <View style={[Common.textWrapper, {gap: 10}]}>
-                        <Badge status={data.status} />
-                        {data.status==="OUT" && <Text>반납일: 2025.05.01</Text> }
-                    </View>
-
-                    <View style={[Common.textWrapper, itemList.detailsHeader]}>    
-                        <Text style={Common.bold}>{data.name}</Text>
-                        <Text style={Common.bold}>{data.price.toLocaleString()}원</Text>
-                    </View>
-                </View>
 
 
-                
-                <View style={[itemList.detailInfo, Common.wrapper]}>
-                    <View style={Common.section}>
-                        <Text style={itemList.title}>내용</Text>
-                        <Text>
-                            {data.description}
-                        </Text>
-                    </View> 
-                    <View style={Common.section}>
-                        <Text style={itemList.title}>하자</Text>
-                        <Text>
-                            하자 입력
-                            하자 입력
-                            {/* 백엔드 부재 */}
-                        </Text>
+                    
+                    <View style={[itemList.detailInfo, Common.wrapper]}>
+                        <View style={Common.section}>
+                            <Text style={itemList.title}>내용</Text>
+                            <Text>
+                                {data.description}
+                            </Text>
+                        </View> 
+                        <View style={Common.section}>
+                            <Text style={itemList.title}>하자</Text>
+                            <Text>
+                                하자 입력
+                                하자 입력
+                                {/* 백엔드 부재 */}
+                            </Text>
+                        </View>
+                        <View style={Common.section}>
+                            <Text style={itemList.title}>파손정책</Text>
+                            <Text>
+                                {data.damagedPolicy}
+                            </Text>
+                        </View>
                     </View>
-                    <View style={Common.section}>
-                        <Text style={itemList.title}>파손정책</Text>
-                        <Text>
-                            {data.damagedPolicy}
-                        </Text>
-                    </View>
-                </View>
-            </ScrollView>
+                </BottomSheetScrollView>
+            </BottomSheet>
         </GestureHandlerRootView>
     )
 }  
