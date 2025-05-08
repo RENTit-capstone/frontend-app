@@ -88,3 +88,21 @@ export type RentalDetailsType = {
     retrievedByOwnerAt: string | null,
     lockerId: string | null,
 }
+
+export type ItemStatusType = "AVAILABLE" | "OUT";
+
+export type PostingsType = {
+    id: number,
+    owner: string, 
+    name: string
+    itemImg: string, 
+    description: string,
+    price: number, 
+    status: string,
+    damagedPolicy: string,
+    startDate: string,
+    endDate: string,
+
+    messages: number, 
+    likes: number,
+}

@@ -2,14 +2,48 @@ import Avatar from "@/components/Avatar";
 import Badge from "@/components/Badge";
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
-import { useLocalSearchParams, useNavigation } from "expo-router";
-import { useEffect } from "react";
+import { useLocalSearchParams } from "expo-router";
 import { Image, ScrollView, Text, View } from "react-native"
+import Messages from "@/assets/images/message.svg";
+import Likes from "@/assets/images/heart.svg";
+import { PostingsType } from "@/types/types";
+import { useEffect, useState } from "react";
+import { axiosGet } from "@/api";
+
+const sampleData = {
+    id: 0,
+    owner: "string", 
+    name: "string",
+    itemImg: "string", 
+    description: "string",
+    price: 5000, 
+    status: "OUT",
+    damagedPolicy: "string",
+    startDate: "string",
+    endDate: "string",
+    messages: 2, 
+    likes: 3,
+}
 
 const Postings = () => {
     const { id } = useLocalSearchParams();
-    console.log(id);
+    const [data, setData] = useState<PostingsType>(sampleData);
     const OUT = false;
+
+    useEffect(() => {
+        fetchItemDetails();
+    }, []);
+
+    const fetchItemDetails = async () => {
+        try {
+            const response = await axiosGet(`/api/v1/items/${id}`);
+            console.log("Response for fetchItemDetails: ", response.data);
+            setData(response.data);
+        }
+        catch(error) {
+            console.error(error);
+        }
+    }
 
     return (
         <View style={Common.container}>
@@ -22,20 +56,21 @@ const Postings = () => {
                     <View style={[Common.textWrapper, itemList.detailsHeader]}>
                         <View style={[Common.textWrapper, itemList.detailsHeader]}>
                             <Avatar /> 
-                            <Text>판매자 마루</Text>    
+                            <Text>판매자 {data.owner}</Text>    
                         </View>
-                        <Text>채팅2 관심3</Text>
+                        <Messages /><Text>{data.messages}</Text>
+                        <Likes /> <Text>{data.likes}</Text>
                     </View>
                     <View style={[itemList.rowDivider, {marginTop: 0, width: "100%"}]} />
 
                     <View style={[Common.textWrapper, {gap: 10}]}>
-                        <Badge available={OUT} />
-                        {!OUT && <Text>반납일: 2025.05.01</Text> }
+                        <Badge status={data.status} />
+                        {data.status==="OUT" && <Text>반납일: 2025.05.01</Text> }
                     </View>
 
                     <View style={[Common.textWrapper, itemList.detailsHeader]}>    
-                        <Text style={Common.bold}>노트북</Text>
-                        <Text style={Common.bold}>5,000원 | 일</Text>
+                        <Text style={Common.bold}>{data.name}</Text>
+                        <Text style={Common.bold}>{data.price.toLocaleString()}원 | 일</Text>
                     </View>
                 </View>
 
@@ -45,8 +80,7 @@ const Postings = () => {
                     <View style={Common.section}>
                         <Text style={itemList.title}>내용</Text>
                         <Text>
-                            내용 입력
-                            내용 입력
+                            {data.description}
                         </Text>
                     </View> 
                     <View style={Common.section}>
@@ -54,13 +88,13 @@ const Postings = () => {
                         <Text>
                             하자 입력
                             하자 입력
+                            {/* 백엔드 부재 */}
                         </Text>
                     </View>
                     <View style={Common.section}>
                         <Text style={itemList.title}>파손정책</Text>
                         <Text>
-                            파손정책 입력
-                            파손정책 입력
+                            {data.damagedPolicy}
                         </Text>
                     </View>
                 </ScrollView>
