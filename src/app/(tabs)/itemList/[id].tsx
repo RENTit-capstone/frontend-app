@@ -3,7 +3,7 @@ import Badge from "@/components/Badge";
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
 import { useLocalSearchParams } from "expo-router";
-import { Image, SafeAreaView, ScrollView, Text, View, ViewBase } from "react-native"
+import { Image, SafeAreaView, ScrollView, Text, View } from "react-native"
 import Messages from "@/assets/images/message.svg";
 import Likes from "@/assets/images/heart.svg";
 import { PostingsType } from "@/types/types";
@@ -49,7 +49,7 @@ const Postings = () => {
             <Image source={require("@/assets/images/icon.png")} style={itemList.detailImage} />
             
             {/* bottom sheet */}
-            <ScrollView style={[itemList.bottomSheet, Common.container]}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={[itemList.bottomSheet]}>
 
                 <View style={[itemList.detailsHeader, Common.wrapper]}>
                     <View style={[Common.textWrapper, itemList.detailsHeader]}>

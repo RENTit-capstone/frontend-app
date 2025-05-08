@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { itemList } from "@/styles/components/itemList";
 import Home from "@/assets/images/home.svg";
 import { ReactElement } from "react";
 import Colors from "@/constants/Colors";
