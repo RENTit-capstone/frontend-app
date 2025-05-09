@@ -91,7 +91,7 @@ export type RentalDetailsType = {
 
 export type ItemStatusType = "AVAILABLE" | "OUT";
 
-export type PostingsType = {
+export type ItemDetailsProp = {
     id: number,
     owner: string, 
     name: string
