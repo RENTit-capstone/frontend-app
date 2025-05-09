@@ -1,13 +1,15 @@
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
 import { useLocalSearchParams } from "expo-router";
-import { Image } from "react-native"
+import { Image, Text } from "react-native"
 import { ItemDetailsProp } from "@/types/types";
 import { useEffect, useState } from "react";
 import { axiosGet } from "@/api";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomScrollSheet from "@/components/BottomScrollSheet";
 import ItemDetails from "@/components/itemList/ItemDetails";
+import { View } from "react-native";
+import DateSelector from "@/components/itemList/DateSelector";
 
 const sampleData: ItemDetailsProp = {
     id: 0,
@@ -63,7 +65,7 @@ const Postings = () => {
                     likes={3}
                 />
             </BottomScrollSheet>
-
+            <DateSelector />
         </GestureHandlerRootView>
     )
 }  

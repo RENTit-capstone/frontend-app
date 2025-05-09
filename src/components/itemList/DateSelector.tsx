@@ -1,29 +1,15 @@
-import { Common } from "@/styles/common";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet"
-import { useMemo, useRef } from "react"
-import { Text } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Button, Text, View } from "react-native";
+import BottomScrollSheet from "../BottomScrollSheet";
 
 
 const DateSelector = () => {
-    const bottomSheetRef = useRef<BottomSheet>(null);
-    const snapPoints = useMemo(() => ["50%"], []);
-
-    return (
-        <GestureHandlerRootView style={Common.container}>
-        
-        <BottomSheet
-            ref={bottomSheetRef}
-            index={0}
-            snapPoints={snapPoints}
-            enableDynamicSizing={false}
-        >
-            <BottomSheetView>
-                <Text>asdf</Text>
-            </BottomSheetView>
-
-        </BottomSheet>
-        </GestureHandlerRootView>
+    return (   
+        <BottomScrollSheet snapPointList={["40%"]}>
+            <View>
+                <Text>일정 선택</Text>
+                <Button title="X"></Button>
+            </View>
+        </BottomScrollSheet>
     );
 }
 
