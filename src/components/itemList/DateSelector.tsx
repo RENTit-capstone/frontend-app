@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Calendar, LocaleConfig } from "react-native-calendars";
+import RightArrow from "@/assets/images/right-arrow.svg";
+import LeftArrow from "@/assets/images/left-arrow.svg";
 
 const DateSelector = () => {
     const [selected, setSelected] = useState('');
@@ -26,12 +28,12 @@ const DateSelector = () => {
         return (
             <View>
                 <TouchableOpacity onPress={movePrevious}>
-                    <Text>Previous</Text>
+                    <LeftArrow />
                 </TouchableOpacity>
-                <Text>Custom header!</Text>
                 <Text>{currentMonth}</Text>
+                <Text>{currentMonth.substring(5,7)}</Text>
                 <TouchableOpacity onPress={moveNext}>
-                    <Text>Next</Text>
+                    <RightArrow />
                 </TouchableOpacity>
             </View>
         )
@@ -41,12 +43,16 @@ const DateSelector = () => {
         <View> 
             <Calendar
                 // customHeader={CustomHeader}
+                monthFormat="yyyy MM"
                 onDayPress={(day) => {
                     setSelected(day.dateString);
                     console.log("selected day", day.dateString);
                 }}
                 markedDates={{
                     [selected]: {selected: true, disableTouchEvent: true}
+                }}
+                theme={{ 
+                    arrowColor: "#5B5B5B"
                 }}
             />
         </View>

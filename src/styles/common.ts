@@ -103,5 +103,9 @@ export const Common = StyleSheet.create({
     },
     section: {
         marginVertical: 12,
+    },
+    bottomSheetHeader: {
+        flexDirection: "row", 
+        alignItems: "center" 
     }
 });
