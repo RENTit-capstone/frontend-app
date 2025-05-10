@@ -96,6 +96,7 @@ export const Common = StyleSheet.create({
     },
     section: {
         marginVertical: 12,
+<<<<<<< HEAD
     }, 
     bottomBar: {
         position: "absolute",
@@ -127,4 +128,11 @@ export const Common = StyleSheet.create({
         gap: 4,
     },
 
+=======
+    },
+    bottomSheetHeader: {
+        flexDirection: "row", 
+        alignItems: "center" 
+    }
+>>>>>>> 745c70e (Design: 디자인 개선)
 });

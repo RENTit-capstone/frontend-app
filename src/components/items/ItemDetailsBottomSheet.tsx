@@ -1,7 +1,11 @@
 import useRequestStore from "@/stores/useRequestStore";
 import BottomScrollSheet from "../BottomScrollSheet";
 import { Text, View } from "react-native";
-import DateSelector from "./DateSelector";
+import DateSelector from ".//DateSelector";
+import { Common } from "@/styles/common";
+import Cancel from "@/assets/images/cancel.svg";
+import { itemList } from "@/styles/components/itemList";
+import Button from "../Button";
 
 const ItemDetailsBottomSheet = () => {
     const {phase} = useRequestStore();
@@ -9,10 +13,14 @@ const ItemDetailsBottomSheet = () => {
     return (
         <>
             {phase==="periodSetting" && 
-                <BottomScrollSheet snapPointList={["70%"]}>
+                <BottomScrollSheet snapPointList={["70%"]} style={{backgroundColor: "#fff"}}>
                     <View>
-                        <Text>일정 선택 X</Text>
-                        <Text></Text>
+                        <View style={Common.XStack}>
+                            <View style={{flex: 10, alignItems: "center"}}>
+                                <Text style={{fontSize: 16, fontWeight: 500}}>일정 선택</Text>
+                            </View>
+                            <button><Cancel /></button>
+                        </View>
                         <DateSelector />
                     </View>
                 </BottomScrollSheet>
