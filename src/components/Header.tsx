@@ -4,16 +4,19 @@ import SearchIcon from "@/assets/images/search.svg";
 import Notification from "@/assets/images/notification.svg";
 import Avatar from "@/components/Avatar";
 import { Common } from '@/styles/common';
+import { useRouter } from 'expo-router';
 
 
 const Header = () => {
+    const router = useRouter();
+
     return (
         <View style={Common.headerWrapper}>
             <Pressable>
                 <Logo />
             </Pressable>
             <View style={Common.headerWrapper}>
-                <Pressable>
+                <Pressable onPress={() => (router.navigate("/search"))}>
                     <SearchIcon />
                 </Pressable>
                 <Pressable>
