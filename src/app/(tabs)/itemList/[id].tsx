@@ -10,6 +10,7 @@ import BottomScrollSheet from "@/components/BottomScrollSheet";
 import ItemDetails from "@/components/itemList/ItemDetails";
 import { View } from "react-native";
 import DateSelector from "@/components/itemList/DateSelector";
+import useRequestStore from "@/stores/useRequestStore";
 
 const sampleData: ItemDetailsProp = {
     id: 0,
@@ -29,8 +30,10 @@ const sampleData: ItemDetailsProp = {
 const Postings = () => {
     const { id } = useLocalSearchParams();
     const [data, setData] = useState<ItemDetailsProp>(sampleData);
+    const setStoredId = useRequestStore((state) => state.setStoredId);
 
     useEffect(() => {
+        setStoredId(id);
         fetchItemDetails();
     }, []);
 
@@ -51,7 +54,7 @@ const Postings = () => {
             
             <BottomScrollSheet snapPointList={["50%", "60%", "70%", "80%"]}>
                 <ItemDetails
-                    id={0}
+                    id={id}
                     owner="string" 
                     name="string"
                     itemImg="string" 
