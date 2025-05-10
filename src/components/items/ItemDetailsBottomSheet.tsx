@@ -10,27 +10,34 @@ import Button from "../Button";
 const ItemDetailsBottomSheet = () => {
     const {phase} = useRequestStore();
 
+    const handlePress = () => {
+
+    }
+
     return (
         <>
+
             {phase==="periodSetting" && 
-                <BottomScrollSheet snapPointList={["70%"]} style={{backgroundColor: "#fff"}}>
+                <View style={Common.darkBackground}>
+                <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}>
                     <View>
-                        <View style={Common.XStack}>
-                            <View style={{flex: 10, alignItems: "center"}}>
-                                <Text style={{fontSize: 16, fontWeight: 500}}>일정 선택</Text>
-                            </View>
-                            <button><Cancel /></button>
+                        <Button type="option" onPress={handlePress} style={Common.cancel}><Cancel /></Button>
+                        <View style={{alignItems: "center", paddingVertical: 15,}}>
+                            <Text style={{fontSize: 18, fontWeight: 500}}>일정 선택</Text>
                         </View>
                         <DateSelector />
                     </View>
                 </BottomScrollSheet>
+                </View>
             }
             {phase==="consenting" && 
-                <BottomScrollSheet snapPointList={["40%"]}>
+                <View style={Common.darkBackground}>
+                <BottomScrollSheet snapPointList={["60%"]}>
                     <View>
                         <Text>하자/파손정책 동의 체크박스</Text>
                     </View>    
                 </BottomScrollSheet>
+                </View>
             }
         </>
     );
