@@ -4,6 +4,7 @@ import { Calendar, LocaleConfig } from "react-native-calendars";
 import RightArrow from "@/assets/images/right-arrow.svg";
 import LeftArrow from "@/assets/images/left-arrow.svg";
 import Chip from "../Chip";
+import { Common } from "@/styles/common";
 
 const DateSelector = () => {
     const [selected, setSelected] = useState('');
@@ -56,7 +57,9 @@ const DateSelector = () => {
                     arrowColor: "#5B5B5B"
                 }}
             />
-            <Chip />
+            <View style={Common.chips}>             
+                <Chip />
+            </View>
         </View>
     );
 }
