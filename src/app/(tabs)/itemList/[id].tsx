@@ -11,6 +11,7 @@ import ItemDetails from "@/components/itemList/ItemDetails";
 import { View } from "react-native";
 import DateSelector from "@/components/itemList/DateSelector";
 import useRequestStore from "@/stores/useRequestStore";
+import ItemDetailsBottomSheet from "@/components/bottomSheet/ItemDetailsBottomSheet";
 
 const sampleData: ItemDetailsProp = {
     id: 0,
@@ -68,7 +69,7 @@ const Postings = () => {
                     likes={3}
                 />
             </BottomScrollSheet>
-            <DateSelector />
+            <ItemDetailsBottomSheet />
         </GestureHandlerRootView>
     )
 }  
