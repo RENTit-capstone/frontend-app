@@ -15,8 +15,6 @@ const ItemDetailsTabBar = () => {
         else if (phase === "consenting")    setPhase("applying");
     }
 
-
-
     return (
         <View style={bottomTabBar.itemDetailsTabBar}>
             {phase==="viewing" && 

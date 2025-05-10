@@ -6,7 +6,7 @@ import { ItemDetailsProp } from "@/types/types";
 import { useEffect, useState } from "react";
 import { axiosGet } from "@/api";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import BottomScrollSheet from "@/components/BottomScrollSheet";
+import BottomScrollSheet from "@/components/bottomSheet/BottomScrollSheet";
 import ItemDetails from "@/components/itemList/ItemDetails";
 import { View } from "react-native";
 import DateSelector from "@/components/itemList/DateSelector";

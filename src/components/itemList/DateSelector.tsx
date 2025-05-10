@@ -1,5 +1,5 @@
 import { Button, Text, View } from "react-native";
-import BottomScrollSheet from "../BottomScrollSheet";
+import BottomScrollSheet from "../bottomSheet/BottomScrollSheet";
 
 
 const DateSelector = () => {
