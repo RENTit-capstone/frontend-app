@@ -107,5 +107,22 @@ export const Common = StyleSheet.create({
     bottomSheetHeader: {
         flexDirection: "row", 
         alignItems: "center" 
+    },
+    darkBackground: {
+        position: "absolute",
+        top: 0,     
+        left: 0, 
+        right: 0, 
+        bottom: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        zIndex: 1,
+    },
+    cancel: {
+        position: "absolute",
+        zIndex: 20,
+        top: 0,
+        right: 16,
+        marginVertical: 0,
     }
+
 });
