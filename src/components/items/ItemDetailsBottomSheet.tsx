@@ -9,8 +9,12 @@ const ItemDetailsBottomSheet = () => {
     return (
         <>
             {phase==="periodSetting" && 
-                <BottomScrollSheet snapPointList={["40%"]}>
-                    <DateSelector />
+                <BottomScrollSheet snapPointList={["70%"]}>
+                    <View>
+                        <Text>일정 선택 X</Text>
+                        <Text></Text>
+                        <DateSelector />
+                    </View>
                 </BottomScrollSheet>
             }
             {phase==="consenting" && 
