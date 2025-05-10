@@ -12,7 +12,7 @@ import useRequestStore from "@/stores/useRequestStore";
 import ItemDetailsBottomSheet from "@/components/bottomSheet/ItemDetailsBottomSheet";
 
 const sampleData: ItemDetailsProp = {
-    id: 0,
+    id: "0",
     owner: "string", 
     name: "string",
     itemImg: "string", 

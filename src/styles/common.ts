@@ -79,8 +79,10 @@ export const Common = StyleSheet.create({
     badge: {
         borderWidth: 1,
         borderRadius: 50,
-        paddingHorizontal: 8,
+        paddingHorizontal: 10,
         alignSelf: "flex-start",
+        paddingVertical: 5, 
+        alignItems: "center"
     },
     wideView: {
         flex: 1,
@@ -145,5 +147,12 @@ export const Common = StyleSheet.create({
         top: 0,
         right: 16,
         marginVertical: 0,
+    },
+    chips: {
+        flexWrap: "wrap",
+        flexDirection: "row",
+        gap: 12,
+        marginVertical: 12,
+        marginHorizontal: 12, 
     }
 });
