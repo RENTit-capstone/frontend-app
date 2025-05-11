@@ -109,9 +109,10 @@ const DateSelector = () => {
         return marked;
     }, [startDate, endDate]);
 
-    useEffect(() => {
-        console.log("makredDates: " , markedDates);
-    }, [markedDates])
+    const resetPeriod = () => {
+        setStartDate(null);
+        setEndDate(null);
+    }
 
     return (   
         <View> 
@@ -127,7 +128,7 @@ const DateSelector = () => {
                 }}
             />
             <View style={Common.chips}>             
-                <Chip startDate={startDate} endDate={endDate}/>
+                <Chip startDate={startDate} endDate={endDate} onCancel={resetPeriod}/>
             </View>
         </View>
     );

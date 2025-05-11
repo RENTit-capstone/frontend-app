@@ -19,7 +19,7 @@ const ItemDetailsBottomSheet = () => {
 
             {phase==="periodSetting" && 
                 <View style={Common.darkBackground}>
-                <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}>
+                <BottomScrollSheet snapPointList={["80%"]} style={{backgroundColor: "#fff"}}>
                     <View>
                         <Button type="option" onPress={handlePress} style={Common.cancel}><Cancel /></Button>
                         <View style={{alignItems: "center", paddingVertical: 15,}}>

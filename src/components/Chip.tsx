@@ -5,17 +5,18 @@ import Cancel from "@/assets/images/cancel.svg";
 type ChipProps = {
     startDate: string | null,
     endDate: string | null,
+    onCancel: () => void,
 }
 
 const Chip = (props: ChipProps) => {
-    const {startDate, endDate} = props;
+    const {startDate, endDate, onCancel} = props;
 
     return (
         <>
         {(startDate && endDate) && 
         <View style={[Common.badge, Common.XStack, {borderColor: "#D4D4D8"}]}>
             <Text>{startDate.replaceAll('-', '.')} ~ {endDate.replaceAll('-', '.')}</Text>
-            <Pressable>
+            <Pressable onPress={() => onCancel()}>
                 <Cancel />
             </Pressable>
         </View>
