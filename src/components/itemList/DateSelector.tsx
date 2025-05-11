@@ -1,13 +1,18 @@
-import React, { useRef, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { Calendar, LocaleConfig } from "react-native-calendars";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Calendar, DateData, LocaleConfig } from "react-native-calendars";
 import RightArrow from "@/assets/images/right-arrow.svg";
 import LeftArrow from "@/assets/images/left-arrow.svg";
 import Chip from "../Chip";
 import { Common } from "@/styles/common";
+import Colors from "@/constants/Colors";
+import { MarkedDates } from "react-native-calendars/src/types";
 
 const DateSelector = () => {
-    const [selected, setSelected] = useState('');
+    const [startDate, setStartDate] = useState<string | null>(null);
+    const [endDate, setEndDate] = useState<string | null>(null);
+
+    // custom Header ...
     const [currentMonth, setCurrentMonth] = useState(new Date().toISOString().split('T')[0]);
     const customHeaderProps: any = useRef('');
 
@@ -40,19 +45,83 @@ const DateSelector = () => {
             </View>
         )
     });
+    // ... custom Header
+
+    // custom Day ...
+    const onDayPress = (day: DateData) => {
+        console.log(day.dateString);
+        // 두개 다 선택이 안된 경우
+        if (!startDate || (startDate && endDate)) {
+            console.log("asdf")
+            setStartDate(day.dateString);
+            setEndDate(null);
+            return;
+        }
+        // 두번째로 선택한 날짜가 startDate일 때
+        if (new Date(day.dateString) < new Date(startDate)) {
+            setEndDate(startDate);
+            setStartDate(day.dateString);
+            console.log(startDate);
+        }
+        else {
+            setEndDate(day.dateString);
+        }
+    }
+    
+    const markedDates = useMemo(() => {
+        let marked: MarkedDates = {};
+
+        if (startDate && !endDate) {
+            marked[startDate] = {
+                startingDay: true,
+                endingDay: true,
+                color: Colors.primary,
+                textColor: Colors.white,
+            };
+        }
+        
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            let current = new Date(start);
+
+            while (current <= end) {
+                const dateStr = current.toISOString().split('T')[0];
+
+                marked[dateStr] = {
+                    color: dateStr === startDate || dateStr === endDate
+                        ? Colors.primary
+                        : "#455464",
+                        // : "#F3F7FA",
+                    textColor:
+                        "white",
+                        // dateStr === startDate || dateStr === endDate
+                        // ? 'white'
+                        // : '#000',
+                    startingDay: dateStr === startDate,
+                    endingDay: dateStr === endDate,
+                };
+
+                current.setDate(current.getDate() + 1);
+            }
+        }
+
+        return marked;
+    }, [startDate, endDate]);
+
+    useEffect(() => {
+        console.log("makredDates: " , markedDates);
+    }, [markedDates])
 
     return (   
         <View> 
             <Calendar
                 // customHeader={CustomHeader}
                 monthFormat="yyyy MM"
-                onDayPress={(day) => {
-                    setSelected(day.dateString);
-                    console.log("selected day", day.dateString);
-                }}
-                markedDates={{
-                    [selected]: {selected: true, disableTouchEvent: true}
-                }}
+                onDayPress={onDayPress}
+                markingType="period"
+                markedDates={markedDates}               
+
                 theme={{ 
                     arrowColor: "#5B5B5B"
                 }}
