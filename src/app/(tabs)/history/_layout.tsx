@@ -1,24 +1,16 @@
 import Header from '@/components/Header';
 import { Stack, usePathname } from 'expo-router';
 
-export default function ItemListLayout() {
+export default function HistoryLayout() {
     const pathname = usePathname();
-    const isRoot = pathname==="/itemList";
+    const isRoot = pathname==="/history";
 
     return(
         <Stack screenOptions={{ headerShown: true }}>
             <Stack.Screen 
                 name="index"
                 options={{
-                    title: "홈",
                     header: () => <Header />
-                }}
-            />
-            <Stack.Screen 
-                name="[id]"
-                options={{
-                    title: "asdf",
-                    headerShown: false
                 }}
             />
         </Stack>
