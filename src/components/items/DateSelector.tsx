@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import { Calendar, DateData, LocaleConfig } from "react-native-calendars";
 import RightArrow from "@/assets/images/right-arrow.svg";
@@ -8,9 +8,17 @@ import { Common } from "@/styles/common";
 import Colors from "@/constants/Colors";
 import { MarkedDates } from "react-native-calendars/src/types";
 
-const DateSelector = () => {
+export type DateSelectorRef = {
+    getDates: () => {startDate: string | null; endDate: string | null};
+}
+
+const DateSelector = forwardRef<DateSelectorRef>((_, ref) => {
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
+
+    useImperativeHandle(ref, () => ({
+        getDates: () => ({startDate, endDate}),
+    }));
 
     // custom Header ...
     const [currentMonth, setCurrentMonth] = useState(new Date().toISOString().split('T')[0]);
@@ -132,6 +140,6 @@ const DateSelector = () => {
             </View>
         </View>
     );
-}
+});
 
 export default DateSelector;

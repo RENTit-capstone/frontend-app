@@ -1,17 +1,26 @@
 import useRequestStore from "@/stores/useRequestStore";
 import BottomScrollSheet from "../BottomScrollSheet";
 import { Text, View } from "react-native";
+<<<<<<< HEAD:src/components/items/ItemDetailsBottomSheet.tsx
 import DateSelector from ".//DateSelector";
+=======
+import DateSelector, { DateSelectorRef } from "../itemList/DateSelector";
+>>>>>>> 5839185 (Feat: 선택된 기한 상태관리 로직 추가):src/components/bottomSheet/ItemDetailsBottomSheet.tsx
 import { Common } from "@/styles/common";
 import Cancel from "@/assets/images/cancel.svg";
-import { itemList } from "@/styles/components/itemList";
 import Button from "../Button";
+import { useRef } from "react";
 
 const ItemDetailsBottomSheet = () => {
-    const {phase} = useRequestStore();
+    const {phase, setStartDate, setEndDate} = useRequestStore();
+    const dateSelectorRef = useRef<DateSelectorRef>(null);
 
     const handlePress = () => {
-
+        const dates = dateSelectorRef.current?.getDates();
+        if (dates?.startDate && dates?.endDate) {
+            setStartDate(dates.startDate);
+            setEndDate(dates.endDate);
+        }
     }
 
     return (
@@ -25,7 +34,7 @@ const ItemDetailsBottomSheet = () => {
                         <View style={{alignItems: "center", paddingVertical: 15,}}>
                             <Text style={{fontSize: 18, fontWeight: 500}}>일정 선택</Text>
                         </View>
-                        <DateSelector />
+                        <DateSelector ref={dateSelectorRef}/>
                     </View>
                 </BottomScrollSheet>
                 </View>
