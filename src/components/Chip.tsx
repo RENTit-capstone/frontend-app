@@ -3,18 +3,24 @@ import { Pressable, Text, View } from "react-native";
 import Cancel from "@/assets/images/cancel.svg";
 
 type ChipProps = {
-
+    startDate: string | null,
+    endDate: string | null,
 }
 
 const Chip = (props: ChipProps) => {
+    const {startDate, endDate} = props;
+
     return (
+        <>
+        {(startDate && endDate) && 
         <View style={[Common.badge, Common.XStack, {borderColor: "#D4D4D8"}]}>
-            <Text>24.06.01 ~24.06.07</Text>
+            <Text>{startDate.replaceAll('-', '.')} ~ {endDate.replaceAll('-', '.')}</Text>
             <Pressable>
                 <Cancel />
             </Pressable>
-            
         </View>
+        }
+        </>
     );
 }
 

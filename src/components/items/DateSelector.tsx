@@ -127,7 +127,7 @@ const DateSelector = () => {
                 }}
             />
             <View style={Common.chips}>             
-                <Chip />
+                <Chip startDate={startDate} endDate={endDate}/>
             </View>
         </View>
     );
