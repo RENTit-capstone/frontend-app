@@ -84,34 +84,6 @@ export const itemList = StyleSheet.create({
             })
     },
 
-    //TabBar
-    tabBar: {
-        position: "absolute",
-        bottom: 0,
-        height: "10%",
-        width: "100%",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        backgroundColor: Colors.secondary,
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
-        // borderCurve: "continuous",
-        shadowColor: "#000",
-        shadowOffset: {width: 0, height: 0},
-        shadowRadius: 10,
-        shadowOpacity: 0.15,
-    },
-    tabBarItem: {
-        flex: 1,
-        flexDirection: "row",
-        borderRadius: 8,
-        height: "65%",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: 4,
-    },
-
     // [id]
     detailImage: {
         width: "100%",
@@ -126,8 +98,8 @@ export const itemList = StyleSheet.create({
             default: {
                 shadowColor: '#000',
                 shadowOffset: { width: 0, height: -4 },
-                shadowOpacity: 0.08,
-                shadowRadius: 5,
+                shadowOpacity: 0.1,
+                shadowRadius: 10,
                 },
             android: {
                 elevation: 5,
@@ -139,6 +111,7 @@ export const itemList = StyleSheet.create({
         gap: 10,
     },
     detailInfo: {
+        flex: 1,
         backgroundColor: "#fff",
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,

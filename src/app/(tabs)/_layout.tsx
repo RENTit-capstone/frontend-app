@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import { View, Pressable } from "react-native";
 import { Common } from "@/styles/common";
-import TabBar from "@/components/itemList/TabBar";
+import TabBar from "@/components/bottomTabBar/TabBar";
 import { ReactElement } from "react";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import Header from "@/components/Header";

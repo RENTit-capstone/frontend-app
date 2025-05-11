@@ -21,8 +21,8 @@ export const ViewThemes = StyleSheet.create({
     available: {
         borderColor: Colors.available,
     },
-    notAvailable: {
-        borderColor: Colors.notAvailable,
+    out: {
+        borderColor: Colors.out,
     }
 });
 
@@ -56,8 +56,8 @@ export const TextThemes = StyleSheet.create({
     available: {
         color: Colors.available,
     },
-    notAvailable: {
-        color: Colors.notAvailable,
+    out: {
+        color: Colors.out,
     }
   
 });

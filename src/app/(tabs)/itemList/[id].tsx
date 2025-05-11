@@ -1,71 +1,76 @@
-import Avatar from "@/components/Avatar";
-import Badge from "@/components/Badge";
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
-import { useLocalSearchParams, useNavigation } from "expo-router";
-import { useEffect } from "react";
-import { Image, ScrollView, Text, View } from "react-native"
+import { useLocalSearchParams } from "expo-router";
+import { Image, Text } from "react-native"
+import { ItemDetailsProp } from "@/types/types";
+import { useEffect, useState } from "react";
+import { axiosGet } from "@/api";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import BottomScrollSheet from "@/components/bottomSheet/BottomScrollSheet";
+import ItemDetails from "@/components/itemList/ItemDetails";
+import { View } from "react-native";
+import DateSelector from "@/components/itemList/DateSelector";
+import useRequestStore from "@/stores/useRequestStore";
+import ItemDetailsBottomSheet from "@/components/bottomSheet/ItemDetailsBottomSheet";
+
+const sampleData: ItemDetailsProp = {
+    id: 0,
+    owner: "string", 
+    name: "string",
+    itemImg: "string", 
+    description: "string",
+    price: 5000, 
+    status: "OUT",
+    damagedPolicy: "string",
+    startDate: "string",
+    endDate: "string",
+    messages: 2, 
+    likes: 3,
+}
 
 const Postings = () => {
     const { id } = useLocalSearchParams();
-    console.log(id);
-    const OUT = false;
+    const [data, setData] = useState<ItemDetailsProp>(sampleData);
+    const setStoredId = useRequestStore((state) => state.setStoredId);
+
+    useEffect(() => {
+        setStoredId(id);
+        fetchItemDetails();
+    }, []);
+
+    const fetchItemDetails = async () => {
+        try {
+            const response = await axiosGet(`/api/v1/items/${id}`);
+            console.log("Response for fetchItemDetails: ", response.data);
+            setData(response.data);
+        }
+        catch(error) {
+            console.error(error);
+        }
+    }
 
     return (
-        <View style={Common.container}>
+        <GestureHandlerRootView style={Common.container}>
             <Image source={require("@/assets/images/icon.png")} style={itemList.detailImage} />
             
-            {/* bottom sheet */}
-            <View style={itemList.bottomSheet}>
-
-                <View style={[itemList.detailsHeader, Common.wrapper]}>
-                    <View style={[Common.textWrapper, itemList.detailsHeader]}>
-                        <View style={[Common.textWrapper, itemList.detailsHeader]}>
-                            <Avatar /> 
-                            <Text>판매자 마루</Text>    
-                        </View>
-                        <Text>채팅2 관심3</Text>
-                    </View>
-                    <View style={[itemList.rowDivider, {marginTop: 0, width: "100%"}]} />
-
-                    <View style={[Common.textWrapper, {gap: 10}]}>
-                        <Badge available={OUT} />
-                        {!OUT && <Text>반납일: 2025.05.01</Text> }
-                    </View>
-
-                    <View style={[Common.textWrapper, itemList.detailsHeader]}>    
-                        <Text style={Common.bold}>노트북</Text>
-                        <Text style={Common.bold}>5,000원 | 일</Text>
-                    </View>
-                </View>
-
-
-
-                <ScrollView style={[itemList.detailInfo, Common.wrapper]}>
-                    <View style={Common.section}>
-                        <Text style={itemList.title}>내용</Text>
-                        <Text>
-                            내용 입력
-                            내용 입력
-                        </Text>
-                    </View> 
-                    <View style={Common.section}>
-                        <Text style={itemList.title}>하자</Text>
-                        <Text>
-                            하자 입력
-                            하자 입력
-                        </Text>
-                    </View>
-                    <View style={Common.section}>
-                        <Text style={itemList.title}>파손정책</Text>
-                        <Text>
-                            파손정책 입력
-                            파손정책 입력
-                        </Text>
-                    </View>
-                </ScrollView>
-            </View>
-        </View>
+            <BottomScrollSheet snapPointList={["50%", "60%", "70%", "80%"]}>
+                <ItemDetails
+                    id={id}
+                    owner="string" 
+                    name="string"
+                    itemImg="string" 
+                    description="string"
+                    price={5000} 
+                    status="OUT"
+                    damagedPolicy="string"
+                    startDate="string"
+                    endDate="string"
+                    messages={2} 
+                    likes={3}
+                />
+            </BottomScrollSheet>
+            <ItemDetailsBottomSheet />
+        </GestureHandlerRootView>
     )
 }  
 
