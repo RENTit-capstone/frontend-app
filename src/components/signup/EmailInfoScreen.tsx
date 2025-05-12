@@ -10,7 +10,7 @@ const EmailInfoScreen = (props: any) => {
     const [showVerifyInput, setShowverifyInput] = useState(false);
     
     const handleSendCode = () => {
-        if (errors.email)  console.log('email error');  //TODO: 이메일 오류 시 에러처리
+        if (errors.email)  console.log('email error');  //TODO: 이메일, 학교정보 오류 시 에러처리
 
         try {
             sendCode(values.email, values.university);
@@ -23,6 +23,20 @@ const EmailInfoScreen = (props: any) => {
 
     return (
         <>
+            <TextInput 
+                label="학교" 
+                name="university"
+                handleChangeText={handleChange}
+                value={values.university}
+                errorMsg={errors.university}
+            />
+            <TextInput 
+                label="학번" 
+                name="studentId"
+                handleChangeText={handleChange}
+                value={values.studentId}
+                errorMsg={errors.studentId}
+            />   
             <TextInput 
                 label="이메일" 
                 name="email"
