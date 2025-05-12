@@ -22,6 +22,16 @@ const EmailInfoScreen = (props: any) => {
         setShowverifyInput(true);
     }
 
+    const handleVerifyCode = async () => {
+        try {
+            const response = await verifyCode(values.email, values.university, values.emailVerifyCode);
+            console.log(response); //TODO: dialog
+        }
+        catch(error) {
+            console.error(error);
+        }
+    }
+
     return (
         <>
             <TextInput 
@@ -65,7 +75,7 @@ const EmailInfoScreen = (props: any) => {
                 />   
                 <Button 
                     type="primary" 
-                    onPress={() => verifyCode(values.email, values.university, values.verifyCode)} 
+                    onPress={handleVerifyCode} 
                     disabled={!(values.email.length>3) || !!errors.email}
                 >
                     확인
