@@ -7,9 +7,11 @@ import Button from "@/components/Button";
 import { Common } from "@/styles/common";
 import Logo from "@/assets/images/logo.svg";
 import { axiosPost } from "@/api";
+import useAuthStore from "@/stores/useAuthStore";
 
 
 const Login = () => {
+    const {setAccessToken, setRefreshToken} = useAuthStore();
     const [form, setForm] = useState({
         email: "",
         pw: "",
@@ -18,7 +20,9 @@ const Login = () => {
     const login = async (payload: LoginType) => {
         console.log(payload);
         try {
-            const response = await axiosPost(`/api/v1/auth/login`);
+            const response = await axiosPost(`/api/v1/auth/login`, payload);
+            setAccessToken(response.data.accessToken);
+            await setRefreshToken(response.data.refreshToken);
             console.log("Response for login: ", response.data);
         } 
         catch (error) {
