@@ -1,4 +1,3 @@
-import { useLinkProps } from "@react-navigation/native";
 import TextInput from "../TextInput";
 
 const UserInfoScreen = (props: any) => {

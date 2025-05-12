@@ -6,8 +6,7 @@ import { useSignupVerificationStore } from "@/stores/useSignupVerificationStore"
 
 const EmailInfoScreen = (props: any) => {
     const {values, errors, handleChange} = props;
-    const {sendCode, verifyCode} = useSignupVerificationStore();
-    const [showVerifyInput, setShowverifyInput] = useState(false);
+    const {emailCodeSent, sendCode, verifyCode} = useSignupVerificationStore();
     
     const handleSendCode = async () => {
         if (errors.email)  console.log('email error');  //TODO: 이메일, 학교정보 오류 시 에러처리
@@ -19,7 +18,6 @@ const EmailInfoScreen = (props: any) => {
         catch(error) {
             console.error(error);
         }
-        setShowverifyInput(true);
     }
 
     const handleVerifyCode = async () => {
@@ -64,7 +62,7 @@ const EmailInfoScreen = (props: any) => {
             >
                 전송
             </Button>
-            {showVerifyInput &&
+            {emailCodeSent &&
             <>
             <Text>{`${values.email}로 확인 코드가 전송되었습니다.`}</Text>
                 <TextInput

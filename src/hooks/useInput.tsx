@@ -29,7 +29,7 @@ function useInput(initialValues: SignupInputType) {
         setErrors(prev => ({...prev, [name]: error}));
     }
 
-    const hideNext = (page: number) => {
+    const blockNext = (page: number) => {
         let isError = true;
 
         if (page===0){
@@ -43,7 +43,7 @@ function useInput(initialValues: SignupInputType) {
             return isError;
         }
     }
-    return {values, errors, handleChange, hideNext};
+    return {values, errors, handleChange, blockNext};
 
 }
 export default useInput;

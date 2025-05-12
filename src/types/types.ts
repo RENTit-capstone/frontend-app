@@ -50,7 +50,7 @@ export type SignupInputType = {
 }
 
 export type memberType = "STUDENT" | "COUNCIL" | "COMPANY";
-export type Gender = 'male' | 'female';
+export type Gender = "male" | "female" | "";
 
 export type UserInfoType = {
     email: string,

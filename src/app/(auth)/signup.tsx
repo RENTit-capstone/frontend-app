@@ -11,16 +11,16 @@ import { useSignupVerificationStore } from "@/stores/useSignupVerificationStore"
 import { UserInfoType } from "@/types/types";
 
 const Signup = () => {
-    const lastPage = 2;
+    const lastPage = 1;
     const [page, setPage] = useState(0);
-    const {signup} = useSignupVerificationStore();
-    const {values, errors, handleChange, hideNext} = useInput({
+    const {emailVerified, signup} = useSignupVerificationStore();
+    const {values, errors, handleChange, blockNext} = useInput({
         email: "",
         pw: "",
         pwConfirm: "",
         name: "",
         nickname: "",
-        gender: "male",
+        gender: "",
         phone: "",
         university: "",
         studentId: "",
@@ -57,7 +57,7 @@ const Signup = () => {
                 <Text>RENTit 회원가입</Text>
                 <View style={Common.YStack}>
                     {page==0 && <EmailInfoScreen values={values} errors={errors} handleChange={handleChange}/>}
-                    {page===1 && <UserInfoScreen /> }
+                    {page===1 && <UserInfoScreen values={values} errors={errors} handleChange={handleChange}/> }
 
                     <View style={Common.XStack}>
                         <Button 
@@ -71,7 +71,7 @@ const Signup = () => {
                         {page===lastPage?(
                             <Button 
                                 onPress={handleSubmit}
-                                disabled={hideNext(page)}
+                                disabled={blockNext(page)}
                                 type="primary"
                             >
                                 가입하기
@@ -79,7 +79,7 @@ const Signup = () => {
                         ) : (
                             <Button 
                                 onPress={() => (setPage(page+1))}
-                                disabled={hideNext(page)}
+                                disabled={!emailVerified && blockNext(page)}
                                 type="primary"
                             >
                                 다음
