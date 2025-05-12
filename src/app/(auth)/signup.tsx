@@ -71,7 +71,7 @@ const Signup = () => {
                         {page===lastPage?(
                             <Button 
                                 onPress={handleSubmit}
-                                disabled={blockNext(page)}
+                                disabled={hideNext(page)}
                                 type="primary"
                             >
                                 가입하기
@@ -79,7 +79,7 @@ const Signup = () => {
                         ) : (
                             <Button 
                                 onPress={() => (setPage(page+1))}
-                                disabled={blockNext(page)}
+                                disabled={hideNext(page)}
                                 type="primary"
                             >
                                 다음
