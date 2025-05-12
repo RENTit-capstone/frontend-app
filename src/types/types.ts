@@ -47,6 +47,7 @@ export type SignupType = {
     university: string,
     studentId: string,       
     emailVerifyCode: string,
+<<<<<<< HEAD
 }
 
 export type ListItemProps = {
@@ -108,4 +109,6 @@ export type ItemDetailsProp = {
 
     messages: number, 
     likes: number,
+=======
+>>>>>>> 433cab87468d1409bb709657b21594dbb65e7dc8
 }
