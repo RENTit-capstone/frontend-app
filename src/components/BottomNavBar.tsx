@@ -3,11 +3,9 @@ import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import Home from "@/assets/images/home.svg";
 import { ReactElement } from "react";
 import Colors from "@/constants/Colors";
-import { usePathname } from "expo-router";
-import ItemDetailsTabBar from "./ItemDetailsTabBar";
 import { bottomTabBar } from "@/styles/components/bottomTabBar";
 
-const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
+const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     const primaryColor = Colors.primary;
     const secondaryColor = Colors.secondary;
     const whiteColor = Colors.white;
@@ -72,4 +70,4 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     );
   }
 
-export default TabBar;
+export default BottomNavBar;
