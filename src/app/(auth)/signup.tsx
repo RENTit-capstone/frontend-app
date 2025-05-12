@@ -14,7 +14,6 @@ import UnivInfoScreen from "@/components/signup/UnivInfoScreen";
 const Signup = () => {
     const lastPage = 3;
     const [page, setPage] = useState(0);
-    const [showVerifyInput, setShowverifyInput] = useState(false);
     const {values, errors, handleChange, blockNext} = useInput({
         email: "",
         pw: "",
@@ -48,20 +47,6 @@ const Signup = () => {
         }
     };
 
-    const handleSendCode = async () => {
-        //이메일 인증 코드 전송 API 호출
-        if (errors.email)  console.log('asdf');
-        setShowverifyInput(true);
-        try{
-            const response = await sendEmailVerifyCode(values.email);
-            if (response.data) {
-            }
-        }
-        catch (error){
-            console.log(error);
-            //실패 dialog
-        }
-    }
 
     const handleEmailVerify = async () => {
         // 이메일 코드 일치 확인 API 호출
@@ -87,7 +72,7 @@ const Signup = () => {
                 <Logo />
                 <Text>RENTit 회원가입</Text>
                 <View style={Common.YStack}>
-                    {page==0 && <EmailInfoScreen />}
+                    {page==0 && <EmailInfoScreen values={values} errors={errors} handleChange={handleChange}/>}
                     {page===1 && <UserInfoScreen /> }
                     {page===2 && <UnivInfoScreen />}
 

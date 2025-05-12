@@ -9,7 +9,7 @@ type SignupVerificationType = {
     verifyCode: (code: string) => Promise<void>,
 };
 
-export const useSignupStore = create<SignupVerificationType>(
+export const useSignupVerificationStore = create<SignupVerificationType>(
     (set, get) => ({
         emailCodeSent: false,
         emailVerified: false,

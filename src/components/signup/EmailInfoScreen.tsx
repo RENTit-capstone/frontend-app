@@ -1,6 +1,21 @@
+import { Text, View } from "react-native";
+import { useState } from "react";
+import Button from "../Button";
 import TextInput from "../TextInput";
+import { useSignupVerificationStore } from "@/stores/useSignupVerificationStore";
 
-const EmailInfoScreen = () => {
+const EmailInfoScreen = (props: any) => {
+    const {values, errors, handleChange} = props;
+    const {sendCode, verifyCode} = useSignupVerificationStore();
+    const [showVerifyInput, setShowverifyInput] = useState(false);
+    
+    const handleSendCode = () => {
+        if (errors.email)  console.log('email error');  //TODO: 이메일 오류 시 에러처리
+
+        sendCode(values.email);
+        setShowverifyInput(true);
+    }
+
     return (
         <>
             <TextInput 
@@ -30,7 +45,7 @@ const EmailInfoScreen = () => {
                 />   
                 <Button 
                     type="primary" 
-                    onPress={handleSendCode} 
+                    onPress={() => verifyCode(values.verifyCode)} 
                     disabled={!(values.email.length>3) || !!errors.email}
                 >
                     확인
