@@ -11,6 +11,7 @@ import {sendEmailVerifyCode, signup, verifyEmail} from "@/api/auth";
 const Signup = () => {
     const lastPage = 3;
     const [page, setPage] = useState(0);
+    const [showVerifyInput, setShowverifyInput] = useState(false);
     const {values, errors, handleChange, blockNext} = useInput({
         email: "",
         pw: "",
@@ -46,6 +47,8 @@ const Signup = () => {
 
     const handleSendCode = async () => {
         //이메일 인증 코드 전송 API 호출
+        if (errors.email)  console.log('asdf');
+        setShowverifyInput(true);
         try{
             const response = await sendEmailVerifyCode(values.email);
             if (response.data) {
@@ -80,35 +83,45 @@ const Signup = () => {
             <KeyboardAvoidingView style={Common.container}>
                 <Logo />
                 <Text>RENTit 회원가입</Text>
+                <Text>RENTit은 학교 기반 서비스로, 이메일 인증이 필요합니다.</Text>
                 <View style={Common.YStack}>
                     {page==0 && 
+                    <>
+                        <TextInput 
+                            label="이메일" 
+                            name="email"
+                            handleChangeText={handleChange}
+                            value={values.email}
+                            keyboardType="email-address"
+                            placeholder="email@email.com"
+                            errorMsg={errors.email}
+                        />
+                        <Button 
+                            type="primary" 
+                            onPress={handleSendCode} 
+                            disabled={!(values.email.length>3) || !!errors.email}
+                        >
+                            전송
+                        </Button>
+                        {showVerifyInput &&
                         <>
-                            <TextInput 
-                                label="이메일" 
-                                name="email"
+                        <Text>{`${values.email}로 확인 코드가 전송되었습니다.`}</Text>
+                            <TextInput
+                                label="이메일 인증 코드"
+                                name="emailVerifyCode"
                                 handleChangeText={handleChange}
-                                value={values.email}
-                                keyboardType="email-address"
-                                placeholder="email@email.com"
-                                errorMsg={errors.email}
-                            />
-                            <TextInput 
-                                label="비밀번호" 
-                                name="pw"
-                                handleChangeText={handleChange}
-                                value={values.pw}
-                                secureTextEntry={true}
-                                errorMsg={errors.pw}
-                            />
-                            <TextInput 
-                                label="비밀번호 확인" 
-                                name="pwConfirm"
-                                handleChangeText={handleChange}
-                                value={values.pwConfirm}
-                                secureTextEntry={true}
-                                errorMsg={errors.pwConfirm}
-                            />
+                                value={values.emailVerifyCode}
+                            />   
+                            <Button 
+                                type="primary" 
+                                onPress={handleSendCode} 
+                                disabled={!(values.email.length>3) || !!errors.email}
+                            >
+                                확인
+                            </Button>
                         </>
+                        }
+                    </> 
                     }
                     {page===1 &&
                         <>
@@ -125,6 +138,22 @@ const Signup = () => {
                                 handleChangeText={handleChange}
                                 value={values.nickname}
                                 errorMsg={errors.nickname}
+                            />
+                            <TextInput 
+                                label="비밀번호" 
+                                name="pw"
+                                handleChangeText={handleChange}
+                                value={values.pw}
+                                secureTextEntry={true}
+                                errorMsg={errors.pw}
+                            />
+                            <TextInput 
+                                label="비밀번호 확인" 
+                                name="pwConfirm"
+                                handleChangeText={handleChange}
+                                value={values.pwConfirm}
+                                secureTextEntry={true}
+                                errorMsg={errors.pwConfirm}
                             />
                             <TextInput      //드롭다운인풋 -> react-native-dropdown-picker 사용
                                 label="성별" 
@@ -164,16 +193,10 @@ const Signup = () => {
                     }
                     {page==lastPage && 
                         <>
-                            <Text>{`${values.email}로 확인 코드가 전송되었습니다.`}</Text>
-                            <TextInput
-                                label="이메일 인증 코드"
-                                name="emailVerifyCode"
-                                handleChangeText={handleChange}
-                                value={values.emailVerifyCode}
-                            />                                
+                             
                         </>
                     }
-                    <View style={Styles.XStack}>
+                    <View style={Common.XStack}>
                         <Button 
                             onPress={() => (setPage(page-1))}
                             disabled={page<=0}

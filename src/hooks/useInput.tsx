@@ -31,8 +31,6 @@ function useInput(initialValues: SignupType) {
             error="유효한 전화번호 형식으로 입력해주세요.";
 
         setErrors(prev => ({...prev, [name]: error}));
-        console.log(!(!errors.email && !errors.pw && !errors.pwConfirm))
-        console.log((!values.email && !values.pw && !values.pwConfirm))
     }
 
     const blockNext = (page: number) => {
