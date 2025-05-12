@@ -12,7 +12,12 @@ const EmailInfoScreen = (props: any) => {
     const handleSendCode = () => {
         if (errors.email)  console.log('email error');  //TODO: 이메일 오류 시 에러처리
 
-        sendCode(values.email);
+        try {
+            sendCode(values.email, values.university);
+        }
+        catch(error) {
+            console.error(error);
+        }
         setShowverifyInput(true);
     }
 

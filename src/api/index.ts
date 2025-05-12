@@ -62,7 +62,6 @@ axiosInstance.interceptors.response.use(
         console.log(error);
         return Promise.reject(error);
     }
-<<<<<<< HEAD
 )
 
 export const axiosGet = async (url: string) => {
@@ -80,6 +79,3 @@ export const axiosPost = async (url: string, payload?: any) => {
     }
     return res.data;
 }
-=======
-)
->>>>>>> 433cab87468d1409bb709657b21594dbb65e7dc8
