@@ -7,7 +7,9 @@ const useAuthStore = create<AuthType>()(
    persist(
       (set, get) => ({
          //defaultValues
+         id: null,
          accessToken: null,
+         setId: (id) => set({id}),
          setToken: (accessToken) => set({ accessToken }),
          clearToken: () => set({ accessToken: null }),
    }),

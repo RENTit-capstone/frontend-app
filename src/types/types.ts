@@ -29,21 +29,40 @@ export type UserType = {
 
 // 로그인 상태관리
 export type AuthType = {
+    id: number | null;
     accessToken: string | null;
+    setId: (id: number) => void;
     setToken: (accessToken: string) => void;
     clearToken: () => void;
 }
 
-export type SignupType = {
+export type SignupInputType = {
     email: string,
+    emailVerifyCode: string,
     pw: string,
     pwConfirm: string,
     name: string,
     nickname: string,
-    gender: string,
+    gender: Gender,
     phone: string,
     university: string,
-    studentId: string,        
+    studentId: string,       
+}
+
+export type memberType = "STUDENT" | "COUNCIL" | "COMPANY";
+export type Gender = "male" | "female" | "";
+
+export type UserInfoType = {
+    email: string,
+    password: string,
+    name: string,
+    memberType: memberType,
+    nickname: string,
+    university: string,
+    studentId: string,
+    gender: Gender,
+    phone: string,
+    profileImg?: string | null,
 }
 
 export type ListItemProps = {

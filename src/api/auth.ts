@@ -1,11 +1,11 @@
-import { LoginType } from "@/types/types";
+import { LoginType, SignupType } from "@/types/types";
 import { axiosInstance } from ".";
 import useAuthStore from "@/stores/useAuthStore";
 
-const login = async (payload: LoginType) => {
+export const login = async (loginFormData: LoginType) => {
     const {setToken} = useAuthStore();
     try{
-        const res = await axiosInstance.post("/api/v1/auth/login", payload);
+        const res = await axiosInstance.post("/api/v1/auth/login", loginFormData);
         
         const accessToken = res.headers["Authorization"];
         setToken(accessToken);
@@ -19,5 +19,3 @@ const login = async (payload: LoginType) => {
         throw(error);
     }
 }
-
-export default login;
