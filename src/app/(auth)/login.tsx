@@ -2,24 +2,24 @@ import { Link } from "expo-router"
 import { LoginType } from "@/types/types";
 import { useState } from "react";
 import TextInput from "@/components/TextInput";
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, View } from "react-native";
 import Button from "@/components/Button";
 import { Common } from "@/styles/common";
 import Logo from "@/assets/images/logo.svg";
-import login from "@/api/auth";
+import { axiosPost } from "@/api";
 
 
 const Login = () => {
-    const [error, setError] = useState(false);
     const [form, setForm] = useState({
         email: "",
         pw: "",
     });
 
-    const handleSubmit = (data: LoginType) => {
-        console.log(data);
+    const login = async (payload: LoginType) => {
+        console.log(payload);
         try {
-            login(data);
+            const response = await axiosPost(`/api/v1/auth/login`);
+            console.log("Response for login: ", response.data);
         } 
         catch (error) {
             console.log(error);
@@ -34,7 +34,7 @@ const Login = () => {
             <View style={Common.container}>
                 <Logo />
                 <Text>RENTit 로그인</Text>
-                <View style={Common.fullYStack}>
+                <View style={Common.YStack}>
                     <TextInput 
                         name="email"
                         label="email" 
@@ -50,15 +50,17 @@ const Login = () => {
                         value={form.pw}
                         secureTextEntry={true}
                     />
-                    <Button 
-                        onPress={() => handleSubmit(form)}
-                        disabled={(form.email === "") || (form.pw === "")}
-                        type="primary"
-                    >
-                        로그인
-                    </Button>
+                    <View style={Common.XStack}>
+                        <Button 
+                            onPress={() => login(form)}
+                            disabled={(form.email === "") || (form.pw === "")}
+                            type="primary"
+                        >
+                            로그인
+                        </Button>
+                    </View>
 
-                    <Link href={{pathname: "/"}}>
+                    <Link href={{pathname: "/(auth)/signup"}}>
                         <Text style={[Common.textOption]}>회원가입</Text>
                     </Link>
                 </View>
