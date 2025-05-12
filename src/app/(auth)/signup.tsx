@@ -7,6 +7,9 @@ import useInput from "@/hooks/useInput";
 import Logo from "@/assets/images/logo.svg";
 import { useState } from "react";
 import {sendEmailVerifyCode, signup, verifyEmail} from "@/api/auth";
+import EmailInfoScreen from "@/components/signup/EmailInfoScreen";
+import UserInfoScreen from "@/components/signup/UserInfoScreen";
+import UnivInfoScreen from "@/components/signup/UnivInfoScreen";
 
 const Signup = () => {
     const lastPage = 3;
@@ -83,119 +86,11 @@ const Signup = () => {
             <KeyboardAvoidingView style={Common.container}>
                 <Logo />
                 <Text>RENTit 회원가입</Text>
-                <Text>RENTit은 학교 기반 서비스로, 이메일 인증이 필요합니다.</Text>
                 <View style={Common.YStack}>
-                    {page==0 && 
-                    <>
-                        <TextInput 
-                            label="이메일" 
-                            name="email"
-                            handleChangeText={handleChange}
-                            value={values.email}
-                            keyboardType="email-address"
-                            placeholder="email@email.com"
-                            errorMsg={errors.email}
-                        />
-                        <Button 
-                            type="primary" 
-                            onPress={handleSendCode} 
-                            disabled={!(values.email.length>3) || !!errors.email}
-                        >
-                            전송
-                        </Button>
-                        {showVerifyInput &&
-                        <>
-                        <Text>{`${values.email}로 확인 코드가 전송되었습니다.`}</Text>
-                            <TextInput
-                                label="이메일 인증 코드"
-                                name="emailVerifyCode"
-                                handleChangeText={handleChange}
-                                value={values.emailVerifyCode}
-                            />   
-                            <Button 
-                                type="primary" 
-                                onPress={handleSendCode} 
-                                disabled={!(values.email.length>3) || !!errors.email}
-                            >
-                                확인
-                            </Button>
-                        </>
-                        }
-                    </> 
-                    }
-                    {page===1 &&
-                        <>
-                            <TextInput 
-                                label="이름" 
-                                name="name"
-                                handleChangeText={handleChange}
-                                value={values.name}
-                                errorMsg={errors.name}
-                            />
-                            <TextInput 
-                                label="닉네임" 
-                                name="nickname"
-                                handleChangeText={handleChange}
-                                value={values.nickname}
-                                errorMsg={errors.nickname}
-                            />
-                            <TextInput 
-                                label="비밀번호" 
-                                name="pw"
-                                handleChangeText={handleChange}
-                                value={values.pw}
-                                secureTextEntry={true}
-                                errorMsg={errors.pw}
-                            />
-                            <TextInput 
-                                label="비밀번호 확인" 
-                                name="pwConfirm"
-                                handleChangeText={handleChange}
-                                value={values.pwConfirm}
-                                secureTextEntry={true}
-                                errorMsg={errors.pwConfirm}
-                            />
-                            <TextInput      //드롭다운인풋 -> react-native-dropdown-picker 사용
-                                label="성별" 
-                                name="gender"
-                                handleChangeText={handleChange}
-                                value={values.gender}
-                                errorMsg={errors.gender}
-                            />
-                            <TextInput 
-                                label="전화번호" 
-                                name="phone"
-                                handleChangeText={handleChange}
-                                value={values.phone}
-                                keyboardType="name-phone-pad"
-                                placeholder="01012345678"
-                                errorMsg={errors.phone}
-                            />
-                        </>
-                    }
-                    {page===2 &&
-                        <>
-                            <TextInput 
-                                label="학교" 
-                                name="university"
-                                handleChangeText={handleChange}
-                                value={values.university}
-                                errorMsg={errors.university}
-                            />
-                            <TextInput 
-                                label="학번" 
-                                name="studentId"
-                                handleChangeText={handleChange}
-                                value={values.studentId}
-                                errorMsg={errors.studentId}
-                            />                            
-                        </>
-                    }
-                    {page==lastPage && 
-                        <>
-                             
-                        </>
-                    }
+                    {page==0 && <EmailInfoScreen />}
+                    {page===1 && <UserInfoScreen /> }
+                    {page===2 && <UnivInfoScreen />}
+
                     <View style={Common.XStack}>
                         <Button 
                             onPress={() => (setPage(page-1))}
@@ -204,8 +99,8 @@ const Signup = () => {
                         >
                             이전
                         </Button>
+                        
                         {page===lastPage?(
-                            //email 인증 코드 전부 입력 시 가입 완료 
                             <Button 
                                 onPress={handleEmailVerify}
                                 disabled={blockNext(page)}
@@ -214,10 +109,8 @@ const Signup = () => {
                                 가입하기
                             </Button>
                         ) : (
-                            //정보 입력이 끝나는 page 2에서는 handleSubmit로 백엔드에 정보 전송
-                            //그렇지 않은 page 0, 1에서는 다음 페이지로 이동
                             <Button 
-                                onPress={page===2? handleSubmit : () => (setPage(page+1))}
+                                onPress={() => (setPage(page+1))}
                                 disabled={blockNext(page)}
                                 type="primary"
                             >
