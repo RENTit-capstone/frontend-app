@@ -1,10 +1,11 @@
 import { Tabs } from "expo-router";
 import TabBar from "@/components/bottomTabBar/TabBar";
+import Header from "@/components/Header";
 
 const TabLayout = () => {
     return (
         <Tabs
-            screenOptions={{headerShown: false}}
+            screenOptions={{header: () => <Header />}}
             tabBar={(props) => <TabBar {...props} />}
         >
             <Tabs.Screen

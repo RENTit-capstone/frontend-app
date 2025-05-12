@@ -17,8 +17,6 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         history: ({ color }) => <Home color={"#ccc"} />
     }
     
-    if (usePathname().includes("/itemList/"))   return <ItemDetailsTabBar />;
-
     return (
         <View style={bottomTabBar.defaultTabBar}>
             {state.routes.map((route, index) => {
