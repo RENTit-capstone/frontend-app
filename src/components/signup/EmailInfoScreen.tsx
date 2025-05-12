@@ -9,11 +9,12 @@ const EmailInfoScreen = (props: any) => {
     const {sendCode, verifyCode} = useSignupVerificationStore();
     const [showVerifyInput, setShowverifyInput] = useState(false);
     
-    const handleSendCode = () => {
+    const handleSendCode = async () => {
         if (errors.email)  console.log('email error');  //TODO: 이메일, 학교정보 오류 시 에러처리
 
         try {
-            sendCode(values.email, values.university);
+            const response = await sendCode(values.email, values.university);
+            console.log(response);  //TODO: dialog로 띄우기
         }
         catch(error) {
             console.error(error);
@@ -64,7 +65,7 @@ const EmailInfoScreen = (props: any) => {
                 />   
                 <Button 
                     type="primary" 
-                    onPress={() => verifyCode(values.verifyCode)} 
+                    onPress={() => verifyCode(values.email, values.university, values.verifyCode)} 
                     disabled={!(values.email.length>3) || !!errors.email}
                 >
                     확인

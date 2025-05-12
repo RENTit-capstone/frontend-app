@@ -1,26 +1,26 @@
 import { KeyboardAvoidingView, SafeAreaView, Text, View } from "react-native";
 import { Link } from "expo-router"
-import TextInput from "@/components/TextInput";
 import Button from "@/components/Button";
 import { Common } from "@/styles/common";
 import useInput from "@/hooks/useInput";
 import Logo from "@/assets/images/logo.svg";
 import { useState } from "react";
-import {sendEmailVerifyCode, signup, verifyEmail} from "@/api/auth";
 import EmailInfoScreen from "@/components/signup/EmailInfoScreen";
 import UserInfoScreen from "@/components/signup/UserInfoScreen";
-import UnivInfoScreen from "@/components/signup/UnivInfoScreen";
+import { useSignupVerificationStore } from "@/stores/useSignupVerificationStore";
+import { UserInfoType } from "@/types/types";
 
 const Signup = () => {
-    const lastPage = 3;
+    const lastPage = 2;
     const [page, setPage] = useState(0);
-    const {values, errors, handleChange, blockNext} = useInput({
+    const {signup} = useSignupVerificationStore();
+    const {values, errors, handleChange, hideNext} = useInput({
         email: "",
         pw: "",
         pwConfirm: "",
         name: "",
         nickname: "",
-        gender: "",
+        gender: "male",
         phone: "",
         university: "",
         studentId: "",
@@ -28,43 +28,27 @@ const Signup = () => {
     });
 
     const handleSubmit = async () => {
-        //page 2에서 회원가입 폼 전송 시 호출
-        console.log(values);
-
-        try {                
-            const response = await signup(values);
-            if (response.data){
-                handleSendCode();       //이메일로 코드 전송  
-                const newPage = page+1;
-                setPage(newPage);
-            }
-        } 
-        catch (error) {
-            console.log(error);
-
-            //실패 dialog 띄우기
-            console.log("네트워크가 불안정합니다.\n 다시 시도해 주세요.");
+        const userInfo: UserInfoType = {
+            email: values.email,
+            password: values.pw,
+            name: values.name,
+            memberType: "STUDENT",
+            nickname: values.nickname,
+            university: values.university,
+            studentId: values.studentId,
+            gender: values.gender,
+            phone: values.phone,
+            profileImg: null,
+        }
+        try {
+            const response = await signup(userInfo);
+            console.log(response);  //TODO: dialog로 "회원가입 완료" 띄우기
+        }
+        catch(error) {
+            console.error(error);
         }
     };
 
-
-    const handleEmailVerify = async () => {
-        // 이메일 코드 일치 확인 API 호출
-        console.log(values.emailVerifyCode);
-
-        try{
-            const response = await verifyEmail(values.emailVerifyCode);
-            if (response.data) {
-                //성공 시 가입완료 dialog 띄우고 로그인 창으로 리다이렉션
-                console.log("성공했습니다. 로그인해주세요");
-                
-            }
-        }
-        catch (error){
-            console.log(error);
-            //실패 dialog
-        }
-    }
 
     return (
         <SafeAreaView style={Common.container}>
@@ -74,7 +58,6 @@ const Signup = () => {
                 <View style={Common.YStack}>
                     {page==0 && <EmailInfoScreen values={values} errors={errors} handleChange={handleChange}/>}
                     {page===1 && <UserInfoScreen /> }
-                    {page===2 && <UnivInfoScreen />}
 
                     <View style={Common.XStack}>
                         <Button 
@@ -87,7 +70,7 @@ const Signup = () => {
                         
                         {page===lastPage?(
                             <Button 
-                                onPress={handleEmailVerify}
+                                onPress={handleSubmit}
                                 disabled={blockNext(page)}
                                 type="primary"
                             >
