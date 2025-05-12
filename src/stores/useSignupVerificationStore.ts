@@ -1,7 +1,6 @@
-import { axiosPost } from "@/api";
 import { UserInfoType } from "@/types/types";
+import axios from "axios";
 import { create } from "zustand";
-
 
 type SignupVerificationType = {
     emailCodeSent: boolean,
@@ -17,42 +16,40 @@ export const useSignupVerificationStore = create<SignupVerificationType>(
         emailVerified: false,
 
         sendCode: async (email: string, university: string) => {
-            try {
-                const payload = {"email": email, "university": university};
-                const response = await axiosPost(`/api/v1/auth/signup/verify-email`, payload);
-                console.log("Response for sendcode", response.data);
-                set({ emailCodeSent: true });
-                return response.data;
-            }
-            catch(error) {
+            const payload = {"email": email, "university": university};
+            const response = await axios.post(`/api/v1/auth/signup/verify-email`, payload);
+            
+            if (!response.data.success){
                 set({ emailCodeSent: false });
-                throw(error);
-            }
+                throw new Error(response.data.message);
+            }    
+            console.log("Response for sendcode", response.data);
+            set({ emailCodeSent: true });
+            return response.data;
         },
 
         verifyCode: async (email: string, university: string, code: string) => {
-            try {
-                const payload = {"email": email, "university": university, "code": code};
-                const response = await axiosPost(`/api/v1/auth/signup/verify-code`, payload);
-                console.log("Response for verifyCode: ", response.data);
-                set({ emailVerified: true });
-                return response.data;
-            }
-            catch(error) {
+            const payload = {"email": email, "university": university, "code": code};
+            const response = await axios.post(`/api/v1/auth/signup/verify-code`, payload);
+
+            if (!response.data.success){
                 set({ emailVerified: false });
-                throw(error);
-            }
+                throw new Error(response.data.message);
+            }     
+            console.log("Response for verifyCode: ", response.data);
+            set({ emailVerified: true });
+            return response.data;
         },
 
         signup: async (payload: UserInfoType) => {
-            try {
-                const response = await axiosPost(`/api/v1/auth/signup`, payload);
-                console.log("Response for signup: ", response.data);
-                return response.data;
-            }
-            catch(error) {
-                throw(error);
-            }
+            const response = await axios.post(`/api/v1/auth/signup`, payload);
+            
+            if (!response.data.success){
+                set({ emailVerified: false });
+                throw new Error(response.data.message);
+            }     
+            console.log("Response for signup: ", response.data);
+            return response.data;
         }
 
     }));
