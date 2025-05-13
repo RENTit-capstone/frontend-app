@@ -6,12 +6,13 @@ import { ItemDetailsProp } from "@/types/types";
 import { useEffect, useState } from "react";
 import { axiosGet } from "@/api";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import BottomScrollSheet from "@/components/bottomSheet/BottomScrollSheet";
-import ItemDetails from "@/components/itemList/ItemDetails";
+import BottomScrollSheet from "@/components/BottomScrollSheet";
+import ItemDetails from "@/components/items/ItemDetails";
 import { View } from "react-native";
-import DateSelector from "@/components/itemList/DateSelector";
+import DateSelector from "@/components/items/DateSelector";
 import useRequestStore from "@/stores/useRequestStore";
-import ItemDetailsBottomSheet from "@/components/bottomSheet/ItemDetailsBottomSheet";
+import ItemDetailsBottomSheet from "@/components/items/ItemDetailsBottomSheet";
+import Header from "@/components/Header";
 
 const sampleData: ItemDetailsProp = {
     id: 0,
@@ -69,6 +70,7 @@ const Postings = () => {
                     likes={3}
                 />
             </BottomScrollSheet>
+
             <ItemDetailsBottomSheet />
         </GestureHandlerRootView>
     )

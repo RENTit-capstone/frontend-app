@@ -1,7 +1,7 @@
 import useRequestStore from "@/stores/useRequestStore";
-import BottomScrollSheet from "./BottomScrollSheet";
+import BottomScrollSheet from "../BottomScrollSheet";
 import { Text, View } from "react-native";
-import DateSelector from "../itemList/DateSelector";
+import DateSelector from "./DateSelector";
 
 const ItemDetailsBottomSheet = () => {
     const {phase} = useRequestStore();
