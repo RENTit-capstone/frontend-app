@@ -13,6 +13,7 @@ import DateSelector from "@/components/items/DateSelector";
 import useRequestStore from "@/stores/useRequestStore";
 import ItemDetailsBottomSheet from "@/components/items/ItemDetailsBottomSheet";
 import Header from "@/components/Header";
+import ItemDetailsButtonBar from "@/components/items/ItemDetailsButtonBar";
 
 const sampleData: ItemDetailsProp = {
     id: 0,
@@ -72,6 +73,7 @@ const Postings = () => {
             </BottomScrollSheet>
 
             <ItemDetailsBottomSheet />
+            <ItemDetailsButtonBar />
         </GestureHandlerRootView>
     )
 }  

@@ -1,6 +1,7 @@
 import BottomSheet, { BottomSheetScrollView, useBottomSheetSpringConfigs } from "@gorhom/bottom-sheet";
 import { ReactElement, useMemo, useRef } from "react";
 import { itemList } from "@/styles/components/itemList";
+import { View } from "react-native";
 
 type BottomScrollSheetProps = {
     snapPointList: string[],
@@ -29,6 +30,7 @@ const BottomScrollSheet = (props: BottomScrollSheetProps) => {
             animationConfigs={animationConfigs}
             enableDynamicSizing={false}
             backgroundStyle={itemList.bottomSheet}
+            bottomInset={64}
             >
             <BottomSheetScrollView contentContainerStyle={{flexGrow: 1}}>
                 {children}

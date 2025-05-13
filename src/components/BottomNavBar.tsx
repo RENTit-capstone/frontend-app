@@ -3,7 +3,7 @@ import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import Home from "@/assets/images/home.svg";
 import { ReactElement } from "react";
 import Colors from "@/constants/Colors";
-import { bottomTabBar } from "@/styles/components/bottomTabBar";
+import { Common } from "@/styles/common";
 
 const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     const primaryColor = Colors.primary;
@@ -16,7 +16,7 @@ const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
     }
     
     return (
-        <View style={bottomTabBar.defaultTabBar}>
+        <View style={Common.bottomBar}>
             {state.routes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
@@ -45,7 +45,7 @@ const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
         return (
             <TouchableOpacity
                 key={route.name}
-                style={[bottomTabBar.tabBarItem, {backgroundColor: isFocused ? primaryColor : secondaryColor}] }
+                style={[Common.tabBarItem, {backgroundColor: isFocused ? primaryColor : secondaryColor}] }
                 accessibilityRole="button"
                 accessibilityState={isFocused ? { selected: true } : {}}
                 accessibilityLabel={options.tabBarAccessibilityLabel}
