@@ -8,10 +8,15 @@ export const axiosInstance = axios.create({
     }
 });
 
-const getNewToken = () => {
-    const newAccessToken = undefined;
+const getNewToken = async () => {
+    const oldAccessToken = useAuthStore.getState().accessToken;
+    const oldRefreshToken = useAuthStore.getState().refreshToken;
+    const payload = {"accessToken": oldAccessToken, "refreshToken": oldRefreshToken};
+    const response = await axios.post(`/api/v1/auth/login/refresh`, payload);
+    if (!response.data.success)
+        throw new Error(response.data.message);
 
-    return newAccessToken;
+    return response.data;
 }
 
 axiosInstance.interceptors.request.use(
@@ -24,7 +29,7 @@ axiosInstance.interceptors.request.use(
         return config;
     },
     error => {
-        console.error("[AXIOS_ERROR]: ", error);
+        console.error("[AXIOS_INTERCEPTORS_REQUEST_ERROR]: ", error);
         return Promise.reject(error);
     }
 );
@@ -34,35 +39,14 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     async (error) => {
-        // access token 만료 시
-        const originalRequest = error.config;
-        // 백엔드 JWT 만료 시 response 반환값 보고 response.status수정
-        if (error.response.status && !originalRequest._retry){
-            originalRequest._retry = true;
-
-            try {
-                const newAccessToken = await getNewToken(); // 리프레시 토큰으로 access token 재발급급
-                if (newAccessToken){
-                    originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                    return axiosInstance(originalRequest);
-                }                
-            } 
-            
-            catch(refreshError) {
-                if (refreshError.response?.data.error === "INVALID_TOKEN"){
-                    //리프레시 토큰 삭제
-                    
-                    alert(
-                        "로그인 세션 만료\n 다시 로그인 하시길 바랍니다."
-                    );
-                }
-                return Promise.reject(refreshError);
-            }
-        }
-        console.log(error);
-        return Promise.reject(error);
+        // access token 만료 시 => code? 401?
+        const response = await getNewToken();
+        useAuthStore.setState({accessToken: response.accessToken});
+        useAuthStore.setState({refreshToken: response.refreshToken});
+        console.error("[AXIOS_INTERCEPTORS_RESPONSE_ERROR]: ", error);
+        return Promise.reject(error);   //요청 재시도 필요?
     }
-)
+);
 
 export const axiosGet = async (url: string) => {
     const res = await axiosInstance.get(url);
