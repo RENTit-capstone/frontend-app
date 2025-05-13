@@ -3,11 +3,9 @@ import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import Home from "@/assets/images/home.svg";
 import { ReactElement } from "react";
 import Colors from "@/constants/Colors";
-import { usePathname } from "expo-router";
-import ItemDetailsTabBar from "./ItemDetailsTabBar";
-import { bottomTabBar } from "@/styles/components/bottomTabBar";
+import { Common } from "@/styles/common";
 
-const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
+const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     const primaryColor = Colors.primary;
     const secondaryColor = Colors.secondary;
     const whiteColor = Colors.white;
@@ -17,10 +15,8 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         history: ({ color }) => <Home color={"#ccc"} />
     }
     
-    if (usePathname().includes("/itemList/"))   return <ItemDetailsTabBar />;
-
     return (
-        <View style={bottomTabBar.defaultTabBar}>
+        <View style={Common.bottomBar}>
             {state.routes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
@@ -49,7 +45,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         return (
             <TouchableOpacity
                 key={route.name}
-                style={[bottomTabBar.tabBarItem, {backgroundColor: isFocused ? primaryColor : secondaryColor}] }
+                style={[Common.tabBarItem, {backgroundColor: isFocused ? primaryColor : secondaryColor}] }
                 accessibilityRole="button"
                 accessibilityState={isFocused ? { selected: true } : {}}
                 accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -74,4 +70,4 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     );
   }
 
-export default TabBar;
+export default BottomNavBar;

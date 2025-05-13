@@ -93,7 +93,6 @@ export const itemList = StyleSheet.create({
         backgroundColor: "#FBF5ED",
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
-        paddingVertical: 16,
         ...Platform.select({
             default: {
                 shadowColor: '#000',

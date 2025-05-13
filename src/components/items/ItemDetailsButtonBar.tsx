@@ -1,11 +1,10 @@
 import { View } from "react-native";
 import Button from "../Button";
-import { bottomTabBar } from "@/styles/components/bottomTabBar";
-import DateSelector from "../itemList/DateSelector";
+import DateSelector from "./DateSelector";
 import useRequestStore from "@/stores/useRequestStore";
 import { Common } from "@/styles/common";
 
-const ItemDetailsTabBar = () => {
+const ItemDetailsButtonBar = () => {
     const {phase, storedId, setPhase} = useRequestStore();
 
     const nextPhase = () => {
@@ -16,9 +15,9 @@ const ItemDetailsTabBar = () => {
     }
 
     return (
-        <View style={bottomTabBar.itemDetailsTabBar}>
+        <View style={[Common.bottomBar, {backgroundColor: "white"}]}>
             {phase==="viewing" && 
-                <Button onPress={nextPhase} type="primary" style={bottomTabBar.tabBarItem}>
+                <Button onPress={nextPhase} type="primary" style={Common.tabBarItem}>
                     일정 선택하기  
                 </Button>
             }
@@ -53,4 +52,4 @@ const ItemDetailsTabBar = () => {
     );
 }
 
-export default ItemDetailsTabBar;
+export default ItemDetailsButtonBar;

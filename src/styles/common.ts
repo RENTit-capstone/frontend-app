@@ -86,13 +86,6 @@ export const Common = StyleSheet.create({
         flex: 1,
         alignSelf: "stretch",
     },
-    test: {
-        backgroundColor: "gray",
-        alignItems: "center",
-        alignContent: "center",
-        justifyContent: 'center',
-        flexDirection: "row"
-    },
     textWrapper: {
         flexDirection: "row",
         alignItems: "center",
@@ -103,5 +96,35 @@ export const Common = StyleSheet.create({
     },
     section: {
         marginVertical: 12,
-    }
+    }, 
+    bottomBar: {
+        position: "absolute",
+        bottom: 0,
+        height: 64,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: Colors.secondary,
+
+        shadowColor: "#000",
+        shadowOffset: {width: 0, height: 0},
+        shadowRadius: 10,
+        shadowOpacity: 0.15,
+    },
+    roundTopEdge: {
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
+        // borderCurve: "continuous",
+    },
+    tabBarItem: {
+        flex: 1,
+        flexDirection: "row",
+        borderRadius: 8,
+        height: "65%",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 4,
+    },
+
 });
