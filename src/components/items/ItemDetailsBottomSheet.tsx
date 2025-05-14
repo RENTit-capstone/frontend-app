@@ -5,11 +5,15 @@ import DateSelector, { DateSelectorRef } from "./DateSelector";
 import { Common } from "@/styles/common";
 import Cancel from "@/assets/images/cancel.svg";
 import Button from "../Button";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import Checkbox from "expo-checkbox";
+import { itemList } from "@/styles/components/itemList";
 
 const ItemDetailsBottomSheet = () => {
     const {phase, setStartDate, setEndDate} = useRequestStore();
     const dateSelectorRef = useRef<DateSelectorRef>(null);
+    const [identifiedFlaw, setIdentifiedFlaw] = useState(false);    
+    const [agreedPolicy, setAgreedPolicy] = useState(false);
 
     const handlePress = () => {
         const dates = dateSelectorRef.current?.getDates();
@@ -37,9 +41,26 @@ const ItemDetailsBottomSheet = () => {
             }
             {phase==="consenting" && 
                 <View style={Common.darkBackground}>
-                <BottomScrollSheet snapPointList={["60%"]}>
-                    <View>
-                        <Text>하자/파손정책 동의 체크박스</Text>
+                <BottomScrollSheet snapPointList={["30%"]} style={{backgroundColor: "#fff"}}>
+                    <View style={[Common.wrapper, Common.YStack, {gap: 16, alignItems: "flex-start"}]}>
+                        <Button type="option" onPress={handlePress} style={Common.cancel}><Cancel /></Button>
+                        <View style={Common.XStack}>
+                            <Checkbox
+                                value={identifiedFlaw}
+                                onValueChange={setIdentifiedFlaw}
+                                />
+
+                            <Text>하자를 확인하였습니다.</Text>
+                        </View>
+                        <View style={itemList.rowDivider} />
+                        <View style={Common.XStack}>
+                            <Checkbox
+                                value={agreedPolicy}
+                                onValueChange={setAgreedPolicy}
+                                />
+
+                            <Text>파손정책에 동의합니다.</Text>
+                        </View>
                     </View>    
                 </BottomScrollSheet>
                 </View>
