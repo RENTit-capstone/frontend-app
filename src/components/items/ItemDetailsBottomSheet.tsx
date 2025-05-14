@@ -1,11 +1,7 @@
 import useRequestStore from "@/stores/useRequestStore";
 import BottomScrollSheet from "../BottomScrollSheet";
 import { Text, View } from "react-native";
-<<<<<<< HEAD:src/components/items/ItemDetailsBottomSheet.tsx
-import DateSelector from ".//DateSelector";
-=======
-import DateSelector, { DateSelectorRef } from "../itemList/DateSelector";
->>>>>>> 5839185 (Feat: 선택된 기한 상태관리 로직 추가):src/components/bottomSheet/ItemDetailsBottomSheet.tsx
+import DateSelector, { DateSelectorRef } from "./DateSelector";
 import { Common } from "@/styles/common";
 import Cancel from "@/assets/images/cancel.svg";
 import Button from "../Button";
@@ -28,7 +24,7 @@ const ItemDetailsBottomSheet = () => {
 
             {phase==="periodSetting" && 
                 <View style={Common.darkBackground}>
-                <BottomScrollSheet snapPointList={["80%"]} style={{backgroundColor: "#fff"}}>
+                <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}>
                     <View>
                         <Button type="option" onPress={handlePress} style={Common.cancel}><Cancel /></Button>
                         <View style={{alignItems: "center", paddingVertical: 15,}}>

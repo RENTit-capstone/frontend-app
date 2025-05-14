@@ -12,6 +12,9 @@ const ItemDetailsButtonBar = () => {
         else if (phase === "periodSetting") setPhase("consenting");
         else if (phase === "consenting")    setPhase("applying");
     }
+    const prevPhase = () => {
+        if (phase === "consenting") setPhase("periodSetting");
+    }
 
     return (
         <View style={[Common.bottomBar, {backgroundColor: "white"}]}>
@@ -32,8 +35,8 @@ const ItemDetailsButtonBar = () => {
             }
             {phase==="consenting" && 
                 <View style={Common.XStack}>
-                    <Button onPress={nextPhase} type="primary" style={{flex: 1}}>
-                        취소  
+                    <Button onPress={prevPhase} type="primary" style={{flex: 1}}>
+                        이전  
                     </Button>
                     <Button onPress={nextPhase} type="primary" style={{flex: 3}}>
                         저장 

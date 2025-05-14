@@ -108,6 +108,7 @@ export const Common = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: Colors.secondary,
+        zIndex: 20,
 
         shadowColor: "#000",
         shadowOffset: {width: 0, height: 0},
