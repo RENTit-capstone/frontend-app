@@ -102,18 +102,13 @@ export const Common = StyleSheet.create({
     bottomBar: {
         position: "absolute",
         bottom: 0,
-        height: 64,
+        minHeight: 64,
         width: "100%",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: Colors.secondary,
         zIndex: 20,
-
-        shadowColor: "#000",
-        shadowOffset: {width: 0, height: 0},
-        shadowRadius: 10,
-        shadowOpacity: 0.15,
     },
     roundTopEdge: {
         borderTopLeftRadius: 8,
@@ -155,5 +150,18 @@ export const Common = StyleSheet.create({
         gap: 12,
         marginVertical: 12,
         marginHorizontal: 12, 
+    },
+    upperShadow: {
+            ...Platform.select({
+        default: {
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: -4 },
+            shadowOpacity: 0.1,
+            shadowRadius: 10,
+            },
+        android: {
+            elevation: 5,
+            },
+        })
     }
 });
