@@ -73,7 +73,6 @@ const Postings = () => {
             </BottomScrollSheet>
 
             <ItemDetailsBottomSheet />
-            {/* <ItemDetailsButtonBar /> */}
         </GestureHandlerRootView>
     )
 }  

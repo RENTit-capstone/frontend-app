@@ -1,7 +1,7 @@
 import useRequestStore from "@/stores/useRequestStore";
 import BottomScrollSheet from "../BottomScrollSheet";
 import { Text, View } from "react-native";
-import DateSelector, { DateSelectorRef } from "./DateSelector";
+import DateSelector from "./DateSelector";
 import { Common } from "@/styles/common";
 import Cancel from "@/assets/images/cancel.svg";
 import Button from "../Button";
@@ -11,27 +11,16 @@ import { itemList } from "@/styles/components/itemList";
 import ItemDetailsButtonBar from "./ItemDetailsButtonBar";
 
 const ItemDetailsBottomSheet = () => {
-    const {phase, setStartDate, setEndDate} = useRequestStore();
-    const dateSelectorRef = useRef<DateSelectorRef>(null);
-    const [savePeriod, setSavePeriod] = useState(false);
+    const {phase, startDate, endDate, setStartDate, setEndDate, setChecked} = useRequestStore();
     const [identifiedFlaw, setIdentifiedFlaw] = useState(false);    
     const [agreedPolicy, setAgreedPolicy] = useState(false);
 
     useEffect(() => {
-        const dates = dateSelectorRef.current?.getDates();
-        if (dates?.startDate && dates?.endDate) {
-            setStartDate(dates.startDate);
-            setEndDate(dates.endDate);
-            console.log("Period: ", dates);
-        }
-    }, [savePeriod])
+        setChecked(identifiedFlaw && agreedPolicy);
+    }, [identifiedFlaw && agreedPolicy])
 
     const handleCancel = () => {
 
-    }
-
-    const handleSaveConsent = () => {
-        
     }
 
     return (
@@ -45,7 +34,12 @@ const ItemDetailsBottomSheet = () => {
                         <View style={{alignItems: "center", paddingVertical: 15,}}>
                             <Text style={{fontSize: 18, fontWeight: 500}}>일정 선택</Text>
                         </View>
-                        <DateSelector ref={dateSelectorRef}/>
+                        <DateSelector 
+                            startDate={startDate}
+                            endDate={endDate}
+                            setStartDate={setStartDate}
+                            setEndDate={setEndDate}
+                            />
                     </View>
                 </BottomScrollSheet>
                 </View>
@@ -75,7 +69,7 @@ const ItemDetailsBottomSheet = () => {
                 </BottomScrollSheet>
                 </View>
             }
-            <ItemDetailsButtonBar onSavePeriod={setSavePeriod} onSaveConsent={handleSaveConsent} />
+            <ItemDetailsButtonBar />
         </>
     );
 }

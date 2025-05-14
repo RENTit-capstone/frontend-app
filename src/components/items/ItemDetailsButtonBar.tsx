@@ -4,8 +4,7 @@ import useRequestStore, { RequestPhaseType } from "@/stores/useRequestStore";
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
 
-const ItemDetailsButtonBar = (props: any) => {
-    const {onSavePeriod, onSaveConsent} = props;
+const ItemDetailsButtonBar = () => {
     const {phase, setPhase, startDate, endDate} = useRequestStore();
     
     const phases: RequestPhaseType[] = ["viewing", "periodSetting", "consenting", "applying"];
@@ -13,16 +12,6 @@ const ItemDetailsButtonBar = (props: any) => {
     const movePhase = (direction: number) => {
         const currentPhaseIndex = phases.indexOf(phase);
         setPhase(phases[currentPhaseIndex+direction]);
-    }
-    
-    const handleSavePeriod = () => {
-        onSavePeriod();
-        movePhase(1);
-    }
-
-    const handleConsent = () => {
-        onSaveConsent();
-        movePhase(1);
     }
 
     return (
@@ -34,8 +23,8 @@ const ItemDetailsButtonBar = (props: any) => {
             }
             {phase==="periodSetting" && 
                 <View style={Common.XStack}>
-                    <Button onPress={handleSavePeriod} type="primary" style={{flex: 1}}>
-                        적용 
+                    <Button onPress={() => movePhase(1)} type="primary" style={{flex: 1}}>
+                        다음
                     </Button>
                 </View>
             }
@@ -44,8 +33,8 @@ const ItemDetailsButtonBar = (props: any) => {
                     <Button onPress={() => movePhase(-1)} type="secondary" style={{flex: 1}}>
                         이전  
                     </Button>
-                    <Button onPress={handleConsent} type="primary" style={{flex: 3}}>
-                        저장 
+                    <Button onPress={() => movePhase(1)} type="primary" style={{flex: 3}}>
+                        다음
                     </Button>
                 </View>
             }

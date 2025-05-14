@@ -8,17 +8,8 @@ import { Common } from "@/styles/common";
 import Colors from "@/constants/Colors";
 import { MarkedDates } from "react-native-calendars/src/types";
 
-export type DateSelectorRef = {
-    getDates: () => {startDate: string | null; endDate: string | null};
-}
-
-const DateSelector = forwardRef<DateSelectorRef>((_, ref) => {
-    const [startDate, setStartDate] = useState<string | null>(null);
-    const [endDate, setEndDate] = useState<string | null>(null);
-
-    useImperativeHandle(ref, () => ({
-        getDates: () => ({startDate, endDate}),
-    }));
+const DateSelector = (props: any) => {
+    const {startDate, setStartDate, endDate, setEndDate} = props;
 
     // custom Header ...
     const [currentMonth, setCurrentMonth] = useState(new Date().toISOString().split('T')[0]);
@@ -140,6 +131,6 @@ const DateSelector = forwardRef<DateSelectorRef>((_, ref) => {
             </View>
         </View>
     );
-});
+};
 
 export default DateSelector;
