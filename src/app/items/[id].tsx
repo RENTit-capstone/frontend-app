@@ -90,7 +90,7 @@ const Postings = () => {
                 />
             </BottomScrollSheet>
 
-            <ItemDetailsBottomSheet />
+            <ItemDetailsBottomSheet handleRequest={handleRequest}/>
         </GestureHandlerRootView>
     )
 }  

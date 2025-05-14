@@ -5,12 +5,13 @@ import DateSelector from "./DateSelector";
 import { Common } from "@/styles/common";
 import Cancel from "@/assets/images/cancel.svg";
 import Button from "../Button";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Checkbox from "expo-checkbox";
 import { itemList } from "@/styles/components/itemList";
 import ItemDetailsButtonBar from "./ItemDetailsButtonBar";
 
-const ItemDetailsBottomSheet = () => {
+const ItemDetailsBottomSheet = (props: any) => {
+    const {handleRequest} = props;
     const {phase, startDate, endDate, setStartDate, setEndDate, setChecked} = useRequestStore();
     const [identifiedFlaw, setIdentifiedFlaw] = useState(false);    
     const [agreedPolicy, setAgreedPolicy] = useState(false);
@@ -25,7 +26,6 @@ const ItemDetailsBottomSheet = () => {
 
     return (
         <>
-
             {phase==="periodSetting" && 
                 <View style={Common.darkBackground}>
                 <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}>
@@ -69,7 +69,7 @@ const ItemDetailsBottomSheet = () => {
                 </BottomScrollSheet>
                 </View>
             }
-            <ItemDetailsButtonBar />
+            <ItemDetailsButtonBar handleRequest={handleRequest}/>
         </>
     );
 }

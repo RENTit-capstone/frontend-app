@@ -4,9 +4,9 @@ import useRequestStore, { RequestPhaseType } from "@/stores/useRequestStore";
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
 import Colors from "@/constants/Colors";
-import { axiosPost } from "@/api";
 
-const ItemDetailsButtonBar = () => {
+const ItemDetailsButtonBar = (props: any) => {
+    const {handleRequest} = props;
     const {phase, setPhase, startDate, endDate} = useRequestStore();
     const phases: RequestPhaseType[] = ["viewing", "periodSetting", "consenting", "applying"];
 
