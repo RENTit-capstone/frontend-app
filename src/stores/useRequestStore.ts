@@ -4,12 +4,12 @@ export type RequestPhaseType = "viewing" | "periodSetting" | "consenting" | "app
 
 type RequestType = {
     phase: RequestPhaseType,
-    storedId: string | string[] | undefined,
+    // storedId: string | string[] | undefined,
     startDate: string | undefined,
     endDate: string | undefined,
     checked: boolean | undefined,
     setPhase: (nextPhase: RequestPhaseType) => void,
-    setStoredId: (storedId: string | string[]) => void,
+    // setStoredId: (storedId: string | string[]) => void,
     setStartDate: (startDate: string) => void,
     setEndDate: (endDate: string) => void,
     setChecked: (checked: boolean) => void,
@@ -19,16 +19,16 @@ type RequestType = {
 const useRequestStore = create<RequestType>()(
     (set, get) => ({
         phase: "viewing", 
-        storedId: undefined,
+        // storedId: undefined,
         startDate: undefined,
         endDate: undefined,
         checked: undefined,
-        setPhase: (nextPhase) => set({ phase: nextPhase }), // 추후 nextPhase로 개선
-        setStoredId: (storedId) => set({ storedId }),
+        setPhase: (nextPhase) => set({ phase: nextPhase }),
+        // setStoredId: (storedId) => set({ storedId }),
         setStartDate: (startDate) => set({ startDate }),
         setEndDate: (endDate) => set({ endDate }),
         setChecked: (checked) => set({ checked }),
-        clearRecord: () => set({storedId: undefined, startDate: undefined, endDate: undefined, checked: undefined}),
+        clearRecord: () => set({startDate: undefined, endDate: undefined, checked: undefined}),
     })
 )
 

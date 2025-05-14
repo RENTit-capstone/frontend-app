@@ -15,23 +15,6 @@ const ItemDetailsButtonBar = () => {
         setPhase(phases[currentPhaseIndex + direction]);
     }
 
-    const handleRequest = async () => {
-        try {
-            const payload = {
-                "itemId": 0,
-                "ownerId": 0,
-                "renterId" :0,
-                "startDate": startDate, //ISOstring으로 변경
-                "dueDate": endDate,
-            }
-            const response = await axiosPost(`/api/v1/rentals`, payload);
-            console.log("Response for submitRequest: ", response.data);
-        }
-        catch(error) {
-            console.log(error);     //TODO: toast message 띄우기
-        }  
-    }
-
     return (
         <SafeAreaView style={[Common.bottomBar, Common.upperShadow, {backgroundColor: "white"}]}>
             {phase==="viewing" && 
