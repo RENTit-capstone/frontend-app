@@ -111,14 +111,16 @@ export type RentalDetailsType = {
 export type ItemStatusType = "AVAILABLE" | "OUT";
 
 export type ItemDetailsProp = {
-    id: string | string[],
+    itemId: number,
     owner: string, 
+    ownerId: number,
     name: string
     itemImg: string, 
     description: string,
     price: number, 
     status: ItemStatusType,
     damagedPolicy: string,
+    returnPolicy: string,
     startDate: string,
     endDate: string,
 

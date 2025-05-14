@@ -79,8 +79,10 @@ export const Common = StyleSheet.create({
     badge: {
         borderWidth: 1,
         borderRadius: 50,
-        paddingHorizontal: 8,
+        paddingHorizontal: 10,
         alignSelf: "flex-start",
+        paddingVertical: 5, 
+        alignItems: "center"
     },
     wideView: {
         flex: 1,
@@ -100,17 +102,13 @@ export const Common = StyleSheet.create({
     bottomBar: {
         position: "absolute",
         bottom: 0,
-        height: 64,
+        minHeight: 64,
         width: "100%",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: Colors.secondary,
-
-        shadowColor: "#000",
-        shadowOffset: {width: 0, height: 0},
-        shadowRadius: 10,
-        shadowOpacity: 0.15,
+        zIndex: 20,
     },
     roundTopEdge: {
         borderTopLeftRadius: 8,
@@ -126,5 +124,44 @@ export const Common = StyleSheet.create({
         alignItems: "center",
         gap: 4,
     },
-
+    bottomSheetHeader: {
+        flexDirection: "row", 
+        alignItems: "center" 
+    },
+    darkBackground: {
+        position: "absolute",
+        top: 0,     
+        left: 0, 
+        right: 0, 
+        bottom: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        zIndex: 1,
+    },
+    cancel: {
+        position: "absolute",
+        zIndex: 20,
+        top: 0,
+        right: 16,
+        marginVertical: 0,
+    },
+    chips: {
+        flexWrap: "wrap",
+        flexDirection: "row",
+        gap: 12,
+        marginVertical: 12,
+        marginHorizontal: 12, 
+    },
+    upperShadow: {
+            ...Platform.select({
+        default: {
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: -4 },
+            shadowOpacity: 0.1,
+            shadowRadius: 10,
+            },
+        android: {
+            elevation: 5,
+            },
+        })
+    }
 });

@@ -1,54 +1,66 @@
-import { View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import Button from "../Button";
-import DateSelector from "./DateSelector";
-import useRequestStore from "@/stores/useRequestStore";
+import useRequestStore, { RequestPhaseType } from "@/stores/useRequestStore";
 import { Common } from "@/styles/common";
+import { itemList } from "@/styles/components/itemList";
+import Colors from "@/constants/Colors";
 
-const ItemDetailsButtonBar = () => {
-    const {phase, storedId, setPhase} = useRequestStore();
+const ItemDetailsButtonBar = (props: any) => {
+    const {handleRequest} = props;
+    const {phase, setPhase, startDate, endDate} = useRequestStore();
+    const phases: RequestPhaseType[] = ["viewing", "periodSetting", "consenting", "applying"];
 
-    const nextPhase = () => {
-        console.log("storedId: ", storedId);
-        if (phase === "viewing")    setPhase("periodSetting");
-        else if (phase === "periodSetting") setPhase("consenting");
-        else if (phase === "consenting")    setPhase("applying");
+    const movePhase = (direction: number) => {
+        const currentPhaseIndex = phases.indexOf(phase);
+        setPhase(phases[currentPhaseIndex + direction]);
     }
 
     return (
-        <View style={[Common.bottomBar, {backgroundColor: "white"}]}>
+        <SafeAreaView style={[Common.bottomBar, Common.upperShadow, {backgroundColor: "white"}]}>
             {phase==="viewing" && 
-                <Button onPress={nextPhase} type="primary" style={Common.tabBarItem}>
+                <Button onPress={() => movePhase(1)} type="primary" style={Common.tabBarItem}>
                     일정 선택하기  
                 </Button>
             }
             {phase==="periodSetting" && 
                 <View style={Common.XStack}>
-                    <Button onPress={nextPhase} type="primary" style={{flex: 1}}>
-                        초기화  
-                    </Button>
-                    <Button onPress={nextPhase} type="primary" style={{flex: 3}}>
-                        적용 
+                    <Button onPress={() => movePhase(1)} type="primary" style={{flex: 1}}>
+                        다음
                     </Button>
                 </View>
             }
             {phase==="consenting" && 
                 <View style={Common.XStack}>
-                    <Button onPress={nextPhase} type="primary" style={{flex: 1}}>
-                        취소  
+                    <Button onPress={() => movePhase(-1)} type="secondary" style={{flex: 1}}>
+                        이전  
                     </Button>
-                    <Button onPress={nextPhase} type="primary" style={{flex: 3}}>
-                        저장 
+                    <Button onPress={() => movePhase(1)} type="primary" style={{flex: 3}}>
+                        다음
                     </Button>
                 </View>
             }
             {phase==="applying" && 
-                <View style={Common.XStack}>
-                    <Button onPress={nextPhase} type="primary" style={{flex: 1}}>
-                        신청하기  
-                    </Button>
+                <View style={Common.YStack}>
+                    <View style={[Common.XStack, Common.fullScreen, {justifyContent: "space-between"}]}>
+                        <Text style={Common.bold}>
+                            <Text>{startDate?.replaceAll("-", ".")} ~ {endDate?.replaceAll("-", ".")}</Text>
+                            <Text style={{fontSize: 16, color: Colors.option}}> | </Text>
+                            <Text> 7일 </Text>
+                        </Text>
+                        <Text style={Common.bold}>5,000원</Text>
+                    </View>
+                    <View style={[itemList.rowDivider, {width: "100%"}]} />
+                    <View style={Common.XStack}>
+                        <Button onPress={() => movePhase(-1)} type="secondary" style={{flex: 1}}>
+                            이전  
+                        </Button>
+                        <Button onPress={handleRequest} type="primary" style={{flex: 3}}>
+                            신청하기  
+                        </Button>
+                    </View>
                 </View>
             }
-        </View>
+        </SafeAreaView>
     );
 }
 
