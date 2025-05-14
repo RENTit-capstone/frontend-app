@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-type RequestPhaseType = "viewing" | "periodSetting" | "consenting" | "applying";
+export type RequestPhaseType = "viewing" | "periodSetting" | "consenting" | "applying";
 
 type RequestType = {
     phase: RequestPhaseType,
