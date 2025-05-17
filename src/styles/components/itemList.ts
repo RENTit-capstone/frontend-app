@@ -40,7 +40,6 @@ export const itemList = StyleSheet.create({
         height: 0,
         borderColor: "#E5E5E5CC",
         borderWidth: 1,
-        marginTop: 10,
     },
 
     //ListItem

@@ -61,7 +61,7 @@ export const Common = StyleSheet.create({
     },
     headerWrapper: {
         backgroundColor: "#FBF5ED",
-        height: 64,
+        paddingVertical: 5,
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 10,
@@ -71,7 +71,7 @@ export const Common = StyleSheet.create({
     avatar: {
         width: 32,
         height: 32,
-        borderRadius: "100%",
+        borderRadius: 50,
         textAlign: "center",
         fontWeight: "600",
         fontSize: 24,

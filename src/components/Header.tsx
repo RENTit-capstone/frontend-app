@@ -1,14 +1,16 @@
-import { Pressable, View } from 'react-native';
+import { Pressable, SafeAreaView, View } from 'react-native';
 import Logo from "@/assets/images/logo.svg";
 import SearchIcon from "@/assets/images/search.svg";
 import Notification from "@/assets/images/notification.svg";
 import Avatar from "@/components/Avatar";
 import { Common } from '@/styles/common';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
 const Header = () => {
+    const insets = useSafeAreaInsets();
     return (
-        <View style={Common.headerWrapper}>
+        <SafeAreaView style={[Common.headerWrapper, {paddingTop: insets.top}]}>
             <Pressable>
                 <Logo />
             </Pressable>
@@ -23,7 +25,7 @@ const Header = () => {
                     <Avatar />
                 </Pressable>
             </View>
-        </View> 
+        </SafeAreaView> 
     );
 }
 

@@ -33,7 +33,7 @@ const ListContainer = (props: ListContainerProps) => {
                         messages={item.messages}
                         likes={item.likes}
                     />
-                    <View style={[itemList.rowDivider]} />
+                    <View style={[itemList.rowDivider, {marginTop: 10}]} />
                 </View>
             )})}
         </>

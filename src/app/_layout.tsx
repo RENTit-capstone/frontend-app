@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import useAuthStore from '@/stores/useAuthStore';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // import { useColorScheme } from '@/components/useColorScheme';
 
@@ -58,9 +59,11 @@ function RootLayoutNav() {
 
   return (
     // <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+      <SafeAreaProvider>    
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />        
+        </Stack>
+      </SafeAreaProvider>
     // </ThemeProvider>
   );
 }

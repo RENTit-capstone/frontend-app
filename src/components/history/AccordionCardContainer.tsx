@@ -134,26 +134,28 @@ const AccordionCardContainer = () => {
                 const actionByStatus = determineAction(item.status);
 
                 return(
-                <AccordionCard 
-                    key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    img={item.img}
-                    available={item.available}
-                    price={item.price}
-                    period={item.period}
-                    messages={item.messages}
-                    likes={item.likes}
+                    <>
+                    <AccordionCard 
+                        key={item.id}
+                        id={item.id}
+                        title={item.title}
+                        img={item.img}
+                        available={item.available}
+                        price={item.price}
+                        period={item.period}
+                        messages={item.messages}
+                        likes={item.likes}
 
-                    status={item.status}
+                        status={item.status}
 
-                    actions={actionByStatus.actions}
-                    actionNames={actionByStatus.actionName}
-                    getDetails={fetchDetails}
-                    handleAction={actionByStatus.handler}
-                />
+                        actions={actionByStatus.actions}
+                        actionNames={actionByStatus.actionName}
+                        getDetails={fetchDetails}
+                        handleAction={actionByStatus.handler}
+                    />
+                    <View style={[itemList.rowDivider, {marginBottom: 16}]} />
+                    </>
             )})}
-            <View style={[itemList.rowDivider]} />
             </View>
         </ScrollView>
     );
