@@ -4,8 +4,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import SecureStore from "expo-secure-store";
 
 type AuthType = {
+   userId: number | null;
    accessToken: string | null;
    refreshToken: string | null;
+   setUserId: (userId: number) => void;
    setAccessToken: (accessToken: string) => void;
    setRefreshToken: (refreshToken: string) => Promise<void>;
    clearTokens: () => Promise<void>;
@@ -14,8 +16,10 @@ type AuthType = {
 const useAuthStore = create<AuthType>()(
    persist(
       (set, get) => ({
+         userId: null,
          accessToken: null,
          refreshToken: null,
+         setUserId: (userId) => set({ userId: userId }),
          setAccessToken: (accessToken) => set({ accessToken }),
          setRefreshToken: async (refreshToken) => {
             await SecureStore.getItemAsync("refreshToken");

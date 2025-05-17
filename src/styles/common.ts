@@ -71,7 +71,7 @@ export const Common = StyleSheet.create({
     avatar: {
         width: 32,
         height: 32,
-        borderRadius: "100%",
+        borderRadius: 50,
         textAlign: "center",
         fontWeight: "600",
         fontSize: 24,

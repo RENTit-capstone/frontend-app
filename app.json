@@ -18,8 +18,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./src/assets/images/logo.svg",
+        "backgroundColor": "#000000"
       },
       "package": "com.darlian0889.frontapp"
     },
