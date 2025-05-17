@@ -163,5 +163,13 @@ export const Common = StyleSheet.create({
             elevation: 5,
             },
         })
+    },
+    floatingButton: {
+        position: "absolute",
+        borderRadius: 50,
+        padding: 10,
+        right: 16,
+        bottom: 64,
+        zIndex: 50,
     }
 });
