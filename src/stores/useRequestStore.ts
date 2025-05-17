@@ -1,17 +1,15 @@
 import { create } from "zustand"
 
-type RequestPhaseType = "viewing" | "periodSetting" | "consenting" | "applying";
+export type RequestPhaseType = "viewing" | "periodSetting" | "consenting" | "applying";
 
 type RequestType = {
     phase: RequestPhaseType,
-    storedId: string | string[] | undefined,
-    // openCalendar: boolean,
+    // storedId: string | string[] | undefined,
     startDate: string | undefined,
     endDate: string | undefined,
     checked: boolean | undefined,
-    // setOpenCalendar: (openCalendar: boolean) => void,
     setPhase: (nextPhase: RequestPhaseType) => void,
-    setStoredId: (storedId: string | string[]) => void,
+    // setStoredId: (storedId: string | string[]) => void,
     setStartDate: (startDate: string) => void,
     setEndDate: (endDate: string) => void,
     setChecked: (checked: boolean) => void,
@@ -21,18 +19,16 @@ type RequestType = {
 const useRequestStore = create<RequestType>()(
     (set, get) => ({
         phase: "viewing", 
-        storedId: undefined,
-        // openCalendar: false,
+        // storedId: undefined,
         startDate: undefined,
         endDate: undefined,
         checked: undefined,
-        // setOpenCalendar: (openCalendar) => set({ openCalendar: !openCalendar }),
-        setPhase: (nextPhase) => set({ phase: nextPhase }), // 추후 nextPhase로 개선
-        setStoredId: (storedId) => set({ storedId }),
+        setPhase: (nextPhase) => set({ phase: nextPhase }),
+        // setStoredId: (storedId) => set({ storedId }),
         setStartDate: (startDate) => set({ startDate }),
         setEndDate: (endDate) => set({ endDate }),
         setChecked: (checked) => set({ checked }),
-        clearRecord: () => set({storedId: undefined, startDate: undefined, endDate: undefined, checked: undefined}),
+        clearRecord: () => set({startDate: undefined, endDate: undefined, checked: undefined}),
     })
 )
 
