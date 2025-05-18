@@ -38,3 +38,4 @@ const useDateSelectorStore = create<DateSelectorState>(
         setEndDate: (date) => set({ endDate: date }),
     })
 )
+export default useDateSelectorStore;
