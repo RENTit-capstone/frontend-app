@@ -5,13 +5,13 @@ import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
 import Colors from "@/constants/Colors";
 import useDateSelectorStore from "@/stores/useDateSelectorStore";
+import usePolicyStore from "@/stores/usePolicyStore";
 
 const ItemDetailsButtonBar = (props: any) => {
-    const {handleRequest} = props;
-    const {phase, setPhase, setStartDate, setEndDate} = useRequestStore();
+    const {phase, setPhase, setStartDate, setEndDate, setChecked} = useRequestStore();
     const phases: RequestPhaseType[] = ["viewing", "periodSetting", "consenting", "applying"];
     const {openDateSelector} = useDateSelectorStore();
-
+    const {openPolicy} = usePolicyStore();
     
     const movePhase = (direction: number) => {
         const currentPhaseIndex = phases.indexOf(phase);
@@ -23,6 +23,13 @@ const ItemDetailsButtonBar = (props: any) => {
         setStartDate(startDate);
         setEndDate(endDate);
         console.log(startDate, endDate);
+        movePhase(1);
+    }
+
+    const handlePolicy = async () => {
+        const { flawPolicy, damagePolicy } = await openPolicy();
+        if (flawPolicy && damagePolicy)     setChecked(true);
+        movePhase(1);
     }
 
     return (
@@ -34,7 +41,7 @@ const ItemDetailsButtonBar = (props: any) => {
             }
             {phase==="periodSetting" && 
                 <View style={Common.XStack}>
-                    <Button onPress={() => movePhase(1)} type="primary" style={{flex: 1}}>
+                    <Button onPress={handlePolicy} type="primary" style={{flex: 1}}>
                         다음
                     </Button>
                 </View>
@@ -51,7 +58,7 @@ const ItemDetailsButtonBar = (props: any) => {
             }
             {phase==="applying" && 
                 <View style={Common.YStack}>
-                    {/* <View style={[Common.XStack, Common.fullScreen, {justifyContent: "space-between"}]}>
+                    <View style={[Common.XStack, Common.fullScreen, {justifyContent: "space-between"}]}>
                         <Text style={Common.bold}>
                             <Text>{startDate?.replaceAll("-", ".")} ~ {endDate?.replaceAll("-", ".")}</Text>
                             <Text style={{fontSize: 16, color: Colors.option}}> | </Text>
@@ -67,7 +74,7 @@ const ItemDetailsButtonBar = (props: any) => {
                         <Button onPress={handleRequest} type="primary" style={{flex: 3}}>
                             신청하기  
                         </Button>
-                    </View> */}
+                    </View>
                 </View>
             }
         </SafeAreaView>
