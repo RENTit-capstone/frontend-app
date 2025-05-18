@@ -1,19 +1,22 @@
+import Colors from "@/constants/Colors";
 import { Common } from "@/styles/common";
-import { ReactNode } from "react";
-import { Text, View } from "react-native";
+import { FC, FunctionComponent } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import { SvgProps } from "react-native-svg";
+import SvgImage from "react-native-svg/lib/typescript/elements/Image";
 
 type DropDownProps = {
-    children: ReactNode;
+    label: string;
+    icon?: FC<SvgProps>;
+    onPress?: () => void;
 }
 
 const DropDown = (props: DropDownProps) => {
-    const {children} = props;
+    const {label, icon, onPress} = props;
     return (
-        <View style={Common.badge}>
-            <Text>
-                {children}
-            </Text>
-        </View>
+        <TouchableOpacity style={[Common.badge, {width: "45%", borderColor: Colors.option}]}>
+            <Text>{label}</Text>
+        </TouchableOpacity>
     );
 }
 
