@@ -14,7 +14,7 @@ type DropDownProps = {
 const DropDown = (props: DropDownProps) => {
     const {label, icon, onPress} = props;
     return (
-        <TouchableOpacity style={[Common.badge, {width: "45%", borderColor: Colors.option}]}>
+        <TouchableOpacity onPress={onPress} style={[Common.badge, {width: "45%", borderColor: Colors.option}]}>
             <Text>{label}</Text>
         </TouchableOpacity>
     );

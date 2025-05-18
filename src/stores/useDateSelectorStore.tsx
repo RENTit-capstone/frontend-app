@@ -20,7 +20,7 @@ const useDateSelectorStore = create<DateSelectorState>(
 
         openDateSelector: () => {
             return new Promise((resolve) => {
-                set({ visible: true, resolve });
+                set({ visible: true, resolve });                
             });
         },
         closeDateSelector: (close) => {

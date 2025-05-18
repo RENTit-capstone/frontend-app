@@ -5,6 +5,7 @@ import Button from "../Button";
 import { Common } from "@/styles/common";
 import Cancel from "@/assets/images/cancel.svg";
 import DateSelector from "./DateSelector";
+import { useEffect } from "react";
 
 
 const DateSelectorModal = () => {
