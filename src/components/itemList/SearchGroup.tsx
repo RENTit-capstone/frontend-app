@@ -6,8 +6,8 @@ import useDateSelectorStore from "@/stores/useDateSelectorStore";
 
 const SearchGroup = () => {
     const {openDateSelector} = useDateSelectorStore();
-    const [startDate, setStartDate] = useState<Date | null>(null);
-    const [endDate, setEndDate] = useState<Date | null>(null);
+    const [startDate, setStartDate] = useState<string | null>(null);
+    const [endDate, setEndDate] = useState<string | null>(null);
     const [showSlider, setShowSlider] = useState(false);
 
     const handleDateSelect = async () => {
