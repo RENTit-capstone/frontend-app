@@ -7,7 +7,6 @@ import usePostingInput from "@/hooks/usePostingInput";
 import { Common } from "@/styles/common";
 import { useState } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
-import { combine } from "zustand/middleware";
 import Cancel from "@/assets/images/cancel.svg";
 import Colors from "@/constants/Colors";
 
@@ -23,14 +22,14 @@ const NewPosting = () => {
         price: "",
         damagedPolicy: "",
         returnPolicy: "",
-        startDate: "",
-        endDate: "",
     });
 
     const handleSubmit = async () => {
         const payload = {
             ownerId: 0,
             status: "AVAILABLE",
+            startDate: startDate,
+            endDate: endDate,
             values
         }
         try {
@@ -81,7 +80,7 @@ const NewPosting = () => {
                 <Text>대여 가능 기간</Text>
                 <View style={[Common.XStack, Common.fullScreen, {alignItems: "center"}]}>
                     <View style={[Common.textInput, {width: "80%", backgroundColor: Colors.option}]}>
-                        <Text>{startDate} ~ {endDate}</Text>
+                        {startDate&&endDate&& <Text>{startDate} ~ {endDate}</Text>}
                     </View>
                     <Button type="primary" onPress={() => setShowDateSelector(true)} style={{height: 40, justifyContent: "center"}}>
                         기간 선택
@@ -90,11 +89,15 @@ const NewPosting = () => {
                 </View>
             </View>
 
+            <View style={Common.XStack}>
+                <Button type="option" onPress={handleSubmit}>
+                    취소
+                </Button>
+                <Button type="primary" onPress={handleSubmit}>
+                    업로드
+                </Button>
+            </View>
 
-            <Button type="primary" onPress={handleSubmit}>
-                업로드
-            </Button>
-            
         </ScrollView>
         {showDateSelector && 
             <View style={Common.darkBackground}>

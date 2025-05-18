@@ -135,6 +135,4 @@ export type PostingType = {
     price: string,
     damagedPolicy: string,
     returnPolicy: string,
-    startDate: string,
-    endDate: string,
 }

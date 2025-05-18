@@ -167,7 +167,7 @@ export const Common = StyleSheet.create({
     floatingButton: {
         position: "absolute",
         borderRadius: 50,
-        padding: 10,
+        padding: 16,
         right: 16,
         bottom: 64,
         zIndex: 50,
