@@ -8,8 +8,8 @@ type DateSelectorState = {
 
     openDateSelector: () => Promise<{ startDate: string | null; endDate: string | null}>;
     closeDateSelector: (close: boolean) => void;
-    setStartDate: (date: string) => void;
-    setEndDate: (date: string) => void;
+    setStartDate: (date: string | null) => void;
+    setEndDate: (date: string | null) => void;
 }
 
 const useDateSelectorStore = create<DateSelectorState>(

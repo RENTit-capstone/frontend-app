@@ -1,7 +1,6 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import DropDown from "../Dropdown";
 import { Common } from "@/styles/common";
-import Calendar from "@/assets/images/calendar.svg";
 import { useState } from "react";
 import useDateSelectorStore from "@/stores/useDateSelectorStore";
 
