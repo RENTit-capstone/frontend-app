@@ -172,7 +172,8 @@ export const Common = StyleSheet.create({
         bottom: 64,
         zIndex: 50,
     },
-    mockInput: {
-        
+    textArea: {
+        height: 128,
+        textAlignVertical: "top",
     }
 });

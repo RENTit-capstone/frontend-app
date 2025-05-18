@@ -1,4 +1,5 @@
 import { TextInputProps as DefaultTextInputProps, KeyboardTypeOptions } from "react-native";
+import { StyleProps } from "react-native-reanimated";
 
 export type ResponseType<T> = {
     data: T;
@@ -9,17 +10,6 @@ export type ResponseType<T> = {
 export type LoginType = {
     email: string;
     pw: string;
-}
-
-export interface TextInputProps extends DefaultTextInputProps {
-    label: string;
-    name: string;
-    handleChangeText: (name: string, text: string) => void;
-    value: string;
-    placeholder?: string;
-    secureTextEntry?: boolean;
-    keyboardType?: KeyboardTypeOptions;
-    errorMsg?: string;
 }
 
 export type UserType = {

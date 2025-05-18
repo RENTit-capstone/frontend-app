@@ -9,6 +9,7 @@ import { useState } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
 import Cancel from "@/assets/images/cancel.svg";
 import Colors from "@/constants/Colors";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 
 const NewPosting = () => {
@@ -56,6 +57,8 @@ const NewPosting = () => {
                 name="description"
                 handleChangeText={handleChange}
                 value={values.description}
+                multiline={true}
+                style={Common.textArea}
             />
             <TextInput 
                 label="가격" 
@@ -100,7 +103,7 @@ const NewPosting = () => {
 
         </ScrollView>
         {showDateSelector && 
-            <View style={Common.darkBackground}>
+            <GestureHandlerRootView style={Common.darkBackground}>
             <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}  bottomInsent={0}>
                 <View>
                     <Button type="option" onPress={() => setShowDateSelector(false)} style={Common.cancel}><Cancel /></Button>
@@ -116,7 +119,7 @@ const NewPosting = () => {
                     <Button type="primary" onPress={() => setShowDateSelector(false)}>저장</Button>
                 </View>
             </BottomScrollSheet>
-        </View>
+        </GestureHandlerRootView>
         }
         </>
     )
