@@ -173,7 +173,6 @@ export const Common = StyleSheet.create({
         zIndex: 50,
     },
     textArea: {
-        height: 128,
         textAlignVertical: "top",
     }
 });

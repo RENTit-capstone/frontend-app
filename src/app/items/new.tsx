@@ -53,14 +53,6 @@ const NewPosting = () => {
                 value={values.name}
             />
             <TextInput 
-                label="설명" 
-                name="description"
-                handleChangeText={handleChange}
-                value={values.description}
-                multiline={true}
-                style={Common.textArea}
-            />
-            <TextInput 
                 label="가격" 
                 name="price"
                 handleChangeText={handleChange}
@@ -68,16 +60,28 @@ const NewPosting = () => {
                 keyboardType="numeric"
             />
             <TextInput 
+                label="설명" 
+                name="description"
+                handleChangeText={handleChange}
+                value={values.description}
+                multiline={true}
+                style={[Common.textArea, {height: 128}]}
+            />
+            <TextInput 
                 label="파손정책" 
                 name="damagedPolicy"
                 handleChangeText={handleChange}
                 value={values.damagedPolicy}
+                multiline={true}
+                style={[Common.textArea, {height: 64}]}
             />
             <TextInput 
                 label="반납정책" 
                 name="returnPolicy"
                 handleChangeText={handleChange}
                 value={values.returnPolicy}
+                multiline={true}
+                style={[Common.textArea, {height: 64}]}
             />
             <View style={[Common.fullScreen]}>
                 <Text>대여 가능 기간</Text>

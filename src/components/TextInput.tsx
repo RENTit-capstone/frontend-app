@@ -12,7 +12,7 @@ type TextInputProps = {
     keyboardType?: KeyboardTypeOptions;
     errorMsg?: string;
     multiline?:boolean;
-    style: TextStyle;
+    style?: TextStyle[];
 }
 const TextInput = (props: TextInputProps) => {
     const {label, name, handleChangeText, placeholder="", value, secureTextEntry=false, keyboardType="default", errorMsg="", multiline=false, style} = props;
