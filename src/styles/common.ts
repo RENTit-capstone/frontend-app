@@ -171,5 +171,8 @@ export const Common = StyleSheet.create({
         right: 16,
         bottom: 64,
         zIndex: 50,
+    },
+    mockInput: {
+        
     }
 });

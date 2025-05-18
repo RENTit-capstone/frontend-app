@@ -11,7 +11,7 @@ const ItemList = () => {
   return (
     <SafeAreaView style={Common.container}>
         <StatusButtonGroup />
-        <Button type="primary" onPress={() => router.navigate("/items/upload")} style={Common.floatingButton}>
+        <Button type="primary" onPress={() => router.navigate("/items/new")} style={Common.floatingButton}>
           글쓰기
         </Button>
         <ItemListTab />
