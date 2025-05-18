@@ -1,7 +1,6 @@
 import useRequestStore from "@/stores/useRequestStore";
 import BottomScrollSheet from "../BottomScrollSheet";
 import { Text, View } from "react-native";
-import DateSelector from "./DateSelector";
 import { Common } from "@/styles/common";
 import Cancel from "@/assets/images/cancel.svg";
 import Button from "../Button";
@@ -9,10 +8,12 @@ import { useEffect, useState } from "react";
 import Checkbox from "expo-checkbox";
 import { itemList } from "@/styles/components/itemList";
 import ItemDetailsButtonBar from "./ItemDetailsButtonBar";
+import useDateSelectorStore from "@/stores/useDateSelectorStore";
 
 const ItemDetailsBottomSheet = (props: any) => {
     const {handleRequest} = props;
-    const {phase, startDate, endDate, setStartDate, setEndDate, setChecked} = useRequestStore();
+    const {phase, setChecked} = useRequestStore();
+
     const [identifiedFlaw, setIdentifiedFlaw] = useState(false);    
     const [agreedPolicy, setAgreedPolicy] = useState(false);
 
@@ -24,26 +25,11 @@ const ItemDetailsBottomSheet = (props: any) => {
 
     }
 
+
+
+
     return (
         <>
-            {phase==="periodSetting" && 
-                <View style={Common.darkBackground}>
-                <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}>
-                    <View>
-                        <Button type="option" onPress={handleCancel} style={Common.cancel}><Cancel /></Button>
-                        <View style={{alignItems: "center", paddingVertical: 15,}}>
-                            <Text style={{fontSize: 18, fontWeight: 500}}>일정 선택</Text>
-                        </View>
-                        <DateSelector 
-                            startDate={startDate}
-                            endDate={endDate}
-                            setStartDate={setStartDate}
-                            setEndDate={setEndDate}
-                            />
-                    </View>
-                </BottomScrollSheet>
-                </View>
-            }
             {phase==="consenting" && 
                 <View style={Common.darkBackground}>
                 <BottomScrollSheet snapPointList={["30%"]} style={{backgroundColor: "#fff"}}>

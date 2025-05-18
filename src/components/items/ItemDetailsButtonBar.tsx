@@ -4,21 +4,31 @@ import useRequestStore, { RequestPhaseType } from "@/stores/useRequestStore";
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
 import Colors from "@/constants/Colors";
+import useDateSelectorStore from "@/stores/useDateSelectorStore";
 
 const ItemDetailsButtonBar = (props: any) => {
     const {handleRequest} = props;
-    const {phase, setPhase, startDate, endDate} = useRequestStore();
+    const {phase, setPhase, setStartDate, setEndDate} = useRequestStore();
     const phases: RequestPhaseType[] = ["viewing", "periodSetting", "consenting", "applying"];
+    const {openDateSelector} = useDateSelectorStore();
 
+    
     const movePhase = (direction: number) => {
         const currentPhaseIndex = phases.indexOf(phase);
         setPhase(phases[currentPhaseIndex + direction]);
     }
 
+    const handleDateSelect = async () => {
+        const { startDate, endDate } = await openDateSelector();
+        setStartDate(startDate);
+        setEndDate(endDate);
+        console.log(startDate, endDate);
+    }
+
     return (
         <SafeAreaView style={[Common.bottomBar, Common.upperShadow, {backgroundColor: "white"}]}>
             {phase==="viewing" && 
-                <Button onPress={() => movePhase(1)} type="primary" style={Common.tabBarItem}>
+                <Button onPress={handleDateSelect} type="primary" style={Common.tabBarItem}>
                     일정 선택하기  
                 </Button>
             }
@@ -41,7 +51,7 @@ const ItemDetailsButtonBar = (props: any) => {
             }
             {phase==="applying" && 
                 <View style={Common.YStack}>
-                    <View style={[Common.XStack, Common.fullScreen, {justifyContent: "space-between"}]}>
+                    {/* <View style={[Common.XStack, Common.fullScreen, {justifyContent: "space-between"}]}>
                         <Text style={Common.bold}>
                             <Text>{startDate?.replaceAll("-", ".")} ~ {endDate?.replaceAll("-", ".")}</Text>
                             <Text style={{fontSize: 16, color: Colors.option}}> | </Text>
@@ -57,7 +67,7 @@ const ItemDetailsButtonBar = (props: any) => {
                         <Button onPress={handleRequest} type="primary" style={{flex: 3}}>
                             신청하기  
                         </Button>
-                    </View>
+                    </View> */}
                 </View>
             }
         </SafeAreaView>

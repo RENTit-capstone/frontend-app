@@ -10,8 +10,8 @@ type RequestType = {
     checked: boolean | undefined,
     setPhase: (nextPhase: RequestPhaseType) => void,
     // setStoredId: (storedId: string | string[]) => void,
-    setStartDate: (startDate: string) => void,
-    setEndDate: (endDate: string) => void,
+    setStartDate: (startDate: string | null) => void,
+    setEndDate: (endDate: string | null) => void,
     setChecked: (checked: boolean) => void,
     clearRecord: () => void,
 }
