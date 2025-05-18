@@ -89,7 +89,7 @@ const NewPosting = () => {
                     <View style={[Common.textInput, {width: "80%", backgroundColor: Colors.option}]}>
                         {startDate&&endDate&& <Text>{startDate} ~ {endDate}</Text>}
                     </View>
-                    <Button type="primary" onPress={() => setShowDateSelector(true)} style={{height: 40, justifyContent: "center"}}>
+                    <Button type="primary" onPress={() => setShowDateSelector(true)} style={{height: 40, paddingVertical: 0, justifyContent: "center"}}>
                         기간 선택
                     </Button>
 
@@ -101,7 +101,7 @@ const NewPosting = () => {
                     취소
                 </Button>
                 <Button type="primary" onPress={handleSubmit}>
-                    업로드
+                    등록
                 </Button>
             </View>
 
