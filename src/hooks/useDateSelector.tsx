@@ -7,10 +7,8 @@ const useDateSelector = () => {
     const {startDate, setStartDate, endDate, setEndDate} = useDateSelectorStore();
 
     const onDayPress = (day: DateData) => {
-        console.log(day.dateString);
         // 두개 다 선택이 안된 경우
         if (!startDate || (startDate && endDate)) {
-            console.log("asdf")
             setStartDate(day.dateString);
             setEndDate(null);
             return;
@@ -19,7 +17,6 @@ const useDateSelector = () => {
         if (new Date(day.dateString) < new Date(startDate)) {
             setEndDate(startDate);
             setStartDate(day.dateString);
-            console.log(startDate);
         }
         else {
             setEndDate(day.dateString);
