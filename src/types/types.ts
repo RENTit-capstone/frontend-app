@@ -127,3 +127,15 @@ export type ItemDetailsProp = {
     messages: number, 
     likes: number,
 }
+
+export type PostingType = {
+    name: string,
+    itemImg: string,
+    description: string,
+    price: number,
+    status: ItemStatusType,
+    damagedPolicy: string,
+    returnPolicy: string,
+    startDate: string,
+    endDate: string,
+}
