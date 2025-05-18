@@ -132,7 +132,7 @@ export type PostingType = {
     name: string,
     itemImg: string,
     description: string,
-    price: number,
+    price: string,
     status: ItemStatusType,
     damagedPolicy: string,
     returnPolicy: string,
