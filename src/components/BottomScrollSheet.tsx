@@ -7,11 +7,12 @@ import { StyleProps } from "react-native-reanimated";
 type BottomScrollSheetProps = {
     snapPointList: string[],
     children: ReactElement,
-    style?: StyleProps
+    style?: StyleProps,
+    bottomInsent?: number
 }
 
 const BottomScrollSheet = (props: BottomScrollSheetProps) => {
-    const {snapPointList, children, style} = props;
+    const {snapPointList, children, style, bottomInsent=64} = props;
 
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => snapPointList, []);
@@ -31,7 +32,7 @@ const BottomScrollSheet = (props: BottomScrollSheetProps) => {
             snapPoints={snapPoints}
             animationConfigs={animationConfigs}
             enableDynamicSizing={false}
-            bottomInset={64}
+            bottomInset={bottomInsent}
             backgroundStyle={[itemList.bottomSheet, style]}
             >
             <BottomSheetScrollView contentContainerStyle={{flexGrow: 1}}>
