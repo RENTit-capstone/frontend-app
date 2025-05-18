@@ -1,7 +1,9 @@
+import { axiosPost } from "@/api";
+import Button from "@/components/Button";
 import TextInput from "@/components/TextInput";
 import usePostingInput from "@/hooks/usePostingInput";
 import { Common } from "@/styles/common";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Alert } from "react-native";
 
 const NewPosting = () => {
     const { values, handleChange } = usePostingInput({
@@ -9,13 +11,28 @@ const NewPosting = () => {
         itemImg: "",
         description: "",
         price: "",
-        status: "AVAILABLE",
         damagedPolicy: "",
         returnPolicy: "",
         startDate: "",
         endDate: "",
     });
-    
+
+    const handleSubmit = async () => {
+        const payload = {
+            ownerId: 0,
+            status: "AVAILABLE",
+            values
+        }
+        try {
+            const response = await axiosPost(`/api/v1/items`, payload);
+            console.log("Response for handleSubmit: ", response);
+        }
+        catch(error) {
+            Alert.alert(`${error}`);
+            console.error(error);
+        }
+    }
+
     return (
         <ScrollView style={Common.container}>
             <TextInput 
@@ -56,7 +73,9 @@ const NewPosting = () => {
                 value={values.damagedPolicy}
             />
 
-
+            <Button type="primary" onPress={handleSubmit}>
+                업로드
+            </Button>
         </ScrollView>
     )
 }
