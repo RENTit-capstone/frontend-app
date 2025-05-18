@@ -2,14 +2,14 @@ import { create } from "zustand";
 
 type DateSelectorState = {
     visible: boolean,
-    startDate: Date | null,
-    endDate: Date | null,
-    resolve?: (result: {startDate: Date | null; endDate: Date | null}) => void;
+    startDate: string | null,
+    endDate: string | null,
+    resolve?: (result: {startDate: string | null; endDate: string | null}) => void;
 
-    openDateSelector: () => Promise<{ startDate: Date | null; endDate: Date | null}>;
+    openDateSelector: () => Promise<{ startDate: string | null; endDate: string | null}>;
     closeDateSelector: (close: boolean) => void;
-    setStartDate: (date: Date) => void;
-    setEndDate: (date: Date) => void;
+    setStartDate: (date: string) => void;
+    setEndDate: (date: string) => void;
 }
 
 const useDateSelectorStore = create<DateSelectorState>(
