@@ -14,7 +14,8 @@ const NewPosting = () => {
     const {openDateSelector} = useDateSelectorStore();
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
-    const formData = new FormData();;
+    const [imageSrc, setImageSrc] = useState<any[]>([]);
+    const formData = new FormData();
     const { values, handleChange } = usePostingInput({
         name: "",
         description: "",
@@ -22,6 +23,20 @@ const NewPosting = () => {
         damagedPolicy: "",
         returnPolicy: "",
     });
+
+    const selectImage = async () => {
+        const selectedImg = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsMultipleSelection: true,
+        });
+
+        if (!selectedImg.canceled) {
+            selectedImg.assets.forEach((image) => {
+                formData.append('images', image.uri);
+                setImageSrc((prev) => [...prev, image.uri]);
+            });
+        }
+    }
 
     const handleSubmit = async () => {
         const payload = {
@@ -36,17 +51,6 @@ const NewPosting = () => {
         };
 
         formData.append('form', JSON.stringify(payload));
-
-        const selectedImg = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsMultipleSelection: true,
-        });
-
-        if (!selectedImg.canceled) {
-            selectedImg.assets.forEach((image) => {
-                formData.append('images', image.uri);
-            });
-        }
 
         try {
             const response = await axiosPost(`/api/v1/items`, formData, {
@@ -73,10 +77,11 @@ const NewPosting = () => {
     return (
         <>
         <ScrollView style={[Common.container, Common.wrapper]}>
-            <Button type="primary" onPress={selectImg}>이미지 선택</Button>
-            {image && 
-            <Image source={{uri: image.uri}}/>
-            }
+            <Button type="primary" onPress={selectImage}>이미지 선택</Button>
+            {imageSrc[0] && 
+                imageSrc.map((image) => {
+                    <Image source={{uri: image.uri}}/>
+            })}
             <TextInput 
                 label="물품명"      
                 name="name"

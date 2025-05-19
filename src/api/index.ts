@@ -10,9 +10,6 @@ export const axiosNoInterceptor = axios.create({
 
 export const axiosInstance = axios.create({
     baseURL: process.env.EXPO_PUBLIC_API_URL,
-    headers: {
-        "Content-Type": "application/json",
-    }
 });
 
 const getNewToken = async () => {
@@ -38,6 +35,9 @@ axiosInstance.interceptors.request.use(
             config.headers.Authorization = `Bearer ${token}`;
         }
         console.log('Token:', config.headers);
+        if (!config.headers["Content-Type"]) {
+            config.headers["Content-Type"] = "application/json";
+        }
         return config;
     },
     error => {
@@ -72,8 +72,8 @@ export const axiosGet = async (url: string) => {
     return res.data;
 }
 
-export const axiosPost = async (url: string, payload?: any) => {
-    const res = await axiosInstance.post(url, payload);
+export const axiosPost = async (url: string, payload?: any, headerOption?: any) => {
+    const res = await axiosInstance.post(url, payload, headerOption);
     if (!res.data.success){
         throw new Error(res.data.message);
     }
