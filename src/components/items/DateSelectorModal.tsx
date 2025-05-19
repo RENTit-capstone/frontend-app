@@ -44,7 +44,11 @@ const DateSelectorModal = () => {
                 </View>
             </View>
         </BottomScrollSheet>
-        <ButtonBar onClose={() => closeDateSelector(true)} />
+        <ButtonBar>
+            <Button type="primary" onPress={() => closeDateSelector(true)}>
+                저장
+            </Button>
+        </ButtonBar>
         </>
     )
 }

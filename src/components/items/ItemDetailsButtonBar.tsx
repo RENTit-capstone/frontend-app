@@ -6,6 +6,7 @@ import { itemList } from "@/styles/components/itemList";
 import Colors from "@/constants/Colors";
 import useDateSelectorStore from "@/stores/useDateSelectorStore";
 import usePolicyStore from "@/stores/usePolicyStore";
+import ButtonBar from "../ButtonBar";
 
 const ItemDetailsButtonBar = (props: any) => {
     const {phase, setPhase, startDate, endDate, setStartDate, setEndDate, setChecked} = useRequestStore();
@@ -14,12 +15,14 @@ const ItemDetailsButtonBar = (props: any) => {
     const {openPolicy} = usePolicyStore();
     
     const moveNext = () => {
+        console.log(phase);
+
         // const currentPhaseIndex = phases.indexOf(phase);
         // setPhase(phases[currentPhaseIndex + direction]);
         if (phase==="viewing"){
             setPhase("periodSetting");
             handleDateSelect();
-            onCloseDateSelector(() => {handlePolicy(); setPhase("consenting")}); 
+            onCloseDateSelector(() => {handlePolicy(); moveNext()}); 
         }
         // else if (phase==="periodSetting"){
         //     setPhase("consenting");
@@ -42,11 +45,16 @@ const ItemDetailsButtonBar = (props: any) => {
     }
 
     return (
-        <SafeAreaView style={[Common.bottomBar, Common.upperShadow, {backgroundColor: "white"}]}>
+        <>
             {phase==="viewing" && 
-                <Button onPress={moveNext} type="primary" style={Common.tabBarItem}>
-                    일정 선택하기  
-                </Button>
+                <ButtonBar>
+                    <Button type="primary" onPress={() => moveNext()}>
+                        일정 선택하기
+                    </Button>
+                </ButtonBar>
+            //     <Button onPress={moveNext} type="primary" style={Common.tabBarItem}>
+            //         일정 선택하기  
+            //     </Button>
             }
             {/* {phase==="periodSetting" && 
                 <View style={Common.XStack}>
@@ -86,7 +94,7 @@ const ItemDetailsButtonBar = (props: any) => {
                     </View>
                 </View>
             }
-        </SafeAreaView>
+        </>
     );
 }
 

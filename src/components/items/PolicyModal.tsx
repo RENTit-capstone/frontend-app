@@ -40,7 +40,11 @@ const PolicyModal = () => {
                 </View>
             </View>
         </BottomScrollSheet>
-        <ButtonBar onClose={() => closePolicy(true)} />
+        <ButtonBar>
+            <Button type="primary" onPress={() => closePolicy(true)}>
+                저장
+            </Button>
+        </ButtonBar>
         </>
     )
 }
