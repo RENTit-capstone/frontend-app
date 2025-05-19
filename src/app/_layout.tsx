@@ -8,6 +8,7 @@ import useAuthStore from '@/stores/useAuthStore';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import DateSelectorModal from '@/components/items/DateSelectorModal';
 import PolicyModal from '@/components/items/PolicyModal';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // import { useColorScheme } from '@/components/useColorScheme';
 
@@ -61,12 +62,14 @@ function RootLayoutNav() {
 
   return (
     // <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <SafeAreaProvider>    
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />        
-        </Stack>
-        <DateSelectorModal />
-        <PolicyModal />
+      <SafeAreaProvider>  
+        <GestureHandlerRootView>  
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />        
+          </Stack>
+          <DateSelectorModal />
+          <PolicyModal />
+        </GestureHandlerRootView>
       </SafeAreaProvider>
     // </ThemeProvider>
   );
