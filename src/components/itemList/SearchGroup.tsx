@@ -5,12 +5,15 @@ import { useState } from "react";
 import useDateSelectorStore from "@/stores/useDateSelectorStore";
 import Calendar from "@/assets/images/calendar.svg";
 import DownArrow from "@/assets/images/down-arrow.svg";
+import Colors from "@/constants/Colors";
 
 const SearchGroup = () => {
     const {openDateSelector} = useDateSelectorStore();
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
     const [showSlider, setShowSlider] = useState(false);
+    const [startPrice, setStartPrice] = useState<string | null>(null);
+    const [endPrice, setEndPrice] = useState<string | null>(null);
 
     const handleDateSelect = async () => {
         const { startDate, endDate } = await openDateSelector();
@@ -18,11 +21,22 @@ const SearchGroup = () => {
         setEndDate(endDate);
         console.log(startDate, endDate);
     }
+    const selected = Colors.out;
     
     return (
         <View style={[Common.XStack, Common.searchGroup]}>
-            <DropDown label="날짜 선택" icon={<Calendar />} onPress={() => handleDateSelect()} />
-            <DropDown label="가격대" icon={<DownArrow />} onPress={() => setShowSlider(true)}/>
+            <DropDown 
+                label="날짜 선택" 
+                icon={<Calendar fill={(!!startDate && !!endDate)? selected : undefined}/>}
+                selectedColor={(!!startDate && !!endDate)? selected : undefined}
+                onPress={() => handleDateSelect()} 
+            />
+            <DropDown 
+                label="가격대" 
+                icon={<DownArrow fill={(!!startPrice && !!endPrice)? selected : undefined}/>} 
+                selectedColor={(!!startPrice && !!endPrice)? selected : undefined}
+                onPress={() => setShowSlider(true)}
+            />
         </View>
     );
 }
