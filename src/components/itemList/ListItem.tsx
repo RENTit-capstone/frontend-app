@@ -12,10 +12,11 @@ import { useRouter } from "expo-router";
 const ListItem = (props: ListItemProps) => {
     const router = useRouter();
     const {id, title, img, available, price, period, messages, likes} = props;
+    const imgSrc = img ? {uri: img} : require("@/assets/images/icon.png");
 
     return (
         <Pressable style={[Common.XStack, itemList.cardWrapper]} onPress={() => (router.navigate(`/items/${id}`))}>
-            <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
+            <Image source={imgSrc} style={itemList.listItemImage}/>
 
             <View style={[Common.wideView]}>
                 <Badge available={available} />
