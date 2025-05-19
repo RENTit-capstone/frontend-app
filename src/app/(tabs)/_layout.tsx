@@ -1,44 +1,29 @@
 import { Tabs } from "expo-router";
-import { View, Pressable } from "react-native";
-import { Common } from "@/styles/common";
-import TabBar from "@/components/bottomTabBar/TabBar";
-import { ReactElement } from "react";
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import Header from "@/components/Header";
+import BottomNavBar from "@/components/BottomNavBar";
+import { SafeAreaView } from "react-native";
 
 const TabLayout = () => {
     return (
-        <Tabs
-            screenOptions={{ headerShown: false }}
-            tabBar={(props) => <TabBar {...props} />}
-            // screenOptions={{
-            //     headerShown: true, 
-            //     tabBarActivateTintColor: "#455464",
-            //     tabBarInactiveTintColor: "#ccc",
-            //     tabBarStyle: {
-            //         backgroundColor: Colors.secondary
-            //     },
-            //     tabBarLabelStyle: {
-            //         fontSize: 14,
-            //     }
-            // }}
-        >
-            <Tabs.Screen
-                name="itemList"
-                options={{
-                    title: "홈",
-                }}
-
-            />
-            <Tabs.Screen
-                name="history"
-                options={{
-                    title: "히스토리",
-                    header: () => <Header />,
-
-                }}
-            />
-        </Tabs>
+        <SafeAreaView style={{ flex: 1 }}> 
+            <Tabs
+                screenOptions={{header: () => <Header />}}
+                tabBar={(props) => <BottomNavBar {...props} />}
+            >
+                <Tabs.Screen
+                    name="itemList"
+                    options={{
+                        title: "홈",
+                    }}
+                />
+                <Tabs.Screen
+                    name="history"
+                    options={{
+                        title: "히스토리",
+                    }}
+                />
+            </Tabs>
+        </SafeAreaView>
     );
 }
 

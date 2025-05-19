@@ -2,7 +2,7 @@ import { KeyboardAvoidingView, SafeAreaView, Text, View } from "react-native";
 import { Link } from "expo-router"
 import Button from "@/components/Button";
 import { Common } from "@/styles/common";
-import useInput from "@/hooks/useInput";
+import useValidateInput from "@/hooks/useValidateInput";
 import Logo from "@/assets/images/logo.svg";
 import { useState } from "react";
 import EmailInfoScreen from "@/components/signup/EmailInfoScreen";
@@ -14,7 +14,7 @@ const Signup = () => {
     const lastPage = 1;
     const [page, setPage] = useState(0);
     const {emailVerified, signup} = useSignupVerificationStore();
-    const {values, errors, handleChange, blockNext} = useInput({
+    const {values, errors, handleChange, blockNext} = useValidateInput({
         email: "",
         pw: "",
         pwConfirm: "",

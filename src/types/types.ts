@@ -1,5 +1,3 @@
-import { TextInputProps as DefaultTextInputProps, KeyboardTypeOptions } from "react-native";
-
 export type ResponseType<T> = {
     data: T;
     message?: string;
@@ -9,17 +7,6 @@ export type ResponseType<T> = {
 export type LoginType = {
     email: string;
     pw: string;
-}
-
-export interface TextInputProps extends DefaultTextInputProps {
-    label: string;
-    name: string;
-    handleChangeText: (name: string, text: string) => void;
-    value: string;
-    placeholder?: string;
-    secureTextEntry?: boolean;
-    keyboardType?: KeyboardTypeOptions;
-    errorMsg?: string;
 }
 
 export type UserType = {
@@ -40,6 +27,7 @@ export type SignupInputType = {
     studentId: string,       
 }
 
+export type listType = "INDIVIDUAL" | "GROUP";
 export type memberType = "STUDENT" | "COUNCIL" | "COMPANY";
 export type Gender = "male" | "female" | "";
 
@@ -68,7 +56,7 @@ export type ListItemProps = {
 }
 
 export type ListContainerProps = {
-    type: string,
+    type: listType,
 }
 
 export type StatusType = "pending" | "inRent" | "returned";
@@ -102,17 +90,28 @@ export type RentalDetailsType = {
 export type ItemStatusType = "AVAILABLE" | "OUT";
 
 export type ItemDetailsProp = {
-    id: string | string[],
+    itemId: number,
     owner: string, 
+    ownerId: number,
     name: string
     itemImg: string, 
     description: string,
     price: number, 
     status: ItemStatusType,
     damagedPolicy: string,
+    returnPolicy: string,
     startDate: string,
     endDate: string,
 
     messages: number, 
     likes: number,
+}
+
+export type PostingType = {
+    name: string,
+    itemImg: string,
+    description: string,
+    price: string,
+    damagedPolicy: string,
+    returnPolicy: string,
 }
