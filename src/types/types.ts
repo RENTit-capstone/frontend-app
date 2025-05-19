@@ -14,15 +14,6 @@ export type UserType = {
     nickname: string;
 }
 
-// 로그인 상태관리
-export type AuthType = {
-    id: number | null;
-    accessToken: string | null;
-    setId: (id: number) => void;
-    setToken: (accessToken: string) => void;
-    clearToken: () => void;
-}
-
 export type SignupInputType = {
     email: string,
     emailVerifyCode: string,
