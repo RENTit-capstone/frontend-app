@@ -27,13 +27,13 @@ const SearchGroup = () => {
         <View style={[Common.XStack, Common.searchGroup]}>
             <DropDown 
                 label="날짜 선택" 
-                icon={<Calendar fill={(!!startDate && !!endDate)? selected : undefined}/>}
+                icon={<Calendar stroke={(!!startDate && !!endDate)? selected : "#111111"}/>}
                 selectedColor={(!!startDate && !!endDate)? selected : undefined}
                 onPress={() => handleDateSelect()} 
             />
             <DropDown 
                 label="가격대" 
-                icon={<DownArrow fill={(!!startPrice && !!endPrice)? selected : undefined}/>} 
+                icon={<DownArrow stroke={(!!startPrice && !!endPrice)? selected : "#111111"}/>} 
                 selectedColor={(!!startPrice && !!endPrice)? selected : undefined}
                 onPress={() => setShowSlider(true)}
             />
