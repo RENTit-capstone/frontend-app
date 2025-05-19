@@ -7,7 +7,8 @@ import Calendar from "@/assets/images/calendar.svg";
 import DownArrow from "@/assets/images/down-arrow.svg";
 import Colors from "@/constants/Colors";
 
-const SearchGroup = () => {
+const SearchGroup = (props: any) => {
+    const {onChange} = props;
     const {openDateSelector} = useDateSelectorStore();
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
@@ -19,6 +20,7 @@ const SearchGroup = () => {
         const { startDate, endDate } = await openDateSelector();
         setStartDate(startDate);
         setEndDate(endDate);
+        onChange({ startDate: startDate, endDate: endDate, startPrice: startPrice, endPrice: endPrice });
         console.log(startDate, endDate);
     }
     const dateSelected = (!!startDate && !!endDate);
