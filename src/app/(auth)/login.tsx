@@ -6,7 +6,11 @@ import { Text, View } from "react-native";
 import Button from "@/components/Button";
 import { Common } from "@/styles/common";
 import Logo from "@/assets/images/logo.svg";
+<<<<<<< HEAD
 import { axiosNoInterceptor, axiosPost } from "@/api";
+=======
+import { axiosPost } from "@/api";
+>>>>>>> fb8b9a5 (Feat: PreSignedImage 컴포넌트 생성)
 import useAuthStore from "@/stores/useAuthStore";
 
 
@@ -19,6 +23,7 @@ const Login = () => {
 
     const login = async (payload: LoginType) => {
         try {
+<<<<<<< HEAD
             const res = await axiosNoInterceptor.post(`/api/v1/auth/login`, payload);
             if (res.data.success){
                 setAccessToken(res.data.accessToken);
@@ -30,6 +35,12 @@ const Login = () => {
             }
 
             return res.data;
+=======
+            const response = await axiosPost(`/api/v1/auth/login`, payload);
+            setAccessToken(response.data.accessToken);
+            await setRefreshToken(response.data.refreshToken);
+            console.log("Response for login: ", response.data);
+>>>>>>> fb8b9a5 (Feat: PreSignedImage 컴포넌트 생성)
         } 
         catch (error) {
             console.log(error);
