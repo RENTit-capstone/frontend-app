@@ -9,7 +9,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomScrollSheet from "@/components/BottomScrollSheet";
 import ItemDetails from "@/components/items/ItemDetails";
 import useRequestStore from "@/stores/useRequestStore";
-import ItemDetailsBottomSheet from "@/components/items/ItemDetailsBottomSheet";
+import ItemDetailsButtonBar from "@/components/items/ItemDetailsButtonBar";
 
 const sampleData: ItemDetailsProp = {
     itemId: 0,
@@ -89,8 +89,7 @@ const Postings = () => {
                     likes={3}
                 />
             </BottomScrollSheet>
-
-            <ItemDetailsBottomSheet handleRequest={handleRequest}/>
+            <ItemDetailsButtonBar handleRequest={handleRequest}/>
         </GestureHandlerRootView>
     )
 }  
