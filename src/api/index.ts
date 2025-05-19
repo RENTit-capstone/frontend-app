@@ -24,7 +24,7 @@ axiosInstance.interceptors.request.use(
         const token = useAuthStore.getState().accessToken;
         console.log(token);
         if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+            config.headers.accessToken = `Bearer ${token}`;
         }
         return config;
     },
@@ -36,15 +36,24 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
+        if (response.data && response.data.success===false){
+            if (response.data.message==="accessToken validation error.") {
+                return getNewToken().then((newTokenResponse) => {
+                    useAuthStore.setState({
+                        accessToken: newTokenResponse.accessToken,
+                        refreshToken: newTokenResponse.refreshToken,
+                    });
+                    const originalRequest = response.config;
+                    originalRequest.headers.Authorization = `Bearer ${newTokenResponse.accessToken}`;
+                    return axiosInstance(originalRequest);
+                });
+            }
+            return Promise.reject(new Error(response.data.message));
+        }
         return response;
     },
-    async (error) => {
-        // access token 만료 시 => code? 401?
-        const response = await getNewToken();
-        useAuthStore.setState({accessToken: response.accessToken});
-        useAuthStore.setState({refreshToken: response.refreshToken});
-        console.error("[AXIOS_INTERCEPTORS_RESPONSE_ERROR]: ", error);
-        return Promise.reject(error);   //요청 재시도 필요?
+    (error) => {
+        return Promise.reject(error);
     }
 );
 
