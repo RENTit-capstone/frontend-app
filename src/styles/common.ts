@@ -174,5 +174,18 @@ export const Common = StyleSheet.create({
     },
     textArea: {
         textAlignVertical: "top",
+    },
+    floatingIcon: {
+        position: "absolute",
+        alignSelf: "flex-end",
+        marginVertical: 15,
+        paddingRight: 32,
+        paddingTop: 20,
+        transform: [{ translateY: -12 }],
+    },
+    searchGroup: {
+        gap: "5%",
+        backgroundColor: "white",
+        paddingVertical: 12,
     }
 });

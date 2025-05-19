@@ -1,6 +1,3 @@
-import { TextInputProps as DefaultTextInputProps, KeyboardTypeOptions } from "react-native";
-import { StyleProps } from "react-native-reanimated";
-
 export type ResponseType<T> = {
     data: T;
     message?: string;
@@ -39,6 +36,7 @@ export type SignupInputType = {
     studentId: string,       
 }
 
+export type listType = "INDIVIDUAL" | "GROUP";
 export type memberType = "STUDENT" | "COUNCIL" | "COMPANY";
 export type Gender = "male" | "female" | "";
 
@@ -67,7 +65,7 @@ export type ListItemProps = {
 }
 
 export type ListContainerProps = {
-    type: string,
+    type: listType,
 }
 
 export type StatusType = "pending" | "inRent" | "returned";

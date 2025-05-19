@@ -5,17 +5,19 @@ import Notification from "@/assets/images/notification.svg";
 import Avatar from "@/components/Avatar";
 import { Common } from '@/styles/common';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import { useRouter } from 'expo-router';
 
 const Header = () => {
+    const router = useRouter();
     const insets = useSafeAreaInsets();
+    
     return (
         <SafeAreaView style={[Common.headerWrapper, {paddingTop: insets.top}]}>
             <Pressable>
                 <Logo />
             </Pressable>
             <View style={Common.headerWrapper}>
-                <Pressable>
+                <Pressable onPress={() => (router.navigate("/search"))}>
                     <SearchIcon />
                 </Pressable>
                 <Pressable>

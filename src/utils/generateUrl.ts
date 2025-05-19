@@ -1,4 +1,4 @@
-export const generateUrl = () => {
+export const generateUrl = (type: string) => {
     // 일단 모든 status, page=0, size=20(고정), sort=requestDate, desc
     const statuses = ["REQUESTED", "APPROVED"];
     const page = 0;

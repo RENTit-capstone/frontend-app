@@ -2,7 +2,6 @@ import { Tabs } from "expo-router";
 import Header from "@/components/Header";
 import BottomNavBar from "@/components/BottomNavBar";
 import { SafeAreaView } from "react-native";
-import { Common } from "@/styles/common";
 
 const TabLayout = () => {
     return (
