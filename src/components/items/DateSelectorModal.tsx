@@ -18,37 +18,28 @@ const DateSelectorModal = () => {
     
     return (
         <>
-        <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}>
-            <View>
-                <Button type="option" onPress={() => closeDateSelector(false)} style={Common.cancel}>
-                    <Cancel />
-                </Button>
-                <View style={{alignItems: "center", paddingVertical: 15,}}>
-                    <Text style={{fontSize: 18, fontWeight: 500}}>일정 선택</Text>
-                </View>
+            <Button type="option" onPress={() => closeDateSelector(false)} style={Common.cancel}>
+                <Cancel />
+            </Button>
+            <View style={{alignItems: "center", paddingVertical: 15,}}>
+                <Text style={{fontSize: 18, fontWeight: 500}}>일정 선택</Text>
+            </View>
 
-                <View> 
-                    <Calendar
-                        monthFormat="yyyy MM"
-                        onDayPress={onDayPress}
-                        markingType="period"
-                        markedDates={markedDates}               
+            <View> 
+                <Calendar
+                    monthFormat="yyyy MM"
+                    onDayPress={onDayPress}
+                    markingType="period"
+                    markedDates={markedDates}               
 
-                        theme={{ 
-                            arrowColor: "#5B5B5B"
-                        }}
-                    />
-                    <View style={Common.chips}>             
-                        <Chip startDate={startDate} endDate={endDate} onCancel={resetPeriod}/>
-                    </View>
+                    theme={{ 
+                        arrowColor: "#5B5B5B"
+                    }}
+                />
+                <View style={Common.chips}>             
+                    <Chip startDate={startDate} endDate={endDate} onCancel={resetPeriod}/>
                 </View>
             </View>
-        </BottomScrollSheet>
-        <ButtonBar>
-            <Button type="primary" onPress={() => closeDateSelector(true)}>
-                저장
-            </Button>
-        </ButtonBar>
         </>
     )
 }

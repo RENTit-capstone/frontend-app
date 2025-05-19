@@ -8,6 +8,7 @@ import useAuthStore from '@/stores/useAuthStore';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import DateSelectorModal from '@/components/items/DateSelectorModal';
 import PolicyModal from '@/components/items/PolicyModal';
+import BottomSheet from '@/components/BottomSheet';
 
 // import { useColorScheme } from '@/components/useColorScheme';
 
@@ -65,8 +66,7 @@ function RootLayoutNav() {
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />        
         </Stack>
-        <DateSelectorModal />
-        <PolicyModal />
+        <BottomSheet />
       </SafeAreaProvider>
     // </ThemeProvider>
   );

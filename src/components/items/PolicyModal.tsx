@@ -16,35 +16,27 @@ const PolicyModal = () => {
     
     return (
         <>
-        <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}>
-            <View>
-                <Button type="option" onPress={() => closePolicy(false)} style={Common.cancel}>
-                    <Cancel />
-                </Button>
-
-                <View style={Common.XStack}>
-                    <Checkbox
-                        value={flawPolicy}
-                        onValueChange={setFlawPolicy}
-                        />
-
-                    <Text>하자를 확인하였습니다.</Text>
-                </View>
-                <View style={itemList.rowDivider} />
-                <View style={Common.XStack}>
-                    <Checkbox
-                        value={damagePolicy}
-                        onValueChange={setDamagePolicy}
-                        />
-                    <Text>파손정책에 동의합니다.</Text>
-                </View>
-            </View>
-        </BottomScrollSheet>
-        <ButtonBar>
-            <Button type="primary" onPress={() => closePolicy(true)}>
-                저장
+            <Button type="option" onPress={() => closePolicy(false)} style={Common.cancel}>
+                <Cancel />
             </Button>
-        </ButtonBar>
+
+            <View style={Common.XStack}>
+                <Checkbox
+                    value={flawPolicy}
+                    onValueChange={setFlawPolicy}
+                    />
+
+                <Text>하자를 확인하였습니다.</Text>
+            </View>
+            <View style={itemList.rowDivider} />
+            <View style={Common.XStack}>
+                <Checkbox
+                    value={damagePolicy}
+                    onValueChange={setDamagePolicy}
+                    />
+                <Text>파손정책에 동의합니다.</Text>
+            </View>
+
         </>
     )
 }

@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
-type BottomSheetlType = "dateSelector" | "imagePicker" | "confirmDialog";
+type BottomSheetlType = "dateSelector" | "policyConsenting";
 
 interface BottomSheetState {
     visible: boolean;
-    type: BottomSheetState | null;
+    type: BottomSheetlType | null;
     props: any;
-    open: (type: BottomSheetState, props?: any) => void;
+    open: (type: BottomSheetlType, props?: any) => void;
     close: () => void;
 }
 
