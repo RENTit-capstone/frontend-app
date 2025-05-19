@@ -21,7 +21,6 @@ const SearchGroup = (props: any) => {
         setStartDate(startDate);
         setEndDate(endDate);
         onChange({ startDate: startDate, endDate: endDate, startPrice: startPrice, endPrice: endPrice });
-        console.log(startDate, endDate);
     }
     const dateSelected = (!!startDate && !!endDate);
     const priceSelected = (!!startPrice && !!endPrice);
