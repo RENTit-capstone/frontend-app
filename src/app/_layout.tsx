@@ -48,8 +48,9 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const token = useAuthStore((state) => state.accessToken);
   const pathname = usePathname();
+  const isAllowedPage = pathname.includes("login") || pathname.includes("signup");
 
-  if (!token && pathname==="/(auth)/logins") {
+  if (!token && !isAllowedPage) {
     return <Redirect href={"/(auth)/login"} />;
   }
 

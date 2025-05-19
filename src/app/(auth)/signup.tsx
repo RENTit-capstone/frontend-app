@@ -14,7 +14,7 @@ const Signup = () => {
     const lastPage = 1;
     const [page, setPage] = useState(0);
     const {emailVerified, signup} = useSignupVerificationStore();
-    const {values, errors, handleChange, blockNext} = useValidateInput({
+    const validate = useValidateInput({
         email: "",
         pw: "",
         pwConfirm: "",
@@ -26,6 +26,7 @@ const Signup = () => {
         studentId: "",
         emailVerifyCode: "",        
     });
+    const {values, errors, handleChange, blockNext} = validate;
 
     const handleSubmit = async () => {
         const userInfo: UserInfoType = {
@@ -49,50 +50,49 @@ const Signup = () => {
         }
     };
 
-
     return (
-        <SafeAreaView style={Common.container}>
-            <KeyboardAvoidingView style={Common.container}>
-                <Logo />
-                <Text>RENTit 회원가입</Text>
-                <View style={Common.YStack}>
-                    {page==0 && <EmailInfoScreen values={values} errors={errors} handleChange={handleChange}/>}
-                    {page===1 && <UserInfoScreen values={values} errors={errors} handleChange={handleChange}/> }
-
-                    <View style={Common.XStack}>
-                        <Button 
-                            onPress={() => (setPage(page-1))}
-                            disabled={page<=0}
-                            type="option"
-                        >
-                            이전
-                        </Button>
-                        
-                        {page===lastPage?(
-                            <Button 
-                                onPress={handleSubmit}
-                                disabled={blockNext(page)}
-                                type="primary"
-                            >
-                                가입하기
-                            </Button>
-                        ) : (
-                            <Button 
-                                onPress={() => (setPage(page+1))}
-                                disabled={!emailVerified && blockNext(page)}
-                                type="primary"
-                            >
-                                다음
-                            </Button>
-                        )}
-                    </View>
-
-                    <Link href={{pathname: "/(auth)/login"}}>
-                        <Text style={[Common.textOption]}>로그인</Text>
-                    </Link>
+        <KeyboardAvoidingView style={[Common.container, Common.wrapper]}>
+            <View style={[Common.YStack, {justifyContent: "flex-start"}]}>
+                <View style={{paddingVertical: "10%"}}>
+                    <Logo />
                 </View>
-            </KeyboardAvoidingView>
-        </SafeAreaView>
+
+                {page==0 && <EmailInfoScreen validate={validate} />}
+                {page===1 && <UserInfoScreen validate={validate} /> }
+
+                <View style={Common.XStack}>
+                    <Button 
+                        onPress={() => (setPage(page-1))}
+                        disabled={page<=0}
+                        type="option"
+                    >
+                        이전
+                    </Button>
+                    
+                    {page===lastPage?(
+                        <Button 
+                            onPress={handleSubmit}
+                            disabled={blockNext(page)}
+                            type="primary"
+                        >
+                            가입하기
+                        </Button>
+                    ) : (
+                        <Button 
+                            onPress={() => (setPage(page+1))}
+                            disabled={!emailVerified && blockNext(page)}
+                            type="primary"
+                        >
+                            다음
+                        </Button>
+                    )}
+                </View>
+
+                <Link href={{pathname: "/(auth)/login"}}>
+                    <Text style={[Common.textOption]}>로그인</Text>
+                </Link>
+            </View>
+        </KeyboardAvoidingView>
     )
 }
 

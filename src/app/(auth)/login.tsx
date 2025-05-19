@@ -18,7 +18,6 @@ const Login = () => {
     });
 
     const login = async (payload: LoginType) => {
-        console.log(payload);
         try {
             const response = await axiosPost(`/api/v1/auth/login`, payload);
             setAccessToken(response.data.accessToken);
@@ -35,10 +34,11 @@ const Login = () => {
     }
 
     return (
-            <View style={Common.container}>
-                <Logo />
-                <Text>RENTit 로그인</Text>
-                <View style={Common.YStack}>
+            <View style={[Common.container, Common.wrapper]}>
+                <View style={[Common.YStack, {justifyContent: "flex-start"}]}>
+                    <View style={{paddingVertical: "10%"}}>
+                        <Logo />
+                    </View>                    
                     <TextInput 
                         name="email"
                         label="email" 
