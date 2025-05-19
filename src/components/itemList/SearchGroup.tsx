@@ -21,20 +21,24 @@ const SearchGroup = () => {
         setEndDate(endDate);
         console.log(startDate, endDate);
     }
-    const selected = Colors.out;
+    const dateSelected = (!!startDate && !!endDate);
+    const priceSelected = (!!startPrice && !!endPrice);
+    const selectedColor = Colors.out;
+    const dateLabel = dateSelected ? `${startDate.replaceAll('-', '.')} ~ ${endDate.replaceAll('-', '.')}` : "날짜 선택";
+    const priceLabel = priceSelected ? `${startPrice} - ${endPrice}` : "가격대";
     
     return (
         <View style={[Common.XStack, Common.searchGroup]}>
             <DropDown 
-                label="날짜 선택" 
-                icon={<Calendar stroke={(!!startDate && !!endDate)? selected : "#111111"}/>}
-                selectedColor={(!!startDate && !!endDate)? selected : undefined}
+                label={dateLabel}
+                icon={<Calendar stroke={dateSelected ? selectedColor : "#111111"}/>}
+                selectedColor={(!!startDate && !!endDate)? selectedColor : undefined}
                 onPress={() => handleDateSelect()} 
             />
             <DropDown 
-                label="가격대" 
-                icon={<DownArrow stroke={(!!startPrice && !!endPrice)? selected : "#111111"}/>} 
-                selectedColor={(!!startPrice && !!endPrice)? selected : undefined}
+                label={priceLabel}
+                icon={<DownArrow stroke={priceSelected ? selectedColor : "#111111"}/>} 
+                selectedColor={(!!startPrice && !!endPrice)? selectedColor : undefined}
                 onPress={() => setShowSlider(true)}
             />
         </View>
