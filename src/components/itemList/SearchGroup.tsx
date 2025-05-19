@@ -3,6 +3,8 @@ import DropDown from "../Dropdown";
 import { Common } from "@/styles/common";
 import { useState } from "react";
 import useDateSelectorStore from "@/stores/useDateSelectorStore";
+import Calendar from "@/assets/images/calendar.svg";
+import DownArrow from "@/assets/images/down-arrow.svg";
 
 const SearchGroup = () => {
     const {openDateSelector} = useDateSelectorStore();
@@ -19,8 +21,8 @@ const SearchGroup = () => {
     
     return (
         <View style={[Common.XStack, Common.searchGroup]}>
-            <DropDown label="날짜 선택" onPress={() => handleDateSelect()} />
-            <DropDown label="가격대" onPress={() => setShowSlider(true)}/>
+            <DropDown label="날짜 선택" icon={<Calendar />} onPress={() => handleDateSelect()} />
+            <DropDown label="가격대" icon={<DownArrow />} onPress={() => setShowSlider(true)}/>
         </View>
     );
 }
