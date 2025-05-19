@@ -4,7 +4,7 @@ import TextInput from "@/components/TextInput";
 import usePostingInput from "@/hooks/usePostingInput";
 import { Common } from "@/styles/common";
 import { useState } from "react";
-import { View, Text, ScrollView, Alert } from "react-native";
+import { View, Text, ScrollView, Alert, Image } from "react-native";
 import Colors from "@/constants/Colors";
 import useDateSelectorStore from "@/stores/useDateSelectorStore";
 
@@ -13,6 +13,7 @@ const NewPosting = () => {
     const {openDateSelector} = useDateSelectorStore();
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
+    const [image, setImage] = useState<any>(null);
     const { values, handleChange } = usePostingInput({
         name: "",
         itemImg: "",
@@ -39,6 +40,11 @@ const NewPosting = () => {
             console.error(error);
         }
     }
+    
+    const selectImg = async () => {
+        const result = await ({});
+        if (!result.canceled) setImage(result.assets[0]);
+    }
 
     const handleDateSelect = async () => {
         const { startDate, endDate } = await openDateSelector();
@@ -50,6 +56,10 @@ const NewPosting = () => {
     return (
         <>
         <ScrollView style={[Common.container, Common.wrapper]}>
+            <Button type="primary" onPress={selectImg}>이미지 선택</Button>
+            {image && 
+            <Image source={{uri: image.uri}}}/>
+            }
             <TextInput 
                 label="물품명"      
                 name="name"
