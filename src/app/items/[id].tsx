@@ -32,6 +32,7 @@ const Postings = () => {
     const { id } = useLocalSearchParams<{id: string}>();
     const [data, setData] = useState<ItemDetailsProp>(sampleData);
     const {startDate, endDate, clearRecord} = useRequestStore();
+    const imgSrc = data.itemImg ? {uri: data.itemImg} : require("@/assets/images/icon.png");
 
     useEffect(() => {
         fetchItemDetails();
@@ -69,7 +70,7 @@ const Postings = () => {
 
     return (
         <GestureHandlerRootView style={Common.container}>
-            <Image source={require("@/assets/images/icon.png")} style={itemList.detailImage} />
+            <Image source={imgSrc} style={itemList.detailImage} />
             
             <BottomScrollSheet snapPointList={["50%", "60%", "70%", "80%"]}>
                 <ItemDetails
