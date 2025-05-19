@@ -1,6 +1,6 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
-import { Stack, Redirect } from 'expo-router';
+import { Stack, Redirect, usePathname } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
@@ -21,7 +21,7 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   });
-
+  
   const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
@@ -43,14 +43,16 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const token = useAuthStore((state) => state.accessToken);
+  const pathname = usePathname();
 
-  if (!token) {
+  if (!token && pathname==="/(auth)/logins") {
     return <Redirect href={"/(auth)/login"} />;
   }
 
   return (
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       </Stack>
   );
 }
