@@ -5,6 +5,10 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import useAuthStore from '@/stores/useAuthStore';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import DateSelectorModal from '@/components/items/DateSelectorModal';
+import PolicyModal from '@/components/items/PolicyModal';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -50,10 +54,16 @@ function RootLayoutNav() {
   }
 
   return (
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      </Stack>
+      <SafeAreaProvider>  
+        <GestureHandlerRootView>  
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />    
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          </Stack>
+          <DateSelectorModal />
+          <PolicyModal />
+        </GestureHandlerRootView>
+      </SafeAreaProvider>
   );
 }
 
