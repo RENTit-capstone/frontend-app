@@ -27,13 +27,13 @@ const ListContainer = (props: ListContainerProps) => {
 
     const fetchResult = async () => {
         const today = new Date();
-        const role = (type==="INDIVIDUAL")? ["STUDENT"] : ["COMPANY", "COUNCIL"];
+        const role = (type==="INDIVIDUAL")? "STUDENT" : ["COMPANY", "COUNCIL"];
         const params = useUrl({
-            keyword: null,
-            startDate: searchOptions.startDate,
-            endDate: searchOptions.endDate,
-            minPrice: searchOptions.startPrice,
-            maxPrice: searchOptions.endPrice,
+            keyword: "",
+            startDate: searchOptions.startDate || "",
+            endDate: searchOptions.endDate || "",
+            minPrice: searchOptions.startPrice || "",
+            maxPrice: searchOptions.endPrice || "",
             stauts: ["AVAILABLE", "OUT"],
             ownerRoles: role,
             page: 0,
