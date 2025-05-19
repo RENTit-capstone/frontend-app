@@ -45,7 +45,7 @@ function RootLayoutNav() {
   const token = useAuthStore((state) => state.accessToken);
 
   if (!token) {
-    return <Redirect href={"/login"} />;
+    return <Redirect href={"/(auth)/login"} />;
   }
 
   return (
