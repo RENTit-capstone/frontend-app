@@ -19,11 +19,11 @@ const ItemDetailsButtonBar = (props: any) => {
         if (phase==="viewing"){
             setPhase("periodSetting");
             handleDateSelect();
-            onCloseDateSelector(() => {handlePolicy()}); 
+            onCloseDateSelector(() => {handlePolicy(); setPhase("consenting")}); 
         }
-        else if (phase==="periodSetting"){
-            setPhase("consenting");
-        }
+        // else if (phase==="periodSetting"){
+        //     setPhase("consenting");
+        // }
         else if (phase==="consenting"){
             setPhase("applying");
         }
@@ -48,14 +48,14 @@ const ItemDetailsButtonBar = (props: any) => {
                     일정 선택하기  
                 </Button>
             }
-            {phase==="periodSetting" && 
+            {/* {phase==="periodSetting" && 
                 <View style={Common.XStack}>
                     <Button onPress={moveNext} type="primary" style={{flex: 1}}>
                         다음
                     </Button>
                 </View>
-            }
-            {phase==="consenting" && 
+            } */}
+            {/* {phase==="consenting" && 
                 <View style={Common.XStack}>
                     <Button onPress={moveNext} type="secondary" style={{flex: 1}}>
                         이전  
@@ -64,7 +64,7 @@ const ItemDetailsButtonBar = (props: any) => {
                         다음
                     </Button>
                 </View>
-            }
+            } */}
             {phase==="applying" && 
                 <View style={Common.YStack}>
                     <View style={[Common.XStack, Common.fullScreen, {justifyContent: "space-between"}]}>

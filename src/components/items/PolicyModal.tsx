@@ -6,6 +6,7 @@ import Cancel from "@/assets/images/cancel.svg";
 import Checkbox from "expo-checkbox";
 import { itemList } from "@/styles/components/itemList";
 import usePolicyStore from "@/stores/usePolicyStore";
+import ButtonBar from "../ButtonBar";
 
 
 const PolicyModal = () => {
@@ -14,6 +15,7 @@ const PolicyModal = () => {
     if (!visible)   return null;
     
     return (
+        <>
         <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}>
             <View>
                 <Button type="option" onPress={() => closePolicy(false)} style={Common.cancel}>
@@ -36,12 +38,10 @@ const PolicyModal = () => {
                         />
                     <Text>파손정책에 동의합니다.</Text>
                 </View>
-
-                <Button type="primary" onPress={() => closePolicy(true)}>
-                    저장
-                </Button>
             </View>
         </BottomScrollSheet>
+        <ButtonBar onClose={() => closePolicy(true)} />
+        </>
     )
 }
 export default PolicyModal;
