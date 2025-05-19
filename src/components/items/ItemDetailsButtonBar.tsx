@@ -8,14 +8,25 @@ import useDateSelectorStore from "@/stores/useDateSelectorStore";
 import usePolicyStore from "@/stores/usePolicyStore";
 
 const ItemDetailsButtonBar = (props: any) => {
-    const {phase, setPhase, setStartDate, setEndDate, setChecked} = useRequestStore();
+    const {phase, setPhase, startDate, endDate, setStartDate, setEndDate, setChecked} = useRequestStore();
     const phases: RequestPhaseType[] = ["viewing", "periodSetting", "consenting", "applying"];
-    const {openDateSelector} = useDateSelectorStore();
+    const {openDateSelector, onCloseDateSelector} = useDateSelectorStore();
     const {openPolicy} = usePolicyStore();
     
-    const movePhase = (direction: number) => {
-        const currentPhaseIndex = phases.indexOf(phase);
-        setPhase(phases[currentPhaseIndex + direction]);
+    const moveNext = () => {
+        // const currentPhaseIndex = phases.indexOf(phase);
+        // setPhase(phases[currentPhaseIndex + direction]);
+        if (phase==="viewing"){
+            setPhase("periodSetting");
+            handleDateSelect();
+            onCloseDateSelector(() => {handlePolicy()}); 
+        }
+        else if (phase==="periodSetting"){
+            setPhase("consenting");
+        }
+        else if (phase==="consenting"){
+            setPhase("applying");
+        }
     }
 
     const handleDateSelect = async () => {
@@ -23,35 +34,33 @@ const ItemDetailsButtonBar = (props: any) => {
         setStartDate(startDate);
         setEndDate(endDate);
         console.log(startDate, endDate);
-        movePhase(1);
     }
 
     const handlePolicy = async () => {
         const { flawPolicy, damagePolicy } = await openPolicy();
         if (flawPolicy && damagePolicy)     setChecked(true);
-        movePhase(1);
     }
 
     return (
         <SafeAreaView style={[Common.bottomBar, Common.upperShadow, {backgroundColor: "white"}]}>
             {phase==="viewing" && 
-                <Button onPress={handleDateSelect} type="primary" style={Common.tabBarItem}>
+                <Button onPress={moveNext} type="primary" style={Common.tabBarItem}>
                     일정 선택하기  
                 </Button>
             }
             {phase==="periodSetting" && 
                 <View style={Common.XStack}>
-                    <Button onPress={handlePolicy} type="primary" style={{flex: 1}}>
+                    <Button onPress={moveNext} type="primary" style={{flex: 1}}>
                         다음
                     </Button>
                 </View>
             }
             {phase==="consenting" && 
                 <View style={Common.XStack}>
-                    <Button onPress={() => movePhase(-1)} type="secondary" style={{flex: 1}}>
+                    <Button onPress={moveNext} type="secondary" style={{flex: 1}}>
                         이전  
                     </Button>
-                    <Button onPress={() => movePhase(1)} type="primary" style={{flex: 3}}>
+                    <Button onPress={moveNext} type="primary" style={{flex: 3}}>
                         다음
                     </Button>
                 </View>
@@ -68,10 +77,10 @@ const ItemDetailsButtonBar = (props: any) => {
                     </View>
                     <View style={[itemList.rowDivider, {width: "100%"}]} />
                     <View style={Common.XStack}>
-                        <Button onPress={() => movePhase(-1)} type="secondary" style={{flex: 1}}>
+                        <Button onPress={moveNext} type="secondary" style={{flex: 1}}>
                             이전  
                         </Button>
-                        <Button onPress={handleRequest} type="primary" style={{flex: 3}}>
+                        <Button onPress={moveNext} type="primary" style={{flex: 3}}>
                             신청하기  
                         </Button>
                     </View>
