@@ -8,28 +8,25 @@ import Likes from "@/assets/images/heart.svg";
 import { itemList } from "@/styles/components/itemList";
 import { useRouter } from "expo-router";
 
-
 const ListItem = (props: ListItemProps) => {
     const router = useRouter();
-    const {id, title, img, available, price, period, messages, likes} = props;
+    const {id, nickname, name, imgUrls, price, status, startDate, endDate} = props;
 
     return (
-        <Pressable style={[Common.XStack, itemList.cardWrapper]} onPress={() => (router.navigate(`/items/${id}`))}>
+        <Pressable style={[Common.XStack, itemList.cardWrapper]} onPress={() => (router.push(`/items/${id}`))}>
             <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
 
             <View style={[Common.wideView]}>
-                <Badge available={available} />
-                <Text style={{fontSize: 20}}>{title}</Text>
+                <Badge available={status} />
+                <Text style={{fontSize: 20}}>{name}</Text>
                 <View style={[Common.textWrapper]}>
                     <Text style={{fontSize: 20, fontWeight: 600}}>{price.toLocaleString()}</Text>
                     <Text style={{fontSize: 20}}> 원</Text>
                     <Text style={[{fontSize: 15}, TextThemes.option]}>  |  </Text>
-                    <Text style={{fontSize: 17}}>{period}일</Text>
                 </View>
 
                 <View style={[Common.textOption, itemList.interactions]}>
-                    <Messages /><Text>{messages}</Text>
-                    <Likes /><Text>{likes}</Text>
+                    <Text style={{fontSize: 17}}>{startDate} ~ {endDate}</Text>
                 </View>
             </View>
         </Pressable>

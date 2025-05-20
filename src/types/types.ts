@@ -46,13 +46,13 @@ export type UserInfoType = {
 
 export type ListItemProps = {
     id: number,
-    title: string,
-    img: string,
-    available: boolean,
+    nickname: string,
+    name: string,
+    imgUrls: string[],
     price: number,
-    period: number,
-    messages: number, 
-    likes: number,
+    status: string,
+    startDate: string,
+    endDate: string,
 }
 
 export type ListContainerProps = {

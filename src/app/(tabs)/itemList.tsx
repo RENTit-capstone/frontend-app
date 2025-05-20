@@ -5,24 +5,16 @@ import ItemListTab from "@/components/itemList/ItemListTab";
 import Button from "@/components/Button";
 import { useRouter } from "expo-router";
 import Plus from "@/assets/images/plus.svg";
-import { useEffect } from "react";
-import useAuthStore from "@/stores/useAuthStore";
 
 const ItemList = () => {
   const router = useRouter();
-  const {accessToken, refreshToken} = useAuthStore();
-  useEffect(() => {
-    console.log("AccessToken: ", accessToken);
-
-    console.log("RefreshToken: ", refreshToken);
-  }, [])
 
   return (
     <SafeAreaView style={Common.container}>
         <StatusButtonGroup />
         <Button type="primary" onPress={() => router.navigate("/items/new")} style={Common.floatingButton}>
           <View style={Common.XStack}>
-             <Text style={{color: "white"}}>글쓰기</Text>
+            <Plus /><Text style={{color: "white"}}>글쓰기</Text>
           </View>
         </Button>
         <ItemListTab />

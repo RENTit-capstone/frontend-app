@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { ListItemProps, ListContainerProps } from "@/types/types";
 import { Common } from "@/styles/common";
 import ListItem from "./ListItem";
@@ -8,11 +8,8 @@ import SearchGroup from "./SearchGroup";
 import useUrl from "@/hooks/useUrl";
 import { axiosGet } from "@/api";
 
-const sampleData: ListItemProps = {id: 0, title: "string", img: "", available: false, price: 50000, period: 7, messages: 2, likes: 3}
-const sampleList: ListItemProps[] = [sampleData, sampleData, sampleData];
-
 const ListContainer = (props: ListContainerProps) => {
-    const [data, setData] = useState(sampleList);
+    const [data, setData] = useState([]);
     const [searchOptions, setSearchOptions] = useState({
         startDate: "", 
         endDate: "",
@@ -42,8 +39,7 @@ const ListContainer = (props: ListContainerProps) => {
         });
         try {
             const response = await axiosGet(`/api/v1/items?${params}`);
-            console.log("Response for fetchResult: ", response.data);
-            setData(response.data);
+            setData(response.data.content);
         }
         catch (error) {
             console.error(error);
@@ -58,13 +54,13 @@ const ListContainer = (props: ListContainerProps) => {
                 <View key={index} style={itemList.listContainer}>
                     <ListItem 
                         id={item.id}
-                        title={item.title}
-                        img={item.img}
-                        available={item.available}
+                        nickname={item.nickname}
+                        name={item.name}
+                        imgUrls={item.imgUrls}
                         price={item.price}
-                        period={item.period}
-                        messages={item.messages}
-                        likes={item.likes}
+                        status={item.status}
+                        startDate={item.startDate}
+                        endDate={item.endDate}
                     />
                     <View style={[itemList.rowDivider, {marginTop: 10}]} />
                 </View>
