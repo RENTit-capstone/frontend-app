@@ -23,8 +23,8 @@ const Login = () => {
             const res = await axiosNoInterceptor.post(`/api/v1/auth/login`, payload);
             if (!res.data.success)  throw new Error(res.data.message);
 
-            setAccessToken(res.data.accessToken);
-            await setRefreshToken(res.data.refreshToken);
+            await setAccessToken(res.data.data.accessToken);
+            await setRefreshToken(res.data.data.refreshToken);
             router.navigate("/(tabs)/itemList");
         } 
         catch (error) {
