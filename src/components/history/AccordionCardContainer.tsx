@@ -1,6 +1,6 @@
 import { ScrollView, View } from "react-native";
 import AccordionCard from "./AccordionCard";
-import {AccordionCardProps, AccordionContainerType, ActionType, RentalDetailsType, StatusType} from "@/types/types";
+import {AccordionCardProps, ActionType, RentalDetailsType, RentalStatusType} from "@/types/types";
 import { itemList } from "@/styles/components/itemList";
 import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
@@ -47,10 +47,10 @@ const AccordionCardContainer = () => {
         }   
     }
 
-    const submitApprove = async (itemId: number, isApproved: boolean=false) => {
+    const submitApprove = async (rentalId: number, isApproved: boolean=false) => {
         const approvement = isApproved? "approve" : "reject";
         try {
-            const response = await axiosPost(`/api/v1/rentals/${itemId}/${approvement}`);
+            const response = await axiosPost(`/api/v1/rentals/${rentalId}/${approvement}`);
             console.log("Response for submitApprovee: ", response.data);
             // TODO: button 비활성화로 만들고 toastMessage 띄우기
         }
@@ -72,8 +72,8 @@ const AccordionCardContainer = () => {
         console.log("unknown action");
     }
 
-    const determineAction = (status: StatusType) => {
-        if (status==="pending")         
+    const determineAction = (status: RentalStatusType) => {
+        if (status==="REQUESTED")         
             return {
                 actions: ["approve", "disapprove"] as ActionType[],
                 actionName: ["승인", "거절"], 

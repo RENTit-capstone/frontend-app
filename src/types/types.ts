@@ -60,7 +60,7 @@ export type ListContainerProps = {
 }
 
 export type RentalStatusType = "REQUESTED" | "APPROVED" | "REJECTED" | "CANCELED" | "LEFT_IN_LOCKER" | "PICKED_UP" | "RETURNED_TO_LOCKER" | "COMPLETED";
-export type ActionType = "approve" | "disapprove" | "return" | "writeReview";
+export type ActionType = "APPROVE" | "DISAPPROVE" | "RETURN" | "REVIEW" | "PENDING" | "NONE";
 
 export type AccordionContainerType = ListItemProps & {
     status: RentalStatusType,
@@ -75,7 +75,7 @@ export type AccordionCardProps = {
     actions: ActionType[] | undefined,
     actionNames: string[],
     getDetails: (itemId: number) => Promise<RentalDetailsType | undefined>,
-    handleAction: ((itemId: number, isApproved?: boolean) => void) | ((itemId: number) => void);
+     handleAction: ((itemId: number, isApproved?: boolean) => void) | ((itemId: number) => void);
 }
 
 export type RentalDetailsType = {
@@ -90,26 +90,27 @@ export type RentalDetailsType = {
     returnedByRenterAt: string | null,
     retrievedByOwnerAt: string | null,
     lockerId: string | null,
+    returnImageUrl: string | null,
 }
 
 export type ItemStatusType = "AVAILABLE" | "OUT";
 
 export type ItemDetailsProp = {
     itemId: number,
-    owner: string, 
-    ownerId: number,
+    profileImg: string,
+    nickname: string, 
     name: string
-    itemImg: string, 
+    imageUrls: string[], 
     description: string,
+    dmagedDescription: string,
     price: number, 
     status: ItemStatusType,
     damagedPolicy: string,
     returnPolicy: string,
     startDate: string,
     endDate: string,
-
-    messages: number, 
-    likes: number,
+    createdAt: string,
+    updatedAt: string,
 }
 
 export type PostingType = {

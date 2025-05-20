@@ -44,7 +44,6 @@ axiosInstance.interceptors.request.use(
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
-        console.log('Token:', config.headers);
         return config;
     },
     error => {
@@ -55,6 +54,8 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
+        console.log('Token:', response.config.headers);
+
         // if (response.data && response.data.success===false){
         //     if (response.data.message.includes("validation error")) {
         //         return getNewToken().then(() => {
@@ -68,6 +69,7 @@ axiosInstance.interceptors.response.use(
     },
     async (error) => {
         if (error.status===403) {
+            console.log("403Error");
             const originalRequest = error.config;
             await getNewToken();
             return axiosInstance(originalRequest);
