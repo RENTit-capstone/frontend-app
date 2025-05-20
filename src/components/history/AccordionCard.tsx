@@ -2,17 +2,19 @@ import { Image, Text, View } from "react-native"
 import { useEffect, useState } from "react";
 import Button from "../Button";
 import { Common } from "@/styles/common";
-import { AccordionCardProps, ActionType, ItemDetailsProp, RentalDetailsType } from "@/types/types";
+import { AccordionCardProps, ItemDetailsProp, RentalDetailsType } from "@/types/types";
 import { history } from "@/styles/components/history";
 import { axiosGet } from "@/api";
 import { itemList } from "@/styles/components/itemList";
 import Badge from "../Badge";
 import determineAction from "@/utils/determineAction";
+import useRentalActions from "@/hooks/useRentalActions";
 
 const AccordionCard = (props: AccordionCardProps) => {
-    const {rentalId, itemId, requestDate, status, actions, actionNames, getDetails, handleAction} = props;
+    const {rentalId, itemId, requestDate, status} = props;
+    const {onCancelRequest, onPickup, onReturn} = useRentalActions();
     const [isOpened, setIsOpened] = useState(false);
-    const [itemDetails, setItemDetails] = useState<ItemDetailsProp | null>();
+    const [itemDetails, setItemDetails] = useState<ItemDetailsProp>();
     const [details, setDetails] = useState<RentalDetailsType>();
 
     useEffect(() => {
@@ -28,14 +30,33 @@ const AccordionCard = (props: AccordionCardProps) => {
         fetchItemDetails();
     }, []);
 
-    const handleDetails = async () => {
-        if (!isOpened) {64
-            const response = await getDetails(rentalId);
-            setDetails(response);
+
+    const fetchDetails = async () => {
+        if (isOpened)   return;
+        try { 
+            const response = await axiosGet(`/api/v1/rentals/${itemId}`);
+            console.log("Response for fetchDetails: ", response.data);
+            setDetails(response.data);
+            setIsOpened(!isOpened);
         }
-        setIsOpened(!isOpened);
+        catch(error) {
+            console.error(error);
+        }   
     }
 
+    const { action, buttonText } = determineAction({
+        rentalStatus: status,
+        onCancelRequest,
+        onPickup,
+        onReturn,
+    });
+
+    const onPress = async (action?: () => Promise<void>) => {
+        if (action) {
+            try { await action(); } 
+            catch(error) { console.error(error); }
+        }
+    };
 
     if (!itemDetails)   return null;
     return (
@@ -80,13 +101,12 @@ const AccordionCard = (props: AccordionCardProps) => {
             }
 
             <View style={Common.XStack}>
-                {actions && actions.map((action: ActionType, index) => (
-                <Button onPress={() => onPress(rentalId, action)} type="primary" key={rentalId} style={history.button}>
-                    {actionNames[index]}
+                <Button onPress={() => onPress(action)} type="primary" key={rentalId} style={history.button}>
+                    {buttonText}
                 </Button>
-                ))}
+                
 
-                <Button onPress={handleDetails} type="secondary" style={history.button}>
+                <Button onPress={fetchDetails} type="secondary" style={history.button}>
                     {isOpened? "닫기" : "상세정보"}
                 </Button>
             </View>

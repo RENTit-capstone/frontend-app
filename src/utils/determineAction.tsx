@@ -1,24 +1,24 @@
 import { RentalStatusType } from "@/types/types";
 
 type DetereminedActionType = {
-    action?: () => void;      
+    action?: () => Promise<void>;      
     buttonText?: string;      
     description?: string; 
 }
 
 type DetermineActionParamType = {
   rentalStatus: RentalStatusType;
-  hasWrittenReview?: boolean;
+  // hasWrittenReview?: boolean;
 
-  onCancelRequest: () => void;
-  onPickup: () => void;
-  onReturn: () => void;
-  // onWriteReview: () => void;
+  onCancelRequest: () => Promise<void>;
+  onPickup: () => Promise<void>;
+  onReturn: () => Promise<void>;
+  // onWriteReview: () => Promise<void>;
 }
 
 export const determineAction = ({
   rentalStatus,
-  hasWrittenReview = false,
+  // hasWrittenReview = false,
   onCancelRequest,
   onPickup,
   onReturn,
