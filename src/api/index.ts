@@ -8,6 +8,13 @@ export const axiosNoInterceptor = axios.create({
     }
 })
 
+//debug
+// axiosNoInterceptor.interceptors.request.use((config) => {
+//     console.log('Login request headers:', config.headers);
+//     console.log(config)
+//     return config;
+// });
+
 export const axiosInstance = axios.create({
     baseURL: process.env.EXPO_PUBLIC_API_URL,
     headers: {

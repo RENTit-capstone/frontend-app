@@ -1,4 +1,4 @@
-import { Link } from "expo-router"
+import { Link, useRouter } from "expo-router"
 import { LoginType } from "@/types/types";
 import { useState } from "react";
 import TextInput from "@/components/TextInput";
@@ -11,25 +11,21 @@ import useAuthStore from "@/stores/useAuthStore";
 
 
 const Login = () => {
+    const router = useRouter();
     const {setAccessToken, setRefreshToken} = useAuthStore();
     const [form, setForm] = useState({
         email: "",
-        pw: "",
+        password: "",
     });
 
     const login = async (payload: LoginType) => {
         try {
             const res = await axiosNoInterceptor.post(`/api/v1/auth/login`, payload);
-            if (res.data.success){
-                setAccessToken(res.data.accessToken);
-                await setRefreshToken(res.data.refreshToken);
-                console.log("Response for login: ", res.data);
-            }
-            else {
-                throw new Error(res.data.message);
-            }
+            if (!res.data.success)  throw new Error(res.data.message);
 
-            return res.data;
+            setAccessToken(res.data.accessToken);
+            await setRefreshToken(res.data.refreshToken);
+            router.navigate("/(tabs)/itemList");
         } 
         catch (error) {
             console.log(error);
@@ -55,16 +51,16 @@ const Login = () => {
                         keyboardType="email-address"
                     />
                     <TextInput 
-                        name="pw"
+                        name="password"
                         label="password" 
-                        handleChangeText={handleChange("pw")}
-                        value={form.pw}
+                        handleChangeText={handleChange("password")}
+                        value={form.password}
                         secureTextEntry={true}
                     />
                     <View style={Common.XStack}>
                         <Button 
                             onPress={() => login(form)}
-                            disabled={(form.email === "") || (form.pw === "")}
+                            disabled={(form.email === "") || (form.password === "")}
                             type="primary"
                         >
                             로그인

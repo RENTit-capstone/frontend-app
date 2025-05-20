@@ -6,7 +6,7 @@ export type ResponseType<T> = {
 
 export type LoginType = {
     email: string;
-    pw: string;
+    password: string;
 }
 
 export type UserType = {

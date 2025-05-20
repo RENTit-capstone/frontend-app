@@ -14,7 +14,7 @@ const ItemList = () => {
         <StatusButtonGroup />
         <Button type="primary" onPress={() => router.navigate("/items/new")} style={Common.floatingButton}>
           <View style={Common.XStack}>
-            <Plus /> <Text style={{color: "white"}}>글쓰기</Text>
+             <Text style={{color: "white"}}>글쓰기</Text>
           </View>
         </Button>
         <ItemListTab />
