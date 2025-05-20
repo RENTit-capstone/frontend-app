@@ -40,7 +40,6 @@ const ListContainer = (props: ListContainerProps) => {
         });
         try {
             const response = await axiosGet(`/api/v1/items?${params}`);
-            console.log("Res:", response.data);
             setPage(response.data.pageable.pageNumber+1);
             setData(response.data.content);
             setLast(response.data.last);
