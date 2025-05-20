@@ -1,6 +1,13 @@
 import useAuthStore from "@/stores/useAuthStore";
 import axios from "axios";
 
+export const axiosNoInterceptor = axios.create({
+    baseURL: process.env.EXPO_PUBLIC_API_URL,
+    headers: {
+        "Content-Type": "application/json",
+    }
+})
+
 export const axiosInstance = axios.create({
     baseURL: process.env.EXPO_PUBLIC_API_URL,
     headers: {
@@ -12,20 +19,25 @@ const getNewToken = async () => {
     const oldAccessToken = useAuthStore.getState().accessToken;
     const oldRefreshToken = useAuthStore.getState().refreshToken;
     const payload = {"accessToken": oldAccessToken, "refreshToken": oldRefreshToken};
-    const response = await axios.post(`/api/v1/auth/login/refresh`, payload);
-    if (!response.data.success)
+    const response = await axiosNoInterceptor.post(`/api/v1/auth/login/refresh`, payload);
+    if (response.data.success){
+        useAuthStore.setState({
+            accessToken: response.data.accessToken,
+            refreshToken: response.data.refreshToken,
+        });
+    }
+    else {
         throw new Error(response.data.message);
-
-    return response.data;
+    }
 }
 
 axiosInstance.interceptors.request.use(
     async (config) => {
         const token = useAuthStore.getState().accessToken;
-        console.log(token);
         if (token) {
-            config.headers.accessToken = `Bearer ${token}`;
+            config.headers.Authorization = `Bearer ${token}`;
         }
+        console.log('Token:', config.headers);
         return config;
     },
     error => {
@@ -37,14 +49,9 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     (response) => {
         if (response.data && response.data.success===false){
-            if (response.data.message==="accessToken validation error.") {
-                return getNewToken().then((newTokenResponse) => {
-                    useAuthStore.setState({
-                        accessToken: newTokenResponse.accessToken,
-                        refreshToken: newTokenResponse.refreshToken,
-                    });
+            if (response.data.message.includes("validation error")) {
+                return getNewToken().then(() => {
                     const originalRequest = response.config;
-                    originalRequest.headers.Authorization = `Bearer ${newTokenResponse.accessToken}`;
                     return axiosInstance(originalRequest);
                 });
             }

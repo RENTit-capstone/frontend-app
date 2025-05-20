@@ -6,7 +6,7 @@ import { Text, View } from "react-native";
 import Button from "@/components/Button";
 import { Common } from "@/styles/common";
 import Logo from "@/assets/images/logo.svg";
-import { axiosPost } from "@/api";
+import { axiosNoInterceptor, axiosPost } from "@/api";
 import useAuthStore from "@/stores/useAuthStore";
 
 
@@ -19,10 +19,17 @@ const Login = () => {
 
     const login = async (payload: LoginType) => {
         try {
-            const response = await axiosPost(`/api/v1/auth/login`, payload);
-            setAccessToken(response.data.accessToken);
-            await setRefreshToken(response.data.refreshToken);
-            console.log("Response for login: ", response.data);
+            const res = await axiosNoInterceptor.post(`/api/v1/auth/login`, payload);
+            if (res.data.success){
+                setAccessToken(res.data.accessToken);
+                await setRefreshToken(res.data.refreshToken);
+                console.log("Response for login: ", res.data);
+            }
+            else {
+                throw new Error(res.data.message);
+            }
+
+            return res.data;
         } 
         catch (error) {
             console.log(error);
