@@ -14,8 +14,12 @@ const NewPosting = () => {
     const {openDateSelector} = useDateSelectorStore();
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
+<<<<<<< HEAD
     const [imageSrc, setImageSrc] = useState<any[]>([]);
     const formData = new FormData();
+=======
+    const [image, setImage] = useState<any>(null);
+>>>>>>> 7f46a24844f1ff58b5ae9a71034026812017d9d6
     const { values, handleChange } = usePostingInput({
         name: "",
         description: "",
@@ -66,6 +70,13 @@ const NewPosting = () => {
         }
     }
     
+<<<<<<< HEAD
+=======
+    const selectImg = async () => {
+        const result = await ({});
+        if (!result.canceled) setImage(result.assets[0]);
+    }
+>>>>>>> 7f46a24844f1ff58b5ae9a71034026812017d9d6
 
     const handleDateSelect = async () => {
         const { startDate, endDate } = await openDateSelector();
@@ -77,11 +88,18 @@ const NewPosting = () => {
     return (
         <>
         <ScrollView style={[Common.container, Common.wrapper]}>
+<<<<<<< HEAD
             <Button type="primary" onPress={selectImage}>이미지 선택</Button>
             {imageSrc[0] && 
                 imageSrc.map((image) => {
                     <Image source={{uri: image.uri}}/>
             })}
+=======
+            <Button type="primary" onPress={selectImg}>이미지 선택</Button>
+            {image && 
+            <Image source={{uri: image.uri}}}/>
+            }
+>>>>>>> 7f46a24844f1ff58b5ae9a71034026812017d9d6
             <TextInput 
                 label="물품명"      
                 name="name"
