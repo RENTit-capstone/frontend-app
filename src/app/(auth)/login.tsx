@@ -25,7 +25,7 @@ const Login = () => {
 
             await setAccessToken(res.data.data.accessToken);
             await setRefreshToken(res.data.data.refreshToken);
-            router.navigate("/(tabs)/itemList");
+            router.replace("/(tabs)/itemList");
         } 
         catch (error) {
             console.log(error);

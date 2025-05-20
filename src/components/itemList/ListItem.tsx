@@ -23,7 +23,7 @@ const ListItem = (props: ListItemProps) => {
                     {/* <Text style={[{fontSize: }, TextThemes.option]}>  |  </Text> */}
                 </View>
 
-                <View style={[Common.textOption, itemList.interactions]}>
+                <View style={[Common.textOption]}>
                     <Text style={{fontSize: 16}}>{formatISOToDate(startDate)} ~ {formatISOToDate(endDate)}</Text>
                 </View>
             </View>

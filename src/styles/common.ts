@@ -81,7 +81,7 @@ export const Common = StyleSheet.create({
         borderRadius: 50,
         paddingHorizontal: 10,
         alignSelf: "flex-start",
-        paddingVertical: 5, 
+        paddingVertical: 4, 
         alignItems: "center"
     },
     wideView: {
