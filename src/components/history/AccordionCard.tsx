@@ -7,6 +7,7 @@ import { history } from "@/styles/components/history";
 import { axiosGet } from "@/api";
 import { itemList } from "@/styles/components/itemList";
 import Badge from "../Badge";
+import determineAction from "@/utils/determineAction";
 
 const AccordionCard = (props: AccordionCardProps) => {
     const {rentalId, itemId, requestDate, status, actions, actionNames, getDetails, handleAction} = props;
@@ -28,24 +29,13 @@ const AccordionCard = (props: AccordionCardProps) => {
     }, []);
 
     const handleDetails = async () => {
-        if (!isOpened) {
+        if (!isOpened) {64
             const response = await getDetails(rentalId);
             setDetails(response);
         }
         setIsOpened(!isOpened);
     }
 
-    const onPress = (rentalId: number, action: ActionType) => {
-        if (action==="approve") {
-            handleAction(rentalId, true);
-        }
-        else if (action==="disapprove") {
-            handleAction(rentalId, false);
-        }
-        else {
-            handleAction(rentalId);
-        }
-    }
 
     if (!itemDetails)   return null;
     return (

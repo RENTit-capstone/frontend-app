@@ -5,7 +5,6 @@ import { itemList } from "@/styles/components/itemList";
 import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import { axiosGet, axiosPost } from "@/api";
-import { generateUrl } from "@/utils/generateUrl";
 import useUrl from "@/hooks/useUrl";
 
 const AccordionCardContainer = () => {
@@ -70,33 +69,6 @@ const AccordionCardContainer = () => {
 
     const handleUnknownAction = () => {
         console.log("unknown action");
-    }
-
-    const determineAction = (status: RentalStatusType) => {
-        if (status==="REQUESTED")         
-            return {
-                actions: ["approve", "disapprove"] as ActionType[],
-                actionName: ["승인", "거절"], 
-                handler: submitApprove,
-            };
-        else if (status==="inRent")     
-            return {
-                actions: ["return"] as ActionType[], 
-                actionName: ["반납하기"], 
-                handler: handleReturn
-            };
-        else if (status==="returned")   
-            return {
-                actions: ["writeReview"] as ActionType[], 
-                actionName: ["후기작성"], 
-                handler: handleWriteReview
-            };
-        else                            
-            return {
-                actions: undefined, 
-                actionName: ["null"], 
-                handler: handleUnknownAction
-            };
     }
 
     return (
