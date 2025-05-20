@@ -13,7 +13,7 @@ type DropDownProps = {
 const DropDown = (props: DropDownProps) => {
     const {label, icon, onPress, selectedColor} = props;
     return (
-        <TouchableOpacity onPress={onPress} style={[{position: "relative"}, Common.XStack, Common.badge, {width: "45%", borderColor: selectedColor}]}>
+        <TouchableOpacity onPress={onPress} style={[Common.XStack, Common.badge, {width: "45%", height: 30, borderColor: selectedColor, position: "relative"}]}>
             <Text style={{color: selectedColor}}>{label}</Text>
             {icon &&
             <View style={{position: "absolute", right: 16}}>{icon}</View>

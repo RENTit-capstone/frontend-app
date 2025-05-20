@@ -11,12 +11,12 @@ const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
     const whiteColor = Colors.white;
 
     const icons: Record<string, (props: { color: string} ) => ReactElement> = {
-        itemList: ({ color }) => <Home color={whiteColor} />,
-        history: ({ color }) => <Home color={"#ccc"} />
+        itemList: ({ color }) => <Home stroke={color} />,
+        history: ({ color }) => <Home stroke={color} />
     }
     
     return (
-        <View style={Common.bottomBar}>
+        <View style={[Common.bottomBar, Common.upperShadow]}>
             {state.routes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
@@ -52,15 +52,12 @@ const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
                 testID={options.tabBarButtonTestID}
                 onPress={onPress}
             >
-                <>
-                    {console.log(route.name)}
-                </>
                 {
                     icons[route.name]({
                         color: isFocused? whiteColor : primaryColor,
                     })
                 }
-                <Text style={{ color: isFocused ? whiteColor : primaryColor }}>
+                <Text style={{ color: isFocused ? whiteColor : primaryColor, fontSize: 16 }}>
                     {`${label}`}
                 </Text>
             </TouchableOpacity>
