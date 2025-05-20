@@ -9,6 +9,9 @@ import useUrl from "@/hooks/useUrl";
 import { axiosGet } from "@/api";
 
 const ListContainer = (props: ListContainerProps) => {
+    const {type} = props;
+    const [last, setLast] = useState(false);
+    const [page, setPage] = useState(0);
     const [data, setData] = useState([]);
     const [searchOptions, setSearchOptions] = useState({
         startDate: "", 
@@ -16,14 +19,12 @@ const ListContainer = (props: ListContainerProps) => {
         startPrice: "",
         endPrice: "",
     })
-    const {type} = props;
 
     useEffect (() => {
         fetchResult();
     }, [type, searchOptions])
 
     const fetchResult = async () => {
-        const today = new Date();
         const role = (type==="INDIVIDUAL")? "STUDENT" : ["COMPANY", "COUNCIL"];
         const params = useUrl({
             keyword: "",
@@ -33,13 +34,16 @@ const ListContainer = (props: ListContainerProps) => {
             maxPrice: searchOptions.endPrice || "",
             stauts: ["AVAILABLE", "OUT"],
             ownerRoles: role,
-            page: 0,
+            page: page,
             size: 20,
             sort: ["createdAt", "desc"],
         });
         try {
             const response = await axiosGet(`/api/v1/items?${params}`);
+            console.log("Res:", response.data);
+            setPage(response.data.pageable.pageNumber+1);
             setData(response.data.content);
+            setLast(response.data.last);
         }
         catch (error) {
             console.error(error);

@@ -50,7 +50,7 @@ export type ListItemProps = {
     name: string,
     imgUrls: string[],
     price: number,
-    status: string,
+    status: ItemStatusType,
     startDate: string,
     endDate: string,
 }

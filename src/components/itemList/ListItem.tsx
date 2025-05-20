@@ -3,10 +3,9 @@ import { ListItemProps } from "@/types/types";
 import { Common } from "@/styles/common";
 import { TextThemes } from "@/styles/theme";
 import Badge from "../Badge";
-import Messages from "@/assets/images/message.svg";
-import Likes from "@/assets/images/heart.svg";
 import { itemList } from "@/styles/components/itemList";
 import { useRouter } from "expo-router";
+import formatISOToDate from "@/utils/formatDate";
 
 const ListItem = (props: ListItemProps) => {
     const router = useRouter();
@@ -17,7 +16,7 @@ const ListItem = (props: ListItemProps) => {
             <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
 
             <View style={[Common.wideView]}>
-                <Badge available={status} />
+                <Badge status={status} />
                 <Text style={{fontSize: 20}}>{name}</Text>
                 <View style={[Common.textWrapper]}>
                     <Text style={{fontSize: 20, fontWeight: 600}}>{price.toLocaleString()}</Text>
@@ -26,7 +25,7 @@ const ListItem = (props: ListItemProps) => {
                 </View>
 
                 <View style={[Common.textOption, itemList.interactions]}>
-                    <Text style={{fontSize: 17}}>{startDate} ~ {endDate}</Text>
+                    <Text style={{fontSize: 17}}>{formatISOToDate(startDate)} ~ {formatISOToDate(endDate)}</Text>
                 </View>
             </View>
         </Pressable>
