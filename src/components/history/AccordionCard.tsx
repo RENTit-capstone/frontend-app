@@ -43,7 +43,7 @@ const AccordionCard = (props: AccordionCardProps) => {
             console.error(error);
         }   
     }
-
+    
     const { action, buttonText } = determineAction({
         rentalStatus: status,
         onCancelRequest,

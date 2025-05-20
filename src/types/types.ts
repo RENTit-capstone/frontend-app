@@ -60,7 +60,6 @@ export type ListContainerProps = {
 }
 
 export type RentalStatusType = "REQUESTED" | "APPROVED" | "REJECTED" | "CANCELLED" | "LEFT_IN_LOCKER" | "PICKED_UP" | "RETURNED_TO_LOCKER" | "COMPLETED";
-// export type ActionType = "APPROVE" | "DISAPPROVE" | "RETURN" | "REVIEW" | "PENDING" | "NONE";
 
 export type AccordionContainerType = ListItemProps & {
     status: RentalStatusType,

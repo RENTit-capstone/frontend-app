@@ -11,7 +11,7 @@ import PolicyModal from '@/components/items/PolicyModal';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
 import Colors from '@/constants/Colors';
-
+        
 SplashScreen.preventAutoHideAsync();
 
 export {
