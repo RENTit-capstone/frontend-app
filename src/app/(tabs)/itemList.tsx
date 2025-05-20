@@ -1,16 +1,24 @@
-import { SafeAreaView, ScrollView, View } from "react-native";
+import { Text, View } from "react-native";
 import { Common } from "@/styles/common";
 import StatusButtonGroup from "@/components/itemList/StatusButtonGroup";
 import ItemListTab from "@/components/itemList/ItemListTab";
-import { useEffect } from "react";
-import { itemList } from "@/styles/components/itemList";
+import Button from "@/components/Button";
+import { useRouter } from "expo-router";
+import Plus from "@/assets/images/plus.svg";
 
 const ItemList = () => {
+  const router = useRouter();
+
   return (
-    <SafeAreaView style={Common.container}>
+    <View style={Common.container}>
         <StatusButtonGroup />
+        <Button type="primary" onPress={() => router.navigate("/items/new")} style={Common.floatingButton}>
+          <View style={[Common.XStack, {alignItems: "center", gap: 4}]}>
+            <Plus /><Text style={{color: "white", fontSize: 16}}>글쓰기</Text>
+          </View>
+        </Button>
         <ItemListTab />
-    </SafeAreaView>
+    </View>
     );
 }
 

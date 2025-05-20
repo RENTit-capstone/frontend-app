@@ -1,19 +1,20 @@
 import { Common } from "@/styles/common"
 import { View, Text } from "react-native"
-import { TextThemes, ViewThemes } from "@/styles/theme";
+import { ItemStatusType, RentalStatusType } from "@/types/types";
+import Colors from "@/constants/Colors";
 
 type BadgeType = {
-    available: boolean,
+    status: ItemStatusType | RentalStatusType,
 }
 
 const Badge = (props: BadgeType) => {
-    const {available} = props;
-    const theme = available? "available" : "notAvailable";
+    const {status} = props;
+    const theme = status==="AVAILABLE"? Colors.available : Colors.out;
     
     return (
-        <View style={[Common.badge, ViewThemes[theme]]}>
-            <Text style={TextThemes[theme]}>
-                {available? "대여가능" : "대여중"}
+        <View style={[Common.badge, {borderColor: theme}]}>
+            <Text style={{color: theme}}>
+                {status==="AVAILABLE"? "대여가능" : "대여중"}
             </Text>
         </View>
     )

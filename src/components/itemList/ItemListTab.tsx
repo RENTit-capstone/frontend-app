@@ -9,14 +9,14 @@ const ItemListTab = () => {
 
   const IndividualRoute = () => (
     <ScrollView style={Common.container}>
-      <ListContainer type={"individual"}/>
+      <ListContainer type={"INDIVIDUAL"}/>
     </ScrollView>
     
   );
   
   const GroupRoute = () => (
     <ScrollView style={Common.container}>
-      <ListContainer type={"group"}/>
+      <ListContainer type={"GROUP"}/>
     </ScrollView>
   );
   

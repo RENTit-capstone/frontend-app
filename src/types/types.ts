@@ -1,5 +1,3 @@
-import { TextInputProps as DefaultTextInputProps, KeyboardTypeOptions } from "react-native";
-
 export type ResponseType<T> = {
     data: T;
     message?: string;
@@ -8,18 +6,7 @@ export type ResponseType<T> = {
 
 export type LoginType = {
     email: string;
-    pw: string;
-}
-
-export interface TextInputProps extends DefaultTextInputProps {
-    label: string;
-    name: string;
-    handleChangeText: (name: string, text: string) => void;
-    value: string;
-    placeholder?: string;
-    secureTextEntry?: boolean;
-    keyboardType?: KeyboardTypeOptions;
-    errorMsg?: string;
+    password: string;
 }
 
 export type UserType = {
@@ -27,52 +14,68 @@ export type UserType = {
     nickname: string;
 }
 
-// 로그인 상태관리
-export type AuthType = {
-    accessToken: string | null;
-    setToken: (accessToken: string) => void;
-    clearToken: () => void;
-}
-
-export type SignupType = {
+export type SignupInputType = {
     email: string,
+    emailVerifyCode: string,
     pw: string,
     pwConfirm: string,
     name: string,
     nickname: string,
-    gender: string,
+    gender: Gender,
     phone: string,
     university: string,
-    studentId: string,        
+    studentId: string,       
+}
+
+export type listType = "INDIVIDUAL" | "GROUP";
+export type memberType = "STUDENT" | "COUNCIL" | "COMPANY";
+export type Gender = "male" | "female" | "";
+
+export type UserInfoType = {
+    email: string,
+    password: string,
+    name: string,
+    memberType: memberType,
+    nickname: string,
+    university: string,
+    studentId: string,
+    gender: Gender,
+    phone: string,
+    profileImg?: string | null,
 }
 
 export type ListItemProps = {
     id: number,
-    title: string,
-    img: string,
-    available: boolean,
+    nickname: string,
+    name: string,
+    imgUrls: string[],
     price: number,
-    period: number,
-    messages: number, 
-    likes: number,
+    status: ItemStatusType,
+    startDate: string,
+    endDate: string,
 }
 
 export type ListContainerProps = {
-    type: string,
+    type: listType,
 }
 
-export type StatusType = "pending" | "inRent" | "returned";
-export type ActionType = "approve" | "disapprove" | "return" | "writeReview";
+export type RentalStatusType = "REQUESTED" | "APPROVED" | "REJECTED" | "CANCELED" | "LEFT_IN_LOCKER" | "PICKED_UP" | "RETURNED_TO_LOCKER" | "COMPLETED";
+export type ActionType = "APPROVE" | "DISAPPROVE" | "RETURN" | "REVIEW" | "PENDING" | "NONE";
 
 export type AccordionContainerType = ListItemProps & {
-    status: StatusType,
+    status: RentalStatusType,
 }
 
-export type AccordionCardProps = AccordionContainerType & {
+export type AccordionCardProps = {
+    rentalId: number,
+    itemId: number,
+    requestDate: string,
+    status: RentalStatusType
+
     actions: ActionType[] | undefined,
     actionNames: string[],
     getDetails: (itemId: number) => Promise<RentalDetailsType | undefined>,
-    handleAction: ((itemId: number, isApproved?: boolean) => void) | ((itemId: number) => void);
+     handleAction: ((itemId: number, isApproved?: boolean) => void) | ((itemId: number) => void);
 }
 
 export type RentalDetailsType = {
@@ -87,4 +90,34 @@ export type RentalDetailsType = {
     returnedByRenterAt: string | null,
     retrievedByOwnerAt: string | null,
     lockerId: string | null,
+    returnImageUrl: string | null,
+}
+
+export type ItemStatusType = "AVAILABLE" | "OUT";
+
+export type ItemDetailsProp = {
+    itemId: number,
+    profileImg: string,
+    nickname: string, 
+    name: string
+    imageUrls: string[], 
+    description: string,
+    dmagedDescription: string,
+    price: number, 
+    status: ItemStatusType,
+    damagedPolicy: string,
+    returnPolicy: string,
+    startDate: string,
+    endDate: string,
+    createdAt: string,
+    updatedAt: string,
+}
+
+export type PostingType = {
+    name: string,
+    itemImg: string,
+    description: string,
+    price: string,
+    damagedPolicy: string,
+    returnPolicy: string,
 }

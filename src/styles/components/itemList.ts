@@ -40,7 +40,6 @@ export const itemList = StyleSheet.create({
         height: 0,
         borderColor: "#E5E5E5CC",
         borderWidth: 1,
-        marginTop: 10,
     },
 
     //ListItem
@@ -54,13 +53,6 @@ export const itemList = StyleSheet.create({
         borderRadius: 6,
         marginRight: 5,
     },
-    interactions: {
-        flexDirection: "row",
-        alignItems: "center",
-        alignSelf: "flex-end",
-        marginRight: 0,
-        gap: 2,
-    },
 
     //ItemListTab
     topTabIndicator: {
@@ -70,7 +62,7 @@ export const itemList = StyleSheet.create({
         backgroundColor: Colors.white,
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
-        marginTop: 10,
+        marginTop: 20,
         ...Platform.select({
             default: {
                 shadowColor: '#000',
@@ -82,35 +74,43 @@ export const itemList = StyleSheet.create({
                 elevation: 5,
                 },
             })
-    
     },
 
-    //TabBar
-    tabBar: {
-        position: "absolute",
-        bottom: 0,
-        height: "10%",
+    // [id]
+    detailImage: {
         width: "100%",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        backgroundColor: Colors.secondary,
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
-        // borderCurve: "continuous",
-        shadowColor: "#000",
-        shadowOffset: {width: 0, height: 0},
-        shadowRadius: 10,
-        shadowOpacity: 0.15,
+        maxHeight: "40%",
     },
-    tabBarItem: {
+    bottomSheet: {
+        backgroundColor: "#FBF5ED",
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+        ...Platform.select({
+            default: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: -4 },
+                shadowOpacity: 0.1,
+                shadowRadius: 10,
+                },
+            android: {
+                elevation: 5,
+                },
+            })
+    },
+    detailsHeader: {        
+        justifyContent: "space-between",
+        gap: 10,
+    },
+    detailInfo: {
         flex: 1,
-        flexDirection: "row",
-        borderRadius: 8,
-        height: "65%",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: 4,
+        backgroundColor: "#fff",
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+    },
+    title: {
+        color: "#767676",
+        fontWeight: 600,
+        marginVertical: 10,
     }
 
 });

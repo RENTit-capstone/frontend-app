@@ -1,53 +1,76 @@
-import { Text, View } from "react-native"
-import ListItem from "../itemList/ListItem";
-import { useState } from "react";
+import { Image, Text, View } from "react-native"
+import { useEffect, useState } from "react";
 import Button from "../Button";
 import { Common } from "@/styles/common";
-import { AccordionCardProps, ActionType, RentalDetailsType } from "@/types/types";
+import { AccordionCardProps, ActionType, ItemDetailsProp, RentalDetailsType } from "@/types/types";
 import { history } from "@/styles/components/history";
+import { axiosGet } from "@/api";
+import { itemList } from "@/styles/components/itemList";
+import Badge from "../Badge";
 
 const AccordionCard = (props: AccordionCardProps) => {
-    const {id, title, img,  available, price, period, messages, likes, status, actions, actionNames, getDetails, handleAction} = props;
+    const {rentalId, itemId, requestDate, status, actions, actionNames, getDetails, handleAction} = props;
     const [isOpened, setIsOpened] = useState(false);
+    const [itemDetails, setItemDetails] = useState<ItemDetailsProp | null>();
     const [details, setDetails] = useState<RentalDetailsType>();
+
+    useEffect(() => {
+        const fetchItemDetails = async () => {
+            try {
+                const response = await axiosGet(`/api/v1/items/${itemId}`);
+                setItemDetails(response.data);
+            } 
+            catch (error) {
+                console.error(error);
+            }
+        }
+        fetchItemDetails();
+    }, []);
 
     const handleDetails = async () => {
         if (!isOpened) {
-            const response = await getDetails(id);
+            const response = await getDetails(rentalId);
             setDetails(response);
         }
         setIsOpened(!isOpened);
     }
 
-    const onPress = (itemId: number, action: ActionType) => {
-        console.log(itemId, action);
+    const onPress = (rentalId: number, action: ActionType) => {
         if (action==="approve") {
-            handleAction(itemId, true);
+            handleAction(rentalId, true);
         }
         else if (action==="disapprove") {
-            handleAction(itemId, false);
+            handleAction(rentalId, false);
         }
         else {
-            handleAction(itemId);
+            handleAction(rentalId);
         }
     }
 
+    if (!itemDetails)   return null;
     return (
         <View>
-            <ListItem
-                id={id}
-                title={title}
-                img={img}
-                available={available}
-                price={price}
-                period={period}
-                messages={messages}
-                likes={likes}
-            />
+            <View style={[Common.XStack, itemList.cardWrapper]}>
+                <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
+
+                <View style={[Common.wideView, {gap: 5}]}>
+                    <Badge status={status} />
+                    <Text style={{fontSize: 19}}>{itemDetails.name}</Text>
+                    <View style={[Common.textWrapper]}>
+                        <Text style={{fontSize: 19, fontWeight: 600}}>{itemDetails.price.toLocaleString()}</Text>
+                        <Text style={{fontSize: 19}}> 원</Text>
+                    </View>
+
+                    <View style={[Common.textOption]}>
+                        <Text style={{fontSize: 16}}>대여 요청 일시: {requestDate}</Text>
+                    </View>
+                </View>
+            </View>
+
             {isOpened &&
                 <View>
                     {!details ? (
-                        <Text>details</Text>
+                        <Text></Text>
                     ): ( 
                         <>
                             <Text>빌려준 사람: {details.owner}</Text>
@@ -68,7 +91,7 @@ const AccordionCard = (props: AccordionCardProps) => {
 
             <View style={Common.XStack}>
                 {actions && actions.map((action: ActionType, index) => (
-                <Button onPress={() => onPress(id, action)} type="primary" key={action+id} style={history.button}>
+                <Button onPress={() => onPress(rentalId, action)} type="primary" key={rentalId} style={history.button}>
                     {actionNames[index]}
                 </Button>
                 ))}
