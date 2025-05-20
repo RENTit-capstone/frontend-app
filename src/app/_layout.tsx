@@ -54,9 +54,9 @@ function RootLayoutNav() {
   const isWeb = Platform.OS==="web";
   const contentWidth = isWeb ? 414 : "100%";
 
-  // if (!token && !isAllowedPage) {
-  //   return <Redirect href={"/(auth)/login"} />;
-  // }
+  if (!token && !isAllowedPage) {
+    return <Redirect href={"/(auth)/login"} />;
+  }
 
   return (
       <SafeAreaProvider style={{width: contentWidth, alignSelf: "center", backgroundColor: Colors.secondary}}>  

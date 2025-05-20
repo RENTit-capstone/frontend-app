@@ -16,7 +16,7 @@ const AccordionCardContainer = () => {
 
     const fetchHistory = async () => {
         const params = useUrl({
-            stauts: ["REQUESTED", "APPROVED"],
+            stautses: ["REQUESTED", "APPROVED"],
             page: page,
             size: 20,
             sort: ["requestDate", "desc"],
