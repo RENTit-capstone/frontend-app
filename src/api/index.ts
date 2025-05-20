@@ -55,18 +55,23 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
-        if (response.data && response.data.success===false){
-            if (response.data.message.includes("validation error")) {
-                return getNewToken().then(() => {
-                    const originalRequest = response.config;
-                    return axiosInstance(originalRequest);
-                });
-            }
-            return Promise.reject(new Error(response.data.message));
-        }
+        // if (response.data && response.data.success===false){
+        //     if (response.data.message.includes("validation error")) {
+        //         return getNewToken().then(() => {
+        //             const originalRequest = response.config;
+        //             return axiosInstance(originalRequest);
+        //         });
+        //     }
+        //     return Promise.reject(new Error(response.data.message));
+        // }
         return response;
     },
-    (error) => {
+    async (error) => {
+        if (error.status===403) {
+            const originalRequest = error.config;
+            await getNewToken();
+            return axiosInstance(originalRequest);
+        }
         return Promise.reject(error);
     }
 );
