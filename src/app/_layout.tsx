@@ -9,7 +9,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import DateSelectorModal from '@/components/items/DateSelectorModal';
 import PolicyModal from '@/components/items/PolicyModal';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
+import { Platform } from 'react-native';
+import Colors from '@/constants/Colors';
+        
 SplashScreen.preventAutoHideAsync();
 
 export {
@@ -49,13 +51,15 @@ function RootLayoutNav() {
   const token = useAuthStore((state) => state.accessToken);
   const pathname = usePathname();
   const isAllowedPage = pathname.includes("login") || pathname.includes("signup");
+  const isWeb = Platform.OS==="web";
+  const contentWidth = isWeb ? 414 : "100%";
 
   if (!token && !isAllowedPage) {
     return <Redirect href={"/(auth)/login"} />;
   }
 
   return (
-      <SafeAreaProvider>  
+      <SafeAreaProvider style={{width: contentWidth, alignSelf: "center", backgroundColor: Colors.secondary}}>  
         <GestureHandlerRootView>  
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />    

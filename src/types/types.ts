@@ -59,8 +59,7 @@ export type ListContainerProps = {
     type: listType,
 }
 
-export type RentalStatusType = "REQUESTED" | "APPROVED" | "REJECTED" | "CANCELED" | "LEFT_IN_LOCKER" | "PICKED_UP" | "RETURNED_TO_LOCKER" | "COMPLETED";
-export type ActionType = "APPROVE" | "DISAPPROVE" | "RETURN" | "REVIEW" | "PENDING" | "NONE";
+export type RentalStatusType = "REQUESTED" | "APPROVED" | "REJECTED" | "CANCELLED" | "LEFT_IN_LOCKER" | "PICKED_UP" | "RETURNED_TO_LOCKER" | "COMPLETED";
 
 export type AccordionContainerType = ListItemProps & {
     status: RentalStatusType,
@@ -71,11 +70,6 @@ export type AccordionCardProps = {
     itemId: number,
     requestDate: string,
     status: RentalStatusType
-
-    actions: ActionType[] | undefined,
-    actionNames: string[],
-    getDetails: (itemId: number) => Promise<RentalDetailsType | undefined>,
-     handleAction: ((itemId: number, isApproved?: boolean) => void) | ((itemId: number) => void);
 }
 
 export type RentalDetailsType = {
