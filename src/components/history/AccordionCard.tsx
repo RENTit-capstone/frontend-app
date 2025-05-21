@@ -1,14 +1,16 @@
-import { Image, Text, View } from "react-native"
+import { Image, Pressable, Text, View } from "react-native"
 import { useEffect, useState } from "react";
 import Button from "../Button";
 import { Common } from "@/styles/common";
-import { AccordionCardProps, ItemDetailsProp, RentalDetailsType } from "@/types/types";
+import { AccordionCardProps, ItemDetailsProp, RentalDetailsType, RentalStatusType } from "@/types/types";
 import { history } from "@/styles/components/history";
 import { axiosGet } from "@/api";
 import { itemList } from "@/styles/components/itemList";
 import Badge from "../Badge";
 import determineAction from "@/utils/determineAction";
 import useRentalActions from "@/hooks/useRentalActions";
+import { useRouter } from "expo-router";
+import formatISOToDate from "@/utils/formatDate";
 
 const AccordionCard = (props: AccordionCardProps) => {
     const {rentalId, itemId, requestDate, status} = props;
@@ -16,12 +18,15 @@ const AccordionCard = (props: AccordionCardProps) => {
     const [isOpened, setIsOpened] = useState(false);
     const [itemDetails, setItemDetails] = useState<ItemDetailsProp>();
     const [details, setDetails] = useState<RentalDetailsType>();
+    const router = useRouter();
 
     useEffect(() => {
+        console.log("Status: ", status);
         const fetchItemDetails = async () => {
             try {
                 const response = await axiosGet(`/api/v1/items/${itemId}`);
                 setItemDetails(response.data);
+                // console.log(response.data);
             } 
             catch (error) {
                 console.error(error);
@@ -44,7 +49,7 @@ const AccordionCard = (props: AccordionCardProps) => {
         }   
     }
     
-    const { action, buttonText } = determineAction({
+    const { action, buttonText, description } = determineAction({
         rentalStatus: status,
         onCancelRequest,
         onPickup,
@@ -52,6 +57,7 @@ const AccordionCard = (props: AccordionCardProps) => {
     });
 
     const onPress = async (action?: () => Promise<void>) => {
+        console.log(!!action, buttonText)
         if (action) {
             try { await action(); } 
             catch(error) { console.error(error); }
@@ -61,7 +67,7 @@ const AccordionCard = (props: AccordionCardProps) => {
     if (!itemDetails)   return null;
     return (
         <View>
-            <View style={[Common.XStack, itemList.cardWrapper]}>
+            <Pressable style={[Common.XStack, itemList.cardWrapper]} onPress={() => (router.push(`/items/${itemId}`))}>
                 <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
 
                 <View style={[Common.wideView, {gap: 5}]}>
@@ -73,10 +79,12 @@ const AccordionCard = (props: AccordionCardProps) => {
                     </View>
 
                     <View style={[Common.textOption]}>
-                        <Text style={{fontSize: 16}}>대여 요청 일시: {requestDate}</Text>
+                        <Text style={{fontSize: 16}}>대여 요청 일시: {formatISOToDate(requestDate)}</Text>
+                        {description &&  <Text style={{marginTop: 12}}>{description}</Text>}
+
                     </View>
                 </View>
-            </View>
+            </Pressable>
 
             {isOpened &&
                 <View>
@@ -101,10 +109,11 @@ const AccordionCard = (props: AccordionCardProps) => {
             }
 
             <View style={Common.XStack}>
-                <Button onPress={() => onPress(action)} type="primary" key={rentalId} style={history.button}>
+                {buttonText &&
+                <Button onPress={() => onPress(action)} type="primary" style={history.button} disabled={!action}>
                     {buttonText}
                 </Button>
-                
+                }
 
                 <Button onPress={fetchDetails} type="secondary" style={history.button}>
                     {isOpened? "닫기" : "상세정보"}
