@@ -7,18 +7,28 @@ import Checkbox from "expo-checkbox";
 import { itemList } from "@/styles/components/itemList";
 import usePolicyStore from "@/stores/usePolicyStore";
 import ButtonBar from "../ButtonBar";
+import { useBottomSheetStore } from "@/stores/useBottomSheetStore";
+import { useEffect, useState } from "react";
 
 
 const PolicyModal = () => {
-    const { visible, flawPolicy, damagePolicy, setDamagePolicy, setFlawPolicy, closePolicy } = usePolicyStore();
+    const {visible, result, setResult} = useBottomSheetStore();
+    const [flawPolicy, setFlawPolicy] = useState(false);
+    const [damagePolicy, setDamagePolicy] = useState(false);
+
+    useEffect(() => {
+        setResult({flawPolicy: flawPolicy, damagePolicy: damagePolicy});
+    }, [flawPolicy, damagePolicy])
+    
+    // const { visible, flawPolicy, damagePolicy, setDamagePolicy, setFlawPolicy, closePolicy } = usePolicyStore();
 
     if (!visible)   return null;
     
     return (
         <>
-            <Button type="option" onPress={() => closePolicy(false)} style={Common.cancel}>
+            {/* <Button type="option" onPress={() => closePolicy(false)} style={Common.cancel}>
                 <Cancel />
-            </Button>
+            </Button> */}
 
             <View style={Common.XStack}>
                 <Checkbox

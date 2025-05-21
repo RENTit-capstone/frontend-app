@@ -7,7 +7,7 @@ type ResultType = {
     none: null;
     test: {test: string};
     // dateSelector: { startDate: string | null; endDate: string | null };
-    // policy: { agreed: boolean };
+    policy: { flawPolicy: boolean, damagePolicy: boolean };
 };
 
 type BottomSheetType = {
@@ -56,5 +56,5 @@ export const useBottomSheetStore = create<BottomSheetType>(
         onPrev: (callback) => set({prevCallback: callback}),
         onNext: (callback) => set({nextCallback: callback}),
 
-        setResult: (result) => set({result: result}),
+        setResult: (result) => {console.log(result); set({result: result})},
 }));

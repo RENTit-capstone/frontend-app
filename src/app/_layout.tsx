@@ -67,18 +67,19 @@ function RootLayoutNav() {
   const {openBottomSheet} = useBottomSheetStore();
   const handlleDate = async () => {
     const { result: { test } } = await openBottomSheet("test");
-    console.log(test);
+    console.log("result: ", test);
   }
-  // const handlePolicy = async () => {
-  //   const { result: { agreed } } = await openBottomSheet("policy");
-  //   console.log(agreed);
-  // }
+  const handlePolicy = async () => {
+    const { result: { flawPolicy, damagePolicy } } = await openBottomSheet("policy");
+    console.log("efsjidf")
+    console.log("flaw: ", flawPolicy);
+  }
 
   return (
     <>
-    <View style={Common.XStack}>
+    <View style={[Common.XStack, {paddingTop: 100}]}>
       <Button onPress={handlleDate} type="primary">날짜</Button>
-      {/* <Button onPress={handlePolicy} type="primary">동의</Button> */}
+      <Button onPress={handlePolicy} type="primary">동의</Button>
     </View>
       <SafeAreaProvider style={{width: contentWidth, alignSelf: "center", backgroundColor: Colors.secondary}}>  
         <GestureHandlerRootView>  

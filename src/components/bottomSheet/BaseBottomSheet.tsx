@@ -6,11 +6,12 @@ import Button from "../Button";
 import Cancel from "@/assets/images/cancel.svg";
 import { Common } from "@/styles/common";
 import Test from "./Test";
+import PolicyScreen from "./Policy";
 
 const bottomSheetMap = {
     test: Test,
     none: () => <></>,
-//   policy: PolicyScreen,
+    policy: PolicyScreen,
 //   dateSelector: DateScreen,
 //   otp: OTPModal,
 //   slider: SliderModal,
@@ -18,7 +19,7 @@ const bottomSheetMap = {
 
 const BaseBottomSheet = () => {
     const {visible, type, result, cancelResult, submitResult} = useBottomSheetStore();
-    console.log(type);
+    console.log("Type: ", type);
     const SheetComponent = bottomSheetMap[type];
 
     if (!visible || !type) return null;
