@@ -8,6 +8,7 @@ import DownArrow from "@/assets/images/down-arrow.svg";
 import Colors from "@/constants/Colors";
 import TextInput from "../TextInput";
 import SearchIcon from "@/assets/images/search.svg";
+import formatISOToDate from "@/utils/formatDate";
 
 const SearchGroup = (props: any) => {
     const {onChange} = props;
@@ -32,7 +33,7 @@ const SearchGroup = (props: any) => {
     const dateSelected = (!!startDate && !!endDate);
     const priceSelected = (!!startPrice && !!endPrice);
     const selectedColor = Colors.out;
-    const dateLabel = dateSelected ? `${startDate.replaceAll('-', '.')} ~ ${endDate.replaceAll('-', '.')}` : "날짜 선택";
+    const dateLabel = dateSelected ? `${formatISOToDate(startDate)} ~ ${formatISOToDate(endDate)}` : "날짜 선택";
     const priceLabel = priceSelected ? `${startPrice} - ${endPrice}` : "가격대";
     
     return (
@@ -45,20 +46,20 @@ const SearchGroup = (props: any) => {
                 value={keyword}
                 style={{paddingRight: 42, marginHorizontal: 14, marginTop: 15, borderRadius: 50}}
             />
-            <Pressable style={Common.floatingIcon} onPress={handleKeywordSearch} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+            <Pressable style={Common.floatingIcon} onPress={handleKeywordSearch} hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}>
                 <SearchIcon />
             </Pressable>
 
             <View style={[Common.XStack, {marginVertical: 10}]}>
                 <DropDown 
                     label={dateLabel}
-                    icon={<Calendar stroke={dateSelected ? selectedColor : "#111111"}/>}
+                    icon={dateSelected? null : <Calendar />}
                     selectedColor={(!!startDate && !!endDate)? selectedColor : undefined}
                     onPress={handleDateSelect} 
                 />
                 <DropDown 
                     label={priceLabel}
-                    icon={<DownArrow stroke={priceSelected ? selectedColor : "#111111"}/>} 
+                    icon={priceSelected? null : <DownArrow />} 
                     selectedColor={(!!startPrice && !!endPrice)? selectedColor : undefined}
                     onPress={() => setShowSlider(true)}
                 />
