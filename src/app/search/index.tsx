@@ -50,7 +50,7 @@ const Search = () => {
                 <SearchIcon />
             </Pressable>
 
-            {searchResult && <ItemListTab />}
+            {searchResult && <ItemListTab/>}
         </SafeAreaView>
     );
 }

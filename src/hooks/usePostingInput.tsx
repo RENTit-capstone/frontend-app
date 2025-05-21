@@ -4,7 +4,7 @@ import { useState } from "react"
 const usePostingInput = (initialValues: PostingType) => {
     const [values, setValues] = useState<PostingType>(initialValues);
     
-    const handleChange = (name: string, text: string) => {
+    const handleChange = (name: string) => (text: string) => {
         setValues(prev => ({ ...prev, [name]: text}));
     }
 

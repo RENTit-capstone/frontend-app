@@ -9,7 +9,7 @@ function useValidateInput(initialValues: SignupInputType) {
     const emailRegex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     const phoneRegex = /\d{11}/;
 
-    const handleChange = (name: string, text: string) => {
+    const handleChange = (name: string) => (text: string) => {
         setValues(prev => ({ ...prev, [name]: text }));
         validateField(name, text);
     }

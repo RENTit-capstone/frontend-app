@@ -1,5 +1,5 @@
+import { axiosInstance } from "@/api";
 import { UserInfoType } from "@/types/types";
-import axios from "axios";
 import { create } from "zustand";
 
 type SignupVerificationType = {
@@ -17,7 +17,7 @@ export const useSignupVerificationStore = create<SignupVerificationType>(
 
         sendCode: async (email: string, university: string) => {
             const payload = {"email": email, "university": university};
-            const response = await axios.post(`/api/v1/auth/signup/verify-email`, payload);
+            const response = await axiosInstance.post(`/api/v1/auth/signup/verify-email`, payload);
             
             if (!response.data.success){
                 set({ emailCodeSent: false });
@@ -30,7 +30,7 @@ export const useSignupVerificationStore = create<SignupVerificationType>(
 
         verifyCode: async (email: string, university: string, code: string) => {
             const payload = {"email": email, "university": university, "code": code};
-            const response = await axios.post(`/api/v1/auth/signup/verify-code`, payload);
+            const response = await axiosInstance.post(`/api/v1/auth/signup/verify-code`, payload);
 
             if (!response.data.success){
                 set({ emailVerified: false });
@@ -42,7 +42,7 @@ export const useSignupVerificationStore = create<SignupVerificationType>(
         },
 
         signup: async (payload: UserInfoType) => {
-            const response = await axios.post(`/api/v1/auth/signup`, payload);
+            const response = await axiosInstance.post(`/api/v1/auth/signup`, payload);
             
             if (!response.data.success){
                 set({ emailVerified: false });

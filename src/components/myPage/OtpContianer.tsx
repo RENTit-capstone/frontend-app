@@ -1,37 +1,44 @@
-import { View, Text } from "react-native"
+import { View, Text, Alert } from "react-native"
 import Button from "../Button";
 import { Common } from "@/styles/common";
 import { myPage } from "@/styles/components/myPage";
 import { ViewThemes } from "@/styles/theme";
-import { generateOTP } from "@/api/myPage";
 import { itemList } from "@/styles/components/itemList";
 import { useEffect, useState } from "react";
+import { axiosPost } from "@/api";
+import Timer from "./Timer";
 
 const OtpContianer = () => {
     const [otpCode, setOtpCode] = useState<string>();
+    const [resetKey, setResetKey] = useState(0);
 
     useEffect(() => {
-        loadData();
-    })
+        generateOTP();
+    }, []);
 
-    const loadData = async () => {
-        const newCode = await generateOTP();
-        setOtpCode(newCode);
-    }
-
-    const handleGenerateOtp = () => {
-        console.log("pressed");
-        loadData();
+    const generateOTP = async () => {
+        try {
+            setResetKey(prev => prev+1);
+            const response = await axiosPost(`/api/v1/auth/otp`);
+            console.log(response.data);
+            
+            setOtpCode(response.data);
+        }
+        catch(error) {
+            console.error(error);
+            Alert.alert(`${error}`);
+        }
     }
 
     return (
         <View style={[Common.wrapper]}>
             <View style={[myPage.otpBox, ViewThemes.secondary]}>
-                <Text style={itemList.statusNumber}>{otpCode || "01010"}</Text>
+                <Text style={itemList.statusNumber}>{otpCode}</Text>
             </View>
             <View style={Common.XStack}>
-                <Button onPress={handleGenerateOtp} type="primary">
-                    발급하기
+                <Timer resetKey={resetKey} setResetKey={setResetKey} />
+                <Button onPress={() => generateOTP()} type="primary">
+                    재발급
                 </Button>
             </View>
 
