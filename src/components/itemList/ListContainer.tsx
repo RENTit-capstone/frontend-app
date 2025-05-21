@@ -22,7 +22,6 @@ const ListContainer = (props: ListContainerProps) => {
     })
 
     useEffect (() => {
-        console.log(searchOptions);
         fetchResult();
     }, [type, searchOptions])
 
@@ -41,9 +40,7 @@ const ListContainer = (props: ListContainerProps) => {
             sort: ["createdAt", "desc"],
         });
         try {
-            console.log(params)
             const response = await axiosGet(`/api/v1/items?${params}`);
-            console.log(response);
             setPage(response.data.pageable.pageNumber+1);
             setData(response.data.content);
             setLast(response.data.last);
