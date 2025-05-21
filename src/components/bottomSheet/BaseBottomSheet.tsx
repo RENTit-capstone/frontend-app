@@ -7,12 +7,13 @@ import Cancel from "@/assets/images/cancel.svg";
 import { Common } from "@/styles/common";
 import Test from "./Test";
 import PolicyScreen from "./Policy";
+import CanendarScreen from "./DateSelector";
 
 const bottomSheetMap = {
     test: Test,
     none: () => <></>,
     policy: PolicyScreen,
-//   dateSelector: DateScreen,
+    dateSelector: CanendarScreen,
 //   otp: OTPModal,
 //   slider: SliderModal,
 };
@@ -28,7 +29,7 @@ const BaseBottomSheet = () => {
         <>
         <BottomScrollSheet snapPointList={["65%"]} style={{ backgroundColor: "#fff" }}>
             <View>
-            <Button type="option" onPress={() => cancelResult()} style={Common.cancel}>
+            <Button type="option" onPress={cancelResult} style={Common.cancel}>
                 <Cancel />
             </Button>
             <SheetComponent />
@@ -40,7 +41,11 @@ const BaseBottomSheet = () => {
             {/* {children(submit, cancel)} */}
             </View>
         </BottomScrollSheet>
-      <ButtonBar onClose={() => submitResult()} />        
+        <ButtonBar>
+            <Button type="primary" onPress={submitResult}>
+                저장
+            </Button>
+        </ButtonBar>  
       </>
 );
 };

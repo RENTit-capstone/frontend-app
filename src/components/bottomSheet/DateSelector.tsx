@@ -9,21 +9,29 @@ import Chip from "../Chip";
 import useDateSelector from "@/hooks/useDateSelector";
 import ButtonBar from "../ButtonBar";
 import BaseBottomSheet from "./BaseBottomSheet";
+import { useBottomSheetStore } from "@/stores/useBottomSheetStore";
+import { useEffect, useState } from "react";
 
 
 const DateSelectorModal = () => {
-    const { visible, startDate, endDate, closeDateSelector } = useDateSelectorStore();
-    const {onDayPress, markedDates, resetPeriod} = useDateSelector();
+    const {startDate, endDate, onDayPress, markedDates, resetPeriod} = useDateSelector();
+
+    const {visible, setResult} = useBottomSheetStore();
+
+    useEffect(() => {
+        setResult({startDate: startDate, endDate: endDate});
+    }, [startDate, endDate])
+
 
     if (!visible)   return null;
     
     return (
-        <BaseBottomSheet>
+        <>
         {/* <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}> */}
             {/* <View> */}
-                <Button type="option" onPress={() => closeDateSelector(false)} style={Common.cancel}>
+                {/* <Button type="option" onPress={() => closeDateSelector(false)} style={Common.cancel}>
                     <Cancel />
-                </Button>
+                </Button> */}
                 <View style={{alignItems: "center", paddingVertical: 15,}}>
                     <Text style={{fontSize: 18, fontWeight: 500}}>일정 선택</Text>
                 </View>
@@ -45,7 +53,7 @@ const DateSelectorModal = () => {
             </View>
         {/* </BottomScrollSheet>
         <ButtonBar onClose={() => closeDateSelector(true)} /> */}
-        </BaseBottomSheet>
+        </>
     )
 }
 export default DateSelectorModal;

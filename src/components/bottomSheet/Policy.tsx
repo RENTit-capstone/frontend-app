@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 
 
 const PolicyModal = () => {
-    const {visible, result, setResult} = useBottomSheetStore();
+    const {visible, setResult} = useBottomSheetStore();
     const [flawPolicy, setFlawPolicy] = useState(false);
     const [damagePolicy, setDamagePolicy] = useState(false);
 

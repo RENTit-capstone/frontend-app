@@ -6,7 +6,7 @@ import { create } from "zustand";
 type ResultType = {
     none: null;
     test: {test: string};
-    // dateSelector: { startDate: string | null; endDate: string | null };
+    dateSelector: { startDate: string | null; endDate: string | null };
     policy: { flawPolicy: boolean, damagePolicy: boolean };
 };
 
@@ -41,8 +41,8 @@ export const useBottomSheetStore = create<BottomSheetType>(
         },
 
         cancelResult: () => {
-            const {resolve} = get();
-            if (resolve)    resolve({result: undefined});
+            const {result, resolve} = get();
+            if (resolve)    resolve({result});
 
             set({ visible: false, result: undefined, resolve: undefined});
         },

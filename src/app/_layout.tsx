@@ -66,12 +66,11 @@ function RootLayoutNav() {
 
   const {openBottomSheet} = useBottomSheetStore();
   const handlleDate = async () => {
-    const { result: { test } } = await openBottomSheet("test");
-    console.log("result: ", test);
+    const { result: { startDate, endDate } } = await openBottomSheet("dateSelector");
+    console.log("result: ", startDate, endDate);
   }
   const handlePolicy = async () => {
     const { result: { flawPolicy, damagePolicy } } = await openBottomSheet("policy");
-    console.log("efsjidf")
     console.log("flaw: ", flawPolicy);
   }
 
@@ -88,8 +87,6 @@ function RootLayoutNav() {
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           </Stack>
           <BaseBottomSheet />
-          {/* <DateSelectorModal /> */}
-          {/* <PolicyModal /> */}
         </GestureHandlerRootView>
       </SafeAreaProvider>
       <Toast
