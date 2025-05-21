@@ -8,6 +8,7 @@ import { Calendar } from "react-native-calendars";
 import Chip from "../Chip";
 import useDateSelector from "@/hooks/useDateSelector";
 import ButtonBar from "../ButtonBar";
+import BaseBottomSheet from "./BaseBottomSheet";
 
 
 const DateSelectorModal = () => {
@@ -17,9 +18,9 @@ const DateSelectorModal = () => {
     if (!visible)   return null;
     
     return (
-        <>
-        <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}>
-            <View>
+        <BaseBottomSheet>
+        {/* <BottomScrollSheet snapPointList={["65%"]} style={{backgroundColor: "#fff"}}> */}
+            {/* <View> */}
                 <Button type="option" onPress={() => closeDateSelector(false)} style={Common.cancel}>
                     <Cancel />
                 </Button>
@@ -42,10 +43,10 @@ const DateSelectorModal = () => {
                         <Chip startDate={startDate} endDate={endDate} onCancel={resetPeriod}/>
                     </View>
                 </View>
-            </View>
+            {/* </View>
         </BottomScrollSheet>
-        <ButtonBar onClose={() => closeDateSelector(true)} />
-        </>
+        <ButtonBar onClose={() => closeDateSelector(true)} /> */}
+        </BaseBottomSheet>
     )
 }
 export default DateSelectorModal;

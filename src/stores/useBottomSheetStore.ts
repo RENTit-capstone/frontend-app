@@ -1,37 +1,47 @@
+import { resolvePlugin } from "@babel/core";
 import { create } from "zustand";
-
-export type BottomSheetScreenType = "dateSelector" | "policy" | "otp" | "priceSelector";
 
 type BottomSheetType = {
     visible: boolean;
-    bottomSheetScreenType: BottomSheetScreenType | null;
-    bottomSheetProps?: any;
+    result: any;
     resolve?: (result: any) => void;
+    prevCallback?: () => void;
+    nextCallback?: () => void;
 
-    openBottomSheet: (type: BottomSheetScreenType, props?: any) => Promise<any> | void;
-    closeBottomSheet: (result?: any) => void;
+    openBottomSheet: (props?: any) => Promise<any> | void;
+    cancelResult: () => void;
+    submitResult: () => void;
+    onPrev: (callback: () => void) => void;
+    onNext: (callback: () => void) => void;
+    setResult: (result: any) => void;
 };
 
-export const useBottomSheetStore = create<BottomSheetType>((set, get) => ({
-    visible: false,
-    bottomSheetScreenType: null,
-    bottomSheetProps: undefined,
-    resolve: undefined,
+export const useBottomSheetStore = create<BottomSheetType>(
+    (set, get) => ({
+        visible: false,
+        result: null,
 
-    openBottomSheet: (type, props) => {
-        const needResult = type !== "otp"; // 결과 필요한 모달만 Promise 리턴
-        if (needResult) {
+        openBottomSheet: (props) => {
             return new Promise((resolve) => {
-            set({ visible: true, bottomSheetScreenType: type, bottomSheetProps: props, resolve });
+                set({ visible: true, resolve });
             });
-        } else {
-            set({ visible: true, bottomSheetScreenType: type, bottomSheetProps: props, resolve: undefined });
-        }
-    },
+        },
 
-    closeBottomSheet: (result) => {
-        const { resolve } = get();
-        resolve?.(result);
-        set({ visible: false, bottomSheetScreenType: null, bottomSheetProps: undefined, resolve: undefined });
-  },
+        cancelResult: () => {
+            const {resolve} = get();
+            if (resolve)    resolve({result: undefined});
+
+            set({ visible: false, result: undefined, resolve: undefined});
+        },
+        submitResult: () => {
+            const {result, resolve} = get();
+            if (resolve)    resolve({result});
+
+            set({ visible: false, result: undefined, resolve: undefined});
+        },
+        
+        onPrev: (callback) => set({prevCallback: callback}),
+        onNext: (callback) => set({nextCallback: callback}),
+
+        setResult: (result) => set({result: result}),
 }));
