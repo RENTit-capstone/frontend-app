@@ -93,11 +93,7 @@ const NewPosting = () => {
                     <View style={[Common.textInput, {width: "80%", backgroundColor: Colors.option}]}>
                         {startDate&&endDate&& <Text>{startDate} ~ {endDate}</Text>}
                     </View>
-<<<<<<< HEAD
-                    <Button type="primary" onPress={() => setShowDateSelector(true)} style={{height: 40, paddingVertical: 0, justifyContent: "center"}}>
-=======
                     <Button type="primary" onPress={handleDateSelect} style={{height: 40, justifyContent: "center"}}>
->>>>>>> dev
                         기간 선택
                     </Button>
 

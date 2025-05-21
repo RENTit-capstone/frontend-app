@@ -179,9 +179,9 @@ export const Common = StyleSheet.create({
         position: "absolute",
         alignSelf: "flex-end",
         marginVertical: 15,
-        paddingRight: 32,
+        paddingRight: 35,
         paddingTop: 20,
-        transform: [{ translateY: -12 }],
+        transform: [{ translateY: -26 }],
     },
     searchGroup: {
         gap: "5%",
