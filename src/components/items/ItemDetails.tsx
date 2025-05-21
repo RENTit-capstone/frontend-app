@@ -2,10 +2,9 @@ import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
 import { Text, View } from "react-native";
 import Avatar from "../Avatar";
-import Messages from "@/assets/images/message.svg";
-import Likes from "@/assets/images/heart.svg";
 import { ItemDetailsProp } from "@/types/types";
 import Badge from "../Badge";
+import formatISOToDate from "@/utils/formatDate";
 
 
 const ItemDetails = (props: ItemDetailsProp) => {
@@ -27,7 +26,8 @@ const ItemDetails = (props: ItemDetailsProp) => {
 
                 <View style={[Common.textWrapper, {gap: 10}]}>
                     <Badge status={status} />
-                    {status==="OUT" && <Text>반납일: 2025.05.01</Text> }
+                    {status==="OUT"? (<Text>반납일: 2025.05.01</Text>) : 
+                    (<Text>{`${formatISOToDate(startDate)} ~ ${formatISOToDate(endDate)}`}</Text>) }
                 </View>
 
                 <View style={[Common.textWrapper, itemList.detailsHeader]}>    
@@ -46,9 +46,7 @@ const ItemDetails = (props: ItemDetailsProp) => {
                 <View style={Common.section}>
                     <Text style={itemList.title}>하자</Text>
                     <Text>
-                        하자 입력
-                        하자 입력
-                        {/* 백엔드 부재 */}
+                        {damagedDescription}
                     </Text>
                 </View>
                 <View style={Common.section}>
@@ -57,6 +55,12 @@ const ItemDetails = (props: ItemDetailsProp) => {
                         {damagedPolicy}
                     </Text>
                 </View>
+                <View style={Common.section}>
+                    <Text style={itemList.title}>반납정책</Text>
+                    <Text>
+                        {returnPolicy}
+                    </Text>
+                </View>                
             </View>
         </>
     

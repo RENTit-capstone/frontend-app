@@ -68,10 +68,10 @@ const Postings = () => {
                     status="AVAILABLE"
                     damagedPolicy="string"
                     returnPolicy="string"
-                    startDate="string"
-                    endDate="string"
-                    createdAt="string"
-                    updatedAt="string"
+                    startDate="2025-05-17T23:51:49.2950544"
+                    endDate="2025-05-17T23:51:49.2950544"
+                    createdAt="2025-05-17T23:51:49.2950544"
+                    updatedAt="2025-05-17T23:51:49.2950544"
                 />
             </BottomScrollSheet>
             <ItemDetailsButtonBar handleRequest={handleRequest}/>
