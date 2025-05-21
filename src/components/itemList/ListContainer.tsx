@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { ListItemProps, ListContainerProps } from "@/types/types";
-import { Common } from "@/styles/common";
 import ListItem from "./ListItem";
 import { itemList } from "@/styles/components/itemList";
 import SearchGroup from "./SearchGroup";
 import useUrl from "@/hooks/useUrl";
 import { axiosGet } from "@/api";
+import { Common } from "@/styles/common";
 
 const ListContainer = (props: ListContainerProps) => {
     const {type} = props;
@@ -65,7 +65,7 @@ const ListContainer = (props: ListContainerProps) => {
                 return (
                 <View key={index} style={itemList.listContainer}>
                     <ListItem 
-                        id={item.id}
+                        itemId={item.itemId}
                         nickname={item.nickname}
                         name={item.name}
                         imgUrls={item.imgUrls}

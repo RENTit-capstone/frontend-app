@@ -18,6 +18,8 @@ const NewPosting = () => {
     const [selectedImage, setSelectedImage] = useState<any[]>([]);
     const { values, handleChange } = usePostingInput({
         name: "",
+        itemImg: "",
+
         description: "",
         price: "",
         damagedPolicy: "",

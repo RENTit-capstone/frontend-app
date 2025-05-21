@@ -8,6 +8,7 @@ export const axiosNoInterceptor = axios.create({
     }
 })
 
+
 //debug
 // axiosNoInterceptor.interceptors.request.use((config) => {
 //     console.log('Login request headers:', config.headers);
@@ -18,6 +19,7 @@ export const axiosNoInterceptor = axios.create({
 export const axiosInstance = axios.create({
     baseURL: process.env.EXPO_PUBLIC_API_URL,
 });
+
 
 const getNewToken = async () => {
     const oldAccessToken = useAuthStore.getState().accessToken;
@@ -55,6 +57,8 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
+        console.log(response.status)
+
         // if (response.data && response.data.success===false){
         //     if (response.data.message.includes("validation error")) {
         //         return getNewToken().then(() => {
