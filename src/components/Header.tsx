@@ -13,7 +13,7 @@ const Header = () => {
     
     return (
         <SafeAreaView style={[Common.headerWrapper, {paddingTop: insets.top}]}>
-            <Pressable>
+            <Pressable style={Common.headerWrapper}>
                 <Logo />
             </Pressable>
             <View style={Common.headerWrapper}>
