@@ -57,7 +57,6 @@ const AccordionCard = (props: AccordionCardProps) => {
     });
 
     const onPress = async (action?: () => Promise<void>) => {
-        console.log(!!action, buttonText)
         if (action) {
             try { await action(); } 
             catch(error) { console.error(error); }
