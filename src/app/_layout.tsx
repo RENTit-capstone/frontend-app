@@ -11,6 +11,8 @@ import PolicyModal from '@/components/items/PolicyModal';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
 import Colors from '@/constants/Colors';
+import Toast, { BaseToast } from 'react-native-toast-message';
+import { Common } from '@/styles/common';
         
 SplashScreen.preventAutoHideAsync();
 
@@ -59,6 +61,7 @@ function RootLayoutNav() {
   }
 
   return (
+    <>
       <SafeAreaProvider style={{width: contentWidth, alignSelf: "center", backgroundColor: Colors.secondary}}>  
         <GestureHandlerRootView>  
           <Stack>
@@ -69,6 +72,19 @@ function RootLayoutNav() {
           <PolicyModal />
         </GestureHandlerRootView>
       </SafeAreaProvider>
+      <Toast
+        position="bottom"
+        config={{ 
+        success: (props) => (
+          <BaseToast
+            {...props}
+            style={Common.toast}
+            contentContainerStyle={{ paddingHorizontal: 16 }}
+            text1Style={Common.toastText}
+          />
+        )}}
+      />
+    </>
   );
 }
 

@@ -6,7 +6,7 @@ const useRentalActions = () => {
     const router = useRouter();
 
     const onCancelRequest = async () => {
-        toast.showSuccess("요청이 취소되었습니다");
+        toast.show("요청이 취소되었습니다");
     };
     const onReturn = async () => {
         //TODO: bottomsheet로 OTP띄우고 닫기 눌리면 callback으로 후기사진찍기 

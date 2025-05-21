@@ -187,5 +187,25 @@ export const Common = StyleSheet.create({
         gap: "5%",
         backgroundColor: "white",
         paddingTop: 16,
+    },
+    toast: {
+        borderLeftColor: Colors.statusAccepted,
+        backgroundColor: Colors.statusAccepted,
+        borderRadius: 8,
+        ...Platform.select({
+        default: {
+            shadowColor: '#000',
+            shadowOpacity: 0.1,
+            shadowOffset: { width: 0, height: 2 },
+            },
+        android: {
+            elevation: 5,
+            },
+        })
+    },
+    toastText: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: Colors.white,
     }
 });
