@@ -11,6 +11,8 @@ import ItemDetailsButtonBar from "@/components/items/ItemDetailsButtonBar";
 import ImageGallery from "@/components/items/ImageGallery";
 import useToast from "@/hooks/useToast";
 import useAuthStore from "@/stores/useAuthStore";
+import { ActivityIndicator } from "react-native";
+import { isLoading } from "expo-font";
 
 const Postings = () => {
     const { id } = useLocalSearchParams<{id: string}>();
@@ -20,6 +22,7 @@ const Postings = () => {
     const {userId} = useAuthStore();
     const {startDate, endDate, clearRecord} = useRequestStore();
 
+
     useEffect(() => {
         fetchItemDetails();
         return () => clearRecord();
@@ -27,10 +30,9 @@ const Postings = () => {
 
     const fetchItemDetails = async () => {
         try {
-            console.log(`ID: ${parseInt(id)}`)
-
             const response = await axiosGet(`/api/v1/items/${parseInt(id)}`);
             console.log("Response for fetchItemDetails: ", response.data);
+            setData(response.data);
         }
         catch(error) {
             toast.show(`${error}`);
@@ -59,6 +61,9 @@ const Postings = () => {
         }  
     }
 
+    if (!data) {
+        return <ActivityIndicator />;
+    }
 
     return (
         <GestureHandlerRootView style={Common.container}>
@@ -67,22 +72,22 @@ const Postings = () => {
 
             <BottomScrollSheet snapPointList={["50%", "60%", "70%", "80%"]}>
                 <ItemDetails
-                    itemId={0}
-                    memberId={0}
-                    profileImg="string"
-                    nickname="string"
-                    name="string"
-                    imageUrls={["string"]} 
-                    description="string"
-                    damagedDescription="string"
-                    price={5000}
-                    status="AVAILABLE"
-                    damagedPolicy="string"
-                    returnPolicy="string"
-                    startDate="2025-05-17T23:51:49.2950544"
-                    endDate="2025-05-17T23:51:49.2950544"
-                    createdAt="2025-05-17T23:51:49.2950544"
-                    updatedAt="2025-05-17T23:51:49.2950544"
+                    itemId={data.itemId}
+                    memberId={data.memberId}    //소유자 ID
+                    profileImg={data.profileImg}
+                    nickname={data.nickname}
+                    name={data.name}
+                    imageUrls={data.imageUrls} 
+                    description={data.description}
+                    damagedDescription={data.damagedDescription}
+                    price={data.price}
+                    status={data.status}
+                    damagedPolicy={data.damagedPolicy}
+                    returnPolicy={data.returnPolicy}
+                    startDate={data.startDate}
+                    endDate={data.endDate}
+                    createdAt={data.createdAt}
+                    updatedAt={data.updatedAt}
                 />
             </BottomScrollSheet>
             <ItemDetailsButtonBar handleRequest={handleRequest}/>
