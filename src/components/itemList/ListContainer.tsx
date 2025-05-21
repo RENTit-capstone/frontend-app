@@ -35,7 +35,7 @@ const ListContainer = (props: ListContainerProps) => {
             maxPrice: searchOptions.endPrice || "",
             stauts: ["AVAILABLE", "OUT"],
             ownerRoles: role,
-            page: 0,
+            page: page,
             size: 20,
             sort: ["createdAt", "desc"],
         });
