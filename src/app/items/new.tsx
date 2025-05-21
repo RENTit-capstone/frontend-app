@@ -7,15 +7,14 @@ import { useState } from "react";
 import { View, Text, ScrollView, Alert, Image } from "react-native";
 import Colors from "@/constants/Colors";
 import useDateSelectorStore from "@/stores/useDateSelectorStore";
-import ImagePicker from "expo-image-picker";
+import * as ImagePicker from "expo-image-picker";
 
 
 const NewPosting = () => {
     const {openDateSelector} = useDateSelectorStore();
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
-    const [imageSrc, setImageSrc] = useState<any[]>([]);
-    const formData = new FormData();
+    const [selectedImage, setSelectedImage] = useState<any[]>([]);
     const { values, handleChange } = usePostingInput({
         name: "",
         description: "",
@@ -25,20 +24,22 @@ const NewPosting = () => {
     });
 
     const selectImage = async () => {
-        const selectedImg = await ImagePicker.launchImageLibraryAsync({
+        const selectedImgs = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsMultipleSelection: true,
+            quality: 1,
         });
 
-        if (!selectedImg.canceled) {
-            selectedImg.assets.forEach((image) => {
-                formData.append('images', image.uri);
-                setImageSrc((prev) => [...prev, image.uri]);
-            });
+        if (!selectedImgs.canceled) {
+            setSelectedImage(selectedImgs.assets);
+        }
+        else {
+            setSelectedImage([]);
         }
     }
 
     const handleSubmit = async () => {
+        const formData = new FormData();
         const payload = {
             name: values.name,
             description: values.description,
@@ -50,7 +51,14 @@ const NewPosting = () => {
             endDate: endDate,
         };
 
-        formData.append('form', JSON.stringify(payload));
+        formData.append("form", new Blob([JSON.stringify(payload)], {type: "application/json"}));
+
+        selectedImage.forEach((image: any) => {
+            formData.append("images", {
+                filename: image.uri,
+                name: "images"
+            } as any);
+        });
 
         try {
             const response = await axiosPost(`/api/v1/items`, formData, {
@@ -66,11 +74,6 @@ const NewPosting = () => {
         }
     }
     
-    const selectImg = async () => {
-        const result = await ({});
-        if (!result.canceled) setImage(result.assets[0]);
-    }
-
     const handleDateSelect = async () => {
         const { startDate, endDate } = await openDateSelector();
         setStartDate(startDate);
@@ -82,14 +85,10 @@ const NewPosting = () => {
         <>
         <ScrollView style={[Common.container, Common.wrapper]}>
             <Button type="primary" onPress={selectImage}>이미지 선택</Button>
-            {imageSrc[0] && 
-                imageSrc.map((image) => {
+            {selectedImage[0] && 
+                selectedImage.map((image) => {
                     <Image source={{uri: image.uri}}/>
             })}
-            <Button type="primary" onPress={selectImg}>이미지 선택</Button>
-            {image && 
-            <Image source={{uri: image.uri}}}/>
-            }
             <TextInput 
                 label="물품명"      
                 name="name"
