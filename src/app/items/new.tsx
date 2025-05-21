@@ -53,20 +53,20 @@ const NewPosting = () => {
             <TextInput 
                 label="물품명"      
                 name="name"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("name")}
                 value={values.name}
             />
             <TextInput 
                 label="가격" 
                 name="price"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("price")}
                 value={values.price}
                 keyboardType="numeric"
             />
             <TextInput 
                 label="설명" 
                 name="description"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("description")}
                 value={values.description}
                 multiline={true}
                 style={[Common.textArea, {height: 128}]}
@@ -74,7 +74,7 @@ const NewPosting = () => {
             <TextInput 
                 label="파손정책" 
                 name="damagedPolicy"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("damagedPolicy")}
                 value={values.damagedPolicy}
                 multiline={true}
                 style={[Common.textArea, {height: 64}]}
@@ -82,7 +82,7 @@ const NewPosting = () => {
             <TextInput 
                 label="반납정책" 
                 name="returnPolicy"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("returnPolicy")}
                 value={values.returnPolicy}
                 multiline={true}
                 style={[Common.textArea, {height: 64}]}

@@ -54,11 +54,6 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
-<<<<<<< HEAD
-        console.log('Token:', response.config.headers);
-
-=======
->>>>>>> dev
         // if (response.data && response.data.success===false){
         //     if (response.data.message.includes("validation error")) {
         //         return getNewToken().then(() => {
