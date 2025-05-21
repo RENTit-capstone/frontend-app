@@ -19,6 +19,7 @@ const NewPosting = () => {
     const { values, handleChange } = usePostingInput({
         name: "",
         itemImg: "",
+
         description: "",
         price: "",
         damagedPolicy: "",

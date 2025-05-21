@@ -24,6 +24,7 @@ const Postings = () => {
     const fetchItemDetails = async () => {
         try {
             console.log(`ID: ${id}`)
+
             const response = await axiosGet(`/api/v1/items/${parseInt(id)}`);
             console.log("Response for fetchItemDetails: ", response.data);
             setData(response.data);
@@ -72,6 +73,7 @@ const Postings = () => {
                     endDate="2025-05-17T23:51:49.2950544"
                     createdAt="2025-05-17T23:51:49.2950544"
                     updatedAt="2025-05-17T23:51:49.2950544"
+
                 />
             </BottomScrollSheet>
             <ItemDetailsButtonBar handleRequest={handleRequest}/>
