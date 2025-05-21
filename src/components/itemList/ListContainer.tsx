@@ -29,8 +29,8 @@ const ListContainer = (props: ListContainerProps) => {
         const role = (type==="INDIVIDUAL")? "STUDENT" : ["COMPANY", "COUNCIL"];
         const params = useUrl({
             keyword: searchOptions.keyword || "",
-            startDate: new Date(searchOptions.startDate).toISOString() || "",
-            endDate: new Date(searchOptions.endDate).toISOString() || "",
+            startDate: searchOptions.startDate? new Date(searchOptions.startDate).toISOString() : "",
+            endDate: searchOptions.endDate? new Date(searchOptions.endDate).toISOString() : "",
             minPrice: searchOptions.startPrice || "",
             maxPrice: searchOptions.endPrice || "",
             stauts: ["AVAILABLE", "OUT"],
@@ -40,7 +40,9 @@ const ListContainer = (props: ListContainerProps) => {
             sort: ["createdAt", "desc"],
         });
         try {
+            console.log(params);
             const response = await axiosGet(`/api/v1/items?${params}`);
+            console.log(response.data);
             setPage(response.data.pageable.pageNumber+1);
             setData(response.data.content);
             setLast(response.data.last);
