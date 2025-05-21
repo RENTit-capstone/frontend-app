@@ -56,6 +56,7 @@ export type ListItemProps = {
 }
 
 export type ListContainerProps = {
+    keyword?: string,
     type: listType,
 }
 
