@@ -30,8 +30,8 @@ const ListContainer = (props: ListContainerProps) => {
         const role = (type==="INDIVIDUAL")? "STUDENT" : ["COMPANY", "COUNCIL"];
         const params = useUrl({
             keyword: searchOptions.keyword || "",
-            startDate: searchOptions.startDate || "",
-            endDate: searchOptions.endDate || "",
+            startDate: new Date(searchOptions.startDate).toISOString() || "",
+            endDate: new Date(searchOptions.endDate).toISOString() || "",
             minPrice: searchOptions.startPrice || "",
             maxPrice: searchOptions.endPrice || "",
             stauts: ["AVAILABLE", "OUT"],

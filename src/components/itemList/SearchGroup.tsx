@@ -23,6 +23,7 @@ const SearchGroup = (props: any) => {
         const { startDate, endDate } = await openDateSelector();
         setStartDate(startDate);    
         setEndDate(endDate);
+        if (!(startDate&&endDate))  setEndDate(startDate);
         onChange({ startDate, endDate });
     }
     const handleKeywordSearch = () => {
