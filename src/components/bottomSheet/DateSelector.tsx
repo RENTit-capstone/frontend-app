@@ -28,23 +28,22 @@ const DateSelectorModal = () => {
                     <Text style={{fontSize: 18, fontWeight: 500}}>일정 선택</Text>
                 </View>
 
-                <View> 
-                    <Calendar
-                        monthFormat="yyyy MM"
-                        onDayPress={onDayPress}
-                        markingType="period"
-                        markedDates={markedDates}               
+            <View> 
+                <Calendar
+                    monthFormat="yyyy MM"
+                    onDayPress={onDayPress}
+                    markingType="period"
+                    markedDates={markedDates}               
 
-                        theme={{ 
-                            arrowColor: "#5B5B5B"
-                        }}
-                    />
-                    <View style={Common.chips}>             
-                        <Chip startDate={startDate} endDate={endDate} onCancel={resetPeriod}/>
-                    </View>
+                    theme={{ 
+                        arrowColor: "#5B5B5B"
+                    }}
+                />
+                <View style={Common.chips}>             
+                    <Chip startDate={startDate} endDate={endDate} onCancel={resetPeriod}/>
                 </View>
-            {/* </View>
-        </BottomScrollSheet>
+            </View>
+        {/* </BottomScrollSheet>
         <ButtonBar onClose={() => closeDateSelector(true)} /> */}
         </BaseBottomSheet>
     )

@@ -6,16 +6,24 @@ import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import useAuthStore from '@/stores/useAuthStore';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+<<<<<<< HEAD
 import DateSelectorModal from '@/components/bottomSheet/DateSelector';
 import PolicyModal from '@/components/bottomSheet/Policy';
+=======
+import DateSelectorModal from '@/components/items/DateSelectorModal';
+import PolicyModal from '@/components/items/PolicyModal';
+>>>>>>> 90abd0737e98f89f0f2315474763bb14fbecb130
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
 import Colors from '@/constants/Colors';
 import Toast, { BaseToast } from 'react-native-toast-message';
 import { Common } from '@/styles/common';
+<<<<<<< HEAD
 import BaseBottomSheet from '@/components/bottomSheet/BaseBottomSheet';
 import Button from '@/components/Button';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
+=======
+>>>>>>> 90abd0737e98f89f0f2315474763bb14fbecb130
         
 SplashScreen.preventAutoHideAsync();
 
