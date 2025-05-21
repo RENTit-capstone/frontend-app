@@ -1,12 +1,11 @@
 import { Tabs } from "expo-router";
 import Header from "@/components/Header";
 import BottomNavBar from "@/components/BottomNavBar";
-import { SafeAreaView } from "react-native";
-import { Common } from "@/styles/common";
+import { SafeAreaView, View } from "react-native";
 
 const TabLayout = () => {
     return (
-        <SafeAreaView style={{ flex: 1 }}> 
+        <View style={{ flex: 1 }}> 
             <Tabs
                 screenOptions={{header: () => <Header />}}
                 tabBar={(props) => <BottomNavBar {...props} />}
@@ -24,7 +23,7 @@ const TabLayout = () => {
                     }}
                 />
             </Tabs>
-        </SafeAreaView>
+        </View>
     );
 }
 
