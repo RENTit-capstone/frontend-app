@@ -22,7 +22,7 @@ const ListContainer = (props: ListContainerProps) => {
     })
 
     useEffect (() => {
-        console.log(setSearchOptions);
+        console.log(searchOptions);
         fetchResult();
     }, [type, searchOptions])
 
@@ -36,7 +36,7 @@ const ListContainer = (props: ListContainerProps) => {
             maxPrice: searchOptions.endPrice || "",
             stauts: ["AVAILABLE", "OUT"],
             ownerRoles: role,
-            page: page,
+            page: 0,
             size: 20,
             sort: ["createdAt", "desc"],
         });
@@ -63,7 +63,8 @@ const ListContainer = (props: ListContainerProps) => {
     return (
         <>
             <SearchGroup onChange={handleChangeOptions}/>
-            {data.map((item: ListItemProps, index:number) => {
+            {data.length>0 ? (
+                data.map((item: ListItemProps, index:number) => {
                 return (
                 <View key={index} style={itemList.listContainer}>
                     <ListItem 
@@ -78,7 +79,12 @@ const ListContainer = (props: ListContainerProps) => {
                     />
                     <View style={[itemList.rowDivider, {marginTop: 10}]} />
                 </View>
-            )})}
+            )})) : (
+                <View style={[Common.wrapper, {backgroundColor: "white", alignItems: "center"}]}>
+                    <Text>표시할 데이터가 없습니다.</Text>
+                </View>
+            )
+        }
         </>
     )
 };

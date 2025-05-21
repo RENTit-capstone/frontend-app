@@ -7,17 +7,16 @@ import Calendar from "@/assets/images/calendar.svg";
 import DownArrow from "@/assets/images/down-arrow.svg";
 import Colors from "@/constants/Colors";
 import TextInput from "../TextInput";
-import { ListItemProps } from "@/types/types";
 import SearchIcon from "@/assets/images/search.svg";
 
 const SearchGroup = (props: any) => {
     const {onChange} = props;
     const {openDateSelector} = useDateSelectorStore();
-    const [startDate, setStartDate] = useState<string | null>(null);
-    const [endDate, setEndDate] = useState<string | null>(null);
+    const [startDate, setStartDate] = useState<string>("");
+    const [endDate, setEndDate] = useState<string>("");
     const [showSlider, setShowSlider] = useState(false);
-    const [startPrice, setStartPrice] = useState<string | null>(null);
-    const [endPrice, setEndPrice] = useState<string | null>(null);
+    const [startPrice, setStartPrice] = useState<string>("");
+    const [endPrice, setEndPrice] = useState<string>("");
     const [keyword, setKeyword] = useState("");
 
     const handleDateSelect = async () => {
@@ -45,7 +44,7 @@ const SearchGroup = (props: any) => {
                 value={keyword}
                 style={{paddingRight: 42, marginHorizontal: 14, marginTop: 15, borderRadius: 50}}
             />
-            <Pressable style={Common.floatingIcon} onPress={handleKeywordSearch}>
+            <Pressable style={Common.floatingIcon} onPress={handleKeywordSearch} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
                 <SearchIcon />
             </Pressable>
 
