@@ -8,6 +8,7 @@ export const axiosNoInterceptor = axios.create({
     }
 })
 
+
 //debug
 // axiosNoInterceptor.interceptors.request.use((config) => {
 //     console.log('Login request headers:', config.headers);
@@ -17,10 +18,8 @@ export const axiosNoInterceptor = axios.create({
 
 export const axiosInstance = axios.create({
     baseURL: process.env.EXPO_PUBLIC_API_URL,
-    headers: {
-        "Content-Type": "application/json",
-    }
 });
+
 
 const getNewToken = async () => {
     const oldAccessToken = useAuthStore.getState().accessToken;
@@ -44,6 +43,10 @@ axiosInstance.interceptors.request.use(
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+        console.log('Token:', config.headers);
+        if (!config.headers["Content-Type"]) {
+            config.headers["Content-Type"] = "application/json";
+        }
         return config;
     },
     error => {
@@ -54,7 +57,7 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
-        console.log('Token:', response.config.headers);
+        console.log(response.status)
 
         // if (response.data && response.data.success===false){
         //     if (response.data.message.includes("validation error")) {
@@ -86,8 +89,8 @@ export const axiosGet = async (url: string) => {
     return res.data;
 }
 
-export const axiosPost = async (url: string, payload?: any) => {
-    const res = await axiosInstance.post(url, payload);
+export const axiosPost = async (url: string, payload?: any, headerOption?: any) => {
+    const res = await axiosInstance.post(url, payload, headerOption);
     if (!res.data.success){
         throw new Error(res.data.message);
     }

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { ListItemProps, ListContainerProps } from "@/types/types";
-import { Common } from "@/styles/common";
 import ListItem from "./ListItem";
 import { itemList } from "@/styles/components/itemList";
 import SearchGroup from "./SearchGroup";
 import useUrl from "@/hooks/useUrl";
 import { axiosGet } from "@/api";
+import { Common } from "@/styles/common";
 
 const ListContainer = (props: ListContainerProps) => {
     const {type} = props;
@@ -14,6 +14,7 @@ const ListContainer = (props: ListContainerProps) => {
     const [page, setPage] = useState(0);
     const [data, setData] = useState([]);
     const [searchOptions, setSearchOptions] = useState({
+        keyword: "",
         startDate: "", 
         endDate: "",
         startPrice: "",
@@ -27,9 +28,9 @@ const ListContainer = (props: ListContainerProps) => {
     const fetchResult = async () => {
         const role = (type==="INDIVIDUAL")? "STUDENT" : ["COMPANY", "COUNCIL"];
         const params = useUrl({
-            keyword: "",
-            startDate: searchOptions.startDate || "",
-            endDate: searchOptions.endDate || "",
+            keyword: searchOptions.keyword || "",
+            startDate: new Date(searchOptions.startDate).toISOString() || "",
+            endDate: new Date(searchOptions.endDate).toISOString() || "",
             minPrice: searchOptions.startPrice || "",
             maxPrice: searchOptions.endPrice || "",
             stauts: ["AVAILABLE", "OUT"],
@@ -49,14 +50,22 @@ const ListContainer = (props: ListContainerProps) => {
         }
     }
 
+    const handleChangeOptions = (newOptions: any) => {
+        setSearchOptions(prev => ({
+            ...prev,
+            ...newOptions,
+        }));
+    };
+
     return (
         <>
-            <SearchGroup onChange={setSearchOptions}/>
-            {data.map((item: ListItemProps, index:number) => {
+            <SearchGroup onChange={handleChangeOptions}/>
+            {data.length>0 ? (
+                data.map((item: ListItemProps, index:number) => {
                 return (
                 <View key={index} style={itemList.listContainer}>
                     <ListItem 
-                        id={item.id}
+                        itemId={item.itemId}
                         nickname={item.nickname}
                         name={item.name}
                         imgUrls={item.imgUrls}
@@ -67,7 +76,12 @@ const ListContainer = (props: ListContainerProps) => {
                     />
                     <View style={[itemList.rowDivider, {marginTop: 10}]} />
                 </View>
-            )})}
+            )})) : (
+                <View style={[Common.wrapper, {backgroundColor: "white", alignItems: "center"}]}>
+                    <Text>표시할 데이터가 없습니다.</Text>
+                </View>
+            )
+        }
         </>
     )
 };

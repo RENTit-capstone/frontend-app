@@ -7,7 +7,7 @@ type DateSelectorState = {
     resolve?: (result: {startDate: string | null; endDate: string | null}) => void;
     closeCallback?: () => void;
 
-    openDateSelector: () => Promise<{ startDate: string | null; endDate: string | null}>;
+    openDateSelector: () => Promise<{ startDate: string; endDate: string}>;
     closeDateSelector: (close: boolean) => void;
     onCloseDateSelector: (callback: () => void) => void;
     setStartDate: (date: string | null) => void;

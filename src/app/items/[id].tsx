@@ -11,26 +11,9 @@ import ItemDetails from "@/components/items/ItemDetails";
 import useRequestStore from "@/stores/useRequestStore";
 import ItemDetailsButtonBar from "@/components/items/ItemDetailsButtonBar";
 
-const sampleData: ItemDetailsProp = {
-    itemId: 0,
-    owner: "string", 
-    ownerId: 0,
-    name: "string",
-    itemImg: "string", 
-    description: "string",
-    price: 5000, 
-    status: "OUT",
-    damagedPolicy: "string",
-    returnPolicy: "string",
-    startDate: "string",
-    endDate: "string",
-    messages: 2, 
-    likes: 3,
-}
-
 const Postings = () => {
     const { id } = useLocalSearchParams<{id: string}>();
-    const [data, setData] = useState<ItemDetailsProp>(sampleData);
+    const [data, setData] = useState<ItemDetailsProp>();
     const {startDate, endDate, clearRecord} = useRequestStore();
 
     useEffect(() => {
@@ -40,6 +23,8 @@ const Postings = () => {
 
     const fetchItemDetails = async () => {
         try {
+            console.log(`ID: ${id}`)
+
             const response = await axiosGet(`/api/v1/items/${parseInt(id)}`);
             console.log("Response for fetchItemDetails: ", response.data);
             setData(response.data);
@@ -73,20 +58,22 @@ const Postings = () => {
             
             <BottomScrollSheet snapPointList={["50%", "60%", "70%", "80%"]}>
                 <ItemDetails
-                    itemId={parseInt(id)}
-                    owner="string" 
-                    ownerId={0}
+                    itemId={0}
+                    profileImg="string"
+                    nickname="string"
                     name="string"
-                    itemImg="string" 
+                    imageUrls={["string"]} 
                     description="string"
-                    price={5000} 
-                    status="OUT"
+                    damagedDescription="string"
+                    price={5000}
+                    status="AVAILABLE"
                     damagedPolicy="string"
                     returnPolicy="string"
-                    startDate="string"
-                    endDate="string"
-                    messages={2} 
-                    likes={3}
+                    startDate="2025-05-17T23:51:49.2950544"
+                    endDate="2025-05-17T23:51:49.2950544"
+                    createdAt="2025-05-17T23:51:49.2950544"
+                    updatedAt="2025-05-17T23:51:49.2950544"
+
                 />
             </BottomScrollSheet>
             <ItemDetailsButtonBar handleRequest={handleRequest}/>

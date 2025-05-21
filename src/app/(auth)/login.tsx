@@ -8,10 +8,12 @@ import { Common } from "@/styles/common";
 import Logo from "@/assets/images/logo.svg";
 import { axiosNoInterceptor, axiosPost } from "@/api";
 import useAuthStore from "@/stores/useAuthStore";
+import useToast from "@/hooks/useToast";
 
 
 const Login = () => {
     const router = useRouter();
+    const toast = useToast();
     const {setAccessToken, setRefreshToken} = useAuthStore();
     const [form, setForm] = useState({
         email: "",
@@ -26,8 +28,10 @@ const Login = () => {
             await setAccessToken(res.data.data.accessToken);
             await setRefreshToken(res.data.data.refreshToken);
             router.replace("/(tabs)/itemList");
+            toast.show("로그인에 성공했습니다.");
         } 
         catch (error) {
+            toast.show("이메일, 비밀번호를 다시 확인해주세요.");
             console.log(error);
         }
     }

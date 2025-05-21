@@ -7,11 +7,11 @@ import { useRouter } from "expo-router";
 import formatISOToDate from "@/utils/formatDate";
 
 const ListItem = (props: ListItemProps) => {
+    const {itemId, nickname, name, imgUrls, price, status, startDate, endDate} = props;
     const router = useRouter();
-    const {id, nickname, name, imgUrls, price, status, startDate, endDate} = props;
 
     return (
-        <Pressable style={[Common.XStack, itemList.cardWrapper]} onPress={() => (router.push(`/items/${id}`))}>
+        <Pressable style={[Common.XStack, itemList.cardWrapper]} onPress={() => (router.push(`/items/${itemId}`))}>
             <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
 
             <View style={[Common.wideView, {gap: 5}]}>

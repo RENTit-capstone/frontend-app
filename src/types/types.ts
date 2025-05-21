@@ -45,7 +45,7 @@ export type UserInfoType = {
 }
 
 export type ListItemProps = {
-    id: number,
+    itemId: number,
     nickname: string,
     name: string,
     imgUrls: string[],
@@ -56,6 +56,7 @@ export type ListItemProps = {
 }
 
 export type ListContainerProps = {
+    keyword?: string,
     type: listType,
 }
 
@@ -96,7 +97,7 @@ export type ItemDetailsProp = {
     name: string
     imageUrls: string[], 
     description: string,
-    dmagedDescription: string,
+    damagedDescription: string,
     price: number, 
     status: ItemStatusType,
     damagedPolicy: string,
