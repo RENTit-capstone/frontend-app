@@ -7,6 +7,7 @@ import { Common } from "@/styles/common";
 import { axiosGet } from "@/api";
 import useUrl from "@/hooks/useUrl";
 import { ListItemProps } from "@/types/types";
+import ListContainer from "@/components/itemList/ListContainer";
 
 const Search = () => {
     const [searchResult, setSearchResult] = useState<ListItemProps>();
@@ -50,7 +51,7 @@ const Search = () => {
                 <SearchIcon />
             </Pressable>
 
-            {searchResult && <ItemListTab />}
+            {searchResult && <ItemListTab/>}
         </SafeAreaView>
     );
 }

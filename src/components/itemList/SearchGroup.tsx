@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import DropDown from "../Dropdown";
 import { Common } from "@/styles/common";
 import { useState } from "react";
@@ -6,6 +6,9 @@ import useDateSelectorStore from "@/stores/useDateSelectorStore";
 import Calendar from "@/assets/images/calendar.svg";
 import DownArrow from "@/assets/images/down-arrow.svg";
 import Colors from "@/constants/Colors";
+import TextInput from "../TextInput";
+import { ListItemProps } from "@/types/types";
+import SearchIcon from "@/assets/images/search.svg";
 
 const SearchGroup = (props: any) => {
     const {onChange} = props;
@@ -15,12 +18,16 @@ const SearchGroup = (props: any) => {
     const [showSlider, setShowSlider] = useState(false);
     const [startPrice, setStartPrice] = useState<string | null>(null);
     const [endPrice, setEndPrice] = useState<string | null>(null);
+    const [keyword, setKeyword] = useState("");
 
     const handleDateSelect = async () => {
         const { startDate, endDate } = await openDateSelector();
-        setStartDate(startDate);
+        setStartDate(startDate);    
         setEndDate(endDate);
-        onChange({ startDate: startDate, endDate: endDate, startPrice: startPrice, endPrice: endPrice });
+        onChange({ startDate, endDate });
+    }
+    const handleKeywordSearch = () => {
+        onChange({ keyword });
     }
     const dateSelected = (!!startDate && !!endDate);
     const priceSelected = (!!startPrice && !!endPrice);
@@ -29,19 +36,33 @@ const SearchGroup = (props: any) => {
     const priceLabel = priceSelected ? `${startPrice} - ${endPrice}` : "가격대";
     
     return (
-        <View style={[Common.XStack, Common.searchGroup]}>
-            <DropDown 
-                label={dateLabel}
-                icon={<Calendar stroke={dateSelected ? selectedColor : "#111111"}/>}
-                selectedColor={(!!startDate && !!endDate)? selectedColor : undefined}
-                onPress={() => handleDateSelect()} 
+        <View style={[Common.YStack, Common.searchGroup]}>
+            <TextInput 
+                label=""
+                name="keyword"
+                handleChangeText={setKeyword}
+                placeholder="검색어를 입력해주세요"
+                value={keyword}
+                style={{paddingRight: 42, marginHorizontal: 14, marginTop: 15, borderRadius: 50}}
             />
-            <DropDown 
-                label={priceLabel}
-                icon={<DownArrow stroke={priceSelected ? selectedColor : "#111111"}/>} 
-                selectedColor={(!!startPrice && !!endPrice)? selectedColor : undefined}
-                onPress={() => setShowSlider(true)}
-            />
+            <Pressable style={Common.floatingIcon} onPress={handleKeywordSearch}>
+                <SearchIcon />
+            </Pressable>
+
+            <View style={[Common.XStack, {marginVertical: 10}]}>
+                <DropDown 
+                    label={dateLabel}
+                    icon={<Calendar stroke={dateSelected ? selectedColor : "#111111"}/>}
+                    selectedColor={(!!startDate && !!endDate)? selectedColor : undefined}
+                    onPress={handleDateSelect} 
+                />
+                <DropDown 
+                    label={priceLabel}
+                    icon={<DownArrow stroke={priceSelected ? selectedColor : "#111111"}/>} 
+                    selectedColor={(!!startPrice && !!endPrice)? selectedColor : undefined}
+                    onPress={() => setShowSlider(true)}
+                />
+            </View>
         </View>
     );
 }

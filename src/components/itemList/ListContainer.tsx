@@ -14,6 +14,7 @@ const ListContainer = (props: ListContainerProps) => {
     const [page, setPage] = useState(0);
     const [data, setData] = useState([]);
     const [searchOptions, setSearchOptions] = useState({
+        keyword: "",
         startDate: "", 
         endDate: "",
         startPrice: "",
@@ -21,13 +22,14 @@ const ListContainer = (props: ListContainerProps) => {
     })
 
     useEffect (() => {
+        console.log(setSearchOptions);
         fetchResult();
     }, [type, searchOptions])
 
     const fetchResult = async () => {
         const role = (type==="INDIVIDUAL")? "STUDENT" : ["COMPANY", "COUNCIL"];
         const params = useUrl({
-            keyword: "",
+            keyword: searchOptions.keyword || "",
             startDate: searchOptions.startDate || "",
             endDate: searchOptions.endDate || "",
             minPrice: searchOptions.startPrice || "",
@@ -39,7 +41,9 @@ const ListContainer = (props: ListContainerProps) => {
             sort: ["createdAt", "desc"],
         });
         try {
+            console.log(params)
             const response = await axiosGet(`/api/v1/items?${params}`);
+            console.log(response);
             setPage(response.data.pageable.pageNumber+1);
             setData(response.data.content);
             setLast(response.data.last);
@@ -49,9 +53,16 @@ const ListContainer = (props: ListContainerProps) => {
         }
     }
 
+    const handleChangeOptions = (newOptions: any) => {
+        setSearchOptions(prev => ({
+            ...prev,
+            ...newOptions,
+        }));
+    };
+
     return (
         <>
-            <SearchGroup onChange={setSearchOptions}/>
+            <SearchGroup onChange={handleChangeOptions}/>
             {data.map((item: ListItemProps, index:number) => {
                 return (
                 <View key={index} style={itemList.listContainer}>
