@@ -6,7 +6,7 @@ export type ResponseType<T> = {
 
 export type LoginType = {
     email: string;
-    pw: string;
+    password: string;
 }
 
 export type UserType = {
@@ -46,31 +46,31 @@ export type UserInfoType = {
 
 export type ListItemProps = {
     id: number,
-    title: string,
-    img: string,
-    available: boolean,
+    nickname: string,
+    name: string,
+    imgUrls: string[],
     price: number,
-    period: number,
-    messages: number, 
-    likes: number,
+    status: ItemStatusType,
+    startDate: string,
+    endDate: string,
 }
 
 export type ListContainerProps = {
+    keyword?: string,
     type: listType,
 }
 
-export type StatusType = "pending" | "inRent" | "returned";
-export type ActionType = "approve" | "disapprove" | "return" | "writeReview";
+export type RentalStatusType = "REQUESTED" | "APPROVED" | "REJECTED" | "CANCELLED" | "LEFT_IN_LOCKER" | "PICKED_UP" | "RETURNED_TO_LOCKER" | "COMPLETED";
 
 export type AccordionContainerType = ListItemProps & {
-    status: StatusType,
+    status: RentalStatusType,
 }
 
-export type AccordionCardProps = AccordionContainerType & {
-    actions: ActionType[] | undefined,
-    actionNames: string[],
-    getDetails: (itemId: number) => Promise<RentalDetailsType | undefined>,
-    handleAction: ((itemId: number, isApproved?: boolean) => void) | ((itemId: number) => void);
+export type AccordionCardProps = {
+    rentalId: number,
+    itemId: number,
+    requestDate: string,
+    status: RentalStatusType
 }
 
 export type RentalDetailsType = {
@@ -85,26 +85,27 @@ export type RentalDetailsType = {
     returnedByRenterAt: string | null,
     retrievedByOwnerAt: string | null,
     lockerId: string | null,
+    returnImageUrl: string | null,
 }
 
 export type ItemStatusType = "AVAILABLE" | "OUT";
 
 export type ItemDetailsProp = {
     itemId: number,
-    owner: string, 
-    ownerId: number,
+    profileImg: string,
+    nickname: string, 
     name: string
-    itemImg: string, 
+    imageUrls: string[], 
     description: string,
+    dmagedDescription: string,
     price: number, 
     status: ItemStatusType,
     damagedPolicy: string,
     returnPolicy: string,
     startDate: string,
     endDate: string,
-
-    messages: number, 
-    likes: number,
+    createdAt: string,
+    updatedAt: string,
 }
 
 export type PostingType = {

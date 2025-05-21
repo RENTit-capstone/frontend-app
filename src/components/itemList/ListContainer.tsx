@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { ListItemProps, ListContainerProps } from "@/types/types";
 import { Common } from "@/styles/common";
 import ListItem from "./ListItem";
@@ -8,67 +8,80 @@ import SearchGroup from "./SearchGroup";
 import useUrl from "@/hooks/useUrl";
 import { axiosGet } from "@/api";
 
-const sampleData: ListItemProps = {id: 0, title: "string", img: "", available: false, price: 50000, period: 7, messages: 2, likes: 3}
-const sampleList: ListItemProps[] = [sampleData, sampleData, sampleData];
-
 const ListContainer = (props: ListContainerProps) => {
-    const [data, setData] = useState(sampleList);
+    const {type} = props;
+    const [last, setLast] = useState(false);
+    const [page, setPage] = useState(0);
+    const [data, setData] = useState([]);
     const [searchOptions, setSearchOptions] = useState({
+        keyword: "",
         startDate: "", 
         endDate: "",
         startPrice: "",
         endPrice: "",
     })
-    const {type} = props;
 
     useEffect (() => {
         fetchResult();
     }, [type, searchOptions])
 
     const fetchResult = async () => {
-        const today = new Date();
         const role = (type==="INDIVIDUAL")? "STUDENT" : ["COMPANY", "COUNCIL"];
         const params = useUrl({
-            keyword: "",
-            startDate: searchOptions.startDate || "",
-            endDate: searchOptions.endDate || "",
+            keyword: searchOptions.keyword || "",
+            startDate: new Date(searchOptions.startDate).toISOString() || "",
+            endDate: new Date(searchOptions.endDate).toISOString() || "",
             minPrice: searchOptions.startPrice || "",
             maxPrice: searchOptions.endPrice || "",
             stauts: ["AVAILABLE", "OUT"],
             ownerRoles: role,
-            page: 0,
+            page: page,
             size: 20,
             sort: ["createdAt", "desc"],
         });
         try {
             const response = await axiosGet(`/api/v1/items?${params}`);
-            console.log("Response for fetchResult: ", response.data);
-            setData(response.data);
+            setPage(response.data.pageable.pageNumber+1);
+            setData(response.data.content);
+            setLast(response.data.last);
         }
         catch (error) {
             console.error(error);
         }
     }
 
+    const handleChangeOptions = (newOptions: any) => {
+        setSearchOptions(prev => ({
+            ...prev,
+            ...newOptions,
+        }));
+    };
+
     return (
         <>
-            <SearchGroup onChange={setSearchOptions}/>
-            {data.map((item: ListItemProps, index:number) => {
+            <SearchGroup onChange={handleChangeOptions}/>
+            {data.length>0 ? (
+                data.map((item: ListItemProps, index:number) => {
                 return (
                 <View key={index} style={itemList.listContainer}>
                     <ListItem 
                         id={item.id}
-                        title={item.title}
-                        img={item.img}
-                        available={item.available}
+                        nickname={item.nickname}
+                        name={item.name}
+                        imgUrls={item.imgUrls}
                         price={item.price}
-                        period={item.period}
-                        messages={item.messages}
-                        likes={item.likes}
+                        status={item.status}
+                        startDate={item.startDate}
+                        endDate={item.endDate}
                     />
                     <View style={[itemList.rowDivider, {marginTop: 10}]} />
                 </View>
-            )})}
+            )})) : (
+                <View style={[Common.wrapper, {backgroundColor: "white", alignItems: "center"}]}>
+                    <Text>표시할 데이터가 없습니다.</Text>
+                </View>
+            )
+        }
         </>
     )
 };

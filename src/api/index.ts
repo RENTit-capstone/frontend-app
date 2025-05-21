@@ -8,6 +8,13 @@ export const axiosNoInterceptor = axios.create({
     }
 })
 
+//debug
+// axiosNoInterceptor.interceptors.request.use((config) => {
+//     console.log('Login request headers:', config.headers);
+//     console.log(config)
+//     return config;
+// });
+
 export const axiosInstance = axios.create({
     baseURL: process.env.EXPO_PUBLIC_API_URL,
 });
@@ -48,18 +55,24 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
-        if (response.data && response.data.success===false){
-            if (response.data.message.includes("validation error")) {
-                return getNewToken().then(() => {
-                    const originalRequest = response.config;
-                    return axiosInstance(originalRequest);
-                });
-            }
-            return Promise.reject(new Error(response.data.message));
-        }
+        // if (response.data && response.data.success===false){
+        //     if (response.data.message.includes("validation error")) {
+        //         return getNewToken().then(() => {
+        //             const originalRequest = response.config;
+        //             return axiosInstance(originalRequest);
+        //         });
+        //     }
+        //     return Promise.reject(new Error(response.data.message));
+        // }
         return response;
     },
-    (error) => {
+    async (error) => {
+        if (error.status===403) {
+            console.log("403Error");
+            const originalRequest = error.config;
+            await getNewToken();
+            return axiosInstance(originalRequest);
+        }
         return Promise.reject(error);
     }
 );

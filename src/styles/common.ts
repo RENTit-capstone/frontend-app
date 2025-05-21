@@ -81,7 +81,7 @@ export const Common = StyleSheet.create({
         borderRadius: 50,
         paddingHorizontal: 10,
         alignSelf: "flex-start",
-        paddingVertical: 5, 
+        paddingVertical: 4, 
         alignItems: "center"
     },
     wideView: {
@@ -102,7 +102,7 @@ export const Common = StyleSheet.create({
     bottomBar: {
         position: "absolute",
         bottom: 0,
-        minHeight: 64,
+        minHeight: 70,
         width: "100%",
         flexDirection: "row",
         justifyContent: "space-between",
@@ -179,13 +179,33 @@ export const Common = StyleSheet.create({
         position: "absolute",
         alignSelf: "flex-end",
         marginVertical: 15,
-        paddingRight: 32,
+        paddingRight: 35,
         paddingTop: 20,
-        transform: [{ translateY: -12 }],
+        transform: [{ translateY: -26 }],
     },
     searchGroup: {
         gap: "5%",
         backgroundColor: "white",
-        paddingVertical: 12,
+        paddingTop: 16,
+    },
+    toast: {
+        borderLeftColor: Colors.statusAccepted,
+        backgroundColor: Colors.statusAccepted,
+        borderRadius: 8,
+        ...Platform.select({
+        default: {
+            shadowColor: '#000',
+            shadowOpacity: 0.1,
+            shadowOffset: { width: 0, height: 2 },
+            },
+        android: {
+            elevation: 5,
+            },
+        })
+    },
+    toastText: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: Colors.white,
     }
 });
