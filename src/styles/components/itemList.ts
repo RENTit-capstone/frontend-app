@@ -111,6 +111,17 @@ export const itemList = StyleSheet.create({
         color: "#767676",
         fontWeight: 600,
         marginVertical: 10,
+    },
+    imageSelectButton: {
+        backgroundColor: Colors.option,
+        width: 100,
+        height: 100,
+        paddingVertical: 0,
+        paddingHorizontal: 0,
+        marginHorizontal: 0,
+        marginVertical: 0,
+        justifyContent: "center",
+        flex: 0,
     }
 
 });

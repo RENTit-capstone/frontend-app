@@ -3,11 +3,12 @@ import Button from "@/components/Button";
 import TextInput from "@/components/TextInput";
 import usePostingInput from "@/hooks/usePostingInput";
 import { Common } from "@/styles/common";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, ScrollView, Alert, Image } from "react-native";
 import Colors from "@/constants/Colors";
 import useDateSelectorStore from "@/stores/useDateSelectorStore";
 import * as ImagePicker from "expo-image-picker";
+import { itemList } from "@/styles/components/itemList";
 
 
 const NewPosting = () => {
@@ -23,6 +24,10 @@ const NewPosting = () => {
         returnPolicy: "",
     });
 
+    useEffect(() => {
+        console.log(selectedImage)
+    }, [selectedImage]);
+
     const selectImage = async () => {
         const selectedImgs = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -31,6 +36,7 @@ const NewPosting = () => {
         });
 
         if (!selectedImgs.canceled) {
+            console.log(selectedImgs.assets);
             setSelectedImage(selectedImgs.assets);
         }
         else {
@@ -61,6 +67,7 @@ const NewPosting = () => {
         });
 
         try {
+            console.log(formData);
             const response = await axiosPost(`/api/v1/items`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -84,11 +91,18 @@ const NewPosting = () => {
     return (
         <>
         <ScrollView style={[Common.container, Common.wrapper]}>
-            <Button type="primary" onPress={selectImage}>이미지 선택</Button>
-            {selectedImage[0] && 
-                selectedImage.map((image) => {
-                    <Image source={{uri: image.uri}}/>
-            })}
+            <View style={[Common.XStack, {paddingVertical: 16}]}>
+                <Button type="option" onPress={selectImage} style={itemList.imageSelectButton}>
+                    이미지 선택
+                </Button>
+            
+                {selectedImage.length > 0 && 
+                    selectedImage.map((image) => (
+                        <View key={image.uri}>
+                            <Image source={{uri: image.uri}} style={{width: 100, height: 100}}/>
+                        </View>
+                ))}
+            </View>
             <TextInput 
                 label="물품명"      
                 name="name"
