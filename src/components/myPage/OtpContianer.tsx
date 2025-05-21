@@ -6,9 +6,11 @@ import { ViewThemes } from "@/styles/theme";
 import { itemList } from "@/styles/components/itemList";
 import { useEffect, useState } from "react";
 import { axiosPost } from "@/api";
+import Timer from "./Timer";
 
 const OtpContianer = () => {
     const [otpCode, setOtpCode] = useState<string>();
+    const [isTimerRunning, setTimerRunning] = useState(true);
 
     useEffect(() => {
         generateOTP();
@@ -16,8 +18,10 @@ const OtpContianer = () => {
 
     const generateOTP = async () => {
         try {
+            setTimerRunning(false);
             const response = await axiosPost(`/api/v1/auth/otp`);
             console.log(response.data);
+            setTimerRunning(true);
             setOtpCode(response.data);
         }
         catch(error) {
@@ -32,8 +36,9 @@ const OtpContianer = () => {
                 <Text style={itemList.statusNumber}>{otpCode || "01010"}</Text>
             </View>
             <View style={Common.XStack}>
+                <Timer isTimerRunning={isTimerRunning} setTimerRunning={setTimerRunning} />
                 <Button onPress={() => generateOTP()} type="primary">
-                    발급하기
+                    재발급
                 </Button>
             </View>
 
