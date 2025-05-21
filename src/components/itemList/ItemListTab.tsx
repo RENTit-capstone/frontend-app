@@ -32,7 +32,6 @@ const ItemListTab = () => {
     { key: 'individual', title: '개인' },
     { key: 'group', title: '단체' },
   ]);
-  console.log("layout width:", layout.width);
   return (
     <TabView
       navigationState={{ index, routes }}
