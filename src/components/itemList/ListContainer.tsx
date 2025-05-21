@@ -30,7 +30,7 @@ const ListContainer = (props: ListContainerProps) => {
         const params = useUrl({
             keyword: searchOptions.keyword || "",
             startDate: searchOptions.startDate? new Date(searchOptions.startDate).toISOString() : "",
-            endDate: searchOptions.endDate? new Date(searchOptions.endDate).toISOString() : "",
+            endDate: searchOptions.endDate? new Date(new Date(searchOptions.endDate).setHours(23, 59, 59, 999)).toISOString() : "",
             minPrice: searchOptions.startPrice || "",
             maxPrice: searchOptions.endPrice || "",
             stauts: ["AVAILABLE", "OUT"],

@@ -13,8 +13,8 @@ import formatISOToDate from "@/utils/formatDate";
 const SearchGroup = (props: any) => {
     const {onChange} = props;
     const {openDateSelector} = useDateSelectorStore();
-    const [startDate, setStartDate] = useState<string>("");
-    const [endDate, setEndDate] = useState<string>("");
+    const [startDate, setStartDate] = useState<string | null>("");
+    const [endDate, setEndDate] = useState<string | null>("");
     const [showSlider, setShowSlider] = useState(false);
     const [startPrice, setStartPrice] = useState<string>("");
     const [endPrice, setEndPrice] = useState<string>("");
