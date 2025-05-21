@@ -9,7 +9,8 @@ import Badge from "../Badge";
 
 
 const ItemDetails = (props: ItemDetailsProp) => {
-    const {id, owner, name, itemImg, description, price, status, damagedPolicy, startDate, endDate, messages, likes } = props;
+    const { itemId, profileImg, nickname, name, imageUrls, description, damagedDescription, price, status, 
+            damagedPolicy, returnPolicy, startDate, endDate, createdAt, updatedAt } = props;
 
     return (
         <>
@@ -17,11 +18,9 @@ const ItemDetails = (props: ItemDetailsProp) => {
                 <View style={[Common.textWrapper, itemList.detailsHeader]}>
                     <View style={[Common.textWrapper, itemList.detailsHeader]}>
                         <Avatar /> 
-                        <Text>판매자 {owner}</Text>    
+                        <Text>판매자 {nickname}</Text>    
                     </View>
                     <View style={[Common.textWrapper, {gap: 3}]}>
-                        <Messages /><Text>{messages}</Text>
-                        <Likes /> <Text>{likes}</Text>
                     </View>
                 </View>
                 <View style={[itemList.rowDivider, {marginTop: 0, width: "100%"}]} />

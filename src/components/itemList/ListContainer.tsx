@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { ListItemProps, ListContainerProps } from "@/types/types";
-import { Common } from "@/styles/common";
 import ListItem from "./ListItem";
 import { itemList } from "@/styles/components/itemList";
 import SearchGroup from "./SearchGroup";
@@ -56,7 +55,7 @@ const ListContainer = (props: ListContainerProps) => {
                 return (
                 <View key={index} style={itemList.listContainer}>
                     <ListItem 
-                        id={item.id}
+                        itemId={item.itemId}
                         nickname={item.nickname}
                         name={item.name}
                         imgUrls={item.imgUrls}
