@@ -110,7 +110,6 @@ export type ItemDetailsProp = {
 
 export type PostingType = {
     name: string,
-    itemImg: string,
     description: string,
     price: string,
     damagedPolicy: string,
