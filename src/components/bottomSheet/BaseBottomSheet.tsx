@@ -4,17 +4,24 @@ import ButtonBar from "../ButtonBar";
 import { View } from "react-native";
 import Button from "../Button";
 import Cancel from "@/assets/images/cancel.svg";
-import { useState } from "react";
 import { Common } from "@/styles/common";
-import { calculateNewMassToMatchDuration } from "react-native-reanimated/lib/typescript/animation/springUtils";
 import Test from "./Test";
 
+const bottomSheetMap = {
+    test: Test,
+    none: () => <></>,
+//   policy: PolicyScreen,
+//   dateSelector: DateScreen,
+//   otp: OTPModal,
+//   slider: SliderModal,
+};
 
 const BaseBottomSheet = () => {
-    // const resolve = useRef<(result: T) => void>();
-    const {visible, result, cancelResult, submitResult} = useBottomSheetStore();
+    const {visible, type, result, cancelResult, submitResult} = useBottomSheetStore();
+    console.log(type);
+    const SheetComponent = bottomSheetMap[type];
 
-    if (!visible) return null;
+    if (!visible || !type) return null;
 
     return (
         <>
@@ -23,7 +30,7 @@ const BaseBottomSheet = () => {
             <Button type="option" onPress={() => cancelResult()} style={Common.cancel}>
                 <Cancel />
             </Button>
-            <Test />
+            <SheetComponent />
             {/* {title && (
                 <View style={{ alignItems: "center", paddingVertical: 15 }}>
                 <Text style={{ fontSize: 18, fontWeight: "500" }}>{title}</Text>
