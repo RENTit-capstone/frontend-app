@@ -1,53 +1,87 @@
-import { Text, View } from "react-native"
-import ListItem from "../itemList/ListItem";
-import { useState } from "react";
+import { Image, Text, View } from "react-native"
+import { useEffect, useState } from "react";
 import Button from "../Button";
 import { Common } from "@/styles/common";
-import { AccordionCardProps, ActionType, RentalDetailsType } from "@/types/types";
+import { AccordionCardProps, ItemDetailsProp, RentalDetailsType } from "@/types/types";
 import { history } from "@/styles/components/history";
+import { axiosGet } from "@/api";
+import { itemList } from "@/styles/components/itemList";
+import Badge from "../Badge";
+import determineAction from "@/utils/determineAction";
+import useRentalActions from "@/hooks/useRentalActions";
 
 const AccordionCard = (props: AccordionCardProps) => {
-    const {id, title, img,  available, price, period, messages, likes, status, actions, actionNames, getDetails, handleAction} = props;
+    const {rentalId, itemId, requestDate, status} = props;
+    const {onCancelRequest, onPickup, onReturn} = useRentalActions();
     const [isOpened, setIsOpened] = useState(false);
+    const [itemDetails, setItemDetails] = useState<ItemDetailsProp>();
     const [details, setDetails] = useState<RentalDetailsType>();
 
-    const handleDetails = async () => {
-        if (!isOpened) {
-            const response = await getDetails(id);
-            setDetails(response);
+    useEffect(() => {
+        const fetchItemDetails = async () => {
+            try {
+                const response = await axiosGet(`/api/v1/items/${itemId}`);
+                setItemDetails(response.data);
+            } 
+            catch (error) {
+                console.error(error);
+            }
         }
-        setIsOpened(!isOpened);
-    }
+        fetchItemDetails();
+    }, []);
 
-    const onPress = (itemId: number, action: ActionType) => {
-        console.log(itemId, action);
-        if (action==="approve") {
-            handleAction(itemId, true);
-        }
-        else if (action==="disapprove") {
-            handleAction(itemId, false);
-        }
-        else {
-            handleAction(itemId);
-        }
-    }
 
+    const fetchDetails = async () => {
+        if (isOpened)   return;
+        try { 
+            const response = await axiosGet(`/api/v1/rentals/${itemId}`);
+            console.log("Response for fetchDetails: ", response.data);
+            setDetails(response.data);
+            setIsOpened(!isOpened);
+        }
+        catch(error) {
+            console.error(error);
+        }   
+    }
+    
+    const { action, buttonText } = determineAction({
+        rentalStatus: status,
+        onCancelRequest,
+        onPickup,
+        onReturn,
+    });
+
+    const onPress = async (action?: () => Promise<void>) => {
+        if (action) {
+            try { await action(); } 
+            catch(error) { console.error(error); }
+        }
+    };
+
+    if (!itemDetails)   return null;
     return (
         <View>
-            <ListItem
-                id={id}
-                title={title}
-                img={img}
-                available={available}
-                price={price}
-                period={period}
-                messages={messages}
-                likes={likes}
-            />
+            <View style={[Common.XStack, itemList.cardWrapper]}>
+                <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
+
+                <View style={[Common.wideView, {gap: 5}]}>
+                    <Badge status={status} />
+                    <Text style={{fontSize: 19}}>{itemDetails.name}</Text>
+                    <View style={[Common.textWrapper]}>
+                        <Text style={{fontSize: 19, fontWeight: 600}}>{itemDetails.price.toLocaleString()}</Text>
+                        <Text style={{fontSize: 19}}> 원</Text>
+                    </View>
+
+                    <View style={[Common.textOption]}>
+                        <Text style={{fontSize: 16}}>대여 요청 일시: {requestDate}</Text>
+                    </View>
+                </View>
+            </View>
+
             {isOpened &&
                 <View>
                     {!details ? (
-                        <Text>details</Text>
+                        <Text></Text>
                     ): ( 
                         <>
                             <Text>빌려준 사람: {details.owner}</Text>
@@ -67,13 +101,12 @@ const AccordionCard = (props: AccordionCardProps) => {
             }
 
             <View style={Common.XStack}>
-                {actions && actions.map((action: ActionType, index) => (
-                <Button onPress={() => onPress(id, action)} type="primary" key={action+id} style={history.button}>
-                    {actionNames[index]}
+                <Button onPress={() => onPress(action)} type="primary" key={rentalId} style={history.button}>
+                    {buttonText}
                 </Button>
-                ))}
+                
 
-                <Button onPress={handleDetails} type="secondary" style={history.button}>
+                <Button onPress={fetchDetails} type="secondary" style={history.button}>
                     {isOpened? "닫기" : "상세정보"}
                 </Button>
             </View>

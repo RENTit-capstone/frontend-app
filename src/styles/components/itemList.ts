@@ -40,7 +40,6 @@ export const itemList = StyleSheet.create({
         height: 0,
         borderColor: "#E5E5E5CC",
         borderWidth: 1,
-        marginTop: 10,
     },
 
     //ListItem
@@ -54,13 +53,6 @@ export const itemList = StyleSheet.create({
         borderRadius: 6,
         marginRight: 5,
     },
-    interactions: {
-        flexDirection: "row",
-        alignItems: "center",
-        alignSelf: "flex-end",
-        marginRight: 0,
-        gap: 2,
-    },
 
     //ItemListTab
     topTabIndicator: {
@@ -70,7 +62,7 @@ export const itemList = StyleSheet.create({
         backgroundColor: Colors.white,
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
-        marginTop: 10,
+        marginTop: 20,
         ...Platform.select({
             default: {
                 shadowColor: '#000',
@@ -93,7 +85,6 @@ export const itemList = StyleSheet.create({
         backgroundColor: "#FBF5ED",
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
-        paddingVertical: 16,
         ...Platform.select({
             default: {
                 shadowColor: '#000',

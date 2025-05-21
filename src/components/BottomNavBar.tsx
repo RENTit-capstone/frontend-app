@@ -3,24 +3,20 @@ import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import Home from "@/assets/images/home.svg";
 import { ReactElement } from "react";
 import Colors from "@/constants/Colors";
-import { usePathname } from "expo-router";
-import ItemDetailsTabBar from "./ItemDetailsTabBar";
-import { bottomTabBar } from "@/styles/components/bottomTabBar";
+import { Common } from "@/styles/common";
 
-const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
+const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     const primaryColor = Colors.primary;
     const secondaryColor = Colors.secondary;
     const whiteColor = Colors.white;
 
     const icons: Record<string, (props: { color: string} ) => ReactElement> = {
-        itemList: ({ color }) => <Home color={whiteColor} />,
-        history: ({ color }) => <Home color={"#ccc"} />
+        itemList: ({ color }) => <Home stroke={color} />,
+        history: ({ color }) => <Home stroke={color} />
     }
     
-    if (usePathname().includes("/itemList/"))   return <ItemDetailsTabBar />;
-
     return (
-        <View style={bottomTabBar.defaultTabBar}>
+        <View style={[Common.bottomBar, Common.upperShadow]}>
             {state.routes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
@@ -49,22 +45,19 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         return (
             <TouchableOpacity
                 key={route.name}
-                style={[bottomTabBar.tabBarItem, {backgroundColor: isFocused ? primaryColor : secondaryColor}] }
+                style={[Common.tabBarItem, {backgroundColor: isFocused ? primaryColor : secondaryColor}] }
                 accessibilityRole="button"
                 accessibilityState={isFocused ? { selected: true } : {}}
                 accessibilityLabel={options.tabBarAccessibilityLabel}
                 testID={options.tabBarButtonTestID}
                 onPress={onPress}
             >
-                <>
-                    {console.log(route.name)}
-                </>
                 {
                     icons[route.name]({
                         color: isFocused? whiteColor : primaryColor,
                     })
                 }
-                <Text style={{ color: isFocused ? whiteColor : primaryColor }}>
+                <Text style={{ color: isFocused ? whiteColor : primaryColor, fontSize: 16 }}>
                     {`${label}`}
                 </Text>
             </TouchableOpacity>
@@ -74,4 +67,4 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     );
   }
 
-export default TabBar;
+export default BottomNavBar;

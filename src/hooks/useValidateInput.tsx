@@ -1,19 +1,15 @@
-import { SignupType } from "@/types/types";
+import { SignupInputType } from "@/types/types";
 import { useState } from "react";
 
-type SignupErrorType = {
-    [K in keyof SignupType]?: string;
-}
-
-function useInput(initialValues: SignupType) {
-    const [values, setValues] = useState<SignupType>(initialValues);
-    const [errors, setErrors] = useState<SignupType>(initialValues);
+function useValidateInput(initialValues: SignupInputType) {
+    const [values, setValues] = useState<SignupInputType>(initialValues);
+    const [errors, setErrors] = useState<SignupInputType>(initialValues);
 
     const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&?])[A-Za-z\d@!%*#?&]{8,}$/;
     const emailRegex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     const phoneRegex = /\d{11}/;
 
-    const handleChange = (name: string, text: string) => {
+    const handleChange = (name: string) => (text: string) => {
         setValues(prev => ({ ...prev, [name]: text }));
         validateField(name, text);
     }
@@ -31,29 +27,23 @@ function useInput(initialValues: SignupType) {
             error="유효한 전화번호 형식으로 입력해주세요.";
 
         setErrors(prev => ({...prev, [name]: error}));
-        console.log(!(!errors.email && !errors.pw && !errors.pwConfirm))
-        console.log((!values.email && !values.pw && !values.pwConfirm))
     }
 
     const blockNext = (page: number) => {
         let isError = true;
 
         if (page===0){
-            isError = !(!errors.email && !errors.pw && !errors.pwConfirm) ||
-                    (!values.email || !values.pw || !values.pwConfirm);
+            isError = !(!errors.university && !errors.studentId && !errors.email && !errors.emailVerifyCode) ||
+                    (!values.university || !values.studentId || !values.email || !values.emailVerifyCode);
             return isError;
         }
-        else if (page===1){
-            isError = !(!errors.phone) ||
-            (!values.name || !values.nickname || !values.gender || !values.phone);
+        else {
+            isError = !(!errors.name && !errors.nickname && !errors.pw && !errors.pwConfirm && !errors.gender && !errors.phone) ||
+            (!values.name || !values.nickname || !values.pw || !values.pwConfirm || !values.gender || !values.phone);
             return isError;
         }
-        else{
-            isError = !values.university && !values.studentId;
-            return isError;
-       }
     }
     return {values, errors, handleChange, blockNext};
 
 }
-export default useInput;
+export default useValidateInput;

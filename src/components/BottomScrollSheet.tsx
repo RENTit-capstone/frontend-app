@@ -1,14 +1,18 @@
 import BottomSheet, { BottomSheetScrollView, useBottomSheetSpringConfigs } from "@gorhom/bottom-sheet";
 import { ReactElement, useMemo, useRef } from "react";
 import { itemList } from "@/styles/components/itemList";
+import { View } from "react-native";
+import { StyleProps } from "react-native-reanimated";
 
 type BottomScrollSheetProps = {
     snapPointList: string[],
     children: ReactElement,
+    style?: StyleProps,
+    bottomInsent?: number
 }
 
 const BottomScrollSheet = (props: BottomScrollSheetProps) => {
-    const {snapPointList, children} = props;
+    const {snapPointList, children, style, bottomInsent=64} = props;
 
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => snapPointList, []);
@@ -28,7 +32,8 @@ const BottomScrollSheet = (props: BottomScrollSheetProps) => {
             snapPoints={snapPoints}
             animationConfigs={animationConfigs}
             enableDynamicSizing={false}
-            backgroundStyle={itemList.bottomSheet}
+            bottomInset={bottomInsent}
+            backgroundStyle={[itemList.bottomSheet, style]}
             >
             <BottomSheetScrollView contentContainerStyle={{flexGrow: 1}}>
                 {children}

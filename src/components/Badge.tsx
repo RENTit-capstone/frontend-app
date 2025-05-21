@@ -1,10 +1,10 @@
 import { Common } from "@/styles/common"
 import { View, Text } from "react-native"
-import { ItemStatusType } from "@/types/types";
+import { ItemStatusType, RentalStatusType } from "@/types/types";
 import Colors from "@/constants/Colors";
 
 type BadgeType = {
-    status: ItemStatusType,
+    status: ItemStatusType | RentalStatusType,
 }
 
 const Badge = (props: BadgeType) => {

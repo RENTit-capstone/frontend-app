@@ -1,27 +1,37 @@
-import { Link } from "expo-router"
+import { Link, useRouter } from "expo-router"
 import { LoginType } from "@/types/types";
 import { useState } from "react";
 import TextInput from "@/components/TextInput";
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, View } from "react-native";
 import Button from "@/components/Button";
 import { Common } from "@/styles/common";
 import Logo from "@/assets/images/logo.svg";
-import login from "@/api/login";
+import { axiosNoInterceptor, axiosPost } from "@/api";
+import useAuthStore from "@/stores/useAuthStore";
+import useToast from "@/hooks/useToast";
 
 
 const Login = () => {
-    const [error, setError] = useState(false);
+    const router = useRouter();
+    const toast = useToast();
+    const {setAccessToken, setRefreshToken} = useAuthStore();
     const [form, setForm] = useState({
         email: "",
-        pw: "",
+        password: "",
     });
 
-    const handleSubmit = (data: LoginType) => {
-        console.log(data);
+    const login = async (payload: LoginType) => {
         try {
-            login(data);
+            const res = await axiosNoInterceptor.post(`/api/v1/auth/login`, payload);
+            if (!res.data.success)  throw new Error(res.data.message);
+
+            await setAccessToken(res.data.data.accessToken);
+            await setRefreshToken(res.data.data.refreshToken);
+            router.replace("/(tabs)/itemList");
+            toast.show("로그인에 성공했습니다.");
         } 
         catch (error) {
+            toast.show("이메일, 비밀번호를 다시 확인해주세요.");
             console.log(error);
         }
     }
@@ -31,11 +41,13 @@ const Login = () => {
     }
 
     return (
-            <View style={Common.container}>
-                <Logo />
-                <Text>RENTit 로그인</Text>
-                <View style={Common.fullYStack}>
+            <View style={[Common.container, Common.wrapper]}>
+                <View style={[Common.YStack, {justifyContent: "flex-start"}]}>
+                    <View style={{paddingVertical: "10%"}}>
+                        <Logo />
+                    </View>                    
                     <TextInput 
+                        name="email"
                         label="email" 
                         handleChangeText={handleChange("email")}
                         value={form.email}
@@ -43,19 +55,23 @@ const Login = () => {
                         keyboardType="email-address"
                     />
                     <TextInput 
+                        name="password"
                         label="password" 
-                        handleChangeText={handleChange("pw")}
-                        value={form.pw}
+                        handleChangeText={handleChange("password")}
+                        value={form.password}
                         secureTextEntry={true}
                     />
-                    <Button 
-                        onPress={() => handleSubmit(form)}
-                        disabled={(form.email === "") || (form.pw === "")}
-                    >
-                        로그인
-                    </Button>
+                    <View style={Common.XStack}>
+                        <Button 
+                            onPress={() => login(form)}
+                            disabled={(form.email === "") || (form.password === "")}
+                            type="primary"
+                        >
+                            로그인
+                        </Button>
+                    </View>
 
-                    <Link href={{pathname: "/"}}>
+                    <Link href={{pathname: "/(auth)/signup"}}>
                         <Text style={[Common.textOption]}>회원가입</Text>
                     </Link>
                 </View>
