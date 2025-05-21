@@ -10,7 +10,7 @@ import Timer from "./Timer";
 
 const OtpContianer = () => {
     const [otpCode, setOtpCode] = useState<string>();
-    const [isTimerRunning, setTimerRunning] = useState(true);
+    const [resetKey, setResetKey] = useState(0);
 
     useEffect(() => {
         generateOTP();
@@ -18,10 +18,10 @@ const OtpContianer = () => {
 
     const generateOTP = async () => {
         try {
-            setTimerRunning(false);
+            setResetKey(prev => prev+1);
             const response = await axiosPost(`/api/v1/auth/otp`);
             console.log(response.data);
-            setTimerRunning(true);
+            
             setOtpCode(response.data);
         }
         catch(error) {
@@ -33,10 +33,10 @@ const OtpContianer = () => {
     return (
         <View style={[Common.wrapper]}>
             <View style={[myPage.otpBox, ViewThemes.secondary]}>
-                <Text style={itemList.statusNumber}>{otpCode || "01010"}</Text>
+                <Text style={itemList.statusNumber}>{otpCode}</Text>
             </View>
             <View style={Common.XStack}>
-                <Timer isTimerRunning={isTimerRunning} setTimerRunning={setTimerRunning} />
+                <Timer resetKey={resetKey} setResetKey={setResetKey} />
                 <Button onPress={() => generateOTP()} type="primary">
                     재발급
                 </Button>

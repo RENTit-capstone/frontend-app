@@ -3,18 +3,22 @@ import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 
 type TimerProps = {
-    isTimerRunning: boolean;
-    setTimerRunning: (state: boolean) => void;
+    resetKey: number;
+    setResetKey: (state: number) => void;
 }
 
 const Timer = (props: TimerProps) => {
-    const {isTimerRunning, setTimerRunning} = props;
+    const {resetKey, setResetKey} = props;
+    const [isTimerRunning, setTimerRunning] = useState(true);
     const [secondsLeft, setSecondsLeft] = useState(60);
 
     useEffect(() => {
-        let interval: NodeJS.Timeout;
+        setSecondsLeft(60);    
+        setTimerRunning(true);   
+    }, [resetKey]); 
 
-        if (!isTimerRunning)    setSecondsLeft(60);
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
 
         if (isTimerRunning && secondsLeft>0) {
             interval = setInterval(() => {
@@ -25,11 +29,6 @@ const Timer = (props: TimerProps) => {
         if (secondsLeft===0)    setTimerRunning(false);
         return () => clearInterval(interval);
     }, [isTimerRunning, secondsLeft]);
-
-    const startTimer = () => {
-        setSecondsLeft(60);
-        setTimerRunning(true);
-    }
 
     return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
