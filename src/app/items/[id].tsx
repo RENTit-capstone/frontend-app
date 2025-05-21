@@ -1,7 +1,5 @@
 import { Common } from "@/styles/common";
-import { itemList } from "@/styles/components/itemList";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Image, Text } from "react-native"
 import { ItemDetailsProp } from "@/types/types";
 import { useEffect, useState } from "react";
 import { axiosGet, axiosPost } from "@/api";
@@ -33,9 +31,9 @@ const Postings = () => {
 
             const response = await axiosGet(`/api/v1/items/${parseInt(id)}`);
             console.log("Response for fetchItemDetails: ", response.data);
-            setData(response.data);
         }
         catch(error) {
+            toast.show(`${error}`);
             console.error(error);
         }
     }
