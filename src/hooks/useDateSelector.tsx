@@ -1,12 +1,10 @@
 import Colors from "@/constants/Colors";
-import useDateSelectorStore from "@/stores/useDateSelectorStore";
 import { useMemo, useState } from "react";
 import { DateData, MarkedDates } from "react-native-calendars/src/types";
 
 const useDateSelector = () => {
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
-    // const {startDate, setStartDate, endDate, setEndDate} = useDateSelectorStore();
 
     const onDayPress = (day: DateData) => {
         // 두개 다 선택이 안된 경우

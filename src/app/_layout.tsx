@@ -6,17 +6,12 @@ import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import useAuthStore from '@/stores/useAuthStore';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import DateSelectorModal from '@/components/bottomSheet/DateSelector';
-import PolicyModal from '@/components/bottomSheet/Policy';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
 import Colors from '@/constants/Colors';
 import Toast, { BaseToast } from 'react-native-toast-message';
 import { Common } from '@/styles/common';
 import BaseBottomSheet from '@/components/bottomSheet/BaseBottomSheet';
-import Button from '@/components/Button';
-import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
-import { View } from 'react-native';
         
 SplashScreen.preventAutoHideAsync();
 
@@ -64,22 +59,8 @@ function RootLayoutNav() {
     return <Redirect href={"/(auth)/login"} />;
   }
 
-  const {openBottomSheet} = useBottomSheetStore();
-  const handlleDate = async () => {
-    const { result: { startDate, endDate } } = await openBottomSheet("dateSelector");
-    console.log("result: ", startDate, endDate);
-  }
-  const handlePolicy = async () => {
-    const { result: { flawPolicy, damagePolicy } } = await openBottomSheet("policy");
-    console.log("flaw: ", flawPolicy);
-  }
-
   return (
     <>
-    <View style={[Common.XStack, {paddingTop: 100}]}>
-      <Button onPress={handlleDate} type="primary">날짜</Button>
-      <Button onPress={handlePolicy} type="primary">동의</Button>
-    </View>
       <SafeAreaProvider style={{width: contentWidth, alignSelf: "center", backgroundColor: Colors.secondary}}>  
         <GestureHandlerRootView>  
           <Stack>

@@ -5,12 +5,10 @@ import { View } from "react-native";
 import Button from "../Button";
 import Cancel from "@/assets/images/cancel.svg";
 import { Common } from "@/styles/common";
-import Test from "./Test";
 import PolicyScreen from "./Policy";
 import CanendarScreen from "./DateSelector";
 
 const bottomSheetMap = {
-    test: Test,
     none: () => <></>,
     policy: PolicyScreen,
     dateSelector: CanendarScreen,
@@ -29,22 +27,22 @@ const BaseBottomSheet = () => {
         <>
         <BottomScrollSheet snapPointList={["65%"]} style={{ backgroundColor: "#fff" }}>
             <View>
-            <Button type="option" onPress={cancelResult} style={Common.cancel}>
-                <Cancel />
-            </Button>
-            <SheetComponent />
-            {/* {title && (
-                <View style={{ alignItems: "center", paddingVertical: 15 }}>
-                <Text style={{ fontSize: 18, fontWeight: "500" }}>{title}</Text>
-                </View>
-            )} */}
-            {/* {children(submit, cancel)} */}
+                <Button type="option" onPress={cancelResult} style={Common.cancel}>
+                    <Cancel />
+                </Button>
+                <SheetComponent />
             </View>
         </BottomScrollSheet>
         <ButtonBar>
             <Button type="primary" onPress={submitResult}>
-                저장
+                이전
             </Button>
+            <Button type="primary" onPress={submitResult}>
+                다음
+            </Button>
+            {/* <Button type="primary" onPress={submitResult}>
+                저장
+            </Button> */}
         </ButtonBar>  
       </>
 );

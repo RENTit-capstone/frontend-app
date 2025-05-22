@@ -1,11 +1,7 @@
-import { resolvePlugin } from "@babel/core";
 import { create } from "zustand";
-
-// export type BottomSheetResultType = keyof ResultType;
 
 type ResultType = {
     none: null;
-    test: {test: string};
     dateSelector: { startDate: string | null; endDate: string | null };
     policy: { flawPolicy: boolean, damagePolicy: boolean };
 };
