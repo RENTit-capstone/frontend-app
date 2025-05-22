@@ -14,7 +14,7 @@ import useToast from "@/hooks/useToast";
 const Login = () => {
     const router = useRouter();
     const toast = useToast();
-    const {setAccessToken, setRefreshToken} = useAuthStore();
+    const {setAccessToken, setRefreshToken, setUserId} = useAuthStore();
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -25,6 +25,7 @@ const Login = () => {
             const res = await axiosNoInterceptor.post(`/api/v1/auth/login`, payload);
             if (!res.data.success)  throw new Error(res.data.message);
 
+            setUserId(res.data.data.memberId);
             await setAccessToken(res.data.data.accessToken);
             await setRefreshToken(res.data.data.refreshToken);
             router.replace("/(tabs)/itemList");
