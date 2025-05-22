@@ -34,7 +34,7 @@ const ItemDetailsButtonBar = (props: any) => {
     }
 
     return (
-        <SafeAreaView style={[Common.bottomBar, Common.upperShadow, {backgroundColor: "white"}]}>
+        <>
             {phase==="viewing" && 
                 <ButtonBar onClose={() => moveNext()} />
 
@@ -66,7 +66,7 @@ const ItemDetailsButtonBar = (props: any) => {
                     </View>
                 </View>
             }
-        </SafeAreaView>
+        </>
     );
 }
 
