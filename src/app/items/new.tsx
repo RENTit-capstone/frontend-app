@@ -6,13 +6,13 @@ import { Common } from "@/styles/common";
 import { useEffect, useState } from "react";
 import { View, Text, ScrollView, Alert, Image, KeyboardAvoidingView, Platform } from "react-native";
 import Colors from "@/constants/Colors";
-import useDateSelectorStore from "@/stores/useDateSelectorStore";
 import * as ImagePicker from "expo-image-picker";
 import { itemList } from "@/styles/components/itemList";
+import { useBottomSheetStore } from "@/stores/useBottomSheetStore";
 
 
 const NewPosting = () => {
-    const {openDateSelector} = useDateSelectorStore();
+    const {openBottomSheet} = useBottomSheetStore();
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<any[]>([]);
@@ -79,7 +79,7 @@ const NewPosting = () => {
     }
     
     const handleDateSelect = async () => {
-        const { startDate, endDate } = await openDateSelector();
+        const { result: { startDate, endDate } } = await openBottomSheet("dateSelector");
         setStartDate(startDate);
         setEndDate(endDate);
     }

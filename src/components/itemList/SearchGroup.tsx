@@ -2,17 +2,17 @@ import { Pressable, View } from "react-native";
 import DropDown from "../Dropdown";
 import { Common } from "@/styles/common";
 import { useState } from "react";
-import useDateSelectorStore from "@/stores/useDateSelectorStore";
 import Calendar from "@/assets/images/calendar.svg";
 import DownArrow from "@/assets/images/down-arrow.svg";
 import Colors from "@/constants/Colors";
 import TextInput from "../TextInput";
 import SearchIcon from "@/assets/images/search.svg";
 import formatISOToDate from "@/utils/formatDate";
+import { useBottomSheetStore } from "@/stores/useBottomSheetStore";
 
 const SearchGroup = (props: any) => {
     const {onChange} = props;
-    const {openDateSelector} = useDateSelectorStore();
+    const {openBottomSheet} = useBottomSheetStore();
     const [startDate, setStartDate] = useState<string | null>("");
     const [endDate, setEndDate] = useState<string | null>("");
     const [showSlider, setShowSlider] = useState(false);
@@ -21,7 +21,7 @@ const SearchGroup = (props: any) => {
     const [keyword, setKeyword] = useState("");
 
     const handleDateSelect = async () => {
-        const { startDate, endDate } = await openDateSelector();
+    const { result: { startDate, endDate } } = await openBottomSheet("dateSelector");
         setStartDate(startDate);    
         setEndDate(endDate);
         if (!(startDate&&endDate))  setEndDate(startDate);

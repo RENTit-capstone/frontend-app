@@ -4,29 +4,27 @@ import useRequestStore, { RequestPhaseType } from "@/stores/useRequestStore";
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
 import Colors from "@/constants/Colors";
-import useDateSelectorStore from "@/stores/useDateSelectorStore";
-import usePolicyStore from "@/stores/usePolicyStore";
 import ButtonBar from "../ButtonBar";
 
 const ItemDetailsButtonBar = (props: any) => {
     const {handleRequest} = props;
     const {phase, setPhase, startDate, endDate, setStartDate, setEndDate, setChecked} = useRequestStore();
-    const {openDateSelector} = useDateSelectorStore();
-    const {openPolicy} = usePolicyStore();
+    // const {openDateSelector} = useDateSelectorStore();
+    // const {openPolicy} = usePolicyStore();
     
     const moveNext = async () => {
         if (phase==="viewing"){
             setPhase("requesting");
 
-            const { startDate, endDate } = await openDateSelector();
-            setStartDate(startDate);
-            setEndDate(endDate);
+            // const { startDate, endDate } = await openDateSelector();
+            // setStartDate(startDate);
+            // setEndDate(endDate);
 
-            const { flawPolicy, damagePolicy } = await openPolicy();
-            if (flawPolicy && damagePolicy){
-                setChecked(true);
-                setPhase("applying");
-            }     
+            // const { flawPolicy, damagePolicy } = await openPolicy();
+            // if (flawPolicy && damagePolicy){
+            //     setChecked(true);
+            //     setPhase("applying");
+            // }     
         }
         else if (phase==="requesting") {
             setPhase("applying");
