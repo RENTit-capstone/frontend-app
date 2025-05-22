@@ -6,13 +6,12 @@ import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import useAuthStore from '@/stores/useAuthStore';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import DateSelectorModal from '@/components/items/DateSelectorModal';
-import PolicyModal from '@/components/items/PolicyModal';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
 import Colors from '@/constants/Colors';
 import Toast, { BaseToast } from 'react-native-toast-message';
 import { Common } from '@/styles/common';
+import BaseBottomSheet from '@/components/bottomSheet/BaseBottomSheet';
         
 SplashScreen.preventAutoHideAsync();
 
@@ -68,8 +67,7 @@ function RootLayoutNav() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />    
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           </Stack>
-          <DateSelectorModal />
-          <PolicyModal />
+          <BaseBottomSheet />
         </GestureHandlerRootView>
       </SafeAreaProvider>
       <Toast

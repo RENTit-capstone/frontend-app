@@ -17,13 +17,12 @@ const AccordionCardContainer = () => {
     const fetchHistory = async () => {
         const params = useUrl({
             stautses: ["REQUESTED", "APPROVED"],
-            page: page,
+            page: 0,
             size: 20,
             sort: ["requestDate", "desc"],
         });
         try {
             const response = await axiosGet(`/api/v1/rentals?${params}`);
-            console.log("Res:", response.data);
             setPage(response.data.pageable.pageNumber+1);
             setData(response.data.content);
         }

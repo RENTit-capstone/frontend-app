@@ -4,15 +4,15 @@ import TextInput from "@/components/TextInput";
 import usePostingInput from "@/hooks/usePostingInput";
 import { Common } from "@/styles/common";
 import { useEffect, useState } from "react";
-import { View, Text, ScrollView, Alert, Image } from "react-native";
+import { View, Text, ScrollView, Alert, Image, KeyboardAvoidingView, Platform } from "react-native";
 import Colors from "@/constants/Colors";
-import useDateSelectorStore from "@/stores/useDateSelectorStore";
 import * as ImagePicker from "expo-image-picker";
 import { itemList } from "@/styles/components/itemList";
+import { useBottomSheetStore } from "@/stores/useBottomSheetStore";
 
 
 const NewPosting = () => {
-    const {openDateSelector} = useDateSelectorStore();
+    const {openBottomSheet} = useBottomSheetStore();
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<any[]>([]);
@@ -26,10 +26,6 @@ const NewPosting = () => {
         returnPolicy: "",
     });
 
-    useEffect(() => {
-        console.log(selectedImage)
-    }, [selectedImage]);
-
     const selectImage = async () => {
         const selectedImgs = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -38,7 +34,6 @@ const NewPosting = () => {
         });
 
         if (!selectedImgs.canceled) {
-            console.log(selectedImgs.assets);
             setSelectedImage(selectedImgs.assets);
         }
         else {
@@ -69,7 +64,7 @@ const NewPosting = () => {
         });
 
         try {
-            console.log(formData);
+            console.log(formData._parts);
             const response = await axiosPost(`/api/v1/items`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -84,15 +79,17 @@ const NewPosting = () => {
     }
     
     const handleDateSelect = async () => {
-        const { startDate, endDate } = await openDateSelector();
+        const { result: { startDate, endDate } } = await openBottomSheet("dateSelector");
         setStartDate(startDate);
         setEndDate(endDate);
-        console.log(startDate, endDate);
     }
 
     return (
-        <>
-        <ScrollView style={[Common.container, Common.wrapper]}>
+        <KeyboardAvoidingView style={Common.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
+        >
+        <ScrollView style={Common.wrapper}>
             <View style={[Common.XStack, {paddingVertical: 16}]}>
                 <Button type="option" onPress={selectImage} style={itemList.imageSelectButton}>
                     이미지 선택
@@ -108,20 +105,20 @@ const NewPosting = () => {
             <TextInput 
                 label="물품명"      
                 name="name"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("name")}
                 value={values.name}
             />
             <TextInput 
                 label="가격" 
                 name="price"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("price")}
                 value={values.price}
                 keyboardType="numeric"
             />
             <TextInput 
                 label="설명" 
                 name="description"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("description")}
                 value={values.description}
                 multiline={true}
                 style={[Common.textArea, {height: 128}]}
@@ -129,7 +126,7 @@ const NewPosting = () => {
             <TextInput 
                 label="파손정책" 
                 name="damagedPolicy"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("damagedPolicy")}
                 value={values.damagedPolicy}
                 multiline={true}
                 style={[Common.textArea, {height: 64}]}
@@ -137,7 +134,7 @@ const NewPosting = () => {
             <TextInput 
                 label="반납정책" 
                 name="returnPolicy"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("returnPolicy")}
                 value={values.returnPolicy}
                 multiline={true}
                 style={[Common.textArea, {height: 64}]}
@@ -148,7 +145,7 @@ const NewPosting = () => {
                     <View style={[Common.textInput, {width: "80%", backgroundColor: Colors.option}]}>
                         {startDate&&endDate&& <Text>{startDate} ~ {endDate}</Text>}
                     </View>
-                    <Button type="primary" onPress={handleDateSelect} style={{height: 40, justifyContent: "center"}}>
+                    <Button type="primary" onPress={handleDateSelect} style={{height: 40, justifyContent: "center", paddingVertical: 0}}>
                         기간 선택
                     </Button>
 
@@ -165,7 +162,7 @@ const NewPosting = () => {
             </View>
 
         </ScrollView>
-        </>
+        </KeyboardAvoidingView>
     )
 }
 export default NewPosting;
