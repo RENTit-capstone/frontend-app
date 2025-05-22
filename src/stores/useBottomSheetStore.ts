@@ -1,9 +1,10 @@
 import { create } from "zustand";
 
 type ResultType = {
-    none: null;
+    none: void;
     dateSelector: { startDate: string | null; endDate: string | null };
     policy: { flawPolicy: boolean, damagePolicy: boolean, returnPolicy: boolean };
+    otp: void;
 };
 
 type BottomSheetType = {

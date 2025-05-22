@@ -1,11 +1,12 @@
 import { useRouter } from "expo-router";
 import useToast from "./useToast";
 import { axiosPost } from "@/api";
+import { useBottomSheetStore } from "@/stores/useBottomSheetStore";
 
 const useRentalActions = () => {
-    
     const toast = useToast();
     const router = useRouter();
+    const {openBottomSheet} = useBottomSheetStore();
 
     const onCancelRequest = async () => {
         toast.show("요청이 취소되었습니다");
@@ -35,8 +36,7 @@ const useRentalActions = () => {
         }    };
 
     const onCabinet = async () => {
-        //TODO: bottomsheet로 OTP띄우기
-        router.push("/myPage/otp");
+        await openBottomSheet("otp");
     };
     
     return { onCancelRequest, onReturn, onApprove, onReject, onCabinet };
