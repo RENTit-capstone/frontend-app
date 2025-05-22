@@ -1,6 +1,9 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import Home from "@/assets/images/home.svg";
+import HomeWhite from "@/assets/images/home-white.svg";
+import HomeFocused from "@/assets/images/home-focused.svg";
+import HistoryWhite from "@/assets/images/history-white.svg";
+import HistoryFocused from "@/assets/images/history-focused.svg";
 import { ReactElement } from "react";
 import Colors from "@/constants/Colors";
 import { Common } from "@/styles/common";
@@ -10,11 +13,13 @@ const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
     const secondaryColor = Colors.secondary;
     const whiteColor = Colors.white;
 
-    const icons: Record<string, (props: { color: string} ) => ReactElement> = {
-        itemList: ({ color }) => <Home stroke={color} />,
-        history: ({ color }) => <Home stroke={color} />
-    }
-    
+    const icons = {
+        itemListFocused: <HomeWhite />,
+        itemListUnfocused: <HomeFocused />,
+        historyFocused: <HistoryWhite />,
+        historyUnfocused: <HistoryFocused />,
+    };
+
     return (
         <View style={[Common.bottomBar, Common.upperShadow]}>
             {state.routes.map((route, index) => {
@@ -29,6 +34,7 @@ const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
         if(["_sitemap", "+not-found"].includes(route.name)) return null;
 
         const isFocused = state.index === index;
+        const iconKey = `${route.name}${isFocused ? 'Focused' : 'Unfocused'}`;
 
         const onPress = () => {
         const event = navigation.emit({
@@ -53,10 +59,8 @@ const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
                 onPress={onPress}
             >
                 {
-                    icons[route.name]({
-                        color: isFocused? whiteColor : primaryColor,
-                    })
-                }
+                    icons[`${route.name}${isFocused ? 'Focused' : 'Unfocused'}` as keyof typeof icons]
+                }    
                 <Text style={{ color: isFocused ? whiteColor : primaryColor, fontSize: 16 }}>
                     {`${label}`}
                 </Text>

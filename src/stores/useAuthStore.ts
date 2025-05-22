@@ -1,10 +1,11 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 import * as SecureStore from "expo-secure-store";
 
 type AuthType = {
+   userId: number | null;
    accessToken: string | null;
    refreshToken: string | null;
+   setUserId: (id: number) => void;
    setAccessToken: (accessToken: string) => Promise<void>;
    setRefreshToken: (refreshToken: string) => Promise<void>;
    clearTokens: () => Promise<void>;
@@ -12,8 +13,10 @@ type AuthType = {
 
 const useAuthStore = create<AuthType>()(
    (set, get) => ({
+      userId: null,
       accessToken: null,
       refreshToken: null,
+      setUserId: (id) => {set({userId: id})},
       setAccessToken: async (accessToken) => { 
          await SecureStore.setItemAsync("accesstoken", accessToken);
          set({ accessToken: accessToken });
