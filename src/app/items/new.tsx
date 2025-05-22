@@ -9,6 +9,7 @@ import Colors from "@/constants/Colors";
 import * as ImagePicker from "expo-image-picker";
 import { itemList } from "@/styles/components/itemList";
 import { useBottomSheetStore } from "@/stores/useBottomSheetStore";
+import DefaultDamagePolicy from "@/components/items/DefaultDamagePolicy";
 
 
 const NewPosting = () => {
@@ -22,7 +23,7 @@ const NewPosting = () => {
 
         description: "",
         price: "",
-        damagedPolicy: "",
+        damagedPolicy: DefaultDamagePolicy,
         returnPolicy: "",
     });
 
@@ -64,7 +65,7 @@ const NewPosting = () => {
         });
 
         try {
-            console.log(formData._parts);
+            // console.log(formData._parts);
             const response = await axiosPost(`/api/v1/items`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",

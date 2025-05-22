@@ -23,7 +23,7 @@ const BaseBottomSheet = () => {
     if (!visible || !type) return null;
 
     return (
-        <>
+        <View style={Common.darkBackground}>
         <BottomScrollSheet snapPointList={["65%"]} style={{ backgroundColor: "#fff" }}>
             <View>
                 <Button type="option" onPress={cancelResult} style={Common.cancel}>
@@ -48,7 +48,7 @@ const BaseBottomSheet = () => {
                 </Button>
             )}
         </ButtonBar>  
-      </>
+      </View>
 );
 };
 

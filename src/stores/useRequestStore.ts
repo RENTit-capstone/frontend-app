@@ -9,6 +9,8 @@ type RequestType = {
     endDate: Date | null,
     flawPolicyChecked: boolean,
     damagePolicyChecked: boolean,
+    userFlawPolicy: string,
+    userReturnPolicy: string,
     setPhase: (nextPhase: RequestPhaseType) => void,
     // setStoredId: (storedId: string | string[]) => void,
     setStartDate: (startDate: string | null) => void,
@@ -26,6 +28,8 @@ const useRequestStore = create<RequestType>()(
         endDate: null,
         flawPolicyChecked: false,
         damagePolicyChecked: false,
+        userFlawPolicy: "",
+        userReturnPolicy: "",
 
         setPhase: (nextPhase) => set({ phase: nextPhase }),
         // setStoredId: (storedId) => set({ storedId }),

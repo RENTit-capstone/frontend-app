@@ -3,7 +3,6 @@ import Button from "../Button";
 import useRequestStore, { RequestPhaseType } from "@/stores/useRequestStore";
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
-import Colors from "@/constants/Colors";
 import ButtonBar from "../ButtonBar";
 import { useBottomSheetStore } from "@/stores/useBottomSheetStore";
 import { useCallback, useEffect, useState } from "react";
