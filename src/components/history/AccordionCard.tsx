@@ -15,7 +15,7 @@ import determineMineAction from "@/utils/determineMineAction";
 
 const AccordionCard = (props: AccordionCardProps) => {
     const {type, rentalId, itemId, requestDate, status} = props;
-    const {onCancelRequest, onPickup, onReturn, onApprove} = useRentalActions();
+    const {onCancelRequest, onReturn, onApprove, onReject, onCabinet} = useRentalActions();
     const [isOpened, setIsOpened] = useState(false);
     const [itemDetails, setItemDetails] = useState<ItemDetailsProp>();
     const [details, setDetails] = useState<RentalDetailsType>();
@@ -55,18 +55,16 @@ const AccordionCard = (props: AccordionCardProps) => {
         ({ action, buttonText, description } = determineMineAction({
             id: rentalId,
             rentalStatus: status,
-            onCancelRequest,
             onApprove,
-            onPickup,
-            onReturn,
+            onReject,
+            onCabinet,
         }));
     }
     else {
         ({ action, buttonText, description } = determineAction({
             rentalStatus: status,
             onCancelRequest,
-            onPickup,
-            onReturn,
+            onCabinet,
         }));
     }
 

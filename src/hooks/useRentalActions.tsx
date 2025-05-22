@@ -25,11 +25,20 @@ const useRentalActions = () => {
         }
     };
 
-    const onPickup = async () => {
+    const onReject = async (id: number) => {
+        try {
+            const response = await axiosPost(`/api/v1/rentals/${id}/cancel`);
+            toast.show("요청이 거절되었습니다");
+        }
+        catch (error) {
+            console.error(error);
+        }    };
+
+    const onCabinet = async () => {
         //TODO: bottomsheet로 OTP띄우기
         router.push("/myPage/otp");
     };
     
-    return { onCancelRequest, onReturn, onPickup, onApprove };
+    return { onCancelRequest, onReturn, onApprove, onReject, onCabinet };
 }
 export default useRentalActions;
