@@ -44,7 +44,7 @@ const Postings = () => {
         try {
             const payload = {
                 "itemId": parseInt(id),
-                "ownerId": data.memberId,
+                "ownerId": data?.memberId,
                 "renterId": userId,
                 "startDate": startDate, //ISOstring으로 변경
                 "dueDate": endDate,

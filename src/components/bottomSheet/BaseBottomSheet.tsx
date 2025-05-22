@@ -17,8 +17,7 @@ const bottomSheetMap = {
 };
 
 const BaseBottomSheet = () => {
-    const {visible, type, result, cancelResult, submitResult} = useBottomSheetStore();
-    console.log("Type: ", type);
+    const {visible, type, result, cancelResult, submitResult, prevCallback, nextCallback} = useBottomSheetStore();
     const SheetComponent = bottomSheetMap[type];
 
     if (!visible || !type) return null;
@@ -34,15 +33,20 @@ const BaseBottomSheet = () => {
             </View>
         </BottomScrollSheet>
         <ButtonBar>
-            <Button type="primary" onPress={submitResult}>
-                이전
-            </Button>
-            <Button type="primary" onPress={submitResult}>
-                다음
-            </Button>
-            {/* <Button type="primary" onPress={submitResult}>
-                저장
-            </Button> */}
+            {(prevCallback && nextCallback) ? (
+                <>
+                <Button type="primary" onPress={() => prevCallback?.()}>
+                    이전
+                </Button>
+                <Button type="primary" onPress={() => nextCallback?.()}>
+                    다음
+                </Button>
+                </>
+            ) : (
+                <Button type="primary" onPress={submitResult}>
+                    저장
+                </Button>
+            )}
         </ButtonBar>  
       </>
 );

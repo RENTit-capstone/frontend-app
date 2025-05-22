@@ -1,61 +1,92 @@
-import { SafeAreaView, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import Button from "../Button";
 import useRequestStore, { RequestPhaseType } from "@/stores/useRequestStore";
 import { Common } from "@/styles/common";
 import { itemList } from "@/styles/components/itemList";
 import Colors from "@/constants/Colors";
 import ButtonBar from "../ButtonBar";
+import { useBottomSheetStore } from "@/stores/useBottomSheetStore";
+import { useCallback, useEffect, useState } from "react";
+import formatISOToDate from "@/utils/formatDate";
 
 const ItemDetailsButtonBar = (props: any) => {
     const {handleRequest} = props;
-    const {phase, setPhase, startDate, endDate, setStartDate, setEndDate, setChecked} = useRequestStore();
-    // const {openDateSelector} = useDateSelectorStore();
-    // const {openPolicy} = usePolicyStore();
+    // const {phase, setPhase, startDate, endDate, setStartDate, setEndDate, setFlawPolicyChecked, setDamagePolicyChecked, clearRecord} = useRequestStore();
+    const {openBottomSheet, onNext, onPrev, cancelResult, submitResult, clearCallbacks} = useBottomSheetStore();
+
+    const phase = ["viewing", "dateSelecting", "policyConsenting", "applying" as keyof RequestPhaseType];
+    const [current, setCurrent] = useState(0);
+    const [startDate, setStartDate] = useState<string | null>(null);
+    const [endDate, setEndDate] = useState<string | null>(null);
+    const [flawPolicyChecked, setFlawPolicyChecked] = useState(false);
+    const [damagePolicyChecked, setDamagePolicyChecked] = useState(false);
     
-    const moveNext = async () => {
-        if (phase==="viewing"){
-            setPhase("requesting");
+    useEffect(() => {
+        console.log(current);
+        const fetchBottomSheetResult = async () => {
+            if (phase[current] === "dateSelecting") {
+                handleDateSelector();
+            } else if (phase[current] === "policyConsenting") {
+                handlePolicyConsentor();
+            }
+        };
+        fetchBottomSheetResult();
+    }, [current]);
 
-            // const { startDate, endDate } = await openDateSelector();
-            // setStartDate(startDate);
-            // setEndDate(endDate);
+    useEffect(() => {
+        onPrev(() => {
+            console.log("이전");
+            cancelResult();
+            if (current==0) setCurrent(0);
+            else setCurrent(prev => prev-1);
+        });
 
-            // const { flawPolicy, damagePolicy } = await openPolicy();
-            // if (flawPolicy && damagePolicy){
-            //     setChecked(true);
-            //     setPhase("applying");
-            // }     
+        onNext(() => {
+            console.log("다음");
+            submitResult(); 
+            console.log("fesfsdwfesf")
+            if (current==3) setCurrent(3);
+            else setCurrent(prev => prev+1);
+        })
+        return () => {
+            // clearRecord();
+            clearCallbacks();
         }
-        else if (phase==="requesting") {
-            setPhase("applying");
-        }
-    }
+    }, [current]);
+
+
+const handleDateSelector = async () => {
+    const { result: { startDate, endDate } } = await openBottomSheet("dateSelector");
+    setStartDate(startDate);
+    setEndDate(endDate);
+}
+const handlePolicyConsentor = async () => {
+    const { result: { flawPolicy, damagePolicy } } = await openBottomSheet("policy");
+    setFlawPolicyChecked(flawPolicy);
+    setDamagePolicyChecked(damagePolicy);
+}
 
     return (
         <>
-            {phase==="viewing" && 
-                <ButtonBar onClose={() => moveNext()} />
+            {phase[current]==="viewing" && 
+                <ButtonBar>
+                    <Button type="primary" onPress={() => setCurrent(1)}>신청하기</Button>
+                </ButtonBar>
 
             }
-            {phase==="requesting" && 
-                <View style={Common.XStack}>
-                    <ButtonBar onClose={() => moveNext()} />
-
-                </View>
-            }
-            {phase==="applying" && 
-                <View style={Common.YStack}>
+            {phase[current]==="applying" && 
+                <View style={[Common.bottomBar, Common.upperShadow, {backgroundColor: "white"}, Common.YStack, {paddingTop: 16}]}>
                     <View style={[Common.XStack, Common.fullScreen, {justifyContent: "space-between"}]}>
                         <Text style={Common.bold}>
-                            <Text>{startDate?.replaceAll("-", ".")} ~ {endDate?.replaceAll("-", ".")}</Text>
-                            <Text style={{fontSize: 16, color: Colors.option}}> | </Text>
-                            <Text> 7일 </Text>
+                            <Text>{formatISOToDate(startDate || "")} ~ {formatISOToDate(endDate || "")}</Text>
+                            {/* <Text style={{fontSize: 16, color: Colors.option}}> | </Text>
+                            <Text> 7일 </Text> */}
                         </Text>
                         <Text style={Common.bold}>5,000원</Text>
                     </View>
-                    <View style={[itemList.rowDivider, {width: "100%"}]} />
+                    <View style={[itemList.rowDivider, {width: "100%", marginTop: 16}]} />
                     <View style={Common.XStack}>
-                        <Button onPress={moveNext} type="secondary" style={{flex: 1}}>
+                        <Button onPress={() => setCurrent(2)} type="secondary" style={{flex: 1}}>
                             이전  
                         </Button>
                         <Button onPress={handleRequest} type="primary" style={{flex: 3}}>

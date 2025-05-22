@@ -17,11 +17,13 @@ type BottomSheetType = {
     openBottomSheet: <T extends keyof ResultType> (
         type:  T
     ) => Promise<{result: ResultType[T]}>;
+    
     cancelResult: () => void;
     submitResult: () => void;
     onPrev: (callback: () => void) => void;
     onNext: (callback: () => void) => void;
     setResult: (result: any) => void;
+    clearCallbacks: () => void;
 };
 
 export const useBottomSheetStore = create<BottomSheetType>(
@@ -53,4 +55,5 @@ export const useBottomSheetStore = create<BottomSheetType>(
         onNext: (callback) => set({nextCallback: callback}),
 
         setResult: (result) => {console.log(result); set({result: result})},
+        clearCallbacks: () => set({ prevCallback: undefined, nextCallback: undefined }),
 }));
