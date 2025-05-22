@@ -21,7 +21,7 @@ const SearchGroup = (props: any) => {
     const [keyword, setKeyword] = useState("");
 
     const handleDateSelect = async () => {
-    const { result: { startDate, endDate } } = await openBottomSheet("dateSelector");
+        const { result: { startDate, endDate } } = await openBottomSheet("dateSelector");
         setStartDate(startDate);    
         setEndDate(endDate);
         if (!(startDate&&endDate))  setEndDate(startDate);

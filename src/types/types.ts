@@ -28,6 +28,7 @@ export type SignupInputType = {
 }
 
 export type listType = "INDIVIDUAL" | "GROUP";
+export type historyType = "OTHERS" | "MINE";
 export type memberType = "STUDENT" | "COUNCIL" | "COMPANY";
 export type Gender = "male" | "female" | "";
 
@@ -56,17 +57,28 @@ export type ListItemProps = {
 }
 
 export type ListContainerProps = {
-    keyword?: string,
     type: listType,
+}
+
+export type AccordionContainerProps = {
+    type: historyType,
 }
 
 export type RentalStatusType = "REQUESTED" | "APPROVED" | "REJECTED" | "CANCELLED" | "LEFT_IN_LOCKER" | "PICKED_UP" | "RETURNED_TO_LOCKER" | "COMPLETED";
 
-export type AccordionContainerType = ListItemProps & {
-    status: RentalStatusType,
+//  type AccordionContainerType = ListItemProps & {
+//     status: RentalStatusType,
+// }
+
+export type MineCardProps = {
+        itemId?: number,
+        rentalId: number,
+        requestDate: string,
+        status: RentalStatusType,
 }
 
 export type AccordionCardProps = {
+    type: historyType,
     rentalId: number,
     itemId: number,
     requestDate: string,

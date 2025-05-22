@@ -61,6 +61,7 @@ const ListContainer = (props: ListContainerProps) => {
     return (
         <>
             <SearchGroup onChange={handleChangeOptions}/>
+            <View style={{paddingBottom: 64}}>
             {data.length>0 ? (
                 data.map((item: ListItemProps, index:number) => {
                 return (
@@ -83,6 +84,7 @@ const ListContainer = (props: ListContainerProps) => {
                 </View>
             )
         }
+        </View>
         </>
     )
 };

@@ -7,12 +7,13 @@ import Cancel from "@/assets/images/cancel.svg";
 import { Common } from "@/styles/common";
 import PolicyScreen from "./Policy";
 import CanendarScreen from "./DateSelector";
+import OTPScreen from "./Otp";
 
 const bottomSheetMap = {
     none: () => <></>,
     policy: PolicyScreen,
     dateSelector: CanendarScreen,
-//   otp: OTPModal,
+    otp: OTPScreen,
 //   slider: SliderModal,
 };
 

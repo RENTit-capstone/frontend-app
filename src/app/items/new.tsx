@@ -11,6 +11,7 @@ import { itemList } from "@/styles/components/itemList";
 import { useBottomSheetStore } from "@/stores/useBottomSheetStore";
 import DefaultDamagePolicy from "@/components/items/DefaultDamagePolicy";
 import useAuthStore from "@/stores/useAuthStore";
+import { useRouter } from "expo-router";
 
 
 const NewPosting = () => {
@@ -18,7 +19,8 @@ const NewPosting = () => {
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<any[]>([]);
-                const {accessToken} = useAuthStore();
+    const {accessToken} = useAuthStore();
+    const router = useRouter();
 
     const { values, handleChange } = usePostingInput({
         name: "",
@@ -141,7 +143,7 @@ const handleSubmit = async () => {
     const payload = {
         name: values.name,
         description: values.description,
-        price: parseInt(values.price),
+        price: values.price,
         status: "AVAILABLE",
         damagedPolicy: values.damagedPolicy,
         returnPolicy: values.returnPolicy,
@@ -152,7 +154,7 @@ const handleSubmit = async () => {
     formData.append("form", JSON.stringify(payload));
       formData.append("name", payload.name);
         formData.append("description", payload.description);
-        formData.append("price", String(payload.price));
+        formData.append("price", payload.price);
         formData.append("status", "AVAILABLE");
         formData.append("startDate", payload.startDate); // ISO 문자열
         formData.append("endDate", payload.endDate);
@@ -169,9 +171,11 @@ const handleSubmit = async () => {
     });
 
     try {
-        console.log(formData._parts);
+        // console.log(formData._parts);
         const response = await axiosPost(`/api/v1/items`, formData);
         console.log("Response for handleSubmit: ", response);
+        Alert.alert("업로드에 성공하였습니다.")
+        router.replace("/(tabs)/itemList")
     } catch (error) {
         Alert.alert(`${error}`);
         console.error(error);

@@ -11,10 +11,11 @@ import determineAction from "@/utils/determineAction";
 import useRentalActions from "@/hooks/useRentalActions";
 import { useRouter } from "expo-router";
 import formatISOToDate from "@/utils/formatDate";
+import determineMineAction from "@/utils/determineMineAction";
 
 const AccordionCard = (props: AccordionCardProps) => {
-    const {rentalId, itemId, requestDate, status} = props;
-    const {onCancelRequest, onPickup, onReturn} = useRentalActions();
+    const {type, rentalId, itemId, requestDate, status} = props;
+    const {onCancelRequest, onReturn, onApprove, onReject, onCabinet} = useRentalActions();
     const [isOpened, setIsOpened] = useState(false);
     const [itemDetails, setItemDetails] = useState<ItemDetailsProp>();
     const [details, setDetails] = useState<RentalDetailsType>();
@@ -39,7 +40,7 @@ const AccordionCard = (props: AccordionCardProps) => {
     const fetchDetails = async () => {
         if (isOpened)   return;
         try { 
-            const response = await axiosGet(`/api/v1/rentals/${itemId}`);
+            const response = await axiosGet(`/api/v1/rentals/${rentalId}`);
             console.log("Response for fetchDetails: ", response.data);
             setDetails(response.data);
             setIsOpened(!isOpened);
@@ -48,13 +49,25 @@ const AccordionCard = (props: AccordionCardProps) => {
             console.error(error);
         }   
     }
+    let action, buttonText, description;
     
-    const { action, buttonText, description } = determineAction({
-        rentalStatus: status,
-        onCancelRequest,
-        onPickup,
-        onReturn,
-    });
+    if (type==="MINE") {
+        ({ action, buttonText, description } = determineMineAction({
+            id: rentalId,
+            rentalStatus: status,
+            onApprove,
+            onReject,
+            onCabinet,
+        }));
+    }
+    else {
+        ({ action, buttonText, description } = determineAction({
+            rentalStatus: status,
+            onCancelRequest,
+            onCabinet,
+        }));
+    }
+
 
     const onPress = async (action?: () => Promise<void>) => {
         if (action) {

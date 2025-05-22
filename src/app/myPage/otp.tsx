@@ -1,6 +1,6 @@
 import OtpContianer from "@/components/myPage/OtpContianer";
 import { Common } from "@/styles/common";
-import { SafeAreaView, Text, View } from "react-native"
+import { SafeAreaView } from "react-native"
 
 const Otp = () => {
     return (

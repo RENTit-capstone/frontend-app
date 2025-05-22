@@ -62,7 +62,7 @@ const Login = () => {
                         value={form.password}
                         secureTextEntry={true}
                     />
-                    <View style={Common.XStack}>
+                    <View style={[Common.XStack, {alignSelf: "stretch"}]}>
                         <Button 
                             onPress={() => login(form)}
                             disabled={(form.email === "") || (form.password === "")}

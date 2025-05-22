@@ -45,8 +45,8 @@ const Postings = () => {
                 "itemId": parseInt(id),
                 "ownerId": data?.owner.memberId,
                 "renterId": userId,
-                "startDate": startDate, //ISOstring으로 변경
-                "dueDate": endDate,
+                "startDate": startDate? `${new Date(startDate).toISOString().split('.')[0]}` : `${new Date().toISOString().split('.')[0]}`,
+                "dueDate": endDate? `${new Date(endDate).toISOString().split('.')[0]}` : `${new Date().toISOString().split('.')[0]}`,
             }
             console.log(payload);
             const response = await axiosPost(`/api/v1/rentals`, payload);
