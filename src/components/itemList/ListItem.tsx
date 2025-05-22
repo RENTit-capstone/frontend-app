@@ -6,19 +6,22 @@ import { itemList } from "@/styles/components/itemList";
 import { useRouter } from "expo-router";
 import formatISOToDate from "@/utils/formatDate";
 
+
 const ListItem = (props: ListItemProps) => {
     const {itemId, nickname, name, imgUrls, price, status, startDate, endDate} = props;
     const router = useRouter();
+    const imgSrc = imgUrls ? {uri: imgUrls[0]} : require("@/assets/images/icon.png");
+    // console.log(imgUrls);
 
     return (
         <Pressable style={[Common.XStack, itemList.cardWrapper]} onPress={() => (router.push(`/items/${itemId}`))}>
-            <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
+            <Image source={imgSrc} style={itemList.listItemImage}/>
 
             <View style={[Common.wideView, {gap: 5}]}>
                 <Badge status={status} />
                 <Text style={{fontSize: 19}}>{name}</Text>
                 <View style={[Common.textWrapper]}>
-                    <Text style={{fontSize: 19, fontWeight: 600}}>{price.toLocaleString()}</Text>
+                    <Text style={{fontSize: 19, fontWeight: 600}}>{price}</Text>
                     <Text style={{fontSize: 19}}> 원</Text>
                     {/* <Text style={[{fontSize: }, TextThemes.option]}>  |  </Text> */}
                 </View>

@@ -1,7 +1,9 @@
 import { useRouter } from "expo-router";
 import useToast from "./useToast";
+import { axiosPost } from "@/api";
 
 const useRentalActions = () => {
+    
     const toast = useToast();
     const router = useRouter();
 
@@ -13,11 +15,21 @@ const useRentalActions = () => {
         router.push("/myPage/otp");
     };
 
+    const onApprove = async (id: number) => {
+        try {
+            const response = await axiosPost(`/api/v1/rentals/${id}/approve`);
+            toast.show("요청이 승인되었습니다");
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+
     const onPickup = async () => {
         //TODO: bottomsheet로 OTP띄우기
         router.push("/myPage/otp");
     };
     
-    return { onCancelRequest, onReturn, onPickup };
+    return { onCancelRequest, onReturn, onPickup, onApprove };
 }
 export default useRentalActions;

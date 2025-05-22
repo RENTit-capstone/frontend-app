@@ -66,7 +66,15 @@ export type AccordionContainerType = ListItemProps & {
     status: RentalStatusType,
 }
 
+export type MineCardProps = {
+        itemId?: number,
+        rentalId: number,
+        requestDate: string,
+        status: RentalStatusType,
+}
+
 export type AccordionCardProps = {
+    type?: string,
     rentalId: number,
     itemId: number,
     requestDate: string,
