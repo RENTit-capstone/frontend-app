@@ -14,11 +14,12 @@ const PolicyModal = () => {
     const {visible, setResult} = useBottomSheetStore();
     const [flawPolicy, setFlawPolicy] = useState(false);
     const [damagePolicy, setDamagePolicy] = useState(false);
+    const [returnPolicy, setReturnPolicy] = useState(false);
     const {userFlawPolicy, userReturnPolicy} = useRequestStore();
 
     useEffect(() => {
-        setResult({flawPolicy: flawPolicy, damagePolicy: damagePolicy});
-    }, [flawPolicy, damagePolicy])
+        setResult({flawPolicy: flawPolicy, damagePolicy: damagePolicy, returnPolicy: returnPolicy});
+    }, [flawPolicy, damagePolicy, returnPolicy])
     
 
     if (!visible)   return null;

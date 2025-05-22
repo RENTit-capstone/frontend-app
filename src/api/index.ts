@@ -39,13 +39,26 @@ const getNewToken = async () => {
 
 axiosInstance.interceptors.request.use(
     async (config) => {
+        console.log("header: ", config.headers);
+        console.log(config.data);
         const token = useAuthStore.getState().accessToken;
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
-        if (!config.headers["Content-Type"]) {
-            config.headers["Content-Type"] = "application/json";
-        }
+        if (
+              config.data &&
+      typeof config.data === 'object' &&
+      config.data._parts // 👈 FormData 여부 확인
+    ) {
+      // Content-Type 제거 (중요!)
+      delete config.headers["Content-Type"];
+    } else {
+      config.headers["Content-Type"] = "application/json";
+    }
+
+        // if (!config.headers["Content-Type"]) {
+        //     config.headers["Content-Type"] = "application/json";
+        // }
         return config;
     },
     error => {

@@ -10,6 +10,7 @@ import * as ImagePicker from "expo-image-picker";
 import { itemList } from "@/styles/components/itemList";
 import { useBottomSheetStore } from "@/stores/useBottomSheetStore";
 import DefaultDamagePolicy from "@/components/items/DefaultDamagePolicy";
+import useAuthStore from "@/stores/useAuthStore";
 
 
 const NewPosting = () => {
@@ -17,6 +18,8 @@ const NewPosting = () => {
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<any[]>([]);
+                const {accessToken} = useAuthStore();
+
     const { values, handleChange } = usePostingInput({
         name: "",
         itemImg: "",
@@ -42,42 +45,138 @@ const NewPosting = () => {
         }
     }
 
-    const handleSubmit = async () => {
-        const formData = new FormData();
-        const payload = {
-            name: values.name,
-            description: values.description,
-            price: values.price,
-            status: "AVAILABLE",
-            damagedPolicy: values.damagedPolicy,
-            returnPolicy: values.returnPolicy,
-            startDate: startDate,
-            endDate: endDate,
-        };
+//     const handleSubmit = async () => {
+//         const formData = new FormData();
+//         const payload = {
+//             name: values.name,
+//             description: values.description,
+//             price: values.price,
+//             status: "AVAILABLE",
+//             damagedPolicy: values.damagedPolicy,
+//             returnPolicy: values.returnPolicy,
+//             startDate: startDate,
+//             endDate: endDate,
+//         };
+//         formData.append("form", JSON.stringify(payload));
+//             selectedImage.forEach((image: any) => {
+//             formData.append("images", {
+//                 uri: image.uri,
+//                 name: image.fileName ?? "image.jpg",
+//                 type: "image/jpeg",
+//             } as any);
+//             console.log(formData);
+//         });
 
-        formData.append("form", new Blob([JSON.stringify(payload)], {type: "application/json"}));
+//         try {
+//     const response = await fetch(`http://172.21.35.145:8080/api/v1/items`, {
+//       method: "POST",
+//       headers: {
+//         Accept: "application/json",
+//         Authorization: `Bearer ${accessToken}`, // ✅ 직접 붙이기
+//       },
+//       body: formData,
+//     });
+//          const result = await response.json();
+//          console.log(response);
+//     // console.log("result:", result);
+//     console.log("📩 status:", response.status);
 
-        selectedImage.forEach((image: any) => {
-            formData.append("images", {
-                filename: image.uri,
-                name: "images"
-            } as any);
-        });
+// // response.headers는 Headers 객체
+// for (const [key, value] of response.headers.entries()) {
+//   console.log(`📬 ${key}: ${value}`);
+// }
+//   } catch (err) {
+//     console.error("Submit error:", err);
+//   }
+// };
 
-        try {
-            // console.log(formData._parts);
-            const response = await axiosPost(`/api/v1/items`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                }
-            });
-            console.log("Response for handleSubmit: ", response);
-        }
-        catch(error) {
-            Alert.alert(`${error}`);
-            console.error(error);
-        }
+
+//     const handleSubmit = async () => {
+//         const formData = new FormData();
+//         const payload = {
+//             name: values.name,
+//             description: values.description,
+//             price: values.price,
+//             status: "AVAILABLE",
+//             damagedPolicy: values.damagedPolicy,
+//             returnPolicy: values.returnPolicy,
+//             startDate: startDate,
+//             endDate: endDate,
+//         };
+
+//         const jsonBlob = new Blob([JSON.stringify(payload)], {
+//             type: "application/json",
+//         });
+//         formData.append("form", jsonBlob, "form");
+//         // formData.append("form", new Blob([JSON.stringify(payload)], {type: "application/json"}));
+
+//         selectedImage.forEach((image: any) => {
+//             formData.append("images", {
+//                 uri: image.uri,
+//                 name: image.fileName ?? "image.jpg",
+//                 type: image.type ?? "image/jpeg",
+//             } as any);
+//         });
+
+//         try {
+//             console.log(formData._parts);
+//             const response = await axiosPost(`/api/v1/items`, formData, {
+//             //     headers: {
+//             //         "Content-Type": "multipart/form-data",
+//             //     }
+//           transformRequest: (data, headers) => data,
+//     // return data;
+// //   }    
+//         });
+//             console.log("Response for handleSubmit: ", response);
+//         }
+//         catch(error) {
+//             Alert.alert(`${error}`);
+//             console.error(error);
+//         }
+//     }
+
+const handleSubmit = async () => {
+    const formData = new FormData();
+    const payload = {
+        name: values.name,
+        description: values.description,
+        price: parseInt(values.price),
+        status: "AVAILABLE",
+        damagedPolicy: values.damagedPolicy,
+        returnPolicy: values.returnPolicy,
+        startDate: startDate? `${new Date(startDate).toISOString().split('.')[0]}` : `${new Date().toISOString().split('.')[0]}`,
+        endDate: endDate? `${new Date(endDate).toISOString().split('.')[0]}` : `${new Date().toISOString().split('.')[0]}`,
+    };
+
+    formData.append("form", JSON.stringify(payload));
+      formData.append("name", payload.name);
+        formData.append("description", payload.description);
+        formData.append("price", String(payload.price));
+        formData.append("status", "AVAILABLE");
+        formData.append("startDate", payload.startDate); // ISO 문자열
+        formData.append("endDate", payload.endDate);
+        formData.append("damagedPolicy", payload.damagedPolicy);
+        formData.append("returnPolicy", payload.returnPolicy);
+        formData.append("damagedDescription", "asdf");
+
+    selectedImage.forEach((image: any) => {
+        formData.append("images", {
+            uri: image.uri,
+            name: image.fileName ?? "image.jpg",
+            type: image.type ?? "image/jpeg",
+        } as any);
+    });
+
+    try {
+        console.log(formData._parts);
+        const response = await axiosPost(`/api/v1/items`, formData);
+        console.log("Response for handleSubmit: ", response);
+    } catch (error) {
+        Alert.alert(`${error}`);
+        console.error(error);
     }
+};
     
     const handleDateSelect = async () => {
         const { result: { startDate, endDate } } = await openBottomSheet("dateSelector");
