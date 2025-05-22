@@ -35,7 +35,7 @@ const BaseBottomSheet = () => {
         <ButtonBar>
             {(prevCallback && nextCallback) ? (
                 <>
-                <Button type="primary" onPress={() => prevCallback?.()}>
+                <Button type="secondary" onPress={() => prevCallback?.()}>
                     이전
                 </Button>
                 <Button type="primary" onPress={() => nextCallback?.()}>

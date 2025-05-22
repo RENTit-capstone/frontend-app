@@ -12,7 +12,6 @@ import ImageGallery from "@/components/items/ImageGallery";
 import useToast from "@/hooks/useToast";
 import useAuthStore from "@/stores/useAuthStore";
 import { ActivityIndicator } from "react-native";
-import { isLoading } from "expo-font";
 
 const Postings = () => {
     const { id } = useLocalSearchParams<{id: string}>();
@@ -44,7 +43,7 @@ const Postings = () => {
         try {
             const payload = {
                 "itemId": parseInt(id),
-                "ownerId": data?.memberId,
+                "ownerId": data?.owner.memberId,
                 "renterId": userId,
                 "startDate": startDate, //ISOstring으로 변경
                 "dueDate": endDate,
@@ -73,9 +72,7 @@ const Postings = () => {
             <BottomScrollSheet snapPointList={["50%", "60%", "70%", "80%"]}>
                 <ItemDetails
                     itemId={data.itemId}
-                    memberId={data.memberId}    //소유자 ID
-                    profileImg={data.profileImg}
-                    nickname={data.nickname}
+                    owner={data.owner}
                     name={data.name}
                     imageUrls={data.imageUrls} 
                     description={data.description}

@@ -8,7 +8,7 @@ import formatISOToDate from "@/utils/formatDate";
 
 
 const ItemDetails = (props: ItemDetailsProp) => {
-    const { itemId, profileImg, nickname, name, imageUrls, description, damagedDescription, price, status, 
+    const { itemId, owner, name, imageUrls, description, damagedDescription, price, status, 
             damagedPolicy, returnPolicy, startDate, endDate, createdAt, updatedAt } = props;
 
     return (
@@ -17,7 +17,7 @@ const ItemDetails = (props: ItemDetailsProp) => {
                 <View style={[Common.textWrapper, itemList.detailsHeader]}>
                     <View style={[Common.textWrapper, itemList.detailsHeader]}>
                         <Avatar /> 
-                        <Text>판매자 {nickname}</Text>    
+                        <Text>판매자 {owner.nickname}</Text>    
                     </View>
                     <View style={[Common.textWrapper, {gap: 3}]}>
                     </View>

@@ -92,9 +92,6 @@ export type ItemStatusType = "AVAILABLE" | "OUT";
 
 export type ItemDetailsProp = {
     itemId: number,
-    memberId: number,
-    profileImg: string,
-    nickname: string, 
     name: string
     imageUrls: string[], 
     description: string,
@@ -107,6 +104,12 @@ export type ItemDetailsProp = {
     endDate: string,
     createdAt: string,
     updatedAt: string,
+    owner: {
+        memberId: number,
+        nickname: string,
+        profileImg: string,
+        university: string,
+    }
 }
 
 export type PostingType = {

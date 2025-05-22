@@ -5,8 +5,8 @@ export type RequestPhaseType = "viewing" | "dateSelecting" | "policyConsenting" 
 type RequestType = {
     phase: RequestPhaseType,
     // storedId: string | string[] | undefined,
-    startDate: string | null,
-    endDate: string | null,
+    startDate: Date | null,
+    endDate: Date | null,
     flawPolicyChecked: boolean,
     damagePolicyChecked: boolean,
     setPhase: (nextPhase: RequestPhaseType) => void,
@@ -29,8 +29,8 @@ const useRequestStore = create<RequestType>()(
 
         setPhase: (nextPhase) => set({ phase: nextPhase }),
         // setStoredId: (storedId) => set({ storedId }),
-        setStartDate: (startDate) => set({ startDate }),
-        setEndDate: (endDate) => set({ endDate }),
+        setStartDate: (startDate) => startDate && set({ startDate: new Date(startDate) }),
+        setEndDate: (endDate) => endDate && set({ endDate: new Date(endDate) }),
         setFlawPolicyChecked: (checked) => set({ flawPolicyChecked: checked }),
         setDamagePolicyChecked: (checked) => set({ damagePolicyChecked: checked }),
         clearRecord: () => set({phase: "viewing", startDate: undefined, endDate: undefined, flawPolicyChecked: false, damagePolicyChecked: false}),
