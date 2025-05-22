@@ -1,33 +1,33 @@
-import { ScrollView, View } from "react-native";
+import { Alert, ScrollView, Text, View } from "react-native";
 import AccordionCard from "./AccordionCard";
-import { AccordionCardProps, MineCardProps } from "@/types/types";
+import { AccordionCardProps, AccordionContainerProps, historyType, MineCardProps } from "@/types/types";
 import { itemList } from "@/styles/components/itemList";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { axiosGet } from "@/api";
 import useUrl from "@/hooks/useUrl";
+import { Common } from "@/styles/common";
 
-const AccordionCardContainer = () => {
-    const [page, setPage] = useState(0);
+const AccordionCardContainer = (props: AccordionContainerProps) => {
+    const {type} = props;
+    const page = useRef(0);
     const [data, setData] = useState<AccordionCardProps[]>([]);
-    const [mine, setMine] = useState<MineCardProps[]>([]);
 
     useEffect(() => {
-        fetchHistory();
-        fetchMine();
+        type==="OTHERS" ? fetchHistory() : fetchMine();
+        page.current = 0;
     }, []);
     
     const fetchMine = async () => {
         try {
             const response = await axiosGet(`/api/v1/members/me`);
-            console.log("Mine: ", response.data.ownedRentals);
-            setMine(response.data.ownedRentals);
-            
+            setData(response.data.ownedRentals);   
+            page.current++;    
         }
         catch (error) {
+            Alert.alert(`${error}`);
             console.error(error);
         }
     }
-
 
     const fetchHistory = async () => {
         const params = useUrl({
@@ -38,10 +38,11 @@ const AccordionCardContainer = () => {
         });
         try {
             const response = await axiosGet(`/api/v1/rentals?${params}`);
-            setPage(response.data.pageable.pageNumber+1);
             setData(response.data.content);
+            page.current++;
         }
         catch (error) {
+            Alert.alert(`${error}`);
             console.error(error);
         }
     }
@@ -61,25 +62,13 @@ const AccordionCardContainer = () => {
 
     return (
         <ScrollView>
-            <View style={itemList.listContainer}>
-                {mine.map((item: MineCardProps) => {
+            <View style={[itemList.listContainer, {paddingBottom: 64}]}>
+            {data && data.length>0?
+            data.map((item: AccordionCardProps) => {
                 return(
                     <>
                     <AccordionCard 
-                        type={"mine"}
-                        key={item.rentalId}
-                        rentalId={item.rentalId}
-                        itemId={item.itemId ?? 0}
-                        requestDate={item.requestDate}
-                        status={item.status}
-                    />
-                    <View style={[itemList.rowDivider, {marginBottom: 16}]} />
-                    </>
-            )})}
-            {data.map((item: AccordionCardProps) => {
-                return(
-                    <>
-                    <AccordionCard 
+                        type={type}
                         key={item.rentalId}
                         rentalId={item.rentalId}
                         itemId={item.itemId}
@@ -88,7 +77,11 @@ const AccordionCardContainer = () => {
                     />
                     <View style={[itemList.rowDivider, {marginBottom: 16}]} />
                     </>
-            )})}
+                )}) : 
+                <View style={[Common.wrapper, {backgroundColor: "white", alignItems: "center"}]}>
+                    <Text>표시할 데이터가 없습니다.</Text>
+                </View>        
+                }
             </View>
         </ScrollView>
     );

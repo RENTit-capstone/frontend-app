@@ -51,7 +51,7 @@ const AccordionCard = (props: AccordionCardProps) => {
     }
     let action, buttonText, description;
     
-    if (type==='mine') {
+    if (type==="MINE") {
         ({ action, buttonText, description } = determineMineAction({
             id: rentalId,
             rentalStatus: status,
