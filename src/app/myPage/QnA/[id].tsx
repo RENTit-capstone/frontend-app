@@ -35,7 +35,7 @@ const QnAPosting = () => {
         }
     }
     
-    if (!data)  return <Text>표시할 데이터가 없습니다.</Text>
+    if (!data)  return;
 
     return (
         <View style={[Common.container, Common.wrapper]}>
