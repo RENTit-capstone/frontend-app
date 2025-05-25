@@ -1,11 +1,11 @@
 import { axiosPost } from "@/api";
 import useAuthStore from "@/stores/useAuthStore";
 import { Alert, ScrollView, Text, View } from "react-native";
-import KeyboardAvoidingView from "../KeyboardAvoidingView";
+import KeyboardAvoidingView from "../../../components/KeyboardAvoidingView";
 import { useState } from "react";
 import { Common } from "@/styles/common";
-import TextInput from "../TextInput";
-import Button from "../Button";
+import TextInput from "../../../components/TextInput";
+import Button from "../../../components/Button";
 import { useRouter } from "expo-router";
 
 const NewQnA = () => {

@@ -134,4 +134,4 @@ export type PostingType = {
 }
 
 export type QnAType = "SERVICE" | "REPORT";
-export type QnAProcessedType = "PROCESSED" | "NOTPROCEESSED";
+export type QnAProcessedType = "PROCESSED" | "NOTPROCESSED";
