@@ -225,7 +225,6 @@ const handleSubmit = async () => {
                 handleChangeText={handleChange("description")}
                 value={values.description}
                 multiline={true}
-                style={[Common.textArea, {height: 128}]}
             />
             <TextInput 
                 label="파손정책" 
@@ -233,7 +232,7 @@ const handleSubmit = async () => {
                 handleChangeText={handleChange("damagedPolicy")}
                 value={values.damagedPolicy}
                 multiline={true}
-                style={[Common.textArea, {height: 64}]}
+                style={[{height: 64}]}
             />
             <TextInput 
                 label="반납정책" 
@@ -241,7 +240,7 @@ const handleSubmit = async () => {
                 handleChangeText={handleChange("returnPolicy")}
                 value={values.returnPolicy}
                 multiline={true}
-                style={[Common.textArea, {height: 64}]}
+                style={[{height: 64}]}
             />
             <View style={[Common.fullScreen]}>
                 <Text>대여 가능 기간</Text>

@@ -31,7 +31,7 @@ const TextInput = (props: TextInputProps) => {
 
                 autoCorrect={false}
                 autoCapitalize="none"
-                style={[Common.textInput, style]}
+                style={[Common.textInput, style, multiline && Common.textArea]}
             />
             {errorMsg?.length>0 && <Text style={[Common.errorMsg, TextThemes.error]}>{errorMsg}</Text>}
         </View>
