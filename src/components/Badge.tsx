@@ -1,6 +1,6 @@
 import { Common } from "@/styles/common"
 import { View, Text } from "react-native"
-import { ItemStatusType, RentalStatusType } from "@/types/types";
+import { ItemStatusType, QnAProcessedType, RentalStatusType } from "@/types/types";
 import Colors from "@/constants/Colors";
 
 type BadgeType = {
