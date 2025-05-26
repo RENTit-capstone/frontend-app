@@ -34,6 +34,9 @@ const QnAPosting = () => {
             console.error(error);
         }
     }
+    useEffect(() => {
+        fetchQnAPosting();
+    })
     
     if (!data)  return;
 

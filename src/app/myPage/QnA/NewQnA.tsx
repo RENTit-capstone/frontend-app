@@ -69,7 +69,7 @@ const NewQnA = () => {
                 <TextInput 
                     label="내용" 
                     name="content"
-                    handleChangeText={handleChange("description")}
+                    handleChangeText={handleChange("content")}
                     value={form.content}
                     multiline={true}
                     style={[Common.textArea, {height: 256}]}
