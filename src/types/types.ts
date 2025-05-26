@@ -132,3 +132,6 @@ export type PostingType = {
     damagedPolicy: string,
     returnPolicy: string,
 }
+
+export type QnAType = "SERVICE" | "REPORT";
+export type QnAProcessedType = "PROCESSED" | "NOTPROCESSED";

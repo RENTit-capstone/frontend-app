@@ -22,12 +22,10 @@ const AccordionCard = (props: AccordionCardProps) => {
     const router = useRouter();
 
     useEffect(() => {
-        console.log("Status: ", status);
         const fetchItemDetails = async () => {
             try {
                 const response = await axiosGet(`/api/v1/items/${itemId}`);
                 setItemDetails(response.data);
-                // console.log(response.data);
             } 
             catch (error) {
                 console.error(error);
@@ -41,7 +39,6 @@ const AccordionCard = (props: AccordionCardProps) => {
         if (isOpened)   return;
         try { 
             const response = await axiosGet(`/api/v1/rentals/${rentalId}`);
-            console.log("Response for fetchDetails: ", response.data);
             setDetails(response.data);
             setIsOpened(!isOpened);
         }

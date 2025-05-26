@@ -58,13 +58,13 @@ const ListContainer = (props: ListContainerProps) => {
         }));
     };
 
+    if (!data)  return;
+
     return (
         <>
             <SearchGroup onChange={handleChangeOptions}/>
             <View style={{paddingBottom: 64}}>
-            {data.length>0 ? (
-                data.map((item: ListItemProps, index:number) => {
-                return (
+                {data.map((item: ListItemProps, index:number) => (
                 <View key={index} style={itemList.listContainer}>
                     <ListItem 
                         itemId={item.itemId}
@@ -78,12 +78,7 @@ const ListContainer = (props: ListContainerProps) => {
                     />
                     <View style={[itemList.rowDivider, {marginTop: 10}]} />
                 </View>
-            )})) : (
-                <View style={[Common.wrapper, {backgroundColor: "white", alignItems: "center"}]}>
-                    <Text>표시할 데이터가 없습니다.</Text>
-                </View>
-            )
-        }
+                ))}
         </View>
         </>
     )

@@ -174,6 +174,7 @@ export const Common = StyleSheet.create({
     },
     textArea: {
         textAlignVertical: "top",
+        height: 128,
     },
     floatingIcon: {
         position: "absolute",

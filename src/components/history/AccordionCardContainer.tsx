@@ -60,28 +60,24 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
     //     }
     // }
 
+    if (!data)  return;
+
     return (
         <ScrollView>
             <View style={[itemList.listContainer, {paddingBottom: 64}]}>
-            {data && data.length>0?
-            data.map((item: AccordionCardProps) => {
-                return(
-                    <>
-                    <AccordionCard 
-                        type={type}
-                        key={item.rentalId}
-                        rentalId={item.rentalId}
-                        itemId={item.itemId}
-                        requestDate={item.requestDate}
-                        status={item.status}
-                    />
-                    <View style={[itemList.rowDivider, {marginBottom: 16}]} />
-                    </>
-                )}) : 
-                <View style={[Common.wrapper, {backgroundColor: "white", alignItems: "center"}]}>
-                    <Text>표시할 데이터가 없습니다.</Text>
-                </View>        
-                }
+            {data.map((item: AccordionCardProps) => (
+                <>
+                <AccordionCard 
+                    type={type}
+                    key={item.rentalId}
+                    rentalId={item.rentalId}
+                    itemId={item.itemId}
+                    requestDate={item.requestDate}
+                    status={item.status}
+                />
+                <View style={[itemList.rowDivider, {marginBottom: 16}]} />
+                </>
+                ))}
             </View>
         </ScrollView>
     );
