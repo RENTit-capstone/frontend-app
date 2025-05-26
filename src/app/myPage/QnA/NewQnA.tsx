@@ -59,7 +59,7 @@ const NewQnA = () => {
     return (
         <KeyboardAvoidingView>
             <ScrollView style={Common.wrapper}>
-                <Text>문의 작성</Text>
+                <Text style={[Common.bold, {alignSelf: "center", marginVertical: 16}]}>문의 작성</Text>
                 <TextInput 
                     label="제목"
                     name="title"
@@ -72,7 +72,7 @@ const NewQnA = () => {
                     handleChangeText={handleChange("description")}
                     value={form.content}
                     multiline={true}
-                    style={[Common.textArea, {height: 128}]}
+                    style={[Common.textArea, {height: 256}]}
                 />
 
                 <View style={Common.XStack}>
