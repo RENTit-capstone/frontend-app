@@ -85,3 +85,11 @@ export const axiosPost = async (url: string, payload?: any, headerOption?: any) 
     }
     return res.data;
 }
+
+export const axiosPut = async (url: string) => {
+    const res = await axiosInstance.put(url);
+    if (!res.data.success) {
+        throw new Error(res.data.message);
+    }
+    return res.data;
+}
