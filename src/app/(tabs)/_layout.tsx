@@ -22,6 +22,12 @@ const TabLayout = () => {
                         title: "히스토리",
                     }}
                 />
+                <Tabs.Screen
+                    name="mypage"
+                    options={{
+                        title: "마이페이지",
+                    }}
+                />
             </Tabs>
         </View>
     );

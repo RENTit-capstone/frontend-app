@@ -4,7 +4,9 @@ import HomeWhite from "@/assets/images/home-white.svg";
 import HomeFocused from "@/assets/images/home-focused.svg";
 import HistoryWhite from "@/assets/images/history-white.svg";
 import HistoryFocused from "@/assets/images/history-focused.svg";
-import { ReactElement } from "react";
+import MyPageFocused from "@/assets/images/user-focused.svg";
+import MyPageWhite from "@/assets/images/user-white.svg";
+
 import Colors from "@/constants/Colors";
 import { Common } from "@/styles/common";
 
@@ -18,6 +20,8 @@ const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
         itemListUnfocused: <HomeFocused />,
         historyFocused: <HistoryWhite />,
         historyUnfocused: <HistoryFocused />,
+        mypageFocused: <MyPageWhite />,
+        mypageUnfocused: <MyPageFocused />
     };
 
     return (
@@ -34,7 +38,6 @@ const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
         if(["_sitemap", "+not-found"].includes(route.name)) return null;
 
         const isFocused = state.index === index;
-        const iconKey = `${route.name}${isFocused ? 'Focused' : 'Unfocused'}`;
 
         const onPress = () => {
         const event = navigation.emit({
