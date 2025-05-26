@@ -1,5 +1,7 @@
+import { axiosPost } from "@/api";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
+import * as SecureStorage from "expo-secure-store";
 import { useEffect, useRef } from "react";
 import { Platform } from "react-native";
 
@@ -7,13 +9,14 @@ const useNotification = () => {
     const notificationListener = useRef<any>(null);
     const responseListener = useRef<any>(null);
 
-
     useEffect(() => {
-        registerForPushNotificationAsync().then(token => {
+        const initNotification = async () => {
+            const token = await registerForPushNotificationAsync();
             console.log("Push Token: ", token);
-                //토큰 백엔드로 전송
-        });
+            token && await registerPushToken(token);
+        }
 
+        initNotification();
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
             console.log("Foreground Notification: ", notification);
         });
@@ -27,6 +30,15 @@ const useNotification = () => {
             Notifications.removeNotificationSubscription(responseListener.current);
         };
     }, []);
+
+    const registerPushToken = async (token: string) => {
+        const storedToken = await SecureStorage.getItemAsync("expoPushToken");
+
+        if (storedToken !== token) {
+            await axiosPost(`/api/v1/device-token`, {token});
+            await SecureStorage.setItemAsync("expoPushToken", token);
+        }
+    }
 
     const registerForPushNotificationAsync = async () => {
         let token;
