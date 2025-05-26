@@ -21,7 +21,7 @@ const Header = () => {
                     <SearchIcon />
                 </Pressable>
                 <Pressable>
-                    <Notification />
+                    <Notification onPress={() => router.push("/notification")}/>
                 </Pressable>
                 <Pressable>
                     <Avatar />
