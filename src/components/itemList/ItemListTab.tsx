@@ -9,14 +9,14 @@ const ItemListTab = () => {
 
   const IndividualRoute = () => (
     <ScrollView style={Common.container}>
-      <ListContainer type={"individual"}/>
+      <ListContainer type={"INDIVIDUAL"}/>
     </ScrollView>
     
   );
   
   const GroupRoute = () => (
     <ScrollView style={Common.container}>
-      <ListContainer type={"group"}/>
+      <ListContainer type={"GROUP"}/>
     </ScrollView>
   );
   
@@ -32,7 +32,6 @@ const ItemListTab = () => {
     { key: 'individual', title: '개인' },
     { key: 'group', title: '단체' },
   ]);
-  console.log("layout width:", layout.width);
   return (
     <TabView
       navigationState={{ index, routes }}

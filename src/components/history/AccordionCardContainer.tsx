@@ -1,159 +1,83 @@
-import { ScrollView, View } from "react-native";
+import { Alert, ScrollView, Text, View } from "react-native";
 import AccordionCard from "./AccordionCard";
-import {AccordionCardProps, AccordionContainerType, ActionType, RentalDetailsType, StatusType} from "@/types/types";
+import { AccordionCardProps, AccordionContainerProps, historyType, MineCardProps } from "@/types/types";
 import { itemList } from "@/styles/components/itemList";
-import { useEffect, useState } from "react";
-import { useRouter } from "expo-router";
-import { axiosGet, axiosPost } from "@/api";
-import { generateUrl } from "@/utils/generateUrl";
+import { useEffect, useRef, useState } from "react";
+import { axiosGet } from "@/api";
+import useUrl from "@/hooks/useUrl";
+import { Common } from "@/styles/common";
 
-const sampleList2: AccordionContainerType[] = [
-    {
-        id: 0,
-        title: "asdf",
-        img: "undefined",
-        available: false,
-        price: 2000,
-        period: 3,
-        messages: 1,
-        likes: 0,
-        status: "inRent",
-    },
-    {
-        id: 2,
-        title: "asdf",
-        img: "undefined",
-        available: false,
-        price: 2000,
-        period: 3,
-        messages: 1,
-        likes: 0,
-        status: "pending",
-    },
-    {
-        id: 3,
-        title: "asdf",
-        img: "undefined",
-        available: false,
-        price: 2000,
-        period: 3,
-        messages: 1,
-        likes: 0,
-        status: "returned",
-    },
-]
-
-const AccordionCardContainer = () => {
-    const router = useRouter();
+const AccordionCardContainer = (props: AccordionContainerProps) => {
+    const {type} = props;
+    const page = useRef(0);
     const [data, setData] = useState<AccordionCardProps[]>([]);
 
     useEffect(() => {
-        fetchHistory();
+        type==="OTHERS" ? fetchHistory() : fetchMine();
+        page.current = 0;
     }, []);
+    
+    const fetchMine = async () => {
+        try {
+            const response = await axiosGet(`/api/v1/members/me`);
+            setData(response.data.ownedRentals);   
+            page.current++;    
+        }
+        catch (error) {
+            Alert.alert(`${error}`);
+            console.error(error);
+        }
+    }
 
     const fetchHistory = async () => {
-        const params = generateUrl();
+        const params = useUrl({
+            stautses: ["REQUESTED", "APPROVED"],
+            page: 0,
+            size: 20,
+            sort: ["requestDate", "desc"],
+        });
         try {
             const response = await axiosGet(`/api/v1/rentals?${params}`);
-            console.log("Response for fetchHistory: ", response.data);
-            setData(response.data);
+            setData(response.data.content);
+            page.current++;
         }
-        catch(error) {
+        catch (error) {
+            Alert.alert(`${error}`);
             console.error(error);
         }
     }
 
-    const fetchDetails = async (itemId: number) => {
-        try { 
-            const response = await axiosGet(`/api/v1/rentals/${itemId}`);
-            const details: RentalDetailsType = response.data;
-            console.log("Response for fetchDetails: ", details);
-            return details || ["detials"];    // "details" -> dummy
-        }
-        catch(error) {
-            console.error(error);
-        }   
-    }
+    // 히스토리가 아니라 나의 물품에서 실행
+    // const submitApprove = async (rentalId: number, isApproved: boolean=false) => {
+    //     const approvement = isApproved? "approve" : "reject";
+    //     try {
+    //         const response = await axiosPost(`/api/v1/rentals/${rentalId}/${approvement}`);
+    //         console.log("Response for submitApprovee: ", response.data);
+    //         // TODO: button 비활성화로 만들고 toastMessage 띄우기
+    //     }
+    //     catch(error) {
+    //         console.error(error);
+    //     }
+    // }
 
-    const submitApprove = async (itemId: number, isApproved: boolean=false) => {
-        const approvement = isApproved? "approve" : "reject";
-        try {
-            const response = await axiosPost(`/api/v1/rentals/${itemId}/${approvement}`);
-            console.log("Response for submitApprovee: ", response.data);
-            // TODO: button 비활성화로 만들고 toastMessage 띄우기
-        }
-        catch(error) {
-            console.error(error);
-        }
-    }
-
-    const handleReturn = () => {
-        router.navigate("/myPage/otp");
-        console.log("반납");
-    }
-
-    const handleWriteReview = () => {
-        console.log("후기작성");
-    }
-
-    const handleUnknownAction = () => {
-        console.log("unknown action");
-    }
-
-    const determineAction = (status: StatusType) => {
-        if (status==="pending")         
-            return {
-                actions: ["approve", "disapprove"] as ActionType[],
-                actionName: ["승인", "거절"], 
-                handler: submitApprove,
-            };
-        else if (status==="inRent")     
-            return {
-                actions: ["return"] as ActionType[], 
-                actionName: ["반납하기"], 
-                handler: handleReturn
-            };
-        else if (status==="returned")   
-            return {
-                actions: ["writeReview"] as ActionType[], 
-                actionName: ["후기작성"], 
-                handler: handleWriteReview
-            };
-        else                            
-            return {
-                actions: undefined, 
-                actionName: ["null"], 
-                handler: handleUnknownAction
-            };
-    }
+    if (!data)  return;
 
     return (
         <ScrollView>
-            <View style={itemList.listContainer}>
-            {sampleList2.map((item: AccordionContainerType) => {
-                const actionByStatus = determineAction(item.status);
-
-                return(
+            <View style={[itemList.listContainer, {paddingBottom: 64}]}>
+            {data.map((item: AccordionCardProps) => (
+                <>
                 <AccordionCard 
-                    key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    img={item.img}
-                    available={item.available}
-                    price={item.price}
-                    period={item.period}
-                    messages={item.messages}
-                    likes={item.likes}
-
+                    type={type}
+                    key={item.rentalId}
+                    rentalId={item.rentalId}
+                    itemId={item.itemId}
+                    requestDate={item.requestDate}
                     status={item.status}
-
-                    actions={actionByStatus.actions}
-                    actionNames={actionByStatus.actionName}
-                    getDetails={fetchDetails}
-                    handleAction={actionByStatus.handler}
                 />
-            )})}
-            <View style={[itemList.rowDivider]} />
+                <View style={[itemList.rowDivider, {marginBottom: 16}]} />
+                </>
+                ))}
             </View>
         </ScrollView>
     );

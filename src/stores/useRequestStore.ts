@@ -1,38 +1,56 @@
 import { create } from "zustand"
 
-type RequestPhaseType = "viewing" | "periodSetting" | "consenting" | "applying";
+export type RequestPhaseType = "viewing" | "dateSelecting" | "policyConsenting" | "applying";
 
 type RequestType = {
     phase: RequestPhaseType,
-    storedId: string | string[] | undefined,
-    // openCalendar: boolean,
-    startDate: string | undefined,
-    endDate: string | undefined,
-    checked: boolean | undefined,
-    // setOpenCalendar: (openCalendar: boolean) => void,
+    // storedId: string | string[] | undefined,
+    startDate: Date | null,
+    endDate: Date | null,
+
+    flawPolicyChecked: boolean,
+    damagePolicyChecked: boolean,
+    returnPolicyChecked: boolean,
+
+    userFlawPolicy: string,
+    userReturnPolicy: string,
+
     setPhase: (nextPhase: RequestPhaseType) => void,
-    setStoredId: (storedId: string | string[]) => void,
-    setStartDate: (startDate: string) => void,
-    setEndDate: (endDate: string) => void,
-    setChecked: (checked: boolean) => void,
+    // setStoredId: (storedId: string | string[]) => void,
+    setStartDate: (startDate: string | null) => void,
+    setEndDate: (endDate: string | null) => void,
+
+    setFlawPolicyChecked: (checked: boolean) => void,
+    setDamagePolicyChecked: (checked: boolean) => void,
+    setReturnPolicyCHecked: (checked: boolean) => void,
+
     clearRecord: () => void,
 }
 
 const useRequestStore = create<RequestType>()(
     (set, get) => ({
         phase: "viewing", 
-        storedId: undefined,
-        // openCalendar: false,
-        startDate: undefined,
-        endDate: undefined,
-        checked: undefined,
-        // setOpenCalendar: (openCalendar) => set({ openCalendar: !openCalendar }),
-        setPhase: (nextPhase) => set({ phase: nextPhase }), // 추후 nextPhase로 개선
-        setStoredId: (storedId) => set({ storedId }),
-        setStartDate: (startDate) => set({ startDate }),
-        setEndDate: (endDate) => set({ endDate }),
-        setChecked: (checked) => set({ checked }),
-        clearRecord: () => set({storedId: undefined, startDate: undefined, endDate: undefined, checked: undefined}),
+        // storedId: undefined,
+        startDate: null,
+        endDate: null,
+
+        flawPolicyChecked: false,
+        damagePolicyChecked: false,
+        returnPolicyChecked: false,
+
+        userFlawPolicy: "",
+        userReturnPolicy: "",
+
+        setPhase: (nextPhase) => set({ phase: nextPhase }),
+        // setStoredId: (storedId) => set({ storedId }),
+        setStartDate: (startDate) => startDate && set({ startDate: new Date(startDate) }),
+        setEndDate: (endDate) => endDate && set({ endDate: new Date(endDate) }),
+        
+        setFlawPolicyChecked: (checked) => set({ flawPolicyChecked: checked }),
+        setDamagePolicyChecked: (checked) => set({ damagePolicyChecked: checked }),
+        setReturnPolicyCHecked: (checked) => set({returnPolicyChecked: checked}),
+
+        clearRecord: () => set({phase: "viewing", startDate: undefined, endDate: undefined, flawPolicyChecked: false, damagePolicyChecked: false}),
     })
 )
 

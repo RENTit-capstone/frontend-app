@@ -1,11 +1,12 @@
 import { Text, View } from "react-native";
-import { useState } from "react";
 import Button from "../Button";
 import TextInput from "../TextInput";
 import { useSignupVerificationStore } from "@/stores/useSignupVerificationStore";
+import { Common } from "@/styles/common";
 
 const EmailInfoScreen = (props: any) => {
-    const {values, errors, handleChange} = props;
+    const {validate} = props;
+    const {values, errors, handleChange} = validate;
     const {emailCodeSent, sendCode, verifyCode} = useSignupVerificationStore();
     
     const handleSendCode = async () => {
@@ -35,49 +36,55 @@ const EmailInfoScreen = (props: any) => {
             <TextInput 
                 label="학교" 
                 name="university"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("university")}
                 value={values.university}
                 errorMsg={errors.university}
             />
             <TextInput 
                 label="학번" 
                 name="studentId"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("studentId")}
                 value={values.studentId}
                 errorMsg={errors.studentId}
             />   
             <TextInput 
                 label="이메일" 
                 name="email"
-                handleChangeText={handleChange}
+                handleChangeText={handleChange("email")}
                 value={values.email}
                 keyboardType="email-address"
                 placeholder="email@email.com"
                 errorMsg={errors.email}
             />
-            <Button 
-                type="primary" 
-                onPress={handleSendCode} 
-                disabled={!(values.email.length>3) || !!errors.email}
-            >
-                전송
-            </Button>
+            
+            <View style={Common.XStack}>
+                <Button 
+                    type="primary" 
+                    onPress={handleSendCode} 
+                    disabled={!(values.email.length>3) || !!errors.email}
+                >
+                    전송
+                </Button>
+            </View>
+
             {emailCodeSent &&
             <>
-            <Text>{`${values.email}로 확인 코드가 전송되었습니다.`}</Text>
                 <TextInput
                     label="이메일 인증 코드"
                     name="emailVerifyCode"
-                    handleChangeText={handleChange}
+                    handleChangeText={handleChange("emailVerifyCode")}
                     value={values.emailVerifyCode}
-                />   
-                <Button 
-                    type="primary" 
-                    onPress={handleVerifyCode} 
-                    disabled={!(values.email.length>3) || !!errors.email}
-                >
-                    확인
-                </Button>
+                />
+                <Text>{`${values.email}로 확인 코드가 전송되었습니다.`}</Text>
+                <View style={Common.XStack}>
+                    <Button 
+                        type="primary" 
+                        onPress={handleVerifyCode} 
+                        disabled={!(values.email.length>3) || !!errors.email}
+                    >
+                        확인
+                    </Button>
+                </View>
             </>
             }
         </> 

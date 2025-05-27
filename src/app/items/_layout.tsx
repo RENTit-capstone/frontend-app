@@ -12,6 +12,12 @@ const ItemLayout = () => {
                 title: "item"
             }}
         />
+        <Stack.Screen
+            name="new"
+            options={{
+                title: "물품 등록"
+            }}
+        />
     </Stack>
     </>
     );

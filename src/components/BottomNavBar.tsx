@@ -1,7 +1,12 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import Home from "@/assets/images/home.svg";
-import { ReactElement } from "react";
+import HomeWhite from "@/assets/images/home-white.svg";
+import HomeFocused from "@/assets/images/home-focused.svg";
+import HistoryWhite from "@/assets/images/history-white.svg";
+import HistoryFocused from "@/assets/images/history-focused.svg";
+import MyPageFocused from "@/assets/images/user-focused.svg";
+import MyPageWhite from "@/assets/images/user-white.svg";
+
 import Colors from "@/constants/Colors";
 import { Common } from "@/styles/common";
 
@@ -10,13 +15,17 @@ const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
     const secondaryColor = Colors.secondary;
     const whiteColor = Colors.white;
 
-    const icons: Record<string, (props: { color: string} ) => ReactElement> = {
-        itemList: ({ color }) => <Home color={whiteColor} />,
-        history: ({ color }) => <Home color={"#ccc"} />
-    }
-    
+    const icons = {
+        itemListFocused: <HomeWhite />,
+        itemListUnfocused: <HomeFocused />,
+        historyFocused: <HistoryWhite />,
+        historyUnfocused: <HistoryFocused />,
+        mypageFocused: <MyPageWhite />,
+        mypageUnfocused: <MyPageFocused />
+    };
+
     return (
-        <View style={Common.bottomBar}>
+        <View style={[Common.bottomBar, Common.upperShadow]}>
             {state.routes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
@@ -52,15 +61,10 @@ const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
                 testID={options.tabBarButtonTestID}
                 onPress={onPress}
             >
-                <>
-                    {console.log(route.name)}
-                </>
                 {
-                    icons[route.name]({
-                        color: isFocused? whiteColor : primaryColor,
-                    })
-                }
-                <Text style={{ color: isFocused ? whiteColor : primaryColor }}>
+                    icons[`${route.name}${isFocused ? 'Focused' : 'Unfocused'}` as keyof typeof icons]
+                }    
+                <Text style={{ color: isFocused ? whiteColor : primaryColor, fontSize: 16 }}>
                     {`${label}`}
                 </Text>
             </TouchableOpacity>

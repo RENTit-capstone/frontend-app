@@ -1,7 +1,7 @@
 import { SignupInputType } from "@/types/types";
 import { useState } from "react";
 
-function useInput(initialValues: SignupInputType) {
+function useValidateInput(initialValues: SignupInputType) {
     const [values, setValues] = useState<SignupInputType>(initialValues);
     const [errors, setErrors] = useState<SignupInputType>(initialValues);
 
@@ -9,7 +9,7 @@ function useInput(initialValues: SignupInputType) {
     const emailRegex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     const phoneRegex = /\d{11}/;
 
-    const handleChange = (name: string, text: string) => {
+    const handleChange = (name: string) => (text: string) => {
         setValues(prev => ({ ...prev, [name]: text }));
         validateField(name, text);
     }
@@ -46,4 +46,4 @@ function useInput(initialValues: SignupInputType) {
     return {values, errors, handleChange, blockNext};
 
 }
-export default useInput;
+export default useValidateInput;

@@ -14,17 +14,3 @@ export const Colors = {
   blue: "#0038FF",
   brown: "#9F5A00",
 };
-
-export const Spacing = {
-  xs: 2,    
-  sm: 4,
-  md: 12,
-  lg: 16,
-  xl: 32,
-};
-
-export const Radius = {
-  sm: 4,
-  md: 8,
-  lg: 50,
-};
