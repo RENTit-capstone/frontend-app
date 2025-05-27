@@ -1,6 +1,4 @@
-import { useState } from 'react';
-
-function useUrl(params: object) {
+function generateUrl(params: object) {
     let query = '';
 
     for (const [key, value] of Object.entries(params)) {
@@ -17,4 +15,4 @@ function useUrl(params: object) {
     return query;
 }
 
-export default useUrl;
+export default generateUrl;

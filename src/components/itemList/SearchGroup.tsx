@@ -4,11 +4,11 @@ import { Common } from '@/styles/common';
 import { useState } from 'react';
 import Calendar from '@/assets/images/calendar.svg';
 import DownArrow from '@/assets/images/down-arrow.svg';
-import Colors from '@/constants/Colors';
 import TextInput from '../TextInput';
 import SearchIcon from '@/assets/images/search.svg';
 import formatISOToDate from '@/utils/formatDate';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
+import { Colors } from '@/styles/tokens';
 
 const SearchGroup = (props: any) => {
     const { onChange } = props;
@@ -34,7 +34,7 @@ const SearchGroup = (props: any) => {
     };
     const dateSelected = !!startDate && !!endDate;
     const priceSelected = !!startPrice && !!endPrice;
-    const selectedColor = Colors.out;
+    const selectedColor = Colors.brown;
     const dateLabel = dateSelected
         ? `${formatISOToDate(startDate)} ~ ${formatISOToDate(endDate)}`
         : '날짜 선택';

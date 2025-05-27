@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { ListItemProps, ListContainerProps } from '@/types/types';
 import ListItem from './ListItem';
 import { itemList } from '@/styles/components/itemList';
 import SearchGroup from './SearchGroup';
-import useUrl from '@/hooks/useUrl';
 import { axiosGet } from '@/api';
-import { Common } from '@/styles/common';
+import generateUrl from '@/utils/generateUrl';
 
 const ListContainer = (props: ListContainerProps) => {
     const { type } = props;
@@ -27,7 +26,7 @@ const ListContainer = (props: ListContainerProps) => {
 
     const fetchResult = async () => {
         const role = type === 'INDIVIDUAL' ? 'STUDENT' : ['COMPANY', 'COUNCIL'];
-        const params = useUrl({
+        const params = generateUrl({
             keyword: searchOptions.keyword || '',
             startDate: searchOptions.startDate
                 ? new Date(searchOptions.startDate).toISOString()
