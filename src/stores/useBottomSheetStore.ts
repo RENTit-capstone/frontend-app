@@ -1,9 +1,9 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 type ResultType = {
     none: void;
     dateSelector: { startDate: string | null; endDate: string | null };
-    policy: { flawPolicy: boolean, damagePolicy: boolean, returnPolicy: boolean };
+    policy: { flawPolicy: boolean; damagePolicy: boolean; returnPolicy: boolean };
     otp: void;
 };
 
@@ -15,10 +15,8 @@ type BottomSheetType = {
     prevCallback?: () => void;
     nextCallback?: () => void;
 
-    openBottomSheet: <T extends keyof ResultType> (
-        type:  T
-    ) => Promise<{result: ResultType[T]}>;
-    
+    openBottomSheet: <T extends keyof ResultType>(type: T) => Promise<{ result: ResultType[T] }>;
+
     cancelResult: () => void;
     submitResult: () => void;
     onPrev: (callback: () => void) => void;
@@ -27,34 +25,36 @@ type BottomSheetType = {
     clearCallbacks: () => void;
 };
 
-export const useBottomSheetStore = create<BottomSheetType>(
-    (set, get) => ({
-        visible: false,
-        type: "none",
-        result: null,
+export const useBottomSheetStore = create<BottomSheetType>((set, get) => ({
+    visible: false,
+    type: 'none',
+    result: null,
 
-        openBottomSheet: (type) => {
-            return new Promise((resolve) => {
-                set({ visible: true, type: type, resolve });
-            });
-        },
+    openBottomSheet: (type) => {
+        return new Promise((resolve) => {
+            set({ visible: true, type: type, resolve });
+        });
+    },
 
-        cancelResult: () => {
-            const {result, resolve} = get();
-            if (resolve)    resolve({result});
+    cancelResult: () => {
+        const { result, resolve } = get();
+        if (resolve) resolve({ result });
 
-            set({ visible: false, result: undefined, resolve: undefined});
-        },
-        submitResult: () => {
-            const {result, resolve} = get();
-            if (resolve)    resolve({result});
+        set({ visible: false, result: undefined, resolve: undefined });
+    },
+    submitResult: () => {
+        const { result, resolve } = get();
+        if (resolve) resolve({ result });
 
-            set({ visible: false, result: undefined, resolve: undefined});
-        },
-        
-        onPrev: (callback) => set({prevCallback: callback}),
-        onNext: (callback) => set({nextCallback: callback}),
+        set({ visible: false, result: undefined, resolve: undefined });
+    },
 
-        setResult: (result) => {console.log(result); set({result: result})},
-        clearCallbacks: () => set({ prevCallback: undefined, nextCallback: undefined }),
+    onPrev: (callback) => set({ prevCallback: callback }),
+    onNext: (callback) => set({ nextCallback: callback }),
+
+    setResult: (result) => {
+        console.log(result);
+        set({ result: result });
+    },
+    clearCallbacks: () => set({ prevCallback: undefined, nextCallback: undefined }),
 }));

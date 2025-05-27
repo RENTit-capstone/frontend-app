@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import Colors from "@/constants/Colors";
+import { StyleSheet } from 'react-native';
+import Colors from '@/constants/Colors';
 
 export const ViewThemes = StyleSheet.create({
     primary: {
@@ -13,8 +13,7 @@ export const ViewThemes = StyleSheet.create({
     option: {
         borderColor: Colors.option,
     },
-    error: {
-    },
+    error: {},
     transparent: {
         borderWidth: 0,
     },
@@ -23,7 +22,7 @@ export const ViewThemes = StyleSheet.create({
     },
     out: {
         borderColor: Colors.out,
-    }
+    },
 });
 
 export const TextThemes = StyleSheet.create({
@@ -42,11 +41,10 @@ export const TextThemes = StyleSheet.create({
     status: {
         color: Colors.status,
     },
-    transparent: {
-    }, 
+    transparent: {},
     statusRequest: {
         color: Colors.statusRequested,
-    }, 
+    },
     statusAccepted: {
         color: Colors.statusAccepted,
     },
@@ -58,6 +56,5 @@ export const TextThemes = StyleSheet.create({
     },
     out: {
         color: Colors.out,
-    }
-  
+    },
 });

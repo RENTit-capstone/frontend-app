@@ -1,19 +1,18 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 function useUrl(params: object) {
-    let query = "";
+    let query = '';
 
     for (const [key, value] of Object.entries(params)) {
-        if (key!=="sort" && typeof value === "object"){
+        if (key !== 'sort' && typeof value === 'object') {
             for (const item of value) {
-                query += `${key}=${item}&`
+                query += `${key}=${item}&`;
             }
-        }
-        else {  
+        } else {
             query += `${key}=${value}&`;
         }
     }
-    query = query.slice(0, -1); 
+    query = query.slice(0, -1);
 
     return query;
 }
