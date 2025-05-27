@@ -18,10 +18,10 @@ export const ViewThemes = StyleSheet.create({
         borderWidth: 0,
     },
     available: {
-        borderColor: Colors.available,
+        borderColor: Colors.navy,
     },
     out: {
-        borderColor: Colors.out,
+        borderColor: Colors.brown,
     },
 });
 
@@ -33,28 +33,29 @@ export const TextThemes = StyleSheet.create({
         color: Colors.primary,
     },
     option: {
-        color: Colors.optionText,
+        color: Colors.darkGray,
     },
     error: {
         color: Colors.error,
     },
     status: {
-        color: Colors.status,
+        color: Colors.black,
     },
     transparent: {},
     statusRequest: {
-        color: Colors.statusRequested,
+        color: Colors.navy,
     },
     statusAccepted: {
-        color: Colors.statusAccepted,
+        color: Colors.gray,
     },
     statusOverdue: {
-        color: Colors.statusOverdue,
+        color: Colors.red,
     },
     available: {
-        color: Colors.available,
+        color: Colors.navy,
     },
     out: {
-        color: Colors.out,
+        color: Colors.brown,
     },
 });
+
