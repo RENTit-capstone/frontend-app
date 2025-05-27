@@ -1,12 +1,12 @@
-import { View, Text, Alert } from "react-native"
-import Button from "../Button";
-import { Common } from "@/styles/common";
-import { myPage } from "@/styles/components/myPage";
-import { ViewThemes } from "@/styles/theme";
-import { itemList } from "@/styles/components/itemList";
-import { useEffect, useState } from "react";
-import { axiosPost } from "@/api";
-import Timer from "./Timer";
+import { View, Text, Alert } from 'react-native';
+import Button from '../Button';
+import { Common } from '@/styles/common';
+import { myPage } from '@/styles/components/myPage';
+import { ViewThemes } from '@/styles/theme';
+import { itemList } from '@/styles/components/itemList';
+import { useEffect, useState } from 'react';
+import { axiosPost } from '@/api';
+import Timer from './Timer';
 
 const OtpContianer = () => {
     const [otpCode, setOtpCode] = useState<string>();
@@ -18,17 +18,16 @@ const OtpContianer = () => {
 
     const generateOTP = async () => {
         try {
-            setResetKey(prev => prev+1);
+            setResetKey((prev) => prev + 1);
             const response = await axiosPost(`/api/v1/auth/otp`);
             console.log(response.data);
-            
+
             setOtpCode(response.data);
-        }
-        catch(error) {
+        } catch (error) {
             console.error(error);
             Alert.alert(`${error}`);
         }
-    }
+    };
 
     return (
         <View style={[Common.wrapper]}>
@@ -41,9 +40,8 @@ const OtpContianer = () => {
                     재발급
                 </Button>
             </View>
-
         </View>
     );
-}
+};
 
 export default OtpContianer;

@@ -1,6 +1,6 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-type BottomSheetlType = "dateSelector" | "policyConsenting";
+type BottomSheetlType = 'dateSelector' | 'policyConsenting';
 
 interface BottomSheetState {
     visible: boolean;

@@ -1,21 +1,26 @@
-import { Image, Pressable, Text, View } from "react-native"
-import { useEffect, useState } from "react";
-import Button from "../Button";
-import { Common } from "@/styles/common";
-import { AccordionCardProps, ItemDetailsProp, RentalDetailsType, RentalStatusType } from "@/types/types";
-import { history } from "@/styles/components/history";
-import { axiosGet } from "@/api";
-import { itemList } from "@/styles/components/itemList";
-import Badge from "../Badge";
-import determineAction from "@/utils/determineAction";
-import useRentalActions from "@/hooks/useRentalActions";
-import { useRouter } from "expo-router";
-import formatISOToDate from "@/utils/formatDate";
-import determineMineAction from "@/utils/determineMineAction";
+import { Image, Pressable, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import Button from '../Button';
+import { Common } from '@/styles/common';
+import {
+    AccordionCardProps,
+    ItemDetailsProp,
+    RentalDetailsType,
+    RentalStatusType,
+} from '@/types/types';
+import { history } from '@/styles/components/history';
+import { axiosGet } from '@/api';
+import { itemList } from '@/styles/components/itemList';
+import Badge from '../Badge';
+import determineAction from '@/utils/determineAction';
+import useRentalActions from '@/hooks/useRentalActions';
+import { useRouter } from 'expo-router';
+import formatISOToDate from '@/utils/formatDate';
+import determineMineAction from '@/utils/determineMineAction';
 
 const AccordionCard = (props: AccordionCardProps) => {
-    const {type, rentalId, itemId, requestDate, status} = props;
-    const {onCancelRequest, onReturn, onApprove, onReject, onCabinet} = useRentalActions();
+    const { type, rentalId, itemId, requestDate, status } = props;
+    const { onCancelRequest, onReturn, onApprove, onReject, onCabinet } = useRentalActions();
     const [isOpened, setIsOpened] = useState(false);
     const [itemDetails, setItemDetails] = useState<ItemDetailsProp>();
     const [details, setDetails] = useState<RentalDetailsType>();
@@ -26,29 +31,26 @@ const AccordionCard = (props: AccordionCardProps) => {
             try {
                 const response = await axiosGet(`/api/v1/items/${itemId}`);
                 setItemDetails(response.data);
-            } 
-            catch (error) {
+            } catch (error) {
                 console.error(error);
             }
-        }
+        };
         fetchItemDetails();
     }, []);
 
-
     const fetchDetails = async () => {
-        if (isOpened)   return;
-        try { 
+        if (isOpened) return;
+        try {
             const response = await axiosGet(`/api/v1/rentals/${rentalId}`);
             setDetails(response.data);
             setIsOpened(!isOpened);
-        }
-        catch(error) {
+        } catch (error) {
             console.error(error);
-        }   
-    }
+        }
+    };
     let action, buttonText, description;
-    
-    if (type==="MINE") {
+
+    if (type === 'MINE') {
         ({ action, buttonText, description } = determineMineAction({
             id: rentalId,
             rentalStatus: status,
@@ -56,8 +58,7 @@ const AccordionCard = (props: AccordionCardProps) => {
             onReject,
             onCabinet,
         }));
-    }
-    else {
+    } else {
         ({ action, buttonText, description } = determineAction({
             rentalStatus: status,
             onCancelRequest,
@@ -65,41 +66,52 @@ const AccordionCard = (props: AccordionCardProps) => {
         }));
     }
 
-
     const onPress = async (action?: () => Promise<void>) => {
         if (action) {
-            try { await action(); } 
-            catch(error) { console.error(error); }
+            try {
+                await action();
+            } catch (error) {
+                console.error(error);
+            }
         }
     };
 
-    if (!itemDetails)   return null;
+    if (!itemDetails) return null;
     return (
         <View>
-            <Pressable style={[Common.XStack, itemList.cardWrapper]} onPress={() => (router.push(`/items/${itemId}`))}>
-                <Image source={require("@/assets/images/icon.png")} style={itemList.listItemImage}/>
+            <Pressable
+                style={[Common.XStack, itemList.cardWrapper]}
+                onPress={() => router.push(`/items/${itemId}`)}
+            >
+                <Image
+                    source={require('@/assets/images/icon.png')}
+                    style={itemList.listItemImage}
+                />
 
-                <View style={[Common.wideView, {gap: 5}]}>
+                <View style={[Common.wideView, { gap: 5 }]}>
                     <Badge status={status} />
-                    <Text style={{fontSize: 19}}>{itemDetails.name}</Text>
+                    <Text style={{ fontSize: 19 }}>{itemDetails.name}</Text>
                     <View style={[Common.textWrapper]}>
-                        <Text style={{fontSize: 19, fontWeight: 600}}>{itemDetails.price.toLocaleString()}</Text>
-                        <Text style={{fontSize: 19}}> 원</Text>
+                        <Text style={{ fontSize: 19, fontWeight: 600 }}>
+                            {itemDetails.price.toLocaleString()}
+                        </Text>
+                        <Text style={{ fontSize: 19 }}> 원</Text>
                     </View>
 
                     <View style={[Common.textOption]}>
-                        <Text style={{fontSize: 16}}>대여 요청 일시: {formatISOToDate(requestDate)}</Text>
-                        {description &&  <Text style={{marginTop: 12}}>{description}</Text>}
-
+                        <Text style={{ fontSize: 16 }}>
+                            대여 요청 일시: {formatISOToDate(requestDate)}
+                        </Text>
+                        {description && <Text style={{ marginTop: 12 }}>{description}</Text>}
                     </View>
                 </View>
             </Pressable>
 
-            {isOpened &&
+            {isOpened && (
                 <View>
                     {!details ? (
                         <Text></Text>
-                    ): ( 
+                    ) : (
                         <>
                             <Text>빌려준 사람: {details.owner}</Text>
                             <Text>대여 요청 일시: {details.requestDate}</Text>
@@ -115,21 +127,26 @@ const AccordionCard = (props: AccordionCardProps) => {
                         </>
                     )}
                 </View>
-            }
+            )}
 
             <View style={Common.XStack}>
-                {buttonText &&
-                <Button onPress={() => onPress(action)} type="primary" style={history.button} disabled={!action}>
-                    {buttonText}
-                </Button>
-                }
+                {buttonText && (
+                    <Button
+                        onPress={() => onPress(action)}
+                        type="primary"
+                        style={history.button}
+                        disabled={!action}
+                    >
+                        {buttonText}
+                    </Button>
+                )}
 
                 <Button onPress={fetchDetails} type="secondary" style={history.button}>
-                    {isOpened? "닫기" : "상세정보"}
+                    {isOpened ? '닫기' : '상세정보'}
                 </Button>
             </View>
         </View>
     );
-}
+};
 
 export default AccordionCard;

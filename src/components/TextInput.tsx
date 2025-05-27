@@ -1,6 +1,12 @@
-import { Text, View, TextInput as DefaultTextInput, KeyboardTypeOptions, TextStyle } from "react-native";
-import { Common } from "@/styles/common";
-import { TextThemes } from "@/styles/theme";
+import {
+    Text,
+    View,
+    TextInput as DefaultTextInput,
+    KeyboardTypeOptions,
+    TextStyle,
+} from 'react-native';
+import { Common } from '@/styles/common';
+import { TextThemes } from '@/styles/theme';
 
 type TextInputProps = {
     label: string;
@@ -11,14 +17,25 @@ type TextInputProps = {
     secureTextEntry?: boolean;
     keyboardType?: KeyboardTypeOptions;
     errorMsg?: string;
-    multiline?:boolean;
+    multiline?: boolean;
     style?: TextStyle[];
-}
+};
 const TextInput = (props: TextInputProps) => {
-    const {label, name, handleChangeText, placeholder="", value, secureTextEntry=false, keyboardType="default", errorMsg="", multiline=false, style} = props;
+    const {
+        label,
+        name,
+        handleChangeText,
+        placeholder = '',
+        value,
+        secureTextEntry = false,
+        keyboardType = 'default',
+        errorMsg = '',
+        multiline = false,
+        style,
+    } = props;
 
     return (
-        <View style={{width: "100%"}}>
+        <View style={{ width: '100%' }}>
             {label && <Text>{label}</Text>}
             <DefaultTextInput
                 onChangeText={(text) => handleChangeText(text, name)}
@@ -28,13 +45,14 @@ const TextInput = (props: TextInputProps) => {
                 secureTextEntry={secureTextEntry}
                 keyboardType={keyboardType}
                 multiline={multiline}
-
                 autoCorrect={false}
                 autoCapitalize="none"
                 style={[Common.textInput, multiline && Common.textArea, style]}
             />
-            {errorMsg?.length>0 && <Text style={[Common.errorMsg, TextThemes.error]}>{errorMsg}</Text>}
+            {errorMsg?.length > 0 && (
+                <Text style={[Common.errorMsg, TextThemes.error]}>{errorMsg}</Text>
+            )}
         </View>
-    )
-}
+    );
+};
 export default TextInput;
