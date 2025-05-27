@@ -5,8 +5,8 @@ import { Pressable, SafeAreaView } from 'react-native';
 import SearchIcon from '@/assets/images/search.svg';
 import { Common } from '@/styles/common';
 import { axiosGet } from '@/api';
-import useUrl from '@/hooks/useUrl';
 import { ListItemProps } from '@/types/types';
+import generateUrl from '@/utils/generateUrl';
 
 const Search = () => {
     const [searchResult, setSearchResult] = useState<ListItemProps>();
@@ -14,7 +14,7 @@ const Search = () => {
 
     const fetchResult = async () => {
         const today = new Date();
-        const params = useUrl({
+        const params = generateUrl({
             keyword: keyword,
             startDate: today.toISOString(), //임의값
             endDate: today.toISOString(),

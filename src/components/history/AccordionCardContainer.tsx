@@ -9,8 +9,7 @@ import {
 import { itemList } from '@/styles/components/itemList';
 import { useEffect, useRef, useState } from 'react';
 import { axiosGet } from '@/api';
-import useUrl from '@/hooks/useUrl';
-import { Common } from '@/styles/common';
+import generateUrl from '@/utils/generateUrl';
 
 const AccordionCardContainer = (props: AccordionContainerProps) => {
     const { type } = props;
@@ -34,7 +33,7 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
     };
 
     const fetchHistory = async () => {
-        const params = useUrl({
+        const params = generateUrl({
             stautses: ['REQUESTED', 'APPROVED'],
             page: 0,
             size: 20,
