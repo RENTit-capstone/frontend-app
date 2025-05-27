@@ -6,7 +6,7 @@ import { Text, View } from 'react-native';
 import Button from '@/components/Button';
 import { Common } from '@/styles/common';
 import Logo from '@/assets/images/logo.svg';
-import { axiosNoInterceptor, axiosPost } from '@/api';
+import { axiosNoInterceptor } from '@/api';
 import useAuthStore from '@/stores/useAuthStore';
 import useToast from '@/hooks/useToast';
 

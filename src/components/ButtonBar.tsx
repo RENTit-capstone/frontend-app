@@ -2,7 +2,7 @@ import { SafeAreaView } from 'react-native';
 import { Common } from '@/styles/common';
 
 const ButtonBar = (props: any) => {
-    const { onClose, children } = props;
+    const { children } = props;
     return (
         <SafeAreaView
             style={[

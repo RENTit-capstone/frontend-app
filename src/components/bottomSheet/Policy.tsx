@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import Markdown from 'react-native-markdown-display';
 import DefaultDamagePolicy from '@/components/items/DefaultDamagePolicy';
 import useRequestStore from '@/stores/useRequestStore';
-import Colors from '@/constants/Colors';
+import { Colors } from '@/styles/tokens';
 
 const PolicyModal = () => {
     const { visible, setResult } = useBottomSheetStore();
@@ -36,7 +36,7 @@ const PolicyModal = () => {
                 style={[
                     Common.wrapper,
                     {
-                        borderColor: Colors.optionText,
+                        borderColor: Colors.darkGray,
                         borderWidth: 1,
                         borderRadius: 8,
                         marginVertical: 10,
@@ -56,7 +56,7 @@ const PolicyModal = () => {
                 style={[
                     Common.wrapper,
                     {
-                        borderColor: Colors.optionText,
+                        borderColor: Colors.darkGray,
                         borderWidth: 1,
                         borderRadius: 8,
                         marginVertical: 10,
@@ -77,7 +77,7 @@ const PolicyModal = () => {
                     Common.wrapper,
                     {
                         height: 250,
-                        borderColor: Colors.optionText,
+                        borderColor: Colors.darkGray,
                         borderWidth: 1,
                         borderRadius: 8,
                         marginVertical: 10,

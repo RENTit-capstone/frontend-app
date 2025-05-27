@@ -6,9 +6,8 @@ import HistoryWhite from '@/assets/images/history-white.svg';
 import HistoryFocused from '@/assets/images/history-focused.svg';
 import MyPageFocused from '@/assets/images/user-focused.svg';
 import MyPageWhite from '@/assets/images/user-white.svg';
-
-import Colors from '@/constants/Colors';
 import { Common } from '@/styles/common';
+import { Colors } from '@/styles/tokens';
 
 const BottomNavBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     const primaryColor = Colors.primary;
