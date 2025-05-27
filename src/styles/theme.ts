@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import Colors from '@/constants/Colors';
+import { Colors } from './tokens';
 
 export const ViewThemes = StyleSheet.create({
     primary: {

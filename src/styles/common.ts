@@ -1,5 +1,5 @@
-import Colors from '@/constants/Colors';
 import { Platform, StyleSheet } from 'react-native';
+import { Colors } from './tokens';
 
 export const Common = StyleSheet.create({
     container: {
@@ -190,8 +190,8 @@ export const Common = StyleSheet.create({
         paddingTop: 16,
     },
     toast: {
-        borderLeftColor: Colors.statusAccepted,
-        backgroundColor: Colors.statusAccepted,
+        borderLeftColor: Colors.navy,
+        backgroundColor: Colors.navy,
         borderRadius: 8,
         ...Platform.select({
             default: {

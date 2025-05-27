@@ -1,5 +1,5 @@
-import Colors from '@/constants/Colors';
 import { Platform, StyleSheet } from 'react-native';
+import { Colors } from '../tokens';
 
 export const itemList = StyleSheet.create({
     // StatusButtonGroup
