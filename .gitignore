@@ -37,3 +37,6 @@ yarn-error.*
 
 #env
 .env*
+
+#settings
+.vscode/
