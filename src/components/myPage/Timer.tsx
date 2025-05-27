@@ -3,11 +3,10 @@ import { Text, View } from 'react-native';
 
 type TimerProps = {
     resetKey: number;
-    setResetKey: (state: number) => void;
 };
 
 const Timer = (props: TimerProps) => {
-    const { resetKey, setResetKey } = props;
+    const { resetKey } = props;
     const [isTimerRunning, setTimerRunning] = useState(true);
     const [secondsLeft, setSecondsLeft] = useState(60);
 

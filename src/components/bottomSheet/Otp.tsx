@@ -39,7 +39,7 @@ const OTPModal = () => {
                     <Text style={itemList.statusNumber}>{otpCode}</Text>
                 </View>
                 <View style={Common.XStack}>
-                    <Timer resetKey={resetKey} setResetKey={setResetKey} />
+                    <Timer resetKey={resetKey} />
                     <Button onPress={() => generateOTP()} type="primary">
                         재발급
                     </Button>

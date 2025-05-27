@@ -58,4 +58,3 @@ export const TextThemes = StyleSheet.create({
         color: Colors.brown,
     },
 });
-

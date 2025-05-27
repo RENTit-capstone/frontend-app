@@ -3,7 +3,7 @@ import { Common } from '@/styles/common';
 import ArrowRight from '@/assets/images/right-arrow.svg';
 import { useRouter } from 'expo-router';
 import { itemList } from '@/styles/components/itemList';
-import Colors from '@/constants/Colors';
+import { Colors } from '@/styles/tokens';
 
 const options = [
     {
@@ -58,7 +58,7 @@ const Mypage = () => {
                             {
                                 padding: 16,
                                 borderRadius: 8,
-                                backgroundColor: Colors.available,
+                                backgroundColor: Colors.navy,
                                 color: Colors.white,
                                 alignSelf: 'stretch',
                             },

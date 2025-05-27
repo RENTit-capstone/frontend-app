@@ -1,4 +1,4 @@
-import Colors from '@/constants/Colors';
+import { Colors } from '@/styles/tokens';
 import { useMemo, useState } from 'react';
 import { DateData, MarkedDates } from 'react-native-calendars/src/types';
 

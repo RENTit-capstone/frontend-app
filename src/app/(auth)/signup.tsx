@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, SafeAreaView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Text, View } from 'react-native';
 import { Link } from 'expo-router';
 import Button from '@/components/Button';
 import { Common } from '@/styles/common';

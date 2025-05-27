@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ScrollView, useWindowDimensions, View } from 'react-native';
+import { ScrollView, useWindowDimensions } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ListContainer from './ListContainer';
 import { itemList } from '@/styles/components/itemList';

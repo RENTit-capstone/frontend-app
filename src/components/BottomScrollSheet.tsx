@@ -4,7 +4,6 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet';
 import { ReactElement, useMemo, useRef } from 'react';
 import { itemList } from '@/styles/components/itemList';
-import { View } from 'react-native';
 import { StyleProps } from 'react-native-reanimated';
 
 type BottomScrollSheetProps = {

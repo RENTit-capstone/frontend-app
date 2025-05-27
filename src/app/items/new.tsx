@@ -5,13 +5,13 @@ import usePostingInput from '@/hooks/usePostingInput';
 import { Common } from '@/styles/common';
 import { useEffect, useState } from 'react';
 import { View, Text, ScrollView, Alert, Image, KeyboardAvoidingView, Platform } from 'react-native';
-import Colors from '@/constants/Colors';
 import * as ImagePicker from 'expo-image-picker';
 import { itemList } from '@/styles/components/itemList';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
 import DefaultDamagePolicy from '@/components/items/DefaultDamagePolicy';
 import useAuthStore from '@/stores/useAuthStore';
 import { useRouter } from 'expo-router';
+import { Colors } from '@/styles/tokens';
 
 const NewPosting = () => {
     const { openBottomSheet } = useBottomSheetStore();
