@@ -1,5 +1,3 @@
-import { TextInputProps as DefaultTextInputProps, KeyboardTypeOptions } from "react-native";
-
 export type ResponseType<T> = {
     data: T;
     message?: string;
@@ -8,32 +6,12 @@ export type ResponseType<T> = {
 
 export type LoginType = {
     email: string;
-    pw: string;
-}
-
-export interface TextInputProps extends DefaultTextInputProps {
-    label: string;
-    name: string;
-    handleChangeText: (name: string, text: string) => void;
-    value: string;
-    placeholder?: string;
-    secureTextEntry?: boolean;
-    keyboardType?: KeyboardTypeOptions;
-    errorMsg?: string;
+    password: string;
 }
 
 export type UserType = {
     email: string;
     nickname: string;
-}
-
-// 로그인 상태관리
-export type AuthType = {
-    id: number | null;
-    accessToken: string | null;
-    setId: (id: number) => void;
-    setToken: (accessToken: string) => void;
-    clearToken: () => void;
 }
 
 export type SignupInputType = {
@@ -49,6 +27,8 @@ export type SignupInputType = {
     studentId: string,       
 }
 
+export type listType = "INDIVIDUAL" | "GROUP";
+export type historyType = "OTHERS" | "MINE";
 export type memberType = "STUDENT" | "COUNCIL" | "COMPANY";
 export type Gender = "male" | "female" | "";
 
@@ -66,32 +46,43 @@ export type UserInfoType = {
 }
 
 export type ListItemProps = {
-    id: number,
-    title: string,
-    img: string,
-    available: boolean,
+    itemId: number,
+    nickname: string,
+    name: string,
+    imgUrls: string[],
     price: number,
-    period: number,
-    messages: number, 
-    likes: number,
+    status: ItemStatusType,
+    startDate: string,
+    endDate: string,
 }
 
 export type ListContainerProps = {
-    type: string,
+    type: listType,
 }
 
-export type StatusType = "pending" | "inRent" | "returned";
-export type ActionType = "approve" | "disapprove" | "return" | "writeReview";
-
-export type AccordionContainerType = ListItemProps & {
-    status: StatusType,
+export type AccordionContainerProps = {
+    type: historyType,
 }
 
-export type AccordionCardProps = AccordionContainerType & {
-    actions: ActionType[] | undefined,
-    actionNames: string[],
-    getDetails: (itemId: number) => Promise<RentalDetailsType | undefined>,
-    handleAction: ((itemId: number, isApproved?: boolean) => void) | ((itemId: number) => void);
+export type RentalStatusType = "REQUESTED" | "APPROVED" | "REJECTED" | "CANCELLED" | "LEFT_IN_LOCKER" | "PICKED_UP" | "RETURNED_TO_LOCKER" | "COMPLETED";
+
+//  type AccordionContainerType = ListItemProps & {
+//     status: RentalStatusType,
+// }
+
+export type MineCardProps = {
+        itemId?: number,
+        rentalId: number,
+        requestDate: string,
+        status: RentalStatusType,
+}
+
+export type AccordionCardProps = {
+    type: historyType,
+    rentalId: number,
+    itemId: number,
+    requestDate: string,
+    status: RentalStatusType
 }
 
 export type RentalDetailsType = {
@@ -106,22 +97,41 @@ export type RentalDetailsType = {
     returnedByRenterAt: string | null,
     retrievedByOwnerAt: string | null,
     lockerId: string | null,
+    returnImageUrl: string | null,
 }
 
 export type ItemStatusType = "AVAILABLE" | "OUT";
 
 export type ItemDetailsProp = {
-    id: string | string[],
-    owner: string, 
+    itemId: number,
     name: string
-    itemImg: string, 
+    imageUrls: string[], 
     description: string,
+    damagedDescription: string,
     price: number, 
     status: ItemStatusType,
     damagedPolicy: string,
+    returnPolicy: string,
     startDate: string,
     endDate: string,
-
-    messages: number, 
-    likes: number,
+    createdAt: string,
+    updatedAt: string,
+    owner: {
+        memberId: number,
+        nickname: string,
+        profileImg: string,
+        university: string,
+    }
 }
+
+export type PostingType = {
+    name: string,
+    itemImg: string,
+    description: string,
+    price: string,
+    damagedPolicy: string,
+    returnPolicy: string,
+}
+
+export type QnAType = "SERVICE" | "REPORT";
+export type QnAProcessedType = "PROCESSED" | "NOTPROCESSED";

@@ -1,30 +1,56 @@
 import useAuthStore from "@/stores/useAuthStore";
 import axios from "axios";
 
-export const axiosInstance = axios.create({
+export const axiosNoInterceptor = axios.create({
     baseURL: process.env.EXPO_PUBLIC_API_URL,
     headers: {
         "Content-Type": "application/json",
     }
+})
+
+export const axiosInstance = axios.create({
+    baseURL: process.env.EXPO_PUBLIC_API_URL,
 });
 
-const getNewToken = () => {
-    const newAccessToken = undefined;
 
-    return newAccessToken;
+const getNewToken = async () => {
+    const oldAccessToken = useAuthStore.getState().accessToken;
+    const oldRefreshToken = useAuthStore.getState().refreshToken;
+    const payload = {"accessToken": oldAccessToken, "refreshToken": oldRefreshToken};
+    const response = await axiosNoInterceptor.post(`/api/v1/auth/login/refresh`, payload);
+    if (response.data.success){
+        useAuthStore.setState({
+            accessToken: response.data.accessToken,
+            refreshToken: response.data.refreshToken,
+        });
+    }
+    else {
+        throw new Error(response.data.message);
+    }
 }
 
 axiosInstance.interceptors.request.use(
     async (config) => {
         const token = useAuthStore.getState().accessToken;
-        console.log(token);
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+        if (
+              config.data &&
+            typeof config.data === 'object' && config.data._parts
+            ) {
+            delete config.headers["Content-Type"];
+            } else {
+            config.headers["Content-Type"] = "application/json";
+            }
+
+        // if (!config.headers["Content-Type"]) {
+        //     config.headers["Content-Type"] = "application/json";
+        // }
         return config;
     },
     error => {
-        console.error("[AXIOS_ERROR]: ", error);
+        console.error("[AXIOS_INTERCEPTORS_REQUEST_ERROR]: ", error);
         return Promise.reject(error);
     }
 );
@@ -34,35 +60,15 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     async (error) => {
-        // access token 만료 시
-        const originalRequest = error.config;
-        // 백엔드 JWT 만료 시 response 반환값 보고 response.status수정
-        if (error.response.status && !originalRequest._retry){
-            originalRequest._retry = true;
-
-            try {
-                const newAccessToken = await getNewToken(); // 리프레시 토큰으로 access token 재발급급
-                if (newAccessToken){
-                    originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                    return axiosInstance(originalRequest);
-                }                
-            } 
-            
-            catch(refreshError) {
-                if (refreshError.response?.data.error === "INVALID_TOKEN"){
-                    //리프레시 토큰 삭제
-                    
-                    alert(
-                        "로그인 세션 만료\n 다시 로그인 하시길 바랍니다."
-                    );
-                }
-                return Promise.reject(refreshError);
-            }
+        if (error.status===403) {
+            console.log("403Error");
+            const originalRequest = error.config;
+            await getNewToken();
+            return axiosInstance(originalRequest);
         }
-        console.log(error);
         return Promise.reject(error);
     }
-)
+);
 
 export const axiosGet = async (url: string) => {
     const res = await axiosInstance.get(url);
@@ -72,9 +78,17 @@ export const axiosGet = async (url: string) => {
     return res.data;
 }
 
-export const axiosPost = async (url: string, payload?: any) => {
-    const res = await axiosInstance.post(url, payload);
+export const axiosPost = async (url: string, payload?: any, headerOption?: any) => {
+    const res = await axiosInstance.post(url, payload, headerOption);
     if (!res.data.success){
+        throw new Error(res.data.message);
+    }
+    return res.data;
+}
+
+export const axiosPut = async (url: string) => {
+    const res = await axiosInstance.put(url);
+    if (!res.data.success) {
         throw new Error(res.data.message);
     }
     return res.data;
