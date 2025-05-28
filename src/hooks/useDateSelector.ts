@@ -1,6 +1,6 @@
-import Colors from "@/constants/Colors";
-import { useMemo, useState } from "react";
-import { DateData, MarkedDates } from "react-native-calendars/src/types";
+import { Colors } from '@/styles/tokens';
+import { useMemo, useState } from 'react';
+import { DateData, MarkedDates } from 'react-native-calendars/src/types';
 
 const useDateSelector = () => {
     const [startDate, setStartDate] = useState<string | null>(null);
@@ -17,12 +17,11 @@ const useDateSelector = () => {
         if (new Date(day.dateString) < new Date(startDate)) {
             setEndDate(startDate);
             setStartDate(day.dateString);
-        }
-        else {
+        } else {
             setEndDate(day.dateString);
         }
-    }
-    
+    };
+
     const markedDates = useMemo(() => {
         let marked: MarkedDates = {};
 
@@ -34,7 +33,7 @@ const useDateSelector = () => {
                 textColor: Colors.white,
             };
         }
-        
+
         if (startDate && endDate) {
             const start = new Date(startDate);
             const end = new Date(endDate);
@@ -44,11 +43,9 @@ const useDateSelector = () => {
                 const dateStr = current.toISOString().split('T')[0];
 
                 marked[dateStr] = {
-                    color: dateStr === startDate || dateStr === endDate
-                        ? Colors.primary
-                        : "#455464",
-                    textColor:
-                        "white",
+                    color:
+                        dateStr === startDate || dateStr === endDate ? Colors.primary : '#455464',
+                    textColor: 'white',
                     startingDay: dateStr === startDate,
                     endingDay: dateStr === endDate,
                 };
@@ -63,8 +60,8 @@ const useDateSelector = () => {
     const resetPeriod = () => {
         setStartDate(null);
         setEndDate(null);
-    }
+    };
 
-    return {startDate, endDate, onDayPress, markedDates, resetPeriod};
-}
+    return { startDate, endDate, onDayPress, markedDates, resetPeriod };
+};
 export default useDateSelector;

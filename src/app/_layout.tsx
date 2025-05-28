@@ -12,77 +12,81 @@ import Colors from '@/constants/Colors';
 import Toast, { BaseToast } from 'react-native-toast-message';
 import { Common } from '@/styles/common';
 import BaseBottomSheet from '@/components/bottomSheet/BaseBottomSheet';
-        
+
 SplashScreen.preventAutoHideAsync();
 
-export {
-  ErrorBoundary,
-} from 'expo-router';
+export { ErrorBoundary } from 'expo-router';
 
 export const unstable_settings = {
-  initialRouteName: '(tabs)',
+    initialRouteName: '(tabs)',
 };
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
-  });
-  
-  const [appReady, setAppReady] = useState(false);
+    const [loaded, error] = useFonts({
+        SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+        ...FontAwesome.font,
+    });
 
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+    const [appReady, setAppReady] = useState(false);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync().then(() => setAppReady(true));
+    useEffect(() => {
+        if (error) throw error;
+    }, [error]);
+
+    useEffect(() => {
+        if (loaded) {
+            SplashScreen.hideAsync().then(() => setAppReady(true));
+        }
+    }, [loaded]);
+
+    if (!loaded || !appReady) {
+        return null;
     }
-  }, [loaded]);
 
-  if (!loaded || !appReady) {
-    return null;
-  }
-
-  return <RootLayoutNav />;
+    return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
-  const token = useAuthStore((state) => state.accessToken);
-  const pathname = usePathname();
-  const isAllowedPage = pathname.includes("login") || pathname.includes("signup");
-  const isWeb = Platform.OS==="web";
-  const contentWidth = isWeb ? 414 : "100%";
+    const token = useAuthStore((state) => state.accessToken);
+    const pathname = usePathname();
+    const isAllowedPage = pathname.includes('login') || pathname.includes('signup');
+    const isWeb = Platform.OS === 'web';
+    const contentWidth = isWeb ? 414 : '100%';
 
-  if (!token && !isAllowedPage) {
-    return <Redirect href={"/(auth)/login"} />;
-  }
+    if (!token && !isAllowedPage) {
+        return <Redirect href={'/(auth)/login'} />;
+    }
 
-  return (
-    <>
-      <SafeAreaProvider style={{width: contentWidth, alignSelf: "center", backgroundColor: Colors.secondary}}>  
-        <GestureHandlerRootView>  
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />    
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          </Stack>
-          <BaseBottomSheet />
-        </GestureHandlerRootView>
-      </SafeAreaProvider>
-      <Toast
-        position="bottom"
-        config={{ 
-        success: (props) => (
-          <BaseToast
-            {...props}
-            style={Common.toast}
-            contentContainerStyle={{ paddingHorizontal: 16 }}
-            text1Style={Common.toastText}
-          />
-        )}}
-      />
-    </>
-  );
+    return (
+        <>
+            <SafeAreaProvider
+                style={{
+                    width: contentWidth,
+                    alignSelf: 'center',
+                    backgroundColor: Colors.secondary,
+                }}
+            >
+                <GestureHandlerRootView>
+                    <Stack>
+                        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                    </Stack>
+                    <BaseBottomSheet />
+                </GestureHandlerRootView>
+            </SafeAreaProvider>
+            <Toast
+                position="bottom"
+                config={{
+                    success: (props) => (
+                        <BaseToast
+                            {...props}
+                            style={Common.toast}
+                            contentContainerStyle={{ paddingHorizontal: 16 }}
+                            text1Style={Common.toastText}
+                        />
+                    ),
+                }}
+            />
+        </>
+    );
 }
-

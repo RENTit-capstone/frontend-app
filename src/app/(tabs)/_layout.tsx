@@ -1,36 +1,36 @@
-import { Tabs } from "expo-router";
-import Header from "@/components/Header";
-import BottomNavBar from "@/components/BottomNavBar";
-import { SafeAreaView, View } from "react-native";
+import { Tabs } from 'expo-router';
+import Header from '@/components/Header';
+import BottomNavBar from '@/components/BottomNavBar';
+import { View } from 'react-native';
 
 const TabLayout = () => {
     return (
-        <View style={{ flex: 1 }}> 
+        <View style={{ flex: 1 }}>
             <Tabs
-                screenOptions={{header: () => <Header />}}
+                screenOptions={{ header: () => <Header /> }}
                 tabBar={(props) => <BottomNavBar {...props} />}
             >
                 <Tabs.Screen
                     name="itemList"
                     options={{
-                        title: "홈",
+                        title: '홈',
                     }}
                 />
                 <Tabs.Screen
                     name="history"
                     options={{
-                        title: "히스토리",
+                        title: '히스토리',
                     }}
                 />
                 <Tabs.Screen
                     name="mypage"
                     options={{
-                        title: "마이페이지",
+                        title: '마이페이지',
                     }}
                 />
             </Tabs>
         </View>
     );
-}
+};
 
 export default TabLayout;

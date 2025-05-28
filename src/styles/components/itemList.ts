@@ -1,5 +1,5 @@
-import Colors from '@/constants/Colors';
 import { Platform, StyleSheet } from 'react-native';
+import { Colors } from '../tokens';
 
 export const itemList = StyleSheet.create({
     // StatusButtonGroup
@@ -10,17 +10,17 @@ export const itemList = StyleSheet.create({
     statusNumber: {
         fontSize: 25,
         fontWeight: 600,
-    }, 
+    },
     statusButton: {
-        marginVertical: 5, 
-        width: "25%",
-        alignSelf: "center",
+        marginVertical: 5,
+        width: '25%',
+        alignSelf: 'center',
         flex: 0,
         flexGrow: 1,
     },
     divider: {
-        height: "50%",
-        alignSelf: "center",
+        height: '50%',
+        alignSelf: 'center',
         borderColor: Colors.option,
         borderWidth: 1,
         width: 0,
@@ -30,22 +30,22 @@ export const itemList = StyleSheet.create({
     //ListContainer
     listContainer: {
         flex: 1,
-        width: "100%",
-        alignItems: "center",
-        backgroundColor: "#fff",
+        width: '100%',
+        alignItems: 'center',
+        backgroundColor: '#fff',
         paddingTop: 24,
     },
     rowDivider: {
-        width: "90%",
+        width: '90%',
         height: 0,
-        borderColor: "#E5E5E5CC",
+        borderColor: '#E5E5E5CC',
         borderWidth: 1,
     },
 
     //ListItem
     cardWrapper: {
-        justifyContent: "flex-start",
-        width: "90%",
+        justifyContent: 'flex-start',
+        width: '90%',
     },
     listItemImage: {
         width: 100,
@@ -69,20 +69,20 @@ export const itemList = StyleSheet.create({
                 shadowOffset: { width: 0, height: -4 },
                 shadowOpacity: 0.08,
                 shadowRadius: 5,
-                },
+            },
             android: {
                 elevation: 5,
-                },
-            })
+            },
+        }),
     },
 
     // [id]
     detailImage: {
-        width: "100%",
-        maxHeight: "40%",
+        width: '100%',
+        maxHeight: '40%',
     },
     bottomSheet: {
-        backgroundColor: "#FBF5ED",
+        backgroundColor: '#FBF5ED',
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
         ...Platform.select({
@@ -91,24 +91,24 @@ export const itemList = StyleSheet.create({
                 shadowOffset: { width: 0, height: -4 },
                 shadowOpacity: 0.1,
                 shadowRadius: 10,
-                },
+            },
             android: {
                 elevation: 5,
-                },
-            })
+            },
+        }),
     },
-    detailsHeader: {        
-        justifyContent: "space-between",
+    detailsHeader: {
+        justifyContent: 'space-between',
         gap: 10,
     },
     detailInfo: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: '#fff',
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
     },
     title: {
-        color: "#767676",
+        color: '#767676',
         fontWeight: 600,
         marginVertical: 10,
     },
@@ -120,8 +120,7 @@ export const itemList = StyleSheet.create({
         paddingHorizontal: 0,
         marginHorizontal: 0,
         marginVertical: 0,
-        justifyContent: "center",
+        justifyContent: 'center',
         flex: 0,
-    }
-
+    },
 });

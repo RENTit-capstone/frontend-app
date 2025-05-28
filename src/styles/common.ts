@@ -1,12 +1,12 @@
-import Colors from '@/constants/Colors';
 import { Platform, StyleSheet } from 'react-native';
+import { Colors } from './tokens';
 
 export const Common = StyleSheet.create({
     container: {
         backgroundColor: '#FBF5ED',
         flex: 1,
         width: '100%',
-        alignSelf: "flex-start"
+        alignSelf: 'flex-start',
     },
     wrapper: {
         paddingHorizontal: 16,
@@ -25,19 +25,19 @@ export const Common = StyleSheet.create({
         width: '100%',
     },
     fullScreen: {
-        width: "100%",
+        width: '100%',
     },
     YStack: {
         paddingHorizontal: 10,
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        alignContent: "center",
-        flex: 1,        
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        flex: 1,
     },
     XStack: {
-        flexDirection: "row",
-        justifyContent: "center",
+        flexDirection: 'row',
+        justifyContent: 'center',
         gap: 10,
     },
     button: {
@@ -46,8 +46,8 @@ export const Common = StyleSheet.create({
         marginVertical: 15,
         paddingVertical: 15,
         flex: 1,
-        alignSelf:'stretch',
-    },   
+        alignSelf: 'stretch',
+    },
     textOption: {
         marginTop: 20,
         opacity: 0.6,
@@ -60,53 +60,53 @@ export const Common = StyleSheet.create({
         opacity: 0.5,
     },
     headerWrapper: {
-        backgroundColor: "#FBF5ED",
+        backgroundColor: '#FBF5ED',
         paddingVertical: 5,
-        flexDirection: "row",
-        justifyContent: "space-between",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         paddingHorizontal: 10,
         gap: 15,
-        alignItems: "center",
+        alignItems: 'center',
     },
     avatar: {
         width: 32,
         height: 32,
         borderRadius: 50,
-        textAlign: "center",
-        fontWeight: "600",
+        textAlign: 'center',
+        fontWeight: '600',
         fontSize: 24,
     },
     badge: {
         borderWidth: 1,
         borderRadius: 50,
         paddingHorizontal: 10,
-        alignSelf: "flex-start",
-        paddingVertical: 4, 
-        alignItems: "center"
+        alignSelf: 'flex-start',
+        paddingVertical: 4,
+        alignItems: 'center',
     },
     wideView: {
         flex: 1,
-        alignSelf: "stretch",
+        alignSelf: 'stretch',
     },
     textWrapper: {
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     bold: {
-        fontSize: 20, 
-        fontWeight: 600
+        fontSize: 20,
+        fontWeight: 600,
     },
     section: {
         marginVertical: 12,
-    }, 
+    },
     bottomBar: {
-        position: "absolute",
+        position: 'absolute',
         bottom: 0,
         minHeight: 70,
-        width: "100%",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         backgroundColor: Colors.secondary,
         zIndex: 20,
     },
@@ -117,55 +117,55 @@ export const Common = StyleSheet.create({
     },
     tabBarItem: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: 'row',
         borderRadius: 8,
-        height: "65%",
-        justifyContent: "center",
-        alignItems: "center",
+        height: '65%',
+        justifyContent: 'center',
+        alignItems: 'center',
         gap: 4,
     },
     bottomSheetHeader: {
-        flexDirection: "row", 
-        alignItems: "center" 
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     darkBackground: {
-        position: "absolute",
-        top: 0,     
-        left: 0, 
-        right: 0, 
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
         bottom: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
         zIndex: 1,
     },
     cancel: {
-        position: "absolute",
+        position: 'absolute',
         zIndex: 20,
         top: 0,
         right: 16,
         marginVertical: 0,
     },
     chips: {
-        flexWrap: "wrap",
-        flexDirection: "row",
+        flexWrap: 'wrap',
+        flexDirection: 'row',
         gap: 12,
         marginVertical: 12,
-        marginHorizontal: 12, 
+        marginHorizontal: 12,
     },
     upperShadow: {
-            ...Platform.select({
-        default: {
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: -4 },
-            shadowOpacity: 0.1,
-            shadowRadius: 10,
+        ...Platform.select({
+            default: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: -4 },
+                shadowOpacity: 0.1,
+                shadowRadius: 10,
             },
-        android: {
-            elevation: 5,
+            android: {
+                elevation: 5,
             },
-        })
+        }),
     },
     floatingButton: {
-        position: "absolute",
+        position: 'absolute',
         borderRadius: 50,
         padding: 16,
         right: 16,
@@ -173,40 +173,40 @@ export const Common = StyleSheet.create({
         zIndex: 50,
     },
     textArea: {
-        textAlignVertical: "top",
+        textAlignVertical: 'top',
         height: 128,
     },
     floatingIcon: {
-        position: "absolute",
-        alignSelf: "flex-end",
+        position: 'absolute',
+        alignSelf: 'flex-end',
         marginVertical: 15,
         paddingRight: 35,
         paddingTop: 20,
         transform: [{ translateY: -26 }],
     },
     searchGroup: {
-        gap: "5%",
-        backgroundColor: "white",
+        gap: '5%',
+        backgroundColor: 'white',
         paddingTop: 16,
     },
     toast: {
-        borderLeftColor: Colors.statusAccepted,
-        backgroundColor: Colors.statusAccepted,
+        borderLeftColor: Colors.navy,
+        backgroundColor: Colors.navy,
         borderRadius: 8,
         ...Platform.select({
-        default: {
-            shadowColor: '#000',
-            shadowOpacity: 0.1,
-            shadowOffset: { width: 0, height: 2 },
+            default: {
+                shadowColor: '#000',
+                shadowOpacity: 0.1,
+                shadowOffset: { width: 0, height: 2 },
             },
-        android: {
-            elevation: 5,
+            android: {
+                elevation: 5,
             },
-        })
+        }),
     },
     toastText: {
         fontSize: 16,
         fontWeight: '600',
         color: Colors.white,
-    }
+    },
 });

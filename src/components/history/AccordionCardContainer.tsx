@@ -1,51 +1,53 @@
-import { Alert, ScrollView, Text, View } from "react-native";
-import AccordionCard from "./AccordionCard";
-import { AccordionCardProps, AccordionContainerProps, historyType, MineCardProps } from "@/types/types";
-import { itemList } from "@/styles/components/itemList";
-import { useEffect, useRef, useState } from "react";
-import { axiosGet } from "@/api";
-import useUrl from "@/hooks/useUrl";
-import { Common } from "@/styles/common";
+import { Alert, ScrollView, Text, View } from 'react-native';
+import AccordionCard from './AccordionCard';
+import {
+    AccordionCardProps,
+    AccordionContainerProps,
+    historyType,
+    MineCardProps,
+} from '@/types/types';
+import { itemList } from '@/styles/components/itemList';
+import { useEffect, useRef, useState } from 'react';
+import { axiosGet } from '@/api';
+import generateUrl from '@/utils/generateUrl';
 
 const AccordionCardContainer = (props: AccordionContainerProps) => {
-    const {type} = props;
+    const { type } = props;
     const page = useRef(0);
     const [data, setData] = useState<AccordionCardProps[]>([]);
 
     useEffect(() => {
-        type==="OTHERS" ? fetchHistory() : fetchMine();
+        type === 'OTHERS' ? fetchHistory() : fetchMine();
         page.current = 0;
     }, []);
-    
+
     const fetchMine = async () => {
         try {
             const response = await axiosGet(`/api/v1/members/me`);
-            setData(response.data.ownedRentals);   
-            page.current++;    
-        }
-        catch (error) {
+            setData(response.data.ownedRentals);
+            page.current++;
+        } catch (error) {
             Alert.alert(`${error}`);
             console.error(error);
         }
-    }
+    };
 
     const fetchHistory = async () => {
-        const params = useUrl({
-            stautses: ["REQUESTED", "APPROVED"],
+        const params = generateUrl({
+            stautses: ['REQUESTED', 'APPROVED'],
             page: 0,
             size: 20,
-            sort: ["requestDate", "desc"],
+            sort: ['requestDate', 'desc'],
         });
         try {
             const response = await axiosGet(`/api/v1/rentals?${params}`);
             setData(response.data.content);
             page.current++;
-        }
-        catch (error) {
+        } catch (error) {
             Alert.alert(`${error}`);
             console.error(error);
         }
-    }
+    };
 
     // 히스토리가 아니라 나의 물품에서 실행
     // const submitApprove = async (rentalId: number, isApproved: boolean=false) => {
@@ -60,27 +62,27 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
     //     }
     // }
 
-    if (!data)  return;
+    if (!data) return;
 
     return (
         <ScrollView>
-            <View style={[itemList.listContainer, {paddingBottom: 64}]}>
-            {data.map((item: AccordionCardProps) => (
-                <>
-                <AccordionCard 
-                    type={type}
-                    key={item.rentalId}
-                    rentalId={item.rentalId}
-                    itemId={item.itemId}
-                    requestDate={item.requestDate}
-                    status={item.status}
-                />
-                <View style={[itemList.rowDivider, {marginBottom: 16}]} />
-                </>
+            <View style={[itemList.listContainer, { paddingBottom: 64 }]}>
+                {data.map((item: AccordionCardProps) => (
+                    <>
+                        <AccordionCard
+                            type={type}
+                            key={item.rentalId}
+                            rentalId={item.rentalId}
+                            itemId={item.itemId}
+                            requestDate={item.requestDate}
+                            status={item.status}
+                        />
+                        <View style={[itemList.rowDivider, { marginBottom: 16 }]} />
+                    </>
                 ))}
             </View>
         </ScrollView>
     );
-}
+};
 
 export default AccordionCardContainer;

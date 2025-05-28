@@ -13,6 +13,6 @@ const DefaultDamagePolicy = `
 - **사용자 과실(Negligence)**: 부주의·지침 위반·고의 행위 등으로 인해 발생한 파손을 의미합니다.
 
 
-`
+`;
 
 export default DefaultDamagePolicy;

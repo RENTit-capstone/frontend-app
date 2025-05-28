@@ -1,87 +1,89 @@
-import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
-import { ListItemProps, ListContainerProps } from "@/types/types";
-import ListItem from "./ListItem";
-import { itemList } from "@/styles/components/itemList";
-import SearchGroup from "./SearchGroup";
-import useUrl from "@/hooks/useUrl";
-import { axiosGet } from "@/api";
-import { Common } from "@/styles/common";
+import { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { ListItemProps, ListContainerProps } from '@/types/types';
+import ListItem from './ListItem';
+import { itemList } from '@/styles/components/itemList';
+import SearchGroup from './SearchGroup';
+import { axiosGet } from '@/api';
+import generateUrl from '@/utils/generateUrl';
 
 const ListContainer = (props: ListContainerProps) => {
-    const {type} = props;
+    const { type } = props;
     const [last, setLast] = useState(false);
     const [page, setPage] = useState(0);
     const [data, setData] = useState([]);
     const [searchOptions, setSearchOptions] = useState({
-        keyword: "",
-        startDate: "", 
-        endDate: "",
-        startPrice: "",
-        endPrice: "",
-    })
+        keyword: '',
+        startDate: '',
+        endDate: '',
+        startPrice: '',
+        endPrice: '',
+    });
 
-    useEffect (() => {
+    useEffect(() => {
         fetchResult();
-    }, [type, searchOptions])
+    }, [type, searchOptions]);
 
     const fetchResult = async () => {
-        const role = (type==="INDIVIDUAL")? "STUDENT" : ["COMPANY", "COUNCIL"];
-        const params = useUrl({
-            keyword: searchOptions.keyword || "",
-            startDate: searchOptions.startDate? new Date(searchOptions.startDate).toISOString() : "",
-            endDate: searchOptions.endDate? new Date(new Date(searchOptions.endDate).setHours(23, 59, 59, 999)).toISOString() : "",
+        const role = type === 'INDIVIDUAL' ? 'STUDENT' : ['COMPANY', 'COUNCIL'];
+        const params = generateUrl({
+            keyword: searchOptions.keyword || '',
+            startDate: searchOptions.startDate
+                ? new Date(searchOptions.startDate).toISOString()
+                : '',
+            endDate: searchOptions.endDate
+                ? new Date(new Date(searchOptions.endDate).setHours(23, 59, 59, 999)).toISOString()
+                : '',
 
-            minPrice: searchOptions.startPrice || "",
-            maxPrice: searchOptions.endPrice || "",
-            stauts: ["AVAILABLE", "OUT"],
+            minPrice: searchOptions.startPrice || '',
+            maxPrice: searchOptions.endPrice || '',
+            stauts: ['AVAILABLE', 'OUT'],
             ownerRoles: role,
             page: 0,
             size: 20,
-            sort: ["createdAt", "desc"],
+            sort: ['createdAt', 'desc'],
         });
         try {
             const response = await axiosGet(`/api/v1/items?${params}`);
-            setPage(response.data.pageable.pageNumber+1);
+            setPage(response.data.pageable.pageNumber + 1);
             setData(response.data.content);
             setLast(response.data.last);
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const handleChangeOptions = (newOptions: any) => {
-        setSearchOptions(prev => ({
+        setSearchOptions((prev) => ({
             ...prev,
             ...newOptions,
         }));
     };
 
-    if (!data)  return;
+    if (!data) return;
 
     return (
         <>
-            <SearchGroup onChange={handleChangeOptions}/>
-            <View style={{paddingBottom: 64}}>
-                {data.map((item: ListItemProps, index:number) => (
-                <View key={index} style={itemList.listContainer}>
-                    <ListItem 
-                        itemId={item.itemId}
-                        nickname={item.nickname}
-                        name={item.name}
-                        imgUrls={item.imgUrls}
-                        price={item.price}
-                        status={item.status}
-                        startDate={item.startDate}
-                        endDate={item.endDate}
-                    />
-                    <View style={[itemList.rowDivider, {marginTop: 10}]} />
-                </View>
+            <SearchGroup onChange={handleChangeOptions} />
+            <View style={{ paddingBottom: 64 }}>
+                {data.map((item: ListItemProps, index: number) => (
+                    <View key={index} style={itemList.listContainer}>
+                        <ListItem
+                            itemId={item.itemId}
+                            nickname={item.nickname}
+                            name={item.name}
+                            imgUrls={item.imgUrls}
+                            price={item.price}
+                            status={item.status}
+                            startDate={item.startDate}
+                            endDate={item.endDate}
+                        />
+                        <View style={[itemList.rowDivider, { marginTop: 10 }]} />
+                    </View>
                 ))}
-        </View>
+            </View>
         </>
-    )
+    );
 };
 
 export default ListContainer;
