@@ -39,6 +39,10 @@ const options = [
                 name: '포인트 결제',
                 link: '/myPage/payment/product',
             },
+            {
+                name: '결제 내역',
+                link: '/myPage/payment/payHistory',
+            },
         ],
     },
 ];
