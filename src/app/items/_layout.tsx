@@ -1,9 +1,10 @@
+import ItemHeader from '@/components/header/ItemHeader';
 import { Stack } from 'expo-router';
 
 const ItemLayout = () => {
     return (
         <>
-            <Stack.Screen options={{ headerShown: true }} />
+            <Stack.Screen options={{ header: () => <ItemHeader /> }} />
             <Stack screenOptions={{ headerShown: false }}>
                 <Stack.Screen
                     name="[id]"
