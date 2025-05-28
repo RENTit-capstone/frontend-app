@@ -145,10 +145,10 @@ const NewPosting = () => {
                 />
                 <TextInput
                     label="하자 설명"
-                    name="damagedPolicy"
-                    handleChangeText={handleChange('damagedPolicy')}
+                    name="damagedDescription"
+                    handleChangeText={handleChange('damagedDescription')}
                     placeholder="기존에 있던 하자를 미리 설명해주세요."
-                    value={values.description}
+                    value={values.damagedDescription}
                     multiline={true}
                 />
                 <TextInput
