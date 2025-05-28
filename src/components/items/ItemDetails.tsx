@@ -68,12 +68,6 @@ const ItemDetails = (props: ItemDetailsProp) => {
                     <Text style={itemList.title}>반납정책</Text>
                     <Text>{returnPolicy}</Text>
                 </View>
-                <View style={Common.section}>
-                    <Text style={itemList.title}>반납정책</Text>
-                    <Text>
-                        {returnPolicy}
-                    </Text>
-                </View>                
             </View>
         </>
     );

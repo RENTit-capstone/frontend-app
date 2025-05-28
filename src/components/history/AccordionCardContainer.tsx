@@ -20,18 +20,6 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
         type === 'OTHERS' ? fetchHistory() : fetchMine();
         page.current = 0;
     }, []);
-    
-    const fetchMine = async () => {
-        try {
-            const response = await axiosGet(`/api/v1/members/me`);
-            setData(response.data.ownedRentals);   
-            page.current++;    
-        }
-        catch (error) {
-            Alert.alert(`${error}`);
-            console.error(error);
-        }
-    }
 
     const fetchMine = async () => {
         try {
