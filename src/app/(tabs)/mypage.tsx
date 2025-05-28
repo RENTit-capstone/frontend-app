@@ -32,6 +32,19 @@ const options = [
             },
         ],
     },
+    {
+        category: '결제',
+        contents: [
+            {
+                name: '포인트 결제',
+                link: '/myPage/payment/product',
+            },
+            {
+                name: '결제 내역',
+                link: '/myPage/payment/payHistory',
+            },
+        ],
+    },
 ];
 
 const Mypage = () => {
@@ -41,6 +54,7 @@ const Mypage = () => {
         <View style={[Common.container, Common.wrapper]}>
             {options.map((item) => (
                 <View
+                    key={`${item}`}
                     style={{
                         gap: 16,
                         alignItems: 'flex-start',

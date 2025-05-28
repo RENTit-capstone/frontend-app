@@ -8,10 +8,10 @@ import useAuthStore from '@/stores/useAuthStore';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
-import Colors from '@/constants/Colors';
 import Toast, { BaseToast } from 'react-native-toast-message';
 import { Common } from '@/styles/common';
 import BaseBottomSheet from '@/components/bottomSheet/BaseBottomSheet';
+import { Colors } from '@/styles/tokens';
 
 SplashScreen.preventAutoHideAsync();
 
