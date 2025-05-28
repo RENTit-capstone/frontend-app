@@ -3,13 +3,12 @@ import Button from '@/components/Button';
 import TextInput from '@/components/TextInput';
 import usePostingInput from '@/hooks/usePostingInput';
 import { Common } from '@/styles/common';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { View, Text, ScrollView, Alert, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { itemList } from '@/styles/components/itemList';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
 import DefaultDamagePolicy from '@/components/items/DefaultDamagePolicy';
-import useAuthStore from '@/stores/useAuthStore';
 import { useRouter } from 'expo-router';
 import { Colors } from '@/styles/tokens';
 
@@ -18,13 +17,12 @@ const NewPosting = () => {
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<any[]>([]);
-    const { accessToken } = useAuthStore();
     const router = useRouter();
 
     const { values, handleChange } = usePostingInput({
         name: '',
         itemImg: '',
-
+        damagedDescription: '',
         description: '',
         price: '',
         damagedPolicy: DefaultDamagePolicy,
@@ -45,101 +43,12 @@ const NewPosting = () => {
         }
     };
 
-    //     const handleSubmit = async () => {
-    //         const formData = new FormData();
-    //         const payload = {
-    //             name: values.name,
-    //             description: values.description,
-    //             price: values.price,
-    //             status: "AVAILABLE",
-    //             damagedPolicy: values.damagedPolicy,
-    //             returnPolicy: values.returnPolicy,
-    //             startDate: startDate,
-    //             endDate: endDate,
-    //         };
-    //         formData.append("form", JSON.stringify(payload));
-    //             selectedImage.forEach((image: any) => {
-    //             formData.append("images", {
-    //                 uri: image.uri,
-    //                 name: image.fileName ?? "image.jpg",
-    //                 type: "image/jpeg",
-    //             } as any);
-    //             console.log(formData);
-    //         });
-
-    //         try {
-    //     const response = await fetch(`http://172.21.35.145:8080/api/v1/items`, {
-    //       method: "POST",
-    //       headers: {
-    //         Accept: "application/json",
-    //         Authorization: `Bearer ${accessToken}`, // ✅ 직접 붙이기
-    //       },
-    //       body: formData,
-    //     });
-    //          const result = await response.json();
-    //          console.log(response);
-    //     // console.log("result:", result);
-    //     console.log("📩 status:", response.status);
-
-    // // response.headers는 Headers 객체
-    // for (const [key, value] of response.headers.entries()) {
-    //   console.log(`📬 ${key}: ${value}`);
-    // }
-    //   } catch (err) {
-    //     console.error("Submit error:", err);
-    //   }
-    // };
-
-    //     const handleSubmit = async () => {
-    //         const formData = new FormData();
-    //         const payload = {
-    //             name: values.name,
-    //             description: values.description,
-    //             price: values.price,
-    //             status: "AVAILABLE",
-    //             damagedPolicy: values.damagedPolicy,
-    //             returnPolicy: values.returnPolicy,
-    //             startDate: startDate,
-    //             endDate: endDate,
-    //         };
-
-    //         const jsonBlob = new Blob([JSON.stringify(payload)], {
-    //             type: "application/json",
-    //         });
-    //         formData.append("form", jsonBlob, "form");
-    //         // formData.append("form", new Blob([JSON.stringify(payload)], {type: "application/json"}));
-
-    //         selectedImage.forEach((image: any) => {
-    //             formData.append("images", {
-    //                 uri: image.uri,
-    //                 name: image.fileName ?? "image.jpg",
-    //                 type: image.type ?? "image/jpeg",
-    //             } as any);
-    //         });
-
-    //         try {
-    //             console.log(formData._parts);
-    //             const response = await axiosPost(`/api/v1/items`, formData, {
-    //             //     headers: {
-    //             //         "Content-Type": "multipart/form-data",
-    //             //     }
-    //           transformRequest: (data, headers) => data,
-    //     // return data;
-    // //   }
-    //         });
-    //             console.log("Response for handleSubmit: ", response);
-    //         }
-    //         catch(error) {
-    //             Alert.alert(`${error}`);
-    //             console.error(error);
-    //         }
-    //     }
-
     const handleSubmit = async () => {
         const formData = new FormData();
         const payload = {
             name: values.name,
             description: values.description,
+            damagedDescription: values.damagedDescription,
             price: values.price,
             status: 'AVAILABLE',
             damagedPolicy: values.damagedPolicy,
@@ -155,13 +64,13 @@ const NewPosting = () => {
         formData.append('form', JSON.stringify(payload));
         formData.append('name', payload.name);
         formData.append('description', payload.description);
+        formData.append('damagedDescription', payload.damagedDescription);
         formData.append('price', payload.price);
         formData.append('status', 'AVAILABLE');
         formData.append('startDate', payload.startDate); // ISO 문자열
         formData.append('endDate', payload.endDate);
         formData.append('damagedPolicy', payload.damagedPolicy);
         formData.append('returnPolicy', payload.returnPolicy);
-        formData.append('damagedDescription', 'asdf');
 
         selectedImage.forEach((image: any) => {
             formData.append('images', {
@@ -227,9 +136,18 @@ const NewPosting = () => {
                     keyboardType="numeric"
                 />
                 <TextInput
-                    label="설명"
+                    label="물품 설명"
                     name="description"
                     handleChangeText={handleChange('description')}
+                    placeholder="어떤 물품인지 설명해주세요."
+                    value={values.description}
+                    multiline={true}
+                />
+                <TextInput
+                    label="하자 설명"
+                    name="description"
+                    handleChangeText={handleChange('description')}
+                    placeholder="기존에 있던 하자를 미리 설명해주세요."
                     value={values.description}
                     multiline={true}
                 />
