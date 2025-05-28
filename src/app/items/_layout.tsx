@@ -3,8 +3,8 @@ import { Stack } from 'expo-router';
 const ItemLayout = () => {
     return (
         <>
-            <Stack.Screen options={{ headerShown: false }} />
-            <Stack screenOptions={{ headerShown: true }}>
+            <Stack.Screen options={{ headerShown: true }} />
+            <Stack screenOptions={{ headerShown: false }}>
                 <Stack.Screen
                     name="[id]"
                     options={{
