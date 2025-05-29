@@ -23,7 +23,7 @@ const NewPosting = () => {
     return (
         <KeyboardAvoidingView>
             <ScrollView style={Common.wrapper}>
-                <View style={[Common.XStack, { paddingVertical: 16 }]}>
+                <ScrollView style={[Common.XStack, { paddingVertical: 16 }]}>
                     <Button
                         type="option"
                         onPress={handleImageSelect}
@@ -39,7 +39,7 @@ const NewPosting = () => {
                             style={{ width: 100, height: 100 }}
                         />
                     ))}
-                </View>
+                </ScrollView>
 
                 <TextInput
                     label="물품명"

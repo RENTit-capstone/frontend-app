@@ -3,10 +3,11 @@ import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import { axiosPost } from '@/api';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
-import usePostingInput from '@/hooks/usePostingInput';
 import { ImagePickerAsset } from 'expo-image-picker';
 import toISOStringWithoutMs from '@/utils/toISOStringWithoutMS';
 import { Alert } from 'react-native';
+import useFormInput from './useFormInput';
+import { PostingType } from '@/types/types';
 
 export const useNewPosting = () => {
     const { openBottomSheet } = useBottomSheetStore();
@@ -16,7 +17,7 @@ export const useNewPosting = () => {
     const [endDate, setEndDate] = useState<string | null>(null);
     const [selectedImages, setSelectedImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
 
-    const { values, handleChange } = usePostingInput({
+    const { values, handleChange } = useFormInput<PostingType>({
         name: '',
         itemImg: '',
         damagedDescription: '',
