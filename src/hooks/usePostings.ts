@@ -5,10 +5,9 @@ import useToast from '@/hooks/useToast';
 import useAuthStore from '@/stores/useAuthStore';
 import useRequestStore from '@/stores/useRequestStore';
 import { ItemDetailsProp } from '@/types/types';
+import toISOStringWithoutMs from '@/utils/toISOStringWithoutMS';
 
-const toISOStringWithoutMs = (date: Date) => date.toISOString().split('.')[0];
-
-const usePosting = () => {
+const usePostings = () => {
     const { id } = useLocalSearchParams<{ id: string }>();
     const [data, setData] = useState<ItemDetailsProp>();
     const toast = useToast();
@@ -36,13 +35,13 @@ const usePosting = () => {
 
     const handleRequest = async () => {
         try {
-            const now = new Date();
+            const today = new Date();
             const payload = {
                 itemId: parseInt(id),
                 ownerId: data?.owner.memberId,
                 renterId: userId,
-                startDate: toISOStringWithoutMs(startDate ? new Date(startDate) : now),
-                dueDate: toISOStringWithoutMs(endDate ? new Date(endDate) : now),
+                startDate: toISOStringWithoutMs(startDate ? new Date(startDate) : today),
+                dueDate: toISOStringWithoutMs(endDate ? new Date(endDate) : today),
             };
 
             const response = await axiosPost(`/api/v1/rentals`, payload);
@@ -60,4 +59,4 @@ const usePosting = () => {
     };
 };
 
-export default usePosting;
+export default usePostings;
