@@ -20,6 +20,9 @@ type RequestType = {
     setStartDate: (startDate: string | null) => void;
     setEndDate: (endDate: string | null) => void;
 
+    setFlawPolicy: (flawPolicy: string) => void;
+    setReturnPolicy: (returnPolicy: string) => void;
+
     setFlawPolicyChecked: (checked: boolean) => void;
     setDamagePolicyChecked: (checked: boolean) => void;
     setReturnPolicyCHecked: (checked: boolean) => void;
@@ -44,6 +47,9 @@ const useRequestStore = create<RequestType>()((set, get) => ({
     // setStoredId: (storedId) => set({ storedId }),
     setStartDate: (startDate) => startDate && set({ startDate: new Date(startDate) }),
     setEndDate: (endDate) => endDate && set({ endDate: new Date(endDate) }),
+
+    setFlawPolicy: (flawPolicy) => set({ userFlawPolicy: flawPolicy }),
+    setReturnPolicy: (returnPolicy) => set({ userReturnPolicy: returnPolicy }),
 
     setFlawPolicyChecked: (checked) => set({ flawPolicyChecked: checked }),
     setDamagePolicyChecked: (checked) => set({ damagePolicyChecked: checked }),

@@ -43,14 +43,14 @@ const PolicyModal = () => {
                     },
                 ]}
             >
-                <Text>{userFlawPolicy}</Text>
+                <Text>{userReturnPolicy}</Text>
             </ScrollView>
             <View style={Common.XStack}>
-                <Checkbox value={flawPolicy} onValueChange={setFlawPolicy} />
+                <Checkbox value={returnPolicy} onValueChange={setReturnPolicy} />
 
                 <Text>반납정책을 확인하였습니다.</Text>
             </View>
-            <View style={itemList.rowDivider} />
+            <View style={[itemList.rowDivider, { marginVertical: 15, width: '100%' }]} />
 
             <ScrollView
                 style={[
@@ -63,14 +63,14 @@ const PolicyModal = () => {
                     },
                 ]}
             >
-                <Text>{userReturnPolicy}</Text>
+                <Text>{userFlawPolicy}</Text>
             </ScrollView>
             <View style={Common.XStack}>
                 <Checkbox value={flawPolicy} onValueChange={setFlawPolicy} />
 
                 <Text>하자를 확인하였습니다.</Text>
             </View>
-            <View style={itemList.rowDivider} />
+            <View style={[itemList.rowDivider, { marginVertical: 15, width: '100%' }]} />
 
             <ScrollView
                 style={[

@@ -1,3 +1,4 @@
+import BackButtonHeader from '@/components/header/BackButtonHeader';
 import ItemHeader from '@/components/header/ItemHeader';
 import { Colors } from '@/styles/tokens';
 import { Stack } from 'expo-router';
@@ -12,7 +13,7 @@ const ItemLayout = () => {
                     options={{
                         title: 'item',
                         headerShown: true,
-                        header: () => <ItemHeader name="[id]" />,
+                        header: () => <ItemHeader />,
                         headerTransparent: true,
                     }}
                 />
@@ -21,7 +22,7 @@ const ItemLayout = () => {
                     options={{
                         title: '물품 등록',
                         headerShown: true,
-                        header: () => <ItemHeader name="new" />,
+                        header: () => <BackButtonHeader />,
                     }}
                 />
             </Stack>

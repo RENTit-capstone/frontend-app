@@ -11,6 +11,7 @@ import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
 import DefaultDamagePolicy from '@/components/items/DefaultDamagePolicy';
 import { useRouter } from 'expo-router';
 import { Colors } from '@/styles/tokens';
+import useRequestStore from '@/stores/useRequestStore';
 
 const NewPosting = () => {
     const { openBottomSheet } = useBottomSheetStore();

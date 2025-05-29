@@ -19,7 +19,7 @@ const Postings = () => {
     const toast = useToast();
     const router = useRouter();
     const { userId } = useAuthStore();
-    const { startDate, endDate, clearRecord } = useRequestStore();
+    const { startDate, endDate, clearRecord, setFlawPolicy, setReturnPolicy } = useRequestStore();
 
     useEffect(() => {
         fetchItemDetails();
@@ -31,6 +31,8 @@ const Postings = () => {
             const response = await axiosGet(`/api/v1/items/${parseInt(id)}`);
             console.log('Response for fetchItemDetails: ', response.data);
             setData(response.data);
+            setFlawPolicy(response.data.damagedDescription);
+            setReturnPolicy(response.data.returnPolicy);
         } catch (error) {
             toast.show(`${error}`);
             console.error(error);
