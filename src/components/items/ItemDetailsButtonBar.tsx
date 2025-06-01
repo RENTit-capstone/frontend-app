@@ -18,6 +18,7 @@ const ItemDetailsButtonBar = (props: any) => {
         endDate,
         setStartDate,
         setEndDate,
+        itemData,
         policyChecked,
         setPolicyChecked,
         clearRecord,
@@ -114,7 +115,7 @@ const ItemDetailsButtonBar = (props: any) => {
                         style={[
                             Common.XStack,
                             Common.fullScreen,
-                            { justifyContent: 'space-between' },
+                            { justifyContent: 'space-between', paddingHorizontal: 16 },
                         ]}
                     >
                         <Text style={Common.bold}>
@@ -122,7 +123,7 @@ const ItemDetailsButtonBar = (props: any) => {
                                 {formatISOtoDate(startDate)} ~ {formatISOtoDate(endDate)}
                             </Text>
                         </Text>
-                        <Text style={Common.bold}>5,000원</Text>
+                        <Text style={Common.bold}>{itemData.price.toLocaleString()}원</Text>
                     </View>
                     <View style={[itemList.rowDivider, { width: '100%', marginTop: 16 }]} />
                     <View style={[Common.XStack, { paddingHorizontal: 16 }]}>

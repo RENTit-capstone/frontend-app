@@ -14,7 +14,7 @@ const PolicyModal = () => {
     const [damagedDescriptionPolicy, setDamagedDescriptionPolicy] = useState(false);
     const [damagePolicy, setDamagePolicy] = useState(false);
     const [returnPolicy, setReturnPolicy] = useState(false);
-    const { policyTexts } = useRequestStore();
+    const { itemData } = useRequestStore();
 
     useEffect(() => {
         setResult({
@@ -43,7 +43,7 @@ const PolicyModal = () => {
                     },
                 ]}
             >
-                <Text>{policyTexts.returnPolicy}</Text>
+                <Text>{itemData.returnPolicy}</Text>
             </ScrollView>
             <View style={Common.XStack}>
                 <Checkbox value={returnPolicy} onValueChange={setReturnPolicy} />
@@ -63,7 +63,7 @@ const PolicyModal = () => {
                     },
                 ]}
             >
-                <Text>{policyTexts.damagedDescription}</Text>
+                <Text>{itemData.damagedDescription}</Text>
             </ScrollView>
             <View style={Common.XStack}>
                 <Checkbox
