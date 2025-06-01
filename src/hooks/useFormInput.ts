@@ -7,7 +7,7 @@ function useFormInput<T extends Record<string, string>>(initialValues: T) {
         setValues((prev) => ({ ...prev, [name]: text }));
     };
 
-    return { values, handleChange, setValues };
+    return { values, handleChange };
 }
 
 export default useFormInput;

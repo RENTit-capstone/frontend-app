@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 import Avatar from '../Avatar';
 import { ItemDetailsProp } from '@/types/types';
 import Badge from '../Badge';
-import formatISOToDate from '@/utils/formatDate';
+import formatISOToDate from '@/utils/formatDateString';
 
 const ItemDetails = (props: ItemDetailsProp) => {
     const {

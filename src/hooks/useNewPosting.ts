@@ -8,6 +8,7 @@ import toISOStringWithoutMs from '@/utils/toISOStringWithoutMS';
 import { Alert } from 'react-native';
 import useFormInput from './useFormInput';
 import { PostingType } from '@/types/types';
+import useEmptyValidation from './useEmptyInputValidation';
 
 export const useNewPosting = () => {
     const { openBottomSheet } = useBottomSheetStore();

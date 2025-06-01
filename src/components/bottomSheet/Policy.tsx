@@ -11,18 +11,18 @@ import { Colors } from '@/styles/tokens';
 
 const PolicyModal = () => {
     const { visible, setResult } = useBottomSheetStore();
-    const [flawPolicy, setFlawPolicy] = useState(false);
+    const [damagedDescriptionPolicy, setDamagedDescriptionPolicy] = useState(false);
     const [damagePolicy, setDamagePolicy] = useState(false);
     const [returnPolicy, setReturnPolicy] = useState(false);
-    const { userDamagedDescriptionPolicy, userReturnPolicy } = useRequestStore();
+    const { policyTexts } = useRequestStore();
 
     useEffect(() => {
         setResult({
-            flawPolicy: flawPolicy,
+            damagedDescriptionPolicy: damagedDescriptionPolicy,
             damagePolicy: damagePolicy,
             returnPolicy: returnPolicy,
         });
-    }, [flawPolicy, damagePolicy, returnPolicy]);
+    }, [damagedDescriptionPolicy, damagePolicy, returnPolicy]);
 
     if (!visible) return null;
 
@@ -43,7 +43,7 @@ const PolicyModal = () => {
                     },
                 ]}
             >
-                <Text>{userReturnPolicy}</Text>
+                <Text>{policyTexts.returnPolicy}</Text>
             </ScrollView>
             <View style={Common.XStack}>
                 <Checkbox value={returnPolicy} onValueChange={setReturnPolicy} />
@@ -63,10 +63,13 @@ const PolicyModal = () => {
                     },
                 ]}
             >
-                <Text>{userDamagedDescriptionPolicy}</Text>
+                <Text>{policyTexts.damagedDescription}</Text>
             </ScrollView>
             <View style={Common.XStack}>
-                <Checkbox value={flawPolicy} onValueChange={setFlawPolicy} />
+                <Checkbox
+                    value={damagedDescriptionPolicy}
+                    onValueChange={setDamagedDescriptionPolicy}
+                />
 
                 <Text>하자를 확인하였습니다.</Text>
             </View>

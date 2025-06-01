@@ -3,7 +3,7 @@ import Badge from '@/components/Badge';
 import { Common } from '@/styles/common';
 import { itemList } from '@/styles/components/itemList';
 import { QnAProcessedType, QnAType } from '@/types/types';
-import formatISOToDate from '@/utils/formatDate';
+import formatISOToDate from '@/utils/formatDateString';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Alert, Text, View } from 'react-native';

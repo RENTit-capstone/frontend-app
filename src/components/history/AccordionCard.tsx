@@ -15,7 +15,7 @@ import Badge from '../Badge';
 import determineAction from '@/utils/determineAction';
 import useRentalActions from '@/hooks/useRentalActions';
 import { useRouter } from 'expo-router';
-import formatISOToDate from '@/utils/formatDate';
+import formatISOToDate from '@/utils/formatDateString';
 import determineMineAction from '@/utils/determineMineAction';
 
 const AccordionCard = (props: AccordionCardProps) => {
