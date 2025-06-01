@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 
-// export type RequestPhaseType = 'viewing' | 'dateSelecting' | 'policyConsenting' | 'applying';
+export type RequestPhaseType = 'viewing' | 'dateSelecting' | 'policyConsenting' | 'applying';
 
 type RequestType = {
-    // phase: RequestPhaseType;
+    phase: RequestPhaseType;
     startDate: Date | null;
     endDate: Date | null;
 
@@ -14,7 +14,7 @@ type RequestType = {
         damagedDescription: string;
     };
 
-    // setPhase: (nextPhase: RequestPhaseType) => void;
+    setPhase: (nextPhase: RequestPhaseType) => void;
     setStartDate: (startDate: Date | null) => void;
     setEndDate: (endDate: Date | null) => void;
     setPolicyChecked: (checked: boolean) => void;
@@ -33,7 +33,7 @@ const useRequestStore = create<RequestType>()((set, get) => ({
         returnPolicy: '',
         damagedDescription: '',
     },
-    // setPhase: (nextPhase) => set({ phase: nextPhase }),
+    setPhase: (nextPhase) => set({ phase: nextPhase }),
     setStartDate: (startDate) => set({ startDate: startDate ? new Date(startDate) : null }),
     setEndDate: (endDate) => set({ endDate: endDate ? new Date(endDate) : null }),
 
@@ -48,7 +48,7 @@ const useRequestStore = create<RequestType>()((set, get) => ({
 
     clearRecord: () =>
         set({
-            // phase: 'viewing',
+            phase: 'viewing',
             startDate: null,
             endDate: null,
             policyChecked: false,

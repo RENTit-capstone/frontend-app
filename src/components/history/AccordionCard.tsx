@@ -2,12 +2,7 @@ import { Image, Pressable, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import Button from '../Button';
 import { Common } from '@/styles/common';
-import {
-    AccordionCardProps,
-    ItemDetailsProp,
-    RentalDetailsType,
-    RentalStatusType,
-} from '@/types/types';
+import { AccordionCardProps, ItemDetailsProp, RentalDetailsType } from '@/types/types';
 import { history } from '@/styles/components/history';
 import { axiosGet } from '@/api';
 import { itemList } from '@/styles/components/itemList';

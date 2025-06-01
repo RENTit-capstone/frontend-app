@@ -5,11 +5,15 @@ import { Common } from '@/styles/common';
 import { itemList } from '@/styles/components/itemList';
 import ButtonBar from '../ButtonBar';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import toISOStringWithoutMs from '@/utils/toISOStringWithoutMS';
 import formatDateString from '@/utils/formatDateString';
+import formatISOtoDate from '@/utils/formatDateString';
+
+type RentalPhaseType = 'viewing' | 'dateSelecting' | 'policyConsenting' | 'applying';
 
 const ItemDetailsButtonBar = (props: any) => {
+    const [currentPhase, setCurrentPhase] = useState<RentalPhaseType>('viewing');
     const { handleRequest } = props;
     const {
         startDate,
@@ -24,22 +28,49 @@ const ItemDetailsButtonBar = (props: any) => {
     const { openBottomSheet, onNext, onPrev, cancelResult, submitResult, clearCallbacks } =
         useBottomSheetStore();
 
-    // useEffect(() => {
-    //     return () => {
-    //         clearRecord();
-    //         clearCallbacks();
-    //     };
-    // }, []);
+    useEffect(() => {
+        return () => {
+            clearRecord();
+            clearCallbacks();
+        };
+    }, []);
 
-    const fetchBottomSheetResult = async () => {
+    useEffect(() => {
+        if (currentPhase === 'viewing') return;
+        setCallbacks();
+        fetchBottomSheetResult();
+    }, [currentPhase]);
+
+    const setCallbacks = () => {
         clearCallbacks();
 
-        onPrev(() => cancelResult());
-        onNext(() => submitResult());
+        onPrev(() => {
+            cancelResult();
+            if (currentPhase === 'policyConsenting') {
+                setCurrentPhase('dateSelecting');
+            }
+        });
+        onNext(() => {
+            submitResult();
+            if (currentPhase === 'dateSelecting') {
+                setCurrentPhase('policyConsenting');
+            } else if (currentPhase === 'policyConsenting') {
+                setCurrentPhase('applying');
+            }
+        });
+    };
 
-        if (!startDate || !endDate) {
+    const handlePhase = () => {
+        if (!startDate || !endDate) setCurrentPhase('dateSelecting');
+        else if (!policyChecked) setCurrentPhase('policyConsenting');
+        else setCurrentPhase('applying');
+        fetchBottomSheetResult();
+    };
+
+    const fetchBottomSheetResult = async () => {
+        if (currentPhase === 'dateSelecting') {
             handleDateSelector();
-        } else if (!policyChecked) {
+        } else if (currentPhase === 'policyConsenting') {
             handlePolicyConsentor();
         }
     };
@@ -51,6 +82,7 @@ const ItemDetailsButtonBar = (props: any) => {
         setStartDate(startDate);
         setEndDate(endDate);
     };
+
     const handlePolicyConsentor = async () => {
         const {
             result: { damagedDescriptionPolicy, damagePolicy, returnPolicy },
@@ -61,7 +93,7 @@ const ItemDetailsButtonBar = (props: any) => {
     return (
         <>
             <ButtonBar>
-                <Button type="primary" onPress={fetchBottomSheetResult}>
+                <Button type="primary" onPress={handlePhase}>
                     신청하기
                 </Button>
             </ButtonBar>
@@ -84,7 +116,7 @@ const ItemDetailsButtonBar = (props: any) => {
                     >
                         <Text style={Common.bold}>
                             <Text>
-                                {toISOStringWithoutMs(startDate)} ~ {toISOStringWithoutMs(endDate)}
+                                {formatISOtoDate(startDate)} ~ {formatISOtoDate(endDate)}
                             </Text>
                         </Text>
                         <Text style={Common.bold}>5,000원</Text>
