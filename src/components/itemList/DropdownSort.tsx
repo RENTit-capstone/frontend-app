@@ -35,7 +35,6 @@ const DropdownSort = (props: DropdownSortProps) => {
                     {
                         borderWidth: 0,
                         width: 128,
-                        right: 32,
                         zIndex: 100,
                     },
                 ]}

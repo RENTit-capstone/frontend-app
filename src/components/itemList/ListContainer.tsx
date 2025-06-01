@@ -16,8 +16,10 @@ const ListContainer = (props: ListContainerProps) => {
         keyword: '',
         startDate: '',
         endDate: '',
-        startPrice: '',
-        endPrice: '',
+        minPrice: '',
+        maxPrice: '',
+        status: '',
+        sort: '',
     });
 
     useEffect(() => {
@@ -35,16 +37,17 @@ const ListContainer = (props: ListContainerProps) => {
                 ? new Date(new Date(searchOptions.endDate).setHours(23, 59, 59, 999)).toISOString()
                 : '',
 
-            minPrice: searchOptions.startPrice || '',
-            maxPrice: searchOptions.endPrice || '',
-            stauts: ['AVAILABLE', 'OUT'],
+            minPrice: searchOptions.minPrice || '',
+            maxPrice: searchOptions.maxPrice || '',
+            stauts: searchOptions.status ? 'AVAILABLE' : ['AVAILABLE', 'OUT'],
             ownerRoles: role,
             page: 0,
             size: 20,
-            sort: ['createdAt', 'desc'],
+            sort: searchOptions.sort ? searchOptions.sort : ['createdAt', 'desc'],
         });
         try {
             const response = await axiosGet(`/api/v1/items?${params}`);
+            console.log(params);
             setPage(response.data.pageable.pageNumber + 1);
             setData(response.data.content);
             setLast(response.data.last);

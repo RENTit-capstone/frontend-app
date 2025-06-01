@@ -1,7 +1,7 @@
 import { Pressable, View } from 'react-native';
 import DropDown from '../Dropdown';
 import { Common } from '@/styles/common';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Calendar from '@/assets/images/calendar.svg';
 import DownArrow from '@/assets/images/down-arrow.svg';
 import TextInput from '../TextInput';
@@ -10,6 +10,8 @@ import formatISOToDate from '@/utils/formatDateString';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
 import { Colors } from '@/styles/tokens';
 import DropdownSort from './DropdownSort';
+import Checkbox from 'expo-checkbox';
+import { Text } from 'react-native';
 
 const SORT_OPTIONS = ['최신순', '인기순', '가격 낮은순', '가격 높은순'];
 
@@ -23,6 +25,12 @@ const SearchGroup = (props: any) => {
     const [endPrice, setEndPrice] = useState<string>('');
     const [keyword, setKeyword] = useState('');
     const [selected, setSelected] = useState(SORT_OPTIONS[0]);
+    const [availableOnly, setAvailableOnly] = useState(false);
+
+    useEffect(() => {
+        onChange({ status: availableOnly });
+        console.log(selected);
+    }, [selected, availableOnly]);
 
     const handleDateSelect = async () => {
         const {
@@ -76,7 +84,16 @@ const SearchGroup = (props: any) => {
                     onPress={() => setShowSlider(true)}
                 />
             </View>
-            <View style={[Common.XStack, { width: '100%', justifyContent: 'flex-end' }]}>
+            <View
+                style={[
+                    Common.XStack,
+                    { width: '100%', justifyContent: 'space-between', paddingHorizontal: 32 },
+                ]}
+            >
+                <View style={[Common.XStack, { gap: 10 }]}>
+                    <Checkbox value={availableOnly} onValueChange={setAvailableOnly} />
+                    <Text>대여 가능한 물품만 보기</Text>
+                </View>
                 <DropdownSort
                     selected={selected}
                     setSelected={setSelected}
