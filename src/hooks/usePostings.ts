@@ -13,8 +13,7 @@ const usePostings = () => {
     const toast = useToast();
     const router = useRouter();
     const { userId } = useAuthStore();
-    const { startDate, endDate, clearRecord, setDamagedDescriptionPolicy, setReturnPolicy } =
-        useRequestStore();
+    const { startDate, endDate, clearRecord, setPolicyText } = useRequestStore();
 
     useEffect(() => {
         fetchItemDetails();
@@ -25,8 +24,9 @@ const usePostings = () => {
         try {
             const response = await axiosGet(`/api/v1/items/${parseInt(id)}`);
             setData(response.data);
-            setDamagedDescriptionPolicy(response.data.damagedDescription);
-            setReturnPolicy(response.data.returnPolicy);
+            setPolicyText('damagedDescription', response.data.damagedDescription);
+            setPolicyText('returnPolicy', response.data.returnPolicy);
+            setPolicyText('damagePolicy', response.data.damagePolicy);
         } catch (error) {
             toast.show(`${error}`);
             console.error(error);

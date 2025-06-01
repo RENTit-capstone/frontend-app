@@ -6,16 +6,12 @@ import { itemList } from '@/styles/components/itemList';
 import ButtonBar from '../ButtonBar';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
 import { useEffect, useState } from 'react';
-import toISOStringWithoutMs from '@/utils/toISOStringWithoutMS';
-import formatDateString from '@/utils/formatDateString';
 import formatISOtoDate from '@/utils/formatDateString';
-import { useRouter } from 'expo-router';
 
 type RentalPhaseType = 'viewing' | 'dateSelecting' | 'policyConsenting' | 'applying';
 
 const ItemDetailsButtonBar = (props: any) => {
     const [currentPhase, setCurrentPhase] = useState<RentalPhaseType>('viewing');
-    const router = useRouter();
     const { handleRequest } = props;
     const {
         startDate,
@@ -58,6 +54,10 @@ const ItemDetailsButtonBar = (props: any) => {
             if (currentPhase === 'dateSelecting') {
                 setCurrentPhase('policyConsenting');
             } else if (currentPhase === 'policyConsenting') {
+                if (!policyChecked) {
+                    Alert.alert('모든 정책에 동의해주세요.');
+                    return;
+                }
                 setCurrentPhase('applying');
             }
         });

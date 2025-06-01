@@ -18,7 +18,10 @@ type RequestType = {
     setStartDate: (startDate: Date | null) => void;
     setEndDate: (endDate: Date | null) => void;
     setPolicyChecked: (checked: boolean) => void;
-    setPolicyText: (type: 'damagedDescription' | 'return', text: string) => void;
+    setPolicyText: (
+        type: 'damagedDescription' | 'returnPolicy' | 'damagePolicy',
+        text: string,
+    ) => void;
     clearRecord: () => void;
 };
 
