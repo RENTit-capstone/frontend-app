@@ -180,10 +180,10 @@ export const Common = StyleSheet.create({
     floatingIcon: {
         position: 'absolute',
         alignSelf: 'flex-end',
-        marginVertical: 15,
-        paddingRight: 35,
-        paddingTop: 20,
-        transform: [{ translateY: -26 }],
+        // marginVertical: 15,
+        paddingRight: 56,
+        // paddingTop: 20,
+        transform: [{ translateY: -35 }],
     },
     searchGroup: {
         gap: '5%',

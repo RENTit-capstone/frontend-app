@@ -9,16 +9,18 @@ import SearchIcon from '@/assets/images/search.svg';
 import formatISOToDate from '@/utils/formatDateString';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
 import { Colors } from '@/styles/tokens';
+import { Dimensions } from 'react-native';
 
 const SearchGroup = (props: any) => {
     const { onChange } = props;
     const { openBottomSheet } = useBottomSheetStore();
-    const [startDate, setStartDate] = useState<string | null>('');
-    const [endDate, setEndDate] = useState<string | null>('');
+    const [startDate, setStartDate] = useState<Date | null>();
+    const [endDate, setEndDate] = useState<Date | null>();
     const [showSlider, setShowSlider] = useState(false);
     const [startPrice, setStartPrice] = useState<string>('');
     const [endPrice, setEndPrice] = useState<string>('');
     const [keyword, setKeyword] = useState('');
+    const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
     const handleDateSelect = async () => {
         const {
@@ -48,7 +50,7 @@ const SearchGroup = (props: any) => {
                 handleChangeText={setKeyword}
                 placeholder="검색어를 입력해주세요"
                 value={keyword}
-                style={{ paddingRight: 42, marginHorizontal: 14, marginTop: 15, borderRadius: 50 }}
+                style={{ paddingRight: 42, marginHorizontal: 32, marginTop: 15, borderRadius: 50 }}
             />
             <Pressable
                 style={Common.floatingIcon}
@@ -70,6 +72,22 @@ const SearchGroup = (props: any) => {
                     icon={priceSelected ? null : <DownArrow />}
                     selectedColor={!!startPrice && !!endPrice ? selectedColor : undefined}
                     onPress={() => setShowSlider(true)}
+                />
+            </View>
+            <View style={[Common.XStack, { width: '100%', justifyContent: 'flex-end' }]}>
+                <DropDown
+                    label="최신 순"
+                    icon={<DownArrow />}
+                    selectedColor={undefined}
+                    onPress={() => console.log('정렬')}
+                    style={[
+                        {
+                            borderWidth: 0,
+                            right: 20,
+                            width: 110,
+                            marginHorizontal: '2%',
+                        },
+                    ]}
                 />
             </View>
         </View>
