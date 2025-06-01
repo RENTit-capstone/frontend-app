@@ -40,16 +40,14 @@ const ListContainer = (props: ListContainerProps) => {
 
             minPrice: searchOptions.minPrice || '',
             maxPrice: searchOptions.maxPrice || '',
-            stauts: searchOptions.status ? 'AVAILABLE' : ['AVAILABLE', 'OUT'],
+            status: searchOptions.status ? 'AVAILABLE' : '',
             ownerRoles: role,
             page: 0,
             size: 20,
             sort: searchOptions.sort ? searchOptions.sort : ['createdAt', 'desc'],
         });
         try {
-            console.log(params);
             const response = await axiosGet(`/api/v1/items?${params}`);
-            console.log(response.data);
             setPage(response.data.pageable.pageNumber + 1);
             setData(response.data.content);
             setLast(response.data.last);

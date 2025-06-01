@@ -46,7 +46,7 @@ const BaseBottomSheet = () => {
                     </>
                 ) : (
                     <Button type="primary" onPress={submitResult}>
-                        저장
+                        확인
                     </Button>
                 )}
             </ButtonBar>
