@@ -4,11 +4,13 @@ import {
     TextInput as DefaultTextInput,
     KeyboardTypeOptions,
     TextStyle,
+    TextInputProperties,
+    TextInputProps,
 } from 'react-native';
 import { Common } from '@/styles/common';
 import { TextThemes } from '@/styles/theme';
 
-type TextInputProps = {
+type CustomTextInputProps = {
     label: string;
     name: string;
     handleChangeText: (name: string, text: string) => void;
@@ -19,8 +21,8 @@ type TextInputProps = {
     errorMsg?: string;
     multiline?: boolean;
     style?: TextStyle[];
-};
-const TextInput = (props: TextInputProps) => {
+} & TextInputProps;
+const TextInput = (props: CustomTextInputProps) => {
     const {
         label,
         name,

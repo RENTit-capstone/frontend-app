@@ -61,6 +61,8 @@ const SearchGroup = (props: any) => {
                 placeholder="검색어를 입력해주세요"
                 value={keyword}
                 style={{ paddingRight: 42, marginHorizontal: 32, marginTop: 15, borderRadius: 50 }}
+                returnKeyType="search"
+                onSubmitEditing={handleKeywordSearch}
             />
             <Pressable
                 style={Common.floatingIcon}
@@ -91,7 +93,11 @@ const SearchGroup = (props: any) => {
                 ]}
             >
                 <View style={[Common.XStack, { gap: 10 }]}>
-                    <Checkbox value={availableOnly} onValueChange={setAvailableOnly} />
+                    <Checkbox
+                        value={availableOnly}
+                        onValueChange={setAvailableOnly}
+                        hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                    />
                     <Text>대여 가능한 물품만 보기</Text>
                 </View>
                 <DropdownSort

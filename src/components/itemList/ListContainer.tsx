@@ -47,8 +47,9 @@ const ListContainer = (props: ListContainerProps) => {
             sort: searchOptions.sort ? searchOptions.sort : ['createdAt', 'desc'],
         });
         try {
-            const response = await axiosGet(`/api/v1/items?${params}`);
             console.log(params);
+            const response = await axiosGet(`/api/v1/items?${params}`);
+            console.log(response.data);
             setPage(response.data.pageable.pageNumber + 1);
             setData(response.data.content);
             setLast(response.data.last);
@@ -68,9 +69,7 @@ const ListContainer = (props: ListContainerProps) => {
 
     return (
         <View style={{ flex: 1 }}>
-            {/* <View> */}
             <SearchGroup onChange={handleChangeOptions} />
-            {/* </View> */}
             <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 64 }}>
                 {data.map((item: ListItemProps, index: number) => (
                     <View key={index} style={itemList.listContainer}>
