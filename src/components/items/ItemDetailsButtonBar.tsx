@@ -54,10 +54,6 @@ const ItemDetailsButtonBar = (props: any) => {
             if (currentPhase === 'dateSelecting') {
                 setCurrentPhase('policyConsenting');
             } else if (currentPhase === 'policyConsenting') {
-                if (!policyChecked) {
-                    Alert.alert('모든 정책에 동의해주세요.');
-                    return;
-                }
                 setCurrentPhase('applying');
             }
         });
@@ -91,6 +87,10 @@ const ItemDetailsButtonBar = (props: any) => {
             result: { damagedDescriptionPolicy, damagePolicy, returnPolicy },
         } = await openBottomSheet('policy');
         setPolicyChecked(damagedDescriptionPolicy && damagePolicy && returnPolicy);
+        if (!damagedDescriptionPolicy || !damagePolicy || !returnPolicy) {
+            Alert.alert('모든 정책에 동의해주세요.');
+            return;
+        }
     };
 
     return (
@@ -125,7 +125,7 @@ const ItemDetailsButtonBar = (props: any) => {
                         <Text style={Common.bold}>5,000원</Text>
                     </View>
                     <View style={[itemList.rowDivider, { width: '100%', marginTop: 16 }]} />
-                    <View style={Common.XStack}>
+                    <View style={[Common.XStack, { paddingHorizontal: 16 }]}>
                         <Button onPress={() => clear()} type="secondary" style={{ flex: 1 }}>
                             초기화
                         </Button>

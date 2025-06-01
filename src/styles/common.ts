@@ -109,6 +109,7 @@ export const Common = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: Colors.secondary,
         zIndex: 20,
+        paddingHorizontal: 16,
     },
     roundTopEdge: {
         borderTopLeftRadius: 8,

@@ -30,7 +30,7 @@ const ItemDetails = (props: ItemDetailsProp) => {
                 <View style={[Common.textWrapper, itemList.detailsHeader]}>
                     <View style={[Common.textWrapper, itemList.detailsHeader]}>
                         <Avatar />
-                        <Text>판매자 {owner.nickname}</Text>
+                        <Text>{owner.nickname}</Text>
                     </View>
                     <View style={[Common.textWrapper, { gap: 3 }]}></View>
                 </View>
