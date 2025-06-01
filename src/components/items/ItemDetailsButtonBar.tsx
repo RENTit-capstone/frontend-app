@@ -9,18 +9,19 @@ import { useEffect, useState } from 'react';
 import toISOStringWithoutMs from '@/utils/toISOStringWithoutMS';
 import formatDateString from '@/utils/formatDateString';
 import formatISOtoDate from '@/utils/formatDateString';
+import { useRouter } from 'expo-router';
 
 type RentalPhaseType = 'viewing' | 'dateSelecting' | 'policyConsenting' | 'applying';
 
 const ItemDetailsButtonBar = (props: any) => {
     const [currentPhase, setCurrentPhase] = useState<RentalPhaseType>('viewing');
+    const router = useRouter();
     const { handleRequest } = props;
     const {
         startDate,
         endDate,
         setStartDate,
         setEndDate,
-        policyTexts,
         policyChecked,
         setPolicyChecked,
         clearRecord,
@@ -29,10 +30,7 @@ const ItemDetailsButtonBar = (props: any) => {
         useBottomSheetStore();
 
     useEffect(() => {
-        return () => {
-            clearRecord();
-            clearCallbacks();
-        };
+        return () => clear();
     }, []);
 
     useEffect(() => {
@@ -40,6 +38,11 @@ const ItemDetailsButtonBar = (props: any) => {
         setCallbacks();
         fetchBottomSheetResult();
     }, [currentPhase]);
+
+    const clear = () => {
+        clearRecord();
+        clearCallbacks();
+    };
 
     const setCallbacks = () => {
         clearCallbacks();
@@ -123,11 +126,7 @@ const ItemDetailsButtonBar = (props: any) => {
                     </View>
                     <View style={[itemList.rowDivider, { width: '100%', marginTop: 16 }]} />
                     <View style={Common.XStack}>
-                        <Button
-                            onPress={() => console.log('초기화')}
-                            type="secondary"
-                            style={{ flex: 1 }}
-                        >
+                        <Button onPress={() => clear()} type="secondary" style={{ flex: 1 }}>
                             초기화
                         </Button>
                         <Button onPress={handleRequest} type="primary" style={{ flex: 3 }}>
