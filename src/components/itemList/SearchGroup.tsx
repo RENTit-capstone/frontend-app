@@ -53,7 +53,7 @@ const SearchGroup = (props: any) => {
     const priceLabel = priceSelected ? `${startPrice} - ${endPrice}` : '가격대';
 
     return (
-        <View style={[Common.YStack, Common.searchGroup]}>
+        <View style={[Common.searchGroup]}>
             <TextInput
                 label=""
                 name="keyword"

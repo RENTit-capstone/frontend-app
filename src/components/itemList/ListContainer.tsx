@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { ListItemProps, ListContainerProps } from '@/types/types';
 import ListItem from './ListItem';
 import { itemList } from '@/styles/components/itemList';
 import SearchGroup from './SearchGroup';
 import { axiosGet } from '@/api';
 import generateUrl from '@/utils/generateUrl';
+import { Common } from '@/styles/common';
 
 const ListContainer = (props: ListContainerProps) => {
     const { type } = props;
@@ -66,9 +67,11 @@ const ListContainer = (props: ListContainerProps) => {
     if (!data) return;
 
     return (
-        <>
+        <View style={{ flex: 1 }}>
+            {/* <View> */}
             <SearchGroup onChange={handleChangeOptions} />
-            <View style={{ paddingBottom: 64 }}>
+            {/* </View> */}
+            <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 64 }}>
                 {data.map((item: ListItemProps, index: number) => (
                     <View key={index} style={itemList.listContainer}>
                         <ListItem
@@ -84,8 +87,8 @@ const ListContainer = (props: ListContainerProps) => {
                         <View style={[itemList.rowDivider, { marginTop: 10 }]} />
                     </View>
                 ))}
-            </View>
-        </>
+            </ScrollView>
+        </View>
     );
 };
 

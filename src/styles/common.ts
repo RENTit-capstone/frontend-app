@@ -186,7 +186,8 @@ export const Common = StyleSheet.create({
         transform: [{ translateY: -35 }],
     },
     searchGroup: {
-        gap: '5%',
+        position: 'relative',
+        justifyContent: 'flex-start',
         backgroundColor: 'white',
         paddingTop: 16,
     },
