@@ -1,72 +1,92 @@
 import { Alert, ScrollView, Text, View } from 'react-native';
 import AccordionCard from './AccordionCard';
-import {
-    AccordionCardProps,
-    AccordionContainerProps,
-    historyType,
-    MineCardProps,
-} from '@/types/types';
+import { AccordionCardProps, AccordionContainerProps } from '@/types/types';
 import { itemList } from '@/styles/components/itemList';
 import { useEffect, useRef, useState } from 'react';
 import { axiosGet } from '@/api';
 import generateUrl from '@/utils/generateUrl';
+import DropdownSort from '../itemList/DropdownSort';
+import { Common } from '@/styles/common';
+
+const SORT_OPTIONS = ['최신순', '가격 낮은순', '가격 높은순'];
+const FILTER_OPTIONS = ['전체', '요청 중', '승인됨', '거절됨', '취소됨', '대여 중', '완료됨'];
 
 const AccordionCardContainer = (props: AccordionContainerProps) => {
     const { type } = props;
     const page = useRef(0);
     const [data, setData] = useState<AccordionCardProps[]>([]);
+    const [selected, setSelected] = useState(SORT_OPTIONS[0]);
+    const [filtered, setFiltered] = useState(FILTER_OPTIONS[0]);
 
     useEffect(() => {
         type === 'OTHERS' ? fetchHistory() : fetchMine();
         page.current = 0;
     }, []);
 
-    const fetchMine = async () => {
+    useEffect(() => {
+        console.log(selected);
+        const params = generateUrl({
+            statuses: filtered,
+            sort: selected || ['requestDate', 'desc'],
+            page: 0,
+            size: 20,
+        });
+        if (type === 'OTHERS') {
+            fetchHistory(params);
+        } else {
+            fetchMine(params);
+        }
+    }, [selected, filtered]);
+
+    const fetchMine = async (params?: any) => {
+        console.log(params);
         try {
             const response = await axiosGet(`/api/v1/members/me`);
             setData(response.data.ownedRentals);
-            page.current++;
         } catch (error) {
             Alert.alert(`${error}`);
             console.error(error);
         }
     };
 
-    const fetchHistory = async () => {
-        const params = generateUrl({
-            stautses: ['REQUESTED', 'APPROVED'],
-            page: 0,
-            size: 20,
-            sort: ['requestDate', 'desc'],
-        });
+    const fetchHistory = async (params?: any) => {
+        console.log(params);
+
+        if (!params) {
+            params = generateUrl({
+                // stautses: ['REQUESTED', 'APPROVED', 'RejECTED', 'COMPLETED'],
+                page: 0,
+                size: 20,
+                sort: ['requestDate', 'desc'],
+            });
+        }
         try {
             const response = await axiosGet(`/api/v1/rentals?${params}`);
             setData(response.data.content);
-            page.current++;
         } catch (error) {
             Alert.alert(`${error}`);
             console.error(error);
         }
     };
-
-    // 히스토리가 아니라 나의 물품에서 실행
-    // const submitApprove = async (rentalId: number, isApproved: boolean=false) => {
-    //     const approvement = isApproved? "approve" : "reject";
-    //     try {
-    //         const response = await axiosPost(`/api/v1/rentals/${rentalId}/${approvement}`);
-    //         console.log("Response for submitApprovee: ", response.data);
-    //         // TODO: button 비활성화로 만들고 toastMessage 띄우기
-    //     }
-    //     catch(error) {
-    //         console.error(error);
-    //     }
-    // }
 
     if (!data) return;
 
     return (
         <ScrollView>
             <View style={[itemList.listContainer, { paddingBottom: 64 }]}>
+                <View style={[Common.XStack, { gap: 0, alignSelf: 'flex-end' }]}>
+                    <DropdownSort
+                        filtered={filtered}
+                        setFiltered={setFiltered}
+                        filterOptions={FILTER_OPTIONS}
+                    />
+                    <DropdownSort
+                        selected={selected}
+                        setSelected={setSelected}
+                        sortOptions={SORT_OPTIONS}
+                    />
+                </View>
+
                 {data.map((item: AccordionCardProps) => (
                     <>
                         <AccordionCard

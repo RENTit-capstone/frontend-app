@@ -20,9 +20,8 @@ const SearchGroup = (props: any) => {
     const { openBottomSheet } = useBottomSheetStore();
     const [startDate, setStartDate] = useState<Date | null>();
     const [endDate, setEndDate] = useState<Date | null>();
-    const [showSlider, setShowSlider] = useState(false);
-    const [startPrice, setStartPrice] = useState<string>('');
-    const [endPrice, setEndPrice] = useState<string>('');
+    const [minPrice, setMinPrice] = useState<number>(0);
+    const [maxPrice, setMaxPrice] = useState<number>(0);
     const [keyword, setKeyword] = useState('');
     const [selected, setSelected] = useState(SORT_OPTIONS[0]);
     const [availableOnly, setAvailableOnly] = useState(false);
@@ -41,16 +40,27 @@ const SearchGroup = (props: any) => {
         if (!(startDate && endDate)) setEndDate(startDate);
         onChange({ startDate, endDate });
     };
+
+    const handlePriceSelect = async () => {
+        const {
+            result: { minPrice, maxPrice },
+        } = await openBottomSheet('priceSelector');
+        setMinPrice(minPrice);
+        setMaxPrice(maxPrice);
+        onChange({ minPrice, maxPrice });
+    };
+
     const handleKeywordSearch = () => {
         onChange({ keyword });
     };
+
     const dateSelected = !!startDate && !!endDate;
-    const priceSelected = !!startPrice && !!endPrice;
+    const priceSelected = !!minPrice && !!maxPrice;
     const selectedColor = Colors.brown;
     const dateLabel = dateSelected
         ? `${formatISOToDate(startDate)} ~ ${formatISOToDate(endDate)}`
         : '날짜 선택';
-    const priceLabel = priceSelected ? `${startPrice} - ${endPrice}` : '가격대';
+    const priceLabel = priceSelected ? `${minPrice} - ${maxPrice}` : '가격대';
 
     return (
         <View style={[Common.searchGroup]}>
@@ -82,8 +92,8 @@ const SearchGroup = (props: any) => {
                 <DropDown
                     label={priceLabel}
                     icon={priceSelected ? null : <DownArrow />}
-                    selectedColor={!!startPrice && !!endPrice ? selectedColor : undefined}
-                    onPress={() => setShowSlider(true)}
+                    selectedColor={!!minPrice && !!maxPrice ? selectedColor : undefined}
+                    onPress={handlePriceSelect}
                 />
             </View>
             <View

@@ -5,13 +5,17 @@ import DownArrow from '@/assets/images/down-arrow.svg';
 import { itemList } from '@/styles/components/itemList';
 
 type DropdownSortProps = {
-    sortOptions: string[];
-    selected: string;
-    setSelected: (option: string) => void;
+    sortOptions?: string[];
+    selected?: string;
+    setSelected?: (option: string) => void;
+
+    filterOptions?: string[];
+    filtered?: string;
+    setFiltered?: (option: string) => void;
 };
 
 const DropdownSort = (props: DropdownSortProps) => {
-    const { selected, setSelected, sortOptions } = props;
+    const { selected, setSelected, sortOptions, filterOptions, setFiltered, filtered } = props;
     const [isOpen, setIsOpen] = useState(false);
     // const [selected, setSelected] = useState(SORT_OPTIONS[0]);
 
@@ -20,14 +24,15 @@ const DropdownSort = (props: DropdownSortProps) => {
     };
 
     const handleSort = (option: string) => {
-        setSelected(option);
+        setSelected && setSelected(option);
+        setFiltered && setFiltered(option);
         setIsOpen(false);
     };
 
     return (
         <View style={{ position: 'relative' }}>
             <DropDown
-                label={selected}
+                label={selected || filtered || ''}
                 icon={<DownArrow />}
                 selectedColor={undefined}
                 onPress={toggleDropdown}
@@ -51,15 +56,26 @@ const DropdownSort = (props: DropdownSortProps) => {
                         },
                     ]}
                 >
-                    {sortOptions.map((option) => (
-                        <TouchableOpacity
-                            key={option}
-                            onPress={() => handleSort(option)}
-                            style={itemList.sortOption}
-                        >
-                            <Text>{option}</Text>
-                        </TouchableOpacity>
-                    ))}
+                    {sortOptions &&
+                        sortOptions.map((option) => (
+                            <TouchableOpacity
+                                key={option}
+                                onPress={() => handleSort(option)}
+                                style={itemList.sortOption}
+                            >
+                                <Text>{option}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    {filterOptions &&
+                        filterOptions.map((option) => (
+                            <TouchableOpacity
+                                key={option}
+                                onPress={() => handleSort(option)}
+                                style={itemList.sortOption}
+                            >
+                                <Text>{option}</Text>
+                            </TouchableOpacity>
+                        ))}
                 </View>
             )}
         </View>

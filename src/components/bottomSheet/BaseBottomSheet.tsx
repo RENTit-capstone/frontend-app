@@ -8,13 +8,14 @@ import { Common } from '@/styles/common';
 import PolicyScreen from './Policy';
 import CanendarScreen from './DateSelector';
 import OTPScreen from './Otp';
+import SliderScreen from './PriceSelector';
 
 const bottomSheetMap = {
     none: () => <></>,
     policy: PolicyScreen,
     dateSelector: CanendarScreen,
     otp: OTPScreen,
-    //   slider: SliderModal,
+    priceSelector: SliderScreen,
 };
 
 const BaseBottomSheet = () => {
