@@ -9,7 +9,9 @@ import SearchIcon from '@/assets/images/search.svg';
 import formatISOToDate from '@/utils/formatDateString';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
 import { Colors } from '@/styles/tokens';
-import { Dimensions } from 'react-native';
+import DropdownSort from './DropdownSort';
+
+const SORT_OPTIONS = ['최신순', '인기순', '가격 낮은순', '가격 높은순'];
 
 const SearchGroup = (props: any) => {
     const { onChange } = props;
@@ -20,7 +22,7 @@ const SearchGroup = (props: any) => {
     const [startPrice, setStartPrice] = useState<string>('');
     const [endPrice, setEndPrice] = useState<string>('');
     const [keyword, setKeyword] = useState('');
-    const { width: SCREEN_WIDTH } = Dimensions.get('window');
+    const [selected, setSelected] = useState(SORT_OPTIONS[0]);
 
     const handleDateSelect = async () => {
         const {
@@ -75,19 +77,10 @@ const SearchGroup = (props: any) => {
                 />
             </View>
             <View style={[Common.XStack, { width: '100%', justifyContent: 'flex-end' }]}>
-                <DropDown
-                    label="최신 순"
-                    icon={<DownArrow />}
-                    selectedColor={undefined}
-                    onPress={() => console.log('정렬')}
-                    style={[
-                        {
-                            borderWidth: 0,
-                            right: 20,
-                            width: 110,
-                            marginHorizontal: '2%',
-                        },
-                    ]}
+                <DropdownSort
+                    selected={selected}
+                    setSelected={setSelected}
+                    sortOptions={SORT_OPTIONS}
                 />
             </View>
         </View>
