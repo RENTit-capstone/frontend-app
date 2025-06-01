@@ -4,7 +4,7 @@ import { Common } from '@/styles/common';
 import Badge from '../Badge';
 import { itemList } from '@/styles/components/itemList';
 import { useRouter } from 'expo-router';
-import formatISOToDate from '@/utils/formatDate';
+import formatISOToDate from '@/utils/formatDateString';
 
 const ListItem = (props: ListItemProps) => {
     const { itemId, nickname, name, imgUrls, price, status, startDate, endDate } = props;

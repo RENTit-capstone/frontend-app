@@ -2,8 +2,8 @@ import { create } from 'zustand';
 
 type ResultType = {
     none: void;
-    dateSelector: { startDate: string | null; endDate: string | null };
-    policy: { flawPolicy: boolean; damagePolicy: boolean; returnPolicy: boolean };
+    dateSelector: { startDate: Date | null; endDate: Date | null };
+    policy: { damagedDescriptionPolicy: boolean; damagePolicy: boolean; returnPolicy: boolean };
     otp: void;
 };
 

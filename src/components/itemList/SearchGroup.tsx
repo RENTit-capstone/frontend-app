@@ -6,7 +6,7 @@ import Calendar from '@/assets/images/calendar.svg';
 import DownArrow from '@/assets/images/down-arrow.svg';
 import TextInput from '../TextInput';
 import SearchIcon from '@/assets/images/search.svg';
-import formatISOToDate from '@/utils/formatDate';
+import formatISOToDate from '@/utils/formatDateString';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
 import { Colors } from '@/styles/tokens';
 

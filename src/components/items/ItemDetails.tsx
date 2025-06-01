@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 import Avatar from '../Avatar';
 import { ItemDetailsProp } from '@/types/types';
 import Badge from '../Badge';
-import formatISOToDate from '@/utils/formatDate';
+import formatISOToDate from '@/utils/formatDateString';
 
 const ItemDetails = (props: ItemDetailsProp) => {
     const {
@@ -30,7 +30,7 @@ const ItemDetails = (props: ItemDetailsProp) => {
                 <View style={[Common.textWrapper, itemList.detailsHeader]}>
                     <View style={[Common.textWrapper, itemList.detailsHeader]}>
                         <Avatar />
-                        <Text>판매자 {owner.nickname}</Text>
+                        <Text>{owner.nickname}</Text>
                     </View>
                     <View style={[Common.textWrapper, { gap: 3 }]}></View>
                 </View>

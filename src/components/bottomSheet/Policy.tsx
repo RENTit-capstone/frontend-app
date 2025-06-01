@@ -11,18 +11,18 @@ import { Colors } from '@/styles/tokens';
 
 const PolicyModal = () => {
     const { visible, setResult } = useBottomSheetStore();
-    const [flawPolicy, setFlawPolicy] = useState(false);
+    const [damagedDescriptionPolicy, setDamagedDescriptionPolicy] = useState(false);
     const [damagePolicy, setDamagePolicy] = useState(false);
     const [returnPolicy, setReturnPolicy] = useState(false);
-    const { userFlawPolicy, userReturnPolicy } = useRequestStore();
+    const { itemData } = useRequestStore();
 
     useEffect(() => {
         setResult({
-            flawPolicy: flawPolicy,
+            damagedDescriptionPolicy: damagedDescriptionPolicy,
             damagePolicy: damagePolicy,
             returnPolicy: returnPolicy,
         });
-    }, [flawPolicy, damagePolicy, returnPolicy]);
+    }, [damagedDescriptionPolicy, damagePolicy, returnPolicy]);
 
     if (!visible) return null;
 
@@ -43,14 +43,14 @@ const PolicyModal = () => {
                     },
                 ]}
             >
-                <Text>{userFlawPolicy}</Text>
+                <Text>{itemData.returnPolicy}</Text>
             </ScrollView>
             <View style={Common.XStack}>
-                <Checkbox value={flawPolicy} onValueChange={setFlawPolicy} />
+                <Checkbox value={returnPolicy} onValueChange={setReturnPolicy} />
 
                 <Text>반납정책을 확인하였습니다.</Text>
             </View>
-            <View style={itemList.rowDivider} />
+            <View style={[itemList.rowDivider, { marginVertical: 15, width: '100%' }]} />
 
             <ScrollView
                 style={[
@@ -63,14 +63,17 @@ const PolicyModal = () => {
                     },
                 ]}
             >
-                <Text>{userReturnPolicy}</Text>
+                <Text>{itemData.damagedDescription}</Text>
             </ScrollView>
             <View style={Common.XStack}>
-                <Checkbox value={flawPolicy} onValueChange={setFlawPolicy} />
+                <Checkbox
+                    value={damagedDescriptionPolicy}
+                    onValueChange={setDamagedDescriptionPolicy}
+                />
 
                 <Text>하자를 확인하였습니다.</Text>
             </View>
-            <View style={itemList.rowDivider} />
+            <View style={[itemList.rowDivider, { marginVertical: 15, width: '100%' }]} />
 
             <ScrollView
                 style={[

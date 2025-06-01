@@ -4,58 +4,65 @@ export type RequestPhaseType = 'viewing' | 'dateSelecting' | 'policyConsenting' 
 
 type RequestType = {
     phase: RequestPhaseType;
-    // storedId: string | string[] | undefined,
     startDate: Date | null;
     endDate: Date | null;
 
-    flawPolicyChecked: boolean;
-    damagePolicyChecked: boolean;
-    returnPolicyChecked: boolean;
-
-    userFlawPolicy: string;
-    userReturnPolicy: string;
+    policyChecked: boolean;
+    itemData: {
+        damagePolicy: string;
+        returnPolicy: string;
+        damagedDescription: string;
+        price: number;
+    };
 
     setPhase: (nextPhase: RequestPhaseType) => void;
-    // setStoredId: (storedId: string | string[]) => void,
-    setStartDate: (startDate: string | null) => void;
-    setEndDate: (endDate: string | null) => void;
-
-    setFlawPolicyChecked: (checked: boolean) => void;
-    setDamagePolicyChecked: (checked: boolean) => void;
-    setReturnPolicyCHecked: (checked: boolean) => void;
-
+    setStartDate: (startDate: Date | null) => void;
+    setEndDate: (endDate: Date | null) => void;
+    setPolicyChecked: (checked: boolean) => void;
+    setItemData: (
+        type: 'damagedDescription' | 'returnPolicy' | 'damagePolicy' | 'price',
+        text: string | number,
+    ) => void;
     clearRecord: () => void;
 };
 
 const useRequestStore = create<RequestType>()((set, get) => ({
     phase: 'viewing',
-    // storedId: undefined,
     startDate: null,
     endDate: null,
 
-    flawPolicyChecked: false,
-    damagePolicyChecked: false,
-    returnPolicyChecked: false,
-
-    userFlawPolicy: '',
-    userReturnPolicy: '',
-
+    policyChecked: false,
+    itemData: {
+        damagePolicy: '',
+        returnPolicy: '',
+        damagedDescription: '',
+        price: 0,
+    },
     setPhase: (nextPhase) => set({ phase: nextPhase }),
-    // setStoredId: (storedId) => set({ storedId }),
-    setStartDate: (startDate) => startDate && set({ startDate: new Date(startDate) }),
-    setEndDate: (endDate) => endDate && set({ endDate: new Date(endDate) }),
+    setStartDate: (startDate) => set({ startDate: startDate ? new Date(startDate) : null }),
+    setEndDate: (endDate) => set({ endDate: endDate ? new Date(endDate) : null }),
 
-    setFlawPolicyChecked: (checked) => set({ flawPolicyChecked: checked }),
-    setDamagePolicyChecked: (checked) => set({ damagePolicyChecked: checked }),
-    setReturnPolicyCHecked: (checked) => set({ returnPolicyChecked: checked }),
+    setPolicyChecked: (checked) => set({ policyChecked: checked }),
+    setItemData: (type, text) =>
+        set((state) => ({
+            itemData: {
+                ...state.itemData,
+                [type]: text,
+            },
+        })),
 
     clearRecord: () =>
         set({
             phase: 'viewing',
-            startDate: undefined,
-            endDate: undefined,
-            flawPolicyChecked: false,
-            damagePolicyChecked: false,
+            startDate: null,
+            endDate: null,
+            policyChecked: false,
+            itemData: {
+                damagePolicy: '',
+                returnPolicy: '',
+                damagedDescription: '',
+                price: 0,
+            },
         }),
 }));
 

@@ -1,218 +1,46 @@
-import { axiosPost } from '@/api';
 import Button from '@/components/Button';
 import TextInput from '@/components/TextInput';
-import usePostingInput from '@/hooks/usePostingInput';
 import { Common } from '@/styles/common';
-import { useEffect, useState } from 'react';
-import { View, Text, ScrollView, Alert, Image, KeyboardAvoidingView, Platform } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import { View, Text, ScrollView, Image } from 'react-native';
 import { itemList } from '@/styles/components/itemList';
-import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
-import DefaultDamagePolicy from '@/components/items/DefaultDamagePolicy';
-import useAuthStore from '@/stores/useAuthStore';
-import { useRouter } from 'expo-router';
 import { Colors } from '@/styles/tokens';
+import { useNewPosting } from '@/hooks/useNewPosting';
+import KeyboardAvoidingView from '@/components/KeyboardAvoidingView';
 
 const NewPosting = () => {
-    const { openBottomSheet } = useBottomSheetStore();
-    const [startDate, setStartDate] = useState<string | null>(null);
-    const [endDate, setEndDate] = useState<string | null>(null);
-    const [selectedImage, setSelectedImage] = useState<any[]>([]);
-    const { accessToken } = useAuthStore();
-    const router = useRouter();
-
-    const { values, handleChange } = usePostingInput({
-        name: '',
-        itemImg: '',
-
-        description: '',
-        price: '',
-        damagedPolicy: DefaultDamagePolicy,
-        returnPolicy: '',
-    });
-
-    const selectImage = async () => {
-        const selectedImgs = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsMultipleSelection: true,
-            quality: 1,
-        });
-
-        if (!selectedImgs.canceled) {
-            setSelectedImage(selectedImgs.assets);
-        } else {
-            setSelectedImage([]);
-        }
-    };
-
-    //     const handleSubmit = async () => {
-    //         const formData = new FormData();
-    //         const payload = {
-    //             name: values.name,
-    //             description: values.description,
-    //             price: values.price,
-    //             status: "AVAILABLE",
-    //             damagedPolicy: values.damagedPolicy,
-    //             returnPolicy: values.returnPolicy,
-    //             startDate: startDate,
-    //             endDate: endDate,
-    //         };
-    //         formData.append("form", JSON.stringify(payload));
-    //             selectedImage.forEach((image: any) => {
-    //             formData.append("images", {
-    //                 uri: image.uri,
-    //                 name: image.fileName ?? "image.jpg",
-    //                 type: "image/jpeg",
-    //             } as any);
-    //             console.log(formData);
-    //         });
-
-    //         try {
-    //     const response = await fetch(`http://172.21.35.145:8080/api/v1/items`, {
-    //       method: "POST",
-    //       headers: {
-    //         Accept: "application/json",
-    //         Authorization: `Bearer ${accessToken}`, // ✅ 직접 붙이기
-    //       },
-    //       body: formData,
-    //     });
-    //          const result = await response.json();
-    //          console.log(response);
-    //     // console.log("result:", result);
-    //     console.log("📩 status:", response.status);
-
-    // // response.headers는 Headers 객체
-    // for (const [key, value] of response.headers.entries()) {
-    //   console.log(`📬 ${key}: ${value}`);
-    // }
-    //   } catch (err) {
-    //     console.error("Submit error:", err);
-    //   }
-    // };
-
-    //     const handleSubmit = async () => {
-    //         const formData = new FormData();
-    //         const payload = {
-    //             name: values.name,
-    //             description: values.description,
-    //             price: values.price,
-    //             status: "AVAILABLE",
-    //             damagedPolicy: values.damagedPolicy,
-    //             returnPolicy: values.returnPolicy,
-    //             startDate: startDate,
-    //             endDate: endDate,
-    //         };
-
-    //         const jsonBlob = new Blob([JSON.stringify(payload)], {
-    //             type: "application/json",
-    //         });
-    //         formData.append("form", jsonBlob, "form");
-    //         // formData.append("form", new Blob([JSON.stringify(payload)], {type: "application/json"}));
-
-    //         selectedImage.forEach((image: any) => {
-    //             formData.append("images", {
-    //                 uri: image.uri,
-    //                 name: image.fileName ?? "image.jpg",
-    //                 type: image.type ?? "image/jpeg",
-    //             } as any);
-    //         });
-
-    //         try {
-    //             console.log(formData._parts);
-    //             const response = await axiosPost(`/api/v1/items`, formData, {
-    //             //     headers: {
-    //             //         "Content-Type": "multipart/form-data",
-    //             //     }
-    //           transformRequest: (data, headers) => data,
-    //     // return data;
-    // //   }
-    //         });
-    //             console.log("Response for handleSubmit: ", response);
-    //         }
-    //         catch(error) {
-    //             Alert.alert(`${error}`);
-    //             console.error(error);
-    //         }
-    //     }
-
-    const handleSubmit = async () => {
-        const formData = new FormData();
-        const payload = {
-            name: values.name,
-            description: values.description,
-            price: values.price,
-            status: 'AVAILABLE',
-            damagedPolicy: values.damagedPolicy,
-            returnPolicy: values.returnPolicy,
-            startDate: startDate
-                ? `${new Date(startDate).toISOString().split('.')[0]}`
-                : `${new Date().toISOString().split('.')[0]}`,
-            endDate: endDate
-                ? `${new Date(endDate).toISOString().split('.')[0]}`
-                : `${new Date().toISOString().split('.')[0]}`,
-        };
-
-        formData.append('form', JSON.stringify(payload));
-        formData.append('name', payload.name);
-        formData.append('description', payload.description);
-        formData.append('price', payload.price);
-        formData.append('status', 'AVAILABLE');
-        formData.append('startDate', payload.startDate); // ISO 문자열
-        formData.append('endDate', payload.endDate);
-        formData.append('damagedPolicy', payload.damagedPolicy);
-        formData.append('returnPolicy', payload.returnPolicy);
-        formData.append('damagedDescription', 'asdf');
-
-        selectedImage.forEach((image: any) => {
-            formData.append('images', {
-                uri: image.uri,
-                name: image.fileName ?? 'image.jpg',
-                type: image.type ?? 'image/jpeg',
-            } as any);
-        });
-
-        try {
-            // console.log(formData._parts);
-            const response = await axiosPost(`/api/v1/items`, formData);
-            console.log('Response for handleSubmit: ', response);
-            Alert.alert('업로드에 성공하였습니다.');
-            router.replace('/(tabs)/itemList');
-        } catch (error) {
-            Alert.alert(`${error}`);
-            console.error(error);
-        }
-    };
-
-    const handleDateSelect = async () => {
-        const {
-            result: { startDate, endDate },
-        } = await openBottomSheet('dateSelector');
-        setStartDate(startDate);
-        setEndDate(endDate);
-    };
+    const {
+        values,
+        handleChange,
+        startDate,
+        endDate,
+        selectedImages,
+        handleImageSelect,
+        handleDateSelect,
+        handleSubmit,
+        handleCancel,
+    } = useNewPosting();
 
     return (
-        <KeyboardAvoidingView
-            style={Common.container}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
-        >
+        <KeyboardAvoidingView>
             <ScrollView style={Common.wrapper}>
-                <View style={[Common.XStack, { paddingVertical: 16 }]}>
-                    <Button type="option" onPress={selectImage} style={itemList.imageSelectButton}>
+                <ScrollView style={[Common.XStack, { paddingVertical: 16 }]}>
+                    <Button
+                        type="option"
+                        onPress={handleImageSelect}
+                        style={itemList.imageSelectButton}
+                    >
                         이미지 선택
                     </Button>
 
-                    {selectedImage.length > 0 &&
-                        selectedImage.map((image) => (
-                            <View key={image.uri}>
-                                <Image
-                                    source={{ uri: image.uri }}
-                                    style={{ width: 100, height: 100 }}
-                                />
-                            </View>
-                        ))}
-                </View>
+                    {selectedImages.map((img) => (
+                        <Image
+                            key={img.uri}
+                            source={{ uri: img.uri }}
+                            style={{ width: 100, height: 100 }}
+                        />
+                    ))}
+                </ScrollView>
+
                 <TextInput
                     label="물품명"
                     name="name"
@@ -227,10 +55,19 @@ const NewPosting = () => {
                     keyboardType="numeric"
                 />
                 <TextInput
-                    label="설명"
+                    label="물품 설명"
                     name="description"
                     handleChangeText={handleChange('description')}
+                    placeholder="어떤 물품인지 설명해주세요."
                     value={values.description}
+                    multiline={true}
+                />
+                <TextInput
+                    label="하자 설명"
+                    name="damagedDescription"
+                    handleChangeText={handleChange('damagedDescription')}
+                    placeholder="기존에 있던 하자를 미리 설명해주세요."
+                    value={values.damagedDescription}
                     multiline={true}
                 />
                 <TextInput
@@ -275,7 +112,7 @@ const NewPosting = () => {
                 </View>
 
                 <View style={Common.XStack}>
-                    <Button type="option" onPress={handleSubmit}>
+                    <Button type="option" onPress={handleCancel}>
                         취소
                     </Button>
                     <Button type="primary" onPress={handleSubmit}>

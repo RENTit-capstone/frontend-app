@@ -46,7 +46,7 @@ const ImageGallery = (props: ImageGalleryProps) => {
                 renderItem={({ item }) => (
                     <Image
                         source={{ uri: item }}
-                        style={{ width, height: 250, resizeMode: 'cover' }}
+                        style={{ width, height: 450, resizeMode: 'cover' }}
                     />
                 )}
             />

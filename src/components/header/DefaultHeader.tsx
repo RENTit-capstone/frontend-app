@@ -7,7 +7,7 @@ import { Common } from '@/styles/common';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 
-const Header = () => {
+const DefaultHeader = () => {
     const router = useRouter();
     const insets = useSafeAreaInsets();
 
@@ -31,4 +31,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default DefaultHeader;

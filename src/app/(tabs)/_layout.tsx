@@ -1,13 +1,13 @@
 import { Tabs } from 'expo-router';
-import Header from '@/components/Header';
 import BottomNavBar from '@/components/BottomNavBar';
 import { View } from 'react-native';
+import DefaultHeader from '@/components/header/DefaultHeader';
 
 const TabLayout = () => {
     return (
         <View style={{ flex: 1 }}>
             <Tabs
-                screenOptions={{ header: () => <Header /> }}
+                screenOptions={{ header: () => <DefaultHeader /> }}
                 tabBar={(props) => <BottomNavBar {...props} />}
             >
                 <Tabs.Screen
