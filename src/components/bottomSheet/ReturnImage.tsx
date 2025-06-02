@@ -22,7 +22,8 @@ const ReturnImageUpload = () => {
 
         const asset = result.assets[0];
         setImageUri(asset.uri);
-        UploadToStorage(imageUri);
+        console.log(asset.uri);
+        UploadToStorage(asset.uri);
     };
 
     return (

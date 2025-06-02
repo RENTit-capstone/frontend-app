@@ -5,6 +5,7 @@ type ResultType = {
     dateSelector: { startDate: Date | null; endDate: Date | null };
     policy: { damagedDescriptionPolicy: boolean; damagePolicy: boolean; returnPolicy: boolean };
     otp: void;
+    returnImage: void;
 };
 
 type BottomSheetType = {
