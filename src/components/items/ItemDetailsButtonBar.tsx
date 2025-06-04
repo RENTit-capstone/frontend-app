@@ -5,14 +5,24 @@ import { Common } from '@/styles/common';
 import { itemList } from '@/styles/components/itemList';
 import ButtonBar from '../ButtonBar';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import formatISOtoDate from '@/utils/formatDateString';
+import { useRouter } from 'expo-router';
+import useAuthStore from '@/stores/useAuthStore';
+import AddAccountModal from '@/app/modal/addAccount';
+import PaymentModal from '@/app/modal/payment';
+import usePayment from '@/hooks/usePayment';
 
 type RentalPhaseType = 'viewing' | 'dateSelecting' | 'policyConsenting' | 'applying';
 
 const ItemDetailsButtonBar = (props: any) => {
     const [currentPhase, setCurrentPhase] = useState<RentalPhaseType>('viewing');
-    const { handleRequest } = props;
+    const [addAccountVisible, setAddAccountVisible] = useState(false);
+    const [paymentVisible, setPaymentVisible] = useState(false);
+    const dateSelected = useRef(false);
+    const policyConsented = useRef(false);
+    const { getBalance, data } = usePayment();
+
     const {
         startDate,
         endDate,
@@ -27,12 +37,24 @@ const ItemDetailsButtonBar = (props: any) => {
         useBottomSheetStore();
 
     useEffect(() => {
+        getBalance();
         return () => clear();
     }, []);
 
     useEffect(() => {
         if (currentPhase === 'viewing') return;
         setCallbacks();
+        if (currentPhase === 'policyConsenting' && !dateSelected.current) {
+            Alert.alert(
+                '대여 시작일과 종료일을 선택해주세요.',
+                '같은 날짜를 한번 더 누르면 기간을 하루로 설정할 수 있습니다.',
+            );
+            setCurrentPhase('dateSelecting');
+        }
+        if (currentPhase === 'applying' && !policyConsented.current) {
+            Alert.alert('모든 정책에 동의해주세요.');
+            setCurrentPhase('policyConsenting');
+        }
         fetchBottomSheetResult();
     }, [currentPhase]);
 
@@ -81,6 +103,8 @@ const ItemDetailsButtonBar = (props: any) => {
         } = await openBottomSheet('dateSelector');
         setStartDate(startDate);
         setEndDate(endDate);
+        dateSelected.current = !!startDate && !!endDate;
+        console.log('Selected Dates:', dateSelected.current);
     };
 
     const handlePolicyConsentor = async () => {
@@ -88,9 +112,17 @@ const ItemDetailsButtonBar = (props: any) => {
             result: { damagedDescriptionPolicy, damagePolicy, returnPolicy },
         } = await openBottomSheet('policy');
         setPolicyChecked(damagedDescriptionPolicy && damagePolicy && returnPolicy);
-        if (!damagedDescriptionPolicy || !damagePolicy || !returnPolicy) {
-            Alert.alert('모든 정책에 동의해주세요.');
-            return;
+        policyConsented.current = damagedDescriptionPolicy && damagePolicy && returnPolicy;
+        console.log('Policy Consent:', policyConsented.current);
+    };
+
+    const handlePayment = () => {
+        console.log(data?.finAcno);
+        if (!data?.finAcno) {
+            Alert.alert('결제 계좌를 등록하지 않았습니다.', '등록 페이지로 이동합니다');
+            setAddAccountVisible(true);
+        } else {
+            setPaymentVisible(true);
         }
     };
 
@@ -130,12 +162,17 @@ const ItemDetailsButtonBar = (props: any) => {
                         <Button onPress={() => clear()} type="secondary" style={{ flex: 1 }}>
                             초기화
                         </Button>
-                        <Button onPress={handleRequest} type="primary" style={{ flex: 3 }}>
+                        <Button onPress={handlePayment} type="primary" style={{ flex: 3 }}>
                             결제하기
                         </Button>
                     </View>
                 </View>
             )}
+            <AddAccountModal
+                visible={addAccountVisible}
+                onClose={() => setAddAccountVisible(false)}
+            />
+            <PaymentModal visible={paymentVisible} onClose={() => setPaymentVisible(false)} />
         </>
     );
 };

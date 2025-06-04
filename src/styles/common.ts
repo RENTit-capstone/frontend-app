@@ -211,4 +211,8 @@ export const Common = StyleSheet.create({
         fontWeight: '600',
         color: Colors.white,
     },
+    spaceBetween: {
+        justifyContent: 'space-between',
+        width: '100%',
+    },
 });

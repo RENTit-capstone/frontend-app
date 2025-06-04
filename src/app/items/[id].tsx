@@ -10,7 +10,7 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 
 const Postings = () => {
-    const { data, handleRequest } = usePostings();
+    const { data } = usePostings();
     const [isScrolling, setIsScrolling] = useState(false);
 
     const router = useRouter();
@@ -38,16 +38,16 @@ const Postings = () => {
                     flex: 1,
                 }}
             >
-                <ImageGallery imgUrls={data.imageUrls} />
+                <ImageGallery
+                    imgUrls={data.imageUrls}
+                    handleScrollBegin={handleScrollBegin}
+                    handleScrollEnd={handleScrollEnd}
+                />
             </Pressable>
             <BottomScrollSheet snapPointList={['50%', '60%', '70%', '80%']}>
                 <ItemDetails {...data} />
             </BottomScrollSheet>
-            <ItemDetailsButtonBar
-                handleRequest={handleRequest}
-                handleScrollBegin={handleScrollBegin}
-                handleScrollEnd={handleScrollEnd}
-            />
+            <ItemDetailsButtonBar />
         </GestureHandlerRootView>
     );
 };
