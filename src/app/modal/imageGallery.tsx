@@ -15,7 +15,7 @@ const ImageGalleryModal = () => {
     if (!images) return;
 
     return (
-        <View style={Common.container}>
+        <View style={[Common.container]}>
             <Pressable
                 onPress={() => router.back()}
                 style={{

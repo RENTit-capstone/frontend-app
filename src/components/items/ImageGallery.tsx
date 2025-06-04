@@ -35,8 +35,15 @@ const ImageGallery = (props: ImageGalleryProps) => {
         };
         checkDimensions();
 
+        const updateDimensions = () => {
+            const screen = Dimensions.get('screen');
+            setScreenWidth(screen.height);
+            setScreenHeight(screen.width);
+        };
+
         // 화면 회전 감지
-        const subscription = Dimensions.addEventListener('change', checkDimensions);
+        const subscription = Dimensions.addEventListener('change', updateDimensions);
+        // const subscription = Dimensions.addEventListener('change', checkDimensions);
         return () => {
             subscription?.remove();
         };
@@ -55,6 +62,7 @@ const ImageGallery = (props: ImageGalleryProps) => {
             style={{
                 flex: 1,
                 backgroundColor: fullScreen ? 'rgba(0,0,0,0.9)' : 'black',
+                // width: '100%',
             }}
         >
             <FlatList

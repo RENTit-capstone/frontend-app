@@ -131,7 +131,7 @@ const ItemDetailsButtonBar = (props: any) => {
                             초기화
                         </Button>
                         <Button onPress={handleRequest} type="primary" style={{ flex: 3 }}>
-                            신청하기
+                            결제하기
                         </Button>
                     </View>
                 </View>
