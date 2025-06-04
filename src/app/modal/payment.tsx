@@ -10,6 +10,7 @@ import useAuthStore from '@/stores/useAuthStore';
 import useRequestStore from '@/stores/useRequestStore';
 import { axiosGet } from '@/api';
 import usePayment from '@/hooks/usePayment';
+import { itemList } from '@/styles/components/itemList';
 
 const PaymentModal = (props: ModalProps) => {
     const { visible, onClose } = props;
@@ -85,8 +86,8 @@ const PaymentModal = (props: ModalProps) => {
         >
             <View
                 style={{
-                    width: 500,
-                    height: 400,
+                    width: '80%',
+                    height: '50%',
                     backgroundColor: 'white',
                     borderRadius: 16,
                     padding: 20,
@@ -113,13 +114,14 @@ const PaymentModal = (props: ModalProps) => {
                         <Text>결제 금액</Text>
                         <Text style={[Common.bold]}> {price} </Text>
                     </View>
-                    <View style={[Common.XStack, Common.spaceBetween]}>
+                    {/* <View style={[Common.XStack, Common.spaceBetween]}>
                         <Text>결제 계좌</Text>
                         <Text style={[Common.bold]}>
                             {data.bankCode === 110 ? '농협  ' : '농협  '}
                             {data.finAcno}
                         </Text>
-                    </View>
+                    </View> */}
+                    <View style={[itemList.rowDivider, { width: '100%' }]} />
                     <View style={[Common.XStack, Common.spaceBetween]}>
                         <Text>결제 후 포인트 </Text>
                         <Text style={[Common.bold]}>

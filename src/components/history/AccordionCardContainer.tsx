@@ -72,7 +72,7 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
     if (!data) return;
 
     return (
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: 'white' }}>
             <View style={[itemList.listContainer, { paddingBottom: 64 }]}>
                 <View style={[Common.XStack, { gap: 0, alignSelf: 'flex-end' }]}>
                     <DropdownSort

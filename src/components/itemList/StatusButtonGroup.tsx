@@ -38,12 +38,12 @@ const StatusButtonGroup = () => {
         fetchData();
     }, []);
 
-    const handlePress = (option: string) => {
-        return (
-            // 각 항목 클릭 시 히스토리로 이동
-            console.log(option)
-        );
-    };
+    // const handlePress = (option: string) => {
+    //     return (
+    //         // 각 항목 클릭 시 히스토리로 이동
+    //         console.log(option)
+    //     );
+    // };
 
     return (
         <View style={Common.wrapper}>
@@ -54,7 +54,9 @@ const StatusButtonGroup = () => {
                             <Button
                                 key={option}
                                 type="transparent"
-                                onPress={() => handlePress(option)}
+                                // onPress={() => handlePress(option)}
+                                // disabled={true}
+                                onPress={() => {}}
                                 style={itemList.statusButton}
                             >
                                 <View style={Common.YStack}>

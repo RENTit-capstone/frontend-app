@@ -7,13 +7,13 @@ import AccordionCardContainer from './AccordionCardContainer';
 
 const HistoryTab = () => {
     const othersRoute = () => (
-        <ScrollView style={Common.container}>
+        <ScrollView style={[Common.container, { backgroundColor: 'white' }]}>
             <AccordionCardContainer type={'OTHERS'} />
         </ScrollView>
     );
 
     const myRoute = () => (
-        <ScrollView style={Common.container}>
+        <ScrollView style={[Common.container, { backgroundColor: 'white' }]}>
             <AccordionCardContainer type={'MINE'} />
         </ScrollView>
     );
