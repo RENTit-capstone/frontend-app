@@ -8,19 +8,16 @@ type DetereminedActionType = {
 
 type DetermineActionParamType = {
     rentalStatus: RentalStatusType;
-    // hasWrittenReview?: boolean;
-
     onCancelRequest: () => Promise<void>;
+    onReturn: () => Promise<void>;
     onCabinet: () => Promise<void>;
-    // onWriteReview: () => Promise<void>;
 };
 
 export const determineAction = ({
     rentalStatus,
-    // hasWrittenReview = false,
     onCancelRequest,
+    onReturn,
     onCabinet,
-    // onWriteReview,
 }: DetermineActionParamType): DetereminedActionType => {
     switch (rentalStatus) {
         case 'REQUESTED':
@@ -39,7 +36,7 @@ export const determineAction = ({
             return { action: onCabinet, buttonText: '수령하기' };
 
         case 'PICKED_UP':
-            return { action: onCabinet, buttonText: '반납하기' };
+            return { action: onReturn, buttonText: '반납하기' };
 
         case 'RETURNED_TO_LOCKER':
             return { description: '반납을 완료하였습니다' };
