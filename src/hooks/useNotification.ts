@@ -36,11 +36,15 @@ const useNotification = () => {
     }, []);
 
     const registerPushToken = async (token: string) => {
-        const storedToken = await SecureStorage.getItemAsync('expoPushToken');
+        try {
+            const storedToken = await SecureStorage.getItemAsync('expoPushToken');
 
-        if (storedToken !== token) {
-            await axiosPost(`/api/v1/device-token`, { token });
-            await SecureStorage.setItemAsync('expoPushToken', token);
+            if (storedToken !== token) {
+                await axiosPost(`/api/v1/device-token`, { token });
+                await SecureStorage.setItemAsync('expoPushToken', token);
+            }
+        } catch (error) {
+            console.error('Push Token 등록 실패:', error);
         }
     };
 
