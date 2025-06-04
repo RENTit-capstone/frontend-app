@@ -5,6 +5,8 @@ import Avatar from '../Avatar';
 import { ItemDetailsProp } from '@/types/types';
 import Badge from '../Badge';
 import formatISOToDate from '@/utils/formatDateString';
+import useRequestStore from '@/stores/useRequestStore';
+import { useEffect } from 'react';
 
 const ItemDetails = (props: ItemDetailsProp) => {
     const {
@@ -23,6 +25,11 @@ const ItemDetails = (props: ItemDetailsProp) => {
         createdAt,
         updatedAt,
     } = props;
+    const { setName, setPrice } = useRequestStore();
+    useEffect(() => {
+        setName(name);
+        setPrice(price);
+    }, []);
 
     return (
         <>

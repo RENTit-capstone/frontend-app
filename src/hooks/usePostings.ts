@@ -44,7 +44,7 @@ const usePostings = () => {
                 startDate: toISOStringWithoutMs(startDate ? new Date(startDate) : today),
                 dueDate: toISOStringWithoutMs(endDate ? new Date(endDate) : today),
             };
-
+            console.log('대여 요청 데이터:', payload);
             const response = await axiosPost(`/api/v1/rentals`, payload);
             toast.show('요청이 완료되었습니다.');
             router.replace('/(tabs)/itemList');

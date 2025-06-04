@@ -144,3 +144,8 @@ export type PostingType = {
 
 export type QnAType = 'SERVICE' | 'REPORT';
 export type QnAProcessedType = 'PROCESSED' | 'NOTPROCESSED';
+
+export type ModalProps = {
+    visible: boolean;
+    onClose: () => void;
+};

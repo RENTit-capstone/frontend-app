@@ -10,13 +10,14 @@ import formatISOtoDate from '@/utils/formatDateString';
 import { useRouter } from 'expo-router';
 import useAuthStore from '@/stores/useAuthStore';
 import AddAccountModal from '@/app/modal/addAccount';
+import PaymentModal from '@/app/modal/payment';
 
 type RentalPhaseType = 'viewing' | 'dateSelecting' | 'policyConsenting' | 'applying';
 
 const ItemDetailsButtonBar = (props: any) => {
     const [currentPhase, setCurrentPhase] = useState<RentalPhaseType>('viewing');
-    const [visible, setVisible] = useState(false);
-    const { handleRequest } = props;
+    const [addAccountVisible, setAddAccountVisible] = useState(false);
+    const [paymentVisible, setPaymentVisible] = useState(false);
     const router = useRouter();
     const { userAccount } = useAuthStore();
 
@@ -105,17 +106,9 @@ const ItemDetailsButtonBar = (props: any) => {
         console.log(userAccount);
         if (!userAccount) {
             Alert.alert('결제 계좌를 등록하지 않았습니다.', '등록 페이지로 이동합니다');
-            setVisible(true);
-            console.log(visible);
-            // router.push({
-            //     pathname: `/modal/addAccount`,
-            //     params: {},
-            // });
+            setAddAccountVisible(true);
         } else {
-            router.push({
-                pathname: `/modal/payment`,
-                params: {},
-            });
+            setPaymentVisible(true);
         }
     };
 
@@ -161,7 +154,11 @@ const ItemDetailsButtonBar = (props: any) => {
                     </View>
                 </View>
             )}
-            <AddAccountModal visible={visible} onClose={() => setVisible(false)} />
+            <AddAccountModal
+                visible={addAccountVisible}
+                onClose={() => setAddAccountVisible(false)}
+            />
+            <PaymentModal visible={paymentVisible} onClose={() => setPaymentVisible(false)} />
         </>
     );
 };

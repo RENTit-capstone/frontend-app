@@ -1,5 +1,4 @@
-import { View, Modal, Pressable, Alert, useWindowDimensions } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { View, Pressable, Alert, useWindowDimensions } from 'react-native';
 import Cancel from '@/assets/images/cancel.svg';
 import { Common } from '@/styles/common';
 import { Text } from 'react-native';
@@ -10,11 +9,7 @@ import TextInput from '@/components/TextInput';
 import { TextThemes } from '@/styles/theme';
 import { axiosPost } from '@/api';
 import useAuthStore from '@/stores/useAuthStore';
-
-type ModalProps = {
-    visible: boolean;
-    onClose: () => void;
-};
+import { ModalProps } from '@/types/types';
 
 const AddAccountModal = (props: ModalProps) => {
     const { visible, onClose } = props;
@@ -36,12 +31,13 @@ const AddAccountModal = (props: ModalProps) => {
                 console.log('Screen dimensions updated:', screen.width, screen.height);
             }, 50);
         };
+
+        checkDimensions();
+
         const subscription = Dimensions.addEventListener('change', checkDimensions);
         return () => {
             subscription?.remove();
         };
-
-        checkDimensions();
     }, []);
     const handleRegister = async () => {
         try {
