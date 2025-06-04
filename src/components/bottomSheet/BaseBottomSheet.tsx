@@ -8,6 +8,7 @@ import { Common } from '@/styles/common';
 import PolicyScreen from './Policy';
 import CanendarScreen from './DateSelector';
 import OTPScreen from './Otp';
+import SliderScreen from './PriceSelector';
 import ReturnImageScreen from './ReturnImage';
 
 const bottomSheetMap = {
@@ -15,7 +16,7 @@ const bottomSheetMap = {
     policy: PolicyScreen,
     dateSelector: CanendarScreen,
     otp: OTPScreen,
-    //   slider: SliderModal,
+    priceSelector: SliderScreen,
     returnImage: ReturnImageScreen,
 };
 
@@ -48,7 +49,7 @@ const BaseBottomSheet = () => {
                     </>
                 ) : (
                     <Button type="primary" onPress={submitResult}>
-                        저장
+                        확인
                     </Button>
                 )}
             </ButtonBar>

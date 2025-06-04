@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { ListItemProps, ListContainerProps } from '@/types/types';
 import ListItem from './ListItem';
 import { itemList } from '@/styles/components/itemList';
 import SearchGroup from './SearchGroup';
 import { axiosGet } from '@/api';
 import generateUrl from '@/utils/generateUrl';
+import { Common } from '@/styles/common';
 
 const ListContainer = (props: ListContainerProps) => {
     const { type } = props;
@@ -16,8 +17,10 @@ const ListContainer = (props: ListContainerProps) => {
         keyword: '',
         startDate: '',
         endDate: '',
-        startPrice: '',
-        endPrice: '',
+        minPrice: '',
+        maxPrice: '',
+        status: '',
+        sort: '',
     });
 
     useEffect(() => {
@@ -35,13 +38,13 @@ const ListContainer = (props: ListContainerProps) => {
                 ? new Date(new Date(searchOptions.endDate).setHours(23, 59, 59, 999)).toISOString()
                 : '',
 
-            minPrice: searchOptions.startPrice || '',
-            maxPrice: searchOptions.endPrice || '',
-            stauts: ['AVAILABLE', 'OUT'],
+            minPrice: searchOptions.minPrice || '',
+            maxPrice: searchOptions.maxPrice || '',
+            status: searchOptions.status ? 'AVAILABLE' : '',
             ownerRoles: role,
             page: 0,
             size: 20,
-            sort: ['createdAt', 'desc'],
+            sort: searchOptions.sort ? searchOptions.sort : ['createdAt', 'desc'],
         });
         try {
             const response = await axiosGet(`/api/v1/items?${params}`);
@@ -63,9 +66,9 @@ const ListContainer = (props: ListContainerProps) => {
     if (!data) return;
 
     return (
-        <>
+        <View style={{ flex: 1 }}>
             <SearchGroup onChange={handleChangeOptions} />
-            <View style={{ paddingBottom: 64 }}>
+            <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 64 }}>
                 {data.map((item: ListItemProps, index: number) => (
                     <View key={index} style={itemList.listContainer}>
                         <ListItem
@@ -81,8 +84,8 @@ const ListContainer = (props: ListContainerProps) => {
                         <View style={[itemList.rowDivider, { marginTop: 10 }]} />
                     </View>
                 ))}
-            </View>
-        </>
+            </ScrollView>
+        </View>
     );
 };
 

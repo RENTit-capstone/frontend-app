@@ -1,17 +1,18 @@
-import Colors from '@/constants/Colors';
 import { Common } from '@/styles/common';
 import { ReactNode } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { StyleProps } from 'react-native-reanimated';
 
 type DropDownProps = {
     label: string;
     icon?: ReactNode;
     onPress?: () => void;
     selectedColor: string | undefined;
+    style?: StyleProps | StyleProps[];
 };
 
 const DropDown = (props: DropDownProps) => {
-    const { label, icon, onPress, selectedColor } = props;
+    const { label, icon, onPress, selectedColor, style } = props;
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -19,6 +20,7 @@ const DropDown = (props: DropDownProps) => {
                 Common.XStack,
                 Common.badge,
                 { width: '45%', height: 30, borderColor: selectedColor, position: 'relative' },
+                style,
             ]}
         >
             <Text style={{ color: selectedColor }}>{label}</Text>

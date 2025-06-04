@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ScrollView, useWindowDimensions } from 'react-native';
+import { ScrollView, useWindowDimensions, View } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ListContainer from './ListContainer';
 import { itemList } from '@/styles/components/itemList';
@@ -7,15 +7,15 @@ import { Common } from '@/styles/common';
 
 const ItemListTab = () => {
     const IndividualRoute = () => (
-        <ScrollView style={Common.container}>
+        <View style={Common.container}>
             <ListContainer type={'INDIVIDUAL'} />
-        </ScrollView>
+        </View>
     );
 
     const GroupRoute = () => (
-        <ScrollView style={Common.container}>
+        <View style={Common.container}>
             <ListContainer type={'GROUP'} />
-        </ScrollView>
+        </View>
     );
 
     const renderScene = SceneMap({

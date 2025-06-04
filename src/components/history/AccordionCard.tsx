@@ -1,4 +1,4 @@
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import Button from '../Button';
 import { Common } from '@/styles/common';
@@ -75,10 +75,7 @@ const AccordionCard = (props: AccordionCardProps) => {
     if (!itemDetails) return null;
     return (
         <View>
-            <Pressable
-                style={[Common.XStack, itemList.cardWrapper]}
-                onPress={() => router.push(`/items/${itemId}`)}
-            >
+            <View style={[Common.XStack, itemList.cardWrapper]}>
                 <Image
                     source={require('@/assets/images/icon.png')}
                     style={itemList.listItemImage}
@@ -101,7 +98,7 @@ const AccordionCard = (props: AccordionCardProps) => {
                         {description && <Text style={{ marginTop: 12 }}>{description}</Text>}
                     </View>
                 </View>
-            </Pressable>
+            </View>
 
             {isOpened && (
                 <View>

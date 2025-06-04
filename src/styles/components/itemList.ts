@@ -123,4 +123,28 @@ export const itemList = StyleSheet.create({
         justifyContent: 'center',
         flex: 0,
     },
+    sortOption: {
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#eee',
+    },
+    SortDropdown: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 6,
+        ...Platform.select({
+            default: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: -4 },
+                shadowOpacity: 0.1,
+                shadowRadius: 10,
+            },
+            android: {
+                elevation: 5,
+            },
+        }),
+    },
 });

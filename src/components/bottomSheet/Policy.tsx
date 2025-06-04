@@ -46,7 +46,11 @@ const PolicyModal = () => {
                 <Text>{itemData.returnPolicy}</Text>
             </ScrollView>
             <View style={Common.XStack}>
-                <Checkbox value={returnPolicy} onValueChange={setReturnPolicy} />
+                <Checkbox
+                    value={returnPolicy}
+                    onValueChange={setReturnPolicy}
+                    hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                />
 
                 <Text>반납정책을 확인하였습니다.</Text>
             </View>
@@ -69,6 +73,7 @@ const PolicyModal = () => {
                 <Checkbox
                     value={damagedDescriptionPolicy}
                     onValueChange={setDamagedDescriptionPolicy}
+                    hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
                 />
 
                 <Text>하자를 확인하였습니다.</Text>
@@ -90,7 +95,11 @@ const PolicyModal = () => {
                 <Markdown>{DefaultDamagePolicy}</Markdown>
             </ScrollView>
             <View style={Common.XStack}>
-                <Checkbox value={damagePolicy} onValueChange={setDamagePolicy} />
+                <Checkbox
+                    value={damagePolicy}
+                    onValueChange={setDamagePolicy}
+                    hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                />
                 <Text>파손정책에 동의합니다.</Text>
             </View>
         </ScrollView>
