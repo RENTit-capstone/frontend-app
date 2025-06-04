@@ -9,12 +9,13 @@ import usePostings from '@/hooks/usePostings';
 import useAuthStore from '@/stores/useAuthStore';
 import useRequestStore from '@/stores/useRequestStore';
 import { axiosGet } from '@/api';
+import usePayment from '@/hooks/usePayment';
 
 const PaymentModal = (props: ModalProps) => {
     const { visible, onClose } = props;
     const { handleRequest } = usePostings();
     const { name, price } = useRequestStore();
-    const [data, setData] = useState<any>(null);
+    const { getBalance, data } = usePayment();
 
     const screen = Dimensions.get('screen');
 
@@ -22,20 +23,7 @@ const PaymentModal = (props: ModalProps) => {
     const [screenHeight, setScreenHeight] = useState(0);
 
     useEffect(() => {
-        const getBalance = async () => {
-            try {
-                const response = await axiosGet(`/api/v1/wallet`);
-                setData(response.data);
-                console.log('잔액 조회:', response.data);
-            } catch (error) {
-                console.error(error);
-                Alert.alert(`${error}`);
-            }
-        };
         getBalance();
-    }, []);
-
-    useEffect(() => {
         const checkDimensions = () => {
             setTimeout(() => {
                 const screen = Dimensions.get('screen');
@@ -62,6 +50,19 @@ const PaymentModal = (props: ModalProps) => {
             {
                 text: '네',
                 onPress: () => onClose(),
+            },
+        ]);
+    };
+
+    const handlePayment = async () => {
+        Alert.alert('결제하시겠습니까?', '', [
+            {
+                text: '아니요',
+                style: 'cancel',
+            },
+            {
+                text: '네',
+                onPress: async () => handleRequest(),
             },
         ]);
     };
@@ -115,14 +116,14 @@ const PaymentModal = (props: ModalProps) => {
                     <View style={[Common.XStack, Common.spaceBetween]}>
                         <Text>결제 계좌</Text>
                         <Text style={[Common.bold]}>
-                            {data.backCode === 110 ? '농협  ' : '농협  '}
+                            {data.bankCode === 110 ? '농협  ' : '농협  '}
                             {data.finAcno}
                         </Text>
                     </View>
                     <View style={[Common.XStack, Common.spaceBetween]}>
                         <Text>결제 후 포인트 </Text>
                         <Text style={[Common.bold]}>
-                            {price && (parseInt(data.balance) - price).toLocaleString()}{' '}
+                            {price && (data.balance - price).toLocaleString()}{' '}
                         </Text>
                     </View>
                 </View>
@@ -143,7 +144,7 @@ const PaymentModal = (props: ModalProps) => {
                     <Button type="secondary" onPress={handleCancel}>
                         취소
                     </Button>
-                    <Button type="primary" onPress={handleRequest}>
+                    <Button type="primary" onPress={handlePayment}>
                         결제
                     </Button>
                 </View>

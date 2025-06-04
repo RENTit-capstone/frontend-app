@@ -11,6 +11,7 @@ import { useRouter } from 'expo-router';
 import useAuthStore from '@/stores/useAuthStore';
 import AddAccountModal from '@/app/modal/addAccount';
 import PaymentModal from '@/app/modal/payment';
+import usePayment from '@/hooks/usePayment';
 
 type RentalPhaseType = 'viewing' | 'dateSelecting' | 'policyConsenting' | 'applying';
 
@@ -18,9 +19,9 @@ const ItemDetailsButtonBar = (props: any) => {
     const [currentPhase, setCurrentPhase] = useState<RentalPhaseType>('viewing');
     const [addAccountVisible, setAddAccountVisible] = useState(false);
     const [paymentVisible, setPaymentVisible] = useState(false);
-    const { userAccount } = useAuthStore();
     const dateSelected = useRef(false);
     const policyConsented = useRef(false);
+    const { getBalance, data } = usePayment();
 
     const {
         startDate,
@@ -36,6 +37,7 @@ const ItemDetailsButtonBar = (props: any) => {
         useBottomSheetStore();
 
     useEffect(() => {
+        getBalance();
         return () => clear();
     }, []);
 
@@ -115,8 +117,8 @@ const ItemDetailsButtonBar = (props: any) => {
     };
 
     const handlePayment = () => {
-        console.log(userAccount);
-        if (!userAccount) {
+        console.log(data?.finAcno);
+        if (!data?.finAcno) {
             Alert.alert('결제 계좌를 등록하지 않았습니다.', '등록 페이지로 이동합니다');
             setAddAccountVisible(true);
         } else {
