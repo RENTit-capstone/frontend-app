@@ -60,6 +60,7 @@ const AddAccountModal = (props: ModalProps) => {
     return (
         <View
             style={{
+                // backgroundColor: 'red',
                 position: 'absolute',
                 width: screenWidth,
                 height: screenHeight,

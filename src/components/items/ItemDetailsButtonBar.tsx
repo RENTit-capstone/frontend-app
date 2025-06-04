@@ -106,6 +106,7 @@ const ItemDetailsButtonBar = (props: any) => {
         if (!userAccount) {
             Alert.alert('결제 계좌를 등록하지 않았습니다.', '등록 페이지로 이동합니다');
             setVisible(true);
+            console.log(visible);
             // router.push({
             //     pathname: `/modal/addAccount`,
             //     params: {},

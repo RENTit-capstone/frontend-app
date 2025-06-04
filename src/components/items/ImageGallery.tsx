@@ -20,8 +20,8 @@ type ImageGalleryProps = {
 
 const ImageGallery = (props: ImageGalleryProps) => {
     const windowDims = useWindowDimensions();
-    const [screenWidth, setScreenWidth] = useState(windowDims.width || 1024); // 아이패드 기본값
-    const [screenHeight, setScreenHeight] = useState(windowDims.height || 768);
+    const [screenWidth, setScreenWidth] = useState(windowDims.width); // 아이패드 기본값
+    const [screenHeight, setScreenHeight] = useState(windowDims.height);
 
     const { imgUrls, fullScreen } = props;
     const [current, setCurrent] = useState(0);
@@ -29,25 +29,28 @@ const ImageGallery = (props: ImageGalleryProps) => {
 
     useEffect(() => {
         const checkDimensions = () => {
-            const screen = Dimensions.get('screen');
-            setScreenWidth(screen.width);
-            setScreenHeight(screen.height);
+            setTimeout(() => {
+                const screen = Dimensions.get('screen');
+                setScreenWidth(screen.width);
+                setScreenHeight(screen.height);
+                console.log('Screen dimensions updated:', screen.width, screen.height);
+            }, 50);
         };
         checkDimensions();
 
-        const updateDimensions = () => {
-            const screen = Dimensions.get('screen');
-            setScreenWidth(screen.height);
-            setScreenHeight(screen.width);
-        };
+        // const updateDimensions = () => {
+        //     const screen = Dimensions.get('screen');
+        //     setScreenWidth(screen.height);
+        //     setScreenHeight(screen.width);
+        // };
 
         // 화면 회전 감지
-        const subscription = Dimensions.addEventListener('change', updateDimensions);
-        // const subscription = Dimensions.addEventListener('change', checkDimensions);
+        // const subscription = Dimensions.addEventListener('change', updateDimensions);
+        const subscription = Dimensions.addEventListener('change', checkDimensions);
         return () => {
             subscription?.remove();
         };
-    }, []);
+    }, [current]);
 
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         const slide = Math.round(event.nativeEvent.contentOffset.x / screenWidth);
