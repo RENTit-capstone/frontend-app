@@ -1,7 +1,8 @@
 import * as ImagePicker from 'expo-image-picker';
-import { View, Button, Image, Alert } from 'react-native';
+import { View, Image, Alert } from 'react-native';
 import { useState } from 'react';
 import UploadToStorage from '@/utils/uploadToStorage';
+import Button from '../Button';
 
 const ReturnImageUpload = () => {
     const [imageUri, setImageUri] = useState<string | null>(null);
@@ -22,13 +23,14 @@ const ReturnImageUpload = () => {
 
         const asset = result.assets[0];
         setImageUri(asset.uri);
-        console.log(asset.uri);
         UploadToStorage(asset.uri);
     };
 
     return (
         <View>
-            <Button title="카메라로 찍고 업로드" onPress={takePhotoAndUpload} />
+            <Button type="primary" onPress={takePhotoAndUpload}>
+                사진 찍기
+            </Button>
             {imageUri && (
                 <Image
                     source={{ uri: imageUri }}

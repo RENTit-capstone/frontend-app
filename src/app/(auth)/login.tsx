@@ -6,14 +6,14 @@ import { Text, View } from 'react-native';
 import Button from '@/components/Button';
 import { Common } from '@/styles/common';
 import Logo from '@/assets/images/logo.svg';
-import { axiosNoInterceptor } from '@/api';
+import { axiosGet, axiosNoInterceptor } from '@/api';
 import useAuthStore from '@/stores/useAuthStore';
 import useToast from '@/hooks/useToast';
 
 const Login = () => {
     const router = useRouter();
     const toast = useToast();
-    const { setAccessToken, setRefreshToken, setUserId } = useAuthStore();
+    const { setAccessToken, setRefreshToken, setUserId, setUserName } = useAuthStore();
     const [form, setForm] = useState({
         email: '',
         password: '',
@@ -27,6 +27,9 @@ const Login = () => {
             setUserId(res.data.data.memberId);
             await setAccessToken(res.data.data.accessToken);
             await setRefreshToken(res.data.data.refreshToken);
+            const userInfo = await axiosGet(`/api/v1/members/me`);
+            setUserName(userInfo.data.name);
+
             router.replace('/(tabs)/itemList');
             toast.show('로그인에 성공했습니다.');
         } catch (error) {

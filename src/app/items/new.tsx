@@ -6,6 +6,7 @@ import { itemList } from '@/styles/components/itemList';
 import { Colors } from '@/styles/tokens';
 import { useNewPosting } from '@/hooks/useNewPosting';
 import KeyboardAvoidingView from '@/components/KeyboardAvoidingView';
+import formatISOtoDate from '@/utils/formatDateString';
 
 const NewPosting = () => {
     const {
@@ -23,7 +24,10 @@ const NewPosting = () => {
     return (
         <KeyboardAvoidingView>
             <ScrollView style={Common.wrapper}>
-                <ScrollView style={[Common.XStack, { paddingVertical: 16 }]}>
+                <ScrollView
+                    horizontal
+                    contentContainerStyle={[Common.XStack, { paddingVertical: 16 }]}
+                >
                     <Button
                         type="option"
                         onPress={handleImageSelect}
@@ -97,7 +101,7 @@ const NewPosting = () => {
                         >
                             {startDate && endDate && (
                                 <Text>
-                                    {startDate} ~ {endDate}
+                                    {formatISOtoDate(startDate)} ~ {formatISOtoDate(endDate)}
                                 </Text>
                             )}
                         </View>

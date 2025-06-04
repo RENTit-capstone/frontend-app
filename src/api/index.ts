@@ -3,9 +3,9 @@ import axios from 'axios';
 
 export const axiosNoInterceptor = axios.create({
     baseURL: process.env.EXPO_PUBLIC_API_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
+    // headers: {
+    //     'Content-Type': 'application/json',
+    // },
 });
 
 export const axiosInstance = axios.create({
@@ -22,6 +22,7 @@ const getNewToken = async () => {
             accessToken: response.data.accessToken,
             refreshToken: response.data.refreshToken,
         });
+        return response.data.accessToken;
     } else {
         throw new Error(response.data.message);
     }
@@ -58,7 +59,9 @@ axiosInstance.interceptors.response.use(
         if (error.status === 403) {
             console.log('403Error');
             const originalRequest = error.config;
-            await getNewToken();
+            const newAccessToken = await getNewToken();
+
+            originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
             return axiosInstance(originalRequest);
         }
         return Promise.reject(error);

@@ -8,14 +8,15 @@ import toISOStringWithoutMs from '@/utils/toISOStringWithoutMS';
 import { Alert } from 'react-native';
 import useFormInput from './useFormInput';
 import { PostingType } from '@/types/types';
-import useEmptyValidation from './useEmptyInputValidation';
+import DefaultDamagePolicy from '@/components/items/DefaultDamagePolicy';
+import UploadToStorage from '@/utils/uploadToStorage';
 
 export const useNewPosting = () => {
     const { openBottomSheet } = useBottomSheetStore();
     const router = useRouter();
 
-    const [startDate, setStartDate] = useState<string | null>(null);
-    const [endDate, setEndDate] = useState<string | null>(null);
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    const [endDate, setEndDate] = useState<Date | null>(null);
     const [selectedImages, setSelectedImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
 
     const { values, handleChange } = useFormInput<PostingType>({
@@ -24,7 +25,7 @@ export const useNewPosting = () => {
         damagedDescription: '',
         description: '',
         price: '',
-        damagedPolicy: '',
+        damagedPolicy: DefaultDamagePolicy,
         returnPolicy: '',
     });
 
@@ -48,7 +49,15 @@ export const useNewPosting = () => {
 
     const handleSubmit = async () => {
         try {
-            const formData = getPostingFormData(values, selectedImages, startDate, endDate);
+            const uploadPromises = selectedImages.map(async (img) => {
+                const key = await UploadToStorage(img);
+                console.log('key', key);
+                return key;
+            });
+
+            const imageKeys = await Promise.all(uploadPromises);
+
+            const formData = getPostingFormData(values, startDate, endDate, imageKeys);
             await axiosPost(`/api/v1/items`, formData);
             Alert.alert('업로드에 성공하였습니다.');
             router.replace('/(tabs)/itemList');
@@ -67,39 +76,19 @@ export const useNewPosting = () => {
 
     const getPostingFormData = (
         values: any,
-        images: ImagePickerAsset[],
-        startDate: string | null,
-        endDate: string | null,
+        startDate: Date | null,
+        endDate: Date | null,
+        imageKeys: string[],
     ) => {
         const payload = {
             ...values,
             status: 'AVAILABLE',
             startDate: toISOStringWithoutMs(startDate ? new Date(startDate) : new Date()),
             endDate: toISOStringWithoutMs(endDate ? new Date(endDate) : new Date()),
+            imageKeys: imageKeys,
         };
 
-        const formData = new FormData();
-        formData.append('form', JSON.stringify(payload));
-        // formData.append('form', JSON.stringify(payload));
-        // formData.append('name', payload.name);
-        // formData.append('description', payload.description);
-        // formData.append('damagedDescription', payload.damagedDescription);
-        // formData.append('price', payload.price);
-        // formData.append('status', 'AVAILABLE');
-        // formData.append('startDate', payload.startDate); // ISO 문자열
-        // formData.append('endDate', payload.endDate);
-        // formData.append('damagedPolicy', payload.damagedPolicy);
-        // formData.append('returnPolicy', payload.returnPolicy);
-
-        images.forEach((img) => {
-            formData.append('images', {
-                uri: img.uri,
-                name: img.fileName ?? 'image.jpg',
-                type: img.type ?? 'image/jpeg',
-            } as any);
-        });
-
-        return formData;
+        return payload;
     };
 
     return {

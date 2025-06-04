@@ -10,8 +10,8 @@ const useRentalActions = () => {
         toast.show('요청이 취소되었습니다');
     };
     const onReturn = async () => {
+        onNext(async () => await openBottomSheet('returnImage'));
         await openBottomSheet('otp');
-        await openBottomSheet('returnImage');
 
         clearCallbacks();
     };

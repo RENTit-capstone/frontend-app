@@ -1,36 +1,34 @@
-import { axiosPost, axiosPut } from '@/api';
+import { axiosNoInterceptor, axiosPost, axiosPut } from '@/api';
+import axios from 'axios';
 import { Alert } from 'react-native';
+import * as FileSystem from 'expo-file-system';
 
-const UploadToStorage = async (uri: string | null) => {
-    // const fileName = uri ?? `upload-${Date.now()}.jpg`;
-    // const fileName = uri;
-    if (!uri) {
+const UploadToStorage = async (assets: any) => {
+    if (!assets) {
         Alert.alert('업로드할 파일을 선택해주세요.');
         return;
     }
     try {
-        const payload = null;
+        const payload = {
+            fileName: assets.uri,
+            contentType: assets.mimeType,
+        };
         // url 받아오기
-        const response = await axiosPost(`/api/presign/`, payload);
-        const url = response.data;
+        const response = await axiosPost(`/api/v1/files/presigned/upload`, payload);
+        const url = response.data.presignedUrl;
         console.log(response.data);
 
-        const fileBlob = await uriToBlob(uri);
         //storage에 업로드
-        const res = await axiosPut(url, fileBlob, {
-            headers: {
-                'Content-Type': 'image/jpeg',
-            },
+        const imageFile = await fetch(assets.uri);
+        const imageBlob = await imageFile.blob();
+        await fetch(url, {
+            method: 'PUT',
+            headers: { 'Content-Type': payload.contentType },
+            body: imageBlob,
         });
-        console.log(res.data);
+        return response.data.objectKey;
     } catch (error) {
         console.error(error);
     }
-    alert('업로드 완료!');
 };
 export default UploadToStorage;
-
-async function uriToBlob(uri: string): Promise<Blob> {
-    const response = await fetch(uri);
-    return await response.blob();
-}
