@@ -161,7 +161,7 @@ const ItemDetailsButtonBar = (props: any) => {
                     </View>
                 </View>
             )}
-            {visible && <AddAccountModal visible={visible} onClose={() => setVisible(false)} />}
+            <AddAccountModal visible={visible} onClose={() => setVisible(false)} />
         </>
     );
 };

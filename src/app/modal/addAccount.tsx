@@ -22,9 +22,27 @@ const AddAccountModal = (props: ModalProps) => {
     const [bankName, setBankName] = useState('농협');
     const { userId, setUserAccount } = useAuthStore();
 
+    const screen = Dimensions.get('screen');
+
     const [screenWidth, setScreenWidth] = useState(0);
     const [screenHeight, setScreenHeight] = useState(0);
 
+    useEffect(() => {
+        const checkDimensions = () => {
+            setTimeout(() => {
+                const screen = Dimensions.get('screen');
+                setScreenWidth(screen.width);
+                setScreenHeight(screen.height);
+                console.log('Screen dimensions updated:', screen.width, screen.height);
+            }, 50);
+        };
+        const subscription = Dimensions.addEventListener('change', checkDimensions);
+        return () => {
+            subscription?.remove();
+        };
+
+        checkDimensions();
+    }, []);
     const handleRegister = async () => {
         try {
             const payload = {
@@ -57,6 +75,8 @@ const AddAccountModal = (props: ModalProps) => {
         ]);
     };
 
+    if (!visible) return null;
+
     return (
         <View
             style={{
@@ -73,8 +93,8 @@ const AddAccountModal = (props: ModalProps) => {
         >
             <View
                 style={{
-                    width: screenWidth * 0.5,
-                    height: screenHeight * 0.5,
+                    width: 500,
+                    height: 400,
                     backgroundColor: 'white',
                     borderRadius: 16,
                     padding: 20,

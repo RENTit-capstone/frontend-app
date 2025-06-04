@@ -50,7 +50,7 @@ const ImageGallery = (props: ImageGalleryProps) => {
         return () => {
             subscription?.remove();
         };
-    }, [current]);
+    }, []);
 
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         const slide = Math.round(event.nativeEvent.contentOffset.x / screenWidth);
