@@ -28,7 +28,7 @@ const Login = () => {
             await setAccessToken(res.data.data.accessToken);
             await setRefreshToken(res.data.data.refreshToken);
             const userInfo = await axiosGet(`/api/v1/members/me`);
-            setUserName(userInfo.data.name);
+            setUserName(userInfo.data.nickname);
 
             router.replace('/(tabs)/itemList');
             toast.show('로그인에 성공했습니다.');

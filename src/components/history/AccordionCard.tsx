@@ -43,10 +43,17 @@ const AccordionCard = (props: AccordionCardProps) => {
             console.error(error);
         }
     };
-    let action, buttonText, description;
+
+    let action: (() => Promise<void>)[] = [];
+    let buttonText: string[] = [];
+    let description: string | undefined;
 
     if (type === 'MINE') {
-        ({ action, buttonText, description } = determineMineAction({
+        ({
+            action = [],
+            buttonText = [],
+            description,
+        } = determineMineAction({
             id: rentalId,
             rentalStatus: status,
             onApprove,
@@ -54,7 +61,11 @@ const AccordionCard = (props: AccordionCardProps) => {
             onCabinet,
         }));
     } else {
-        ({ action, buttonText, description } = determineAction({
+        ({
+            action = [],
+            buttonText = [],
+            description,
+        } = determineAction({
             rentalStatus: status,
             onReturn,
             onCancelRequest,
@@ -123,16 +134,18 @@ const AccordionCard = (props: AccordionCardProps) => {
             )}
 
             <View style={Common.XStack}>
-                {buttonText && (
+                {buttonText?.map((text, index) => (
                     <Button
-                        onPress={() => onPress(action)}
+                        key={index}
+                        onPress={() => onPress(action?.[index])}
                         type="primary"
                         style={history.button}
-                        disabled={!action}
+                        disabled={!action?.[index]}
                     >
-                        {buttonText}
+                        {text}
                     </Button>
-                )}
+                ))}
+
                 <Button onPress={fetchDetails} type="secondary" style={history.button}>
                     {isOpened ? '닫기' : '상세정보'}
                 </Button>

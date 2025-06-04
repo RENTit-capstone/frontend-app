@@ -1,11 +1,9 @@
 import { RentalStatusType } from '@/types/types';
 
 type DetereminedActionType = {
-    action?: () => Promise<void>;
-    buttonText?: string;
+    action?: (() => Promise<void>)[];
+    buttonText?: string[];
     description?: string;
-    actionSecond?: () => Promise<void>;
-    buttonTextSecond?: string;
 };
 
 type DetermineActionParamType = {
@@ -28,14 +26,12 @@ export const determineMineAction = ({
     switch (rentalStatus) {
         case 'REQUESTED':
             return {
-                action: () => onApprove(id),
-                buttonText: '승인',
-                actionSecond: () => onReject(id),
-                buttonTextSecond: '거절',
+                action: [() => onApprove(id), () => onReject(id)],
+                buttonText: ['승인', '거절'],
             };
 
         case 'APPROVED':
-            return { action: onCabinet, buttonText: '물건 맡기기' };
+            return { action: [onCabinet], buttonText: ['물건 맡기기'] };
 
         case 'REJECTED':
             return { description: '요청을 거절하였습니다' };
@@ -44,13 +40,13 @@ export const determineMineAction = ({
             return { description: '요청이 취소되었습니다' };
 
         case 'LEFT_IN_LOCKER':
-            return { buttonText: '대여함' };
+            return { buttonText: ['대여함'] };
 
         case 'PICKED_UP':
-            return { buttonText: '수령됨' };
+            return { buttonText: ['수령됨'] };
 
         case 'RETURNED_TO_LOCKER':
-            return { action: onCabinet, buttonText: '회수하기' };
+            return { action: [onCabinet], buttonText: ['회수하기'] };
 
         case 'COMPLETED':
             return { description: '거래가 종료되었습니다' };
