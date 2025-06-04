@@ -7,10 +7,9 @@ import { useRouter } from 'expo-router';
 import formatISOToDate from '@/utils/formatDateString';
 
 const ListItem = (props: ListItemProps) => {
-    const { itemId, nickname, name, imgUrls, price, status, startDate, endDate } = props;
+    const { itemId, nickname, name, imageUrls, price, status, startDate, endDate } = props;
     const router = useRouter();
-    const imgSrc = imgUrls ? { uri: imgUrls[0] } : require('@/assets/images/icon.png');
-    // console.log(imgUrls);
+    const imgSrc = imageUrls ? { uri: imageUrls[0] } : require('@/assets/images/icon.png');
 
     return (
         <Pressable

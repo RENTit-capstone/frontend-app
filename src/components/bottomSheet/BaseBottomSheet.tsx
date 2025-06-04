@@ -9,6 +9,7 @@ import PolicyScreen from './Policy';
 import CanendarScreen from './DateSelector';
 import OTPScreen from './Otp';
 import SliderScreen from './PriceSelector';
+import ReturnImageScreen from './ReturnImage';
 
 const bottomSheetMap = {
     none: () => <></>,
@@ -16,6 +17,7 @@ const bottomSheetMap = {
     dateSelector: CanendarScreen,
     otp: OTPScreen,
     priceSelector: SliderScreen,
+    returnImage: ReturnImageScreen,
 };
 
 const BaseBottomSheet = () => {

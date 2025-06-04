@@ -56,6 +56,7 @@ const AccordionCard = (props: AccordionCardProps) => {
     } else {
         ({ action, buttonText, description } = determineAction({
             rentalStatus: status,
+            onReturn,
             onCancelRequest,
             onCabinet,
         }));
@@ -132,7 +133,6 @@ const AccordionCard = (props: AccordionCardProps) => {
                         {buttonText}
                     </Button>
                 )}
-
                 <Button onPress={fetchDetails} type="secondary" style={history.button}>
                     {isOpened ? '닫기' : '상세정보'}
                 </Button>
