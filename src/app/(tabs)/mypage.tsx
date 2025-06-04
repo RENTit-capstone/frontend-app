@@ -66,10 +66,11 @@ const Mypage = () => {
                         paddingHorizontal: 16,
                     }}
                 >
+                    <>{console.log(item)}</>
                     <Text
                         style={[
-                            Common.bold,
                             {
+                                fontSize: 16,
                                 padding: 16,
                                 borderRadius: 8,
                                 backgroundColor: Colors.navy,

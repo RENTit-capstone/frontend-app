@@ -63,14 +63,15 @@ const SearchGroup = (props: any) => {
     const priceLabel = priceSelected ? `${minPrice} - ${maxPrice}` : '가격대';
 
     return (
-        <View style={[Common.searchGroup]}>
+        <View style={[Common.searchGroup, { paddingHorizontal: '4%' }]}>
             <TextInput
                 label=""
                 name="keyword"
                 handleChangeText={setKeyword}
                 placeholder="검색어를 입력해주세요"
                 value={keyword}
-                style={{ paddingRight: 42, marginHorizontal: 32, marginTop: 15, borderRadius: 50 }}
+                style={{ width: '100%', borderRadius: 50 }}
+                // style={{ paddingRight: 42, marginHorizontal: 32, marginTop: 15, borderRadius: 50 }}
                 returnKeyType="search"
                 onSubmitEditing={handleKeywordSearch}
             />
@@ -82,24 +83,35 @@ const SearchGroup = (props: any) => {
                 <SearchIcon />
             </Pressable>
 
-            <View style={[Common.XStack, { marginVertical: 10 }]}>
-                <DropDown
-                    label={dateLabel}
-                    icon={dateSelected ? null : <Calendar />}
-                    selectedColor={!!startDate && !!endDate ? selectedColor : undefined}
-                    onPress={handleDateSelect}
-                />
-                <DropDown
-                    label={priceLabel}
-                    icon={priceSelected ? null : <DownArrow />}
-                    selectedColor={!!minPrice && !!maxPrice ? selectedColor : undefined}
-                    onPress={handlePriceSelect}
-                />
+            <View style={[Common.XStack, { width: '100%', marginVertical: 10 }]}>
+                <View style={{ flex: 1 }}>
+                    <DropDown
+                        label={dateLabel}
+                        icon={dateSelected ? null : <Calendar />}
+                        selectedColor={!!startDate && !!endDate ? selectedColor : undefined}
+                        onPress={handleDateSelect}
+                        style={{ width: '100%' }}
+                    />
+                </View>
+                <View style={{ flex: 1 }}>
+                    <DropDown
+                        label={priceLabel}
+                        icon={priceSelected ? null : <DownArrow />}
+                        selectedColor={!!minPrice && !!maxPrice ? selectedColor : undefined}
+                        onPress={handlePriceSelect}
+                        style={{ width: '100%' }}
+                    />
+                </View>
             </View>
             <View
                 style={[
                     Common.XStack,
-                    { width: '100%', justifyContent: 'space-between', paddingHorizontal: 32 },
+                    {
+                        width: '100%',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginVertical: 5,
+                    },
                 ]}
             >
                 <View style={[Common.XStack, { gap: 10 }]}>
