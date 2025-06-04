@@ -28,6 +28,7 @@ type RequestType = {
         text: string | number,
     ) => void;
     clearRecord: () => void;
+    claerData: () => void;
 };
 
 const useRequestStore = create<RequestType>()((set, get) => ({
@@ -66,6 +67,9 @@ const useRequestStore = create<RequestType>()((set, get) => ({
             startDate: null,
             endDate: null,
             policyChecked: false,
+        }),
+    claerData: () =>
+        set({
             itemData: {
                 damagePolicy: '',
                 returnPolicy: '',

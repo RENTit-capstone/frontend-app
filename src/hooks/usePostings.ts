@@ -13,11 +13,14 @@ const usePostings = () => {
     const toast = useToast();
     const router = useRouter();
     const { userId } = useAuthStore();
-    const { startDate, endDate, clearRecord, setItemData } = useRequestStore();
+    const { startDate, endDate, clearRecord, claerData, setItemData } = useRequestStore();
 
     useEffect(() => {
         fetchItemDetails();
-        return () => clearRecord();
+        return () => {
+            clearRecord();
+            claerData();
+        };
     }, []);
 
     const fetchItemDetails = async () => {

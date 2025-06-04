@@ -7,6 +7,7 @@ import Badge from '../Badge';
 import formatISOToDate from '@/utils/formatDateString';
 import useRequestStore from '@/stores/useRequestStore';
 import { useEffect } from 'react';
+import { setItem } from 'expo-secure-store';
 
 const ItemDetails = (props: ItemDetailsProp) => {
     const {
@@ -25,7 +26,7 @@ const ItemDetails = (props: ItemDetailsProp) => {
         createdAt,
         updatedAt,
     } = props;
-    const { setName, setPrice } = useRequestStore();
+    const { setName, setPrice, setItemData } = useRequestStore();
     useEffect(() => {
         setName(name);
         setPrice(price);

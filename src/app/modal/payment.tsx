@@ -106,7 +106,7 @@ const PaymentModal = (props: ModalProps) => {
                     </View>
                     <View style={[Common.XStack, Common.spaceBetween]}>
                         <Text>현재 잔액</Text>
-                        <Text style={[Common.bold]}> {data.balance} </Text>
+                        <Text style={[Common.bold]}> {data.balance.toLocaleString()} </Text>
                     </View>
                     <View style={[Common.XStack, Common.spaceBetween]}>
                         <Text>결제 금액</Text>
@@ -122,7 +122,7 @@ const PaymentModal = (props: ModalProps) => {
                     <View style={[Common.XStack, Common.spaceBetween]}>
                         <Text>결제 후 포인트 </Text>
                         <Text style={[Common.bold]}>
-                            {parseInt(data.balance) - parseInt(price)}
+                            {price && (parseInt(data.balance) - price).toLocaleString()}{' '}
                         </Text>
                     </View>
                 </View>

@@ -5,7 +5,7 @@ import { Common } from '@/styles/common';
 import { itemList } from '@/styles/components/itemList';
 import ButtonBar from '../ButtonBar';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import formatISOtoDate from '@/utils/formatDateString';
 import { useRouter } from 'expo-router';
 import useAuthStore from '@/stores/useAuthStore';
@@ -18,8 +18,9 @@ const ItemDetailsButtonBar = (props: any) => {
     const [currentPhase, setCurrentPhase] = useState<RentalPhaseType>('viewing');
     const [addAccountVisible, setAddAccountVisible] = useState(false);
     const [paymentVisible, setPaymentVisible] = useState(false);
-    const router = useRouter();
     const { userAccount } = useAuthStore();
+    const dateSelected = useRef(false);
+    const policyConsented = useRef(false);
 
     const {
         startDate,
@@ -41,6 +42,17 @@ const ItemDetailsButtonBar = (props: any) => {
     useEffect(() => {
         if (currentPhase === 'viewing') return;
         setCallbacks();
+        if (currentPhase === 'policyConsenting' && !dateSelected.current) {
+            Alert.alert(
+                '대여 시작일과 종료일을 선택해주세요.',
+                '같은 날짜를 한번 더 누르면 기간을 하루로 설정할 수 있습니다.',
+            );
+            setCurrentPhase('dateSelecting');
+        }
+        if (currentPhase === 'applying' && !policyConsented.current) {
+            Alert.alert('모든 정책에 동의해주세요.');
+            setCurrentPhase('policyConsenting');
+        }
         fetchBottomSheetResult();
     }, [currentPhase]);
 
@@ -89,6 +101,8 @@ const ItemDetailsButtonBar = (props: any) => {
         } = await openBottomSheet('dateSelector');
         setStartDate(startDate);
         setEndDate(endDate);
+        dateSelected.current = !!startDate && !!endDate;
+        console.log('Selected Dates:', dateSelected.current);
     };
 
     const handlePolicyConsentor = async () => {
@@ -96,10 +110,8 @@ const ItemDetailsButtonBar = (props: any) => {
             result: { damagedDescriptionPolicy, damagePolicy, returnPolicy },
         } = await openBottomSheet('policy');
         setPolicyChecked(damagedDescriptionPolicy && damagePolicy && returnPolicy);
-        if (!damagedDescriptionPolicy || !damagePolicy || !returnPolicy) {
-            Alert.alert('모든 정책에 동의해주세요.');
-            return;
-        }
+        policyConsented.current = damagedDescriptionPolicy && damagePolicy && returnPolicy;
+        console.log('Policy Consent:', policyConsented.current);
     };
 
     const handlePayment = () => {
