@@ -75,6 +75,7 @@ export const Common = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '600',
         fontSize: 24,
+        lineHeight: 32,
     },
     badge: {
         borderWidth: 1,

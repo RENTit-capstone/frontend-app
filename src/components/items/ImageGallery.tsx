@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
     View,
     Dimensions,
@@ -6,34 +6,57 @@ import {
     NativeScrollEvent,
     NativeSyntheticEvent,
     Text,
+    useWindowDimensions,
+    Pressable,
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
 type ImageGalleryProps = {
     imgUrls: string[] | undefined;
+    fullScreen?: boolean;
+    handleScrollBegin?: () => void;
+    handleScrollEnd?: () => void;
 };
 
-const { width } = Dimensions.get('window');
-
 const ImageGallery = (props: ImageGalleryProps) => {
-    const { imgUrls } = props;
+    const windowDims = useWindowDimensions();
+    const [screenWidth, setScreenWidth] = useState(windowDims.width || 1024); // 아이패드 기본값
+    const [screenHeight, setScreenHeight] = useState(windowDims.height || 768);
+
+    const { imgUrls, fullScreen } = props;
     const [current, setCurrent] = useState(0);
     const flatListRef = useRef<FlatList>(null);
 
+    useEffect(() => {
+        const checkDimensions = () => {
+            const screen = Dimensions.get('screen');
+            setScreenWidth(screen.width);
+            setScreenHeight(screen.height);
+        };
+        checkDimensions();
+
+        // 화면 회전 감지
+        const subscription = Dimensions.addEventListener('change', checkDimensions);
+        return () => {
+            subscription?.remove();
+        };
+    }, []);
+
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        const slide = Math.round(event.nativeEvent.contentOffset.x / width);
+        const slide = Math.round(event.nativeEvent.contentOffset.x / screenWidth);
         setCurrent(slide);
     };
 
-    if (!imgUrls)
-        return (
-            <View>
-                <Text>이미지가 존재하지 않습니다.</Text>
-            </View>
-        );
+    if (!imgUrls) return;
 
     return (
-        <View>
+        <Pressable
+            disabled={!fullScreen}
+            style={{
+                flex: 1,
+                backgroundColor: fullScreen ? 'rgba(0,0,0,0.9)' : 'black',
+            }}
+        >
             <FlatList
                 ref={flatListRef}
                 data={imgUrls}
@@ -43,11 +66,23 @@ const ImageGallery = (props: ImageGalleryProps) => {
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
                 keyExtractor={(_, index) => index.toString()}
+                onScrollBeginDrag={props.handleScrollBegin}
+                onScrollEndDrag={props.handleScrollEnd}
                 renderItem={({ item }) => (
-                    <Image
-                        source={{ uri: item }}
-                        style={{ width, height: 450, resizeMode: 'cover' }}
-                    />
+                    <View
+                        style={{
+                            width: screenWidth,
+                        }}
+                    >
+                        <Image
+                            source={{ uri: item }}
+                            style={{
+                                width: screenWidth,
+                                height: fullScreen ? screenHeight : screenHeight / 2,
+                            }}
+                            resizeMode="contain"
+                        />
+                    </View>
                 )}
             />
             <View style={{ alignItems: 'center', marginTop: 8 }}>
@@ -55,7 +90,7 @@ const ImageGallery = (props: ImageGalleryProps) => {
                     {current + 1} / {imgUrls.length}
                 </Text>
             </View>
-        </View>
+        </Pressable>
     );
 };
 
