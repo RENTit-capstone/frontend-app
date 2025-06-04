@@ -49,7 +49,7 @@ export type ListItemProps = {
     itemId: number;
     nickname: string;
     name: string;
-    imgUrls: string[];
+    imageUrls: string[];
     price: number;
     status: ItemStatusType;
     startDate: string;

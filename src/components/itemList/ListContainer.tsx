@@ -72,7 +72,7 @@ const ListContainer = (props: ListContainerProps) => {
                             itemId={item.itemId}
                             nickname={item.nickname}
                             name={item.name}
-                            imgUrls={item.imgUrls}
+                            imageUrls={item.imageUrls}
                             price={item.price}
                             status={item.status}
                             startDate={item.startDate}
