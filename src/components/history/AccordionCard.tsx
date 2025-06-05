@@ -12,6 +12,7 @@ import useRentalActions from '@/hooks/useRentalActions';
 import { useRouter } from 'expo-router';
 import formatISOToDate from '@/utils/formatDateString';
 import determineMineAction from '@/utils/determineMineAction';
+import RentalDetails from './RentalDetails';
 
 const AccordionCard = (props: AccordionCardProps) => {
     const { type, rentalId, itemId, requestDate, status } = props;
@@ -117,17 +118,7 @@ const AccordionCard = (props: AccordionCardProps) => {
                         <Text></Text>
                     ) : (
                         <>
-                            <Text>빌려준 사람: {details.owner}</Text>
-                            <Text>대여 요청 일시: {details.requestDate}</Text>
-                            <Text>대여 승인 일시: {details.approvedDate}</Text>
-                            <Text>대여 거절 일시: {details.rejectedDate}</Text>
-                            <Text>대여 시작 일시: {details.startDate}</Text>
-                            <Text>반납 예정 일시: {details.dueDate}</Text>
-                            <Text>사물함 보관 일시 : {details.leftByOwnerAt}</Text>
-                            <Text>물건 수령 일시: {details.pickedUpByRenterAt}</Text>
-                            <Text>반납 일시: {details.returnedByRenterAt}</Text>
-                            <Text>물건 회수 일시: {details.retrievedByOwnerAt}</Text>
-                            <Text>사물함 번호: {details.lockerId}</Text>
+                            <RentalDetails details={details} />
                         </>
                     )}
                 </View>
