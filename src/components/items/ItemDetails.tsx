@@ -23,6 +23,7 @@ const ItemDetails = (props: ItemDetailsProp) => {
         returnPolicy,
         startDate,
         endDate,
+        rentalEndAt,
         createdAt,
         updatedAt,
     } = props;
@@ -37,7 +38,7 @@ const ItemDetails = (props: ItemDetailsProp) => {
             <View style={[itemList.detailsHeader, Common.wrapper]}>
                 <View style={[Common.textWrapper, itemList.detailsHeader]}>
                     <View style={[Common.textWrapper, itemList.detailsHeader]}>
-                        <Avatar />
+                        <Avatar url={owner.profileImg} />
                         <Text>{owner.nickname}</Text>
                     </View>
                     <View style={[Common.textWrapper, { gap: 3 }]}></View>
@@ -47,7 +48,7 @@ const ItemDetails = (props: ItemDetailsProp) => {
                 <View style={[Common.textWrapper, { gap: 10 }]}>
                     <Badge status={status} />
                     {status === 'OUT' ? (
-                        <Text>반납일: 2025.05.01</Text>
+                        <Text>반납일: {rentalEndAt ? formatISOToDate(rentalEndAt) : '-'}</Text>
                     ) : (
                         <Text>{`${formatISOToDate(startDate)} ~ ${formatISOToDate(endDate)}`}</Text>
                     )}

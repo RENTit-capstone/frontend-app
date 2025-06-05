@@ -124,6 +124,7 @@ export type ItemDetailsProp = {
     endDate: string;
     createdAt: string;
     updatedAt: string;
+    rentalEndAt: string;
     owner: {
         memberId: number;
         nickname: string;
