@@ -35,13 +35,20 @@ const AccordionCard = (props: AccordionCardProps) => {
     }, []);
 
     const fetchDetails = async () => {
-        if (isOpened) return;
         try {
             const response = await axiosGet(`/api/v1/rentals/${rentalId}`);
             setDetails(response.data);
             setIsOpened(!isOpened);
         } catch (error) {
             console.error(error);
+        }
+    };
+
+    const handleDetails = () => {
+        if (isOpened) {
+            setIsOpened(false);
+        } else {
+            fetchDetails();
         }
     };
 
@@ -137,7 +144,7 @@ const AccordionCard = (props: AccordionCardProps) => {
                     </Button>
                 ))}
 
-                <Button onPress={fetchDetails} type="secondary" style={history.button}>
+                <Button onPress={handleDetails} type="secondary" style={history.button}>
                     {isOpened ? '닫기' : '상세정보'}
                 </Button>
             </View>
