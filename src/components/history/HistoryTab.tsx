@@ -7,15 +7,15 @@ import AccordionCardContainer from './AccordionCardContainer';
 
 const HistoryTab = () => {
     const othersRoute = () => (
-        <ScrollView style={[Common.container, { backgroundColor: 'white' }]}>
+        <View style={[Common.container, { backgroundColor: 'white' }]}>
             <AccordionCardContainer type={'OTHERS'} />
-        </ScrollView>
+        </View>
     );
 
     const myRoute = () => (
-        <ScrollView style={[Common.container, { backgroundColor: 'white' }]}>
+        <View style={[Common.container, { backgroundColor: 'white' }]}>
             <AccordionCardContainer type={'MINE'} />
-        </ScrollView>
+        </View>
     );
 
     const renderScene = SceneMap({
