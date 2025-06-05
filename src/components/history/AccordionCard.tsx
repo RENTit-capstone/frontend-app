@@ -74,6 +74,7 @@ const AccordionCard = (props: AccordionCardProps) => {
             buttonText = [],
             description,
         } = determineAction({
+            id: rentalId,
             rentalStatus: status,
             onReturn,
             onCancelRequest,

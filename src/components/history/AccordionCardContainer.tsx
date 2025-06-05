@@ -60,22 +60,29 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
 
     const fetchHistory = async (params?: any) => {
         console.log(params);
-
-        if (!params) {
-            params = generateUrl({
-                // stautses: ['REQUESTED', 'APPROVED', 'RejECTED', 'COMPLETED'],
-                page: 0,
-                size: 20,
-                sort: ['requestDate', 'desc'],
-            });
-        }
         try {
-            const response = await axiosGet(`/api/v1/rentals?${params}`);
-            setData(response.data.content);
+            const response = await axiosGet(`/api/v1/members/me`);
+            setData(response.data.rentedRentals);
         } catch (error) {
             Alert.alert(`${error}`);
             console.error(error);
         }
+
+        // if (!params) {
+        //     params = generateUrl({
+        //         // stautses: ['REQUESTED', 'APPROVED', 'RejECTED', 'COMPLETED'],
+        //         page: 0,
+        //         size: 20,
+        //         sort: ['requestDate', 'desc'],
+        //     });
+        // }
+        // try {
+        //     const response = await axiosGet(`/api/v1/rentals?${params}`);
+        //     setData(response.data.content);
+        // } catch (error) {
+        //     Alert.alert(`${error}`);
+        //     console.error(error);
+        // }
     };
 
     if (!data) return;

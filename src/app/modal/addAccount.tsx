@@ -15,7 +15,7 @@ const AddAccountModal = (props: ModalProps) => {
     const { visible, onClose } = props;
     const [accountNumber, setAccountNumber] = useState('');
     const [bankName, setBankName] = useState('농협');
-    const { userId, setUserAccount } = useAuthStore();
+    const { userId } = useAuthStore();
 
     const screen = Dimensions.get('screen');
 
@@ -49,7 +49,6 @@ const AddAccountModal = (props: ModalProps) => {
             console.log('계좌 등록 요청:', payload);
             const response = await axiosPost('/api/v1/wallet', payload);
             console.log(response.data);
-            setUserAccount(accountNumber);
             Alert.alert('계좌 등록이 완료되었습니다.', '결제를 진행해주세요');
             onClose();
         } catch (error) {
@@ -89,8 +88,8 @@ const AddAccountModal = (props: ModalProps) => {
         >
             <View
                 style={{
-                    width: 500,
-                    height: 400,
+                    width: '80%',
+                    height: '50%',
                     backgroundColor: 'white',
                     borderRadius: 16,
                     padding: 20,

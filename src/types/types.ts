@@ -30,7 +30,7 @@ export type SignupInputType = {
 export type listType = 'INDIVIDUAL' | 'GROUP';
 export type historyType = 'OTHERS' | 'MINE';
 export type memberType = 'STUDENT' | 'COUNCIL' | 'COMPANY';
-export type Gender = 'male' | 'female' | '';
+export type Gender = 'WOMEN' | 'MEN' | '';
 
 export type UserInfoType = {
     email: string;

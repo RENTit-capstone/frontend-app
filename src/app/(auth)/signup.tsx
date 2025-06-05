@@ -1,5 +1,5 @@
-import { Text, View } from 'react-native';
-import { Link } from 'expo-router';
+import { Alert, Text, View } from 'react-native';
+import { Link, useRouter } from 'expo-router';
 import Button from '@/components/Button';
 import { Common } from '@/styles/common';
 import useValidateInput from '@/hooks/useValidateInput';
@@ -14,6 +14,7 @@ import KeyboardAvoidingView from '@/components/KeyboardAvoidingView';
 const Signup = () => {
     const lastPage = 1;
     const [page, setPage] = useState(0);
+    const router = useRouter();
     const { emailVerified, signup } = useSignupVerificationStore();
     const validate = useValidateInput({
         email: '',
@@ -43,8 +44,11 @@ const Signup = () => {
             profileImg: null,
         };
         try {
+            console.log(userInfo);
             const response = await signup(userInfo);
             console.log(response); //TODO: dialog로 "회원가입 완료" 띄우기
+            Alert.alert('회원가입이 완료되었습니다', '로그인한 뒤 서비스를 이용해주세요');
+            router.push('/(auth)/login');
         } catch (error) {
             console.error(error);
         }
@@ -57,8 +61,8 @@ const Signup = () => {
                     <Logo />
                 </View>
 
-                {page === 1 && <EmailInfoScreen validate={validate} />}
-                {page === 0 && <UserInfoScreen validate={validate} />}
+                {page === 0 && <EmailInfoScreen validate={validate} />}
+                {page === 1 && <UserInfoScreen validate={validate} />}
 
                 <View style={Common.XStack}>
                     <Button onPress={() => setPage(page - 1)} disabled={page <= 0} type="option">
@@ -72,7 +76,7 @@ const Signup = () => {
                     ) : (
                         <Button
                             onPress={() => setPage(page + 1)}
-                            disabled={!emailVerified && blockNext(page)}
+                            disabled={!emailVerified || blockNext(page)}
                             type="primary"
                         >
                             다음

@@ -1,4 +1,4 @@
-import { Alert, Text, TextInput, View } from 'react-native';
+import { Alert, Keyboard, Text, TextInput, View } from 'react-native';
 import Button from '../Button';
 import { useSignupVerificationStore } from '@/stores/useSignupVerificationStore';
 import { Common } from '@/styles/common';
@@ -93,6 +93,10 @@ const EmailInfoScreen = (props: any) => {
                         name="emailVerifyCode"
                         handleChangeText={handleChange('emailVerifyCode')}
                         value={values.emailVerifyCode}
+                        returnKeyType="done"
+                        onSubmitEditing={() => {
+                            Keyboard.dismiss();
+                        }}
                     />
                     {/* <Text>{`${values.email}로 확인 코드가 전송되었습니다.`}</Text> */}
                     <View style={Common.XStack}>

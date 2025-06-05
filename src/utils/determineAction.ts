@@ -7,13 +7,16 @@ type DetereminedActionType = {
 };
 
 type DetermineActionParamType = {
+    id?: number;
     rentalStatus: RentalStatusType;
-    onCancelRequest: () => Promise<void>;
+    onCancelRequest: (id: number) => Promise<void>;
     onReturn: () => Promise<void>;
     onCabinet: () => Promise<void>;
 };
 
 export const determineAction = ({
+    id = 0,
+
     rentalStatus,
     onCancelRequest,
     onReturn,
@@ -21,7 +24,7 @@ export const determineAction = ({
 }: DetermineActionParamType): DetereminedActionType => {
     switch (rentalStatus) {
         case 'REQUESTED':
-            return { action: [onCancelRequest], buttonText: ['요청 취소'] };
+            return { action: [() => onCancelRequest(id)], buttonText: ['요청 취소'] };
 
         case 'APPROVED':
             return { buttonText: ['요청 승인됨'] };

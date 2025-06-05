@@ -13,7 +13,7 @@ import { forwardRef } from 'react';
 type CustomTextInputProps = {
     label: string;
     name: string;
-    handleChangeText: (name: string, text: string) => void;
+    handleChangeText: (text: string, name: string) => void;
     value: string;
     placeholder?: string;
     secureTextEntry?: boolean;

@@ -1,7 +1,13 @@
 import { useRef, useState } from 'react';
 import TextInput from '../CustomTextInput';
 import KeyboardAvoidingView from '../KeyboardAvoidingView';
-import { TextInput as DefaultTextInput, Text, TouchableOpacity, View } from 'react-native';
+import {
+    TextInput as DefaultTextInput,
+    Keyboard,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import DropDown from '../Dropdown';
 import DownArrow from '@/assets/images/down-arrow.svg';
 import { itemList } from '@/styles/components/itemList';
@@ -19,8 +25,8 @@ const UserInfoScreen = (props: any) => {
     const pwConfirmRef = useRef<DefaultTextInput>(null);
 
     const handleSelectGender = (selected: string) => {
-        if (selected === '남자') handleGenderChange('male');
-        else if (selected === '여자') handleGenderChange('female');
+        if (selected === '남자') handleGenderChange('MEN');
+        else if (selected === '여자') handleGenderChange('WOMEN');
         setSelectedGender(selected);
         setIsOpen(false);
     };
@@ -113,6 +119,10 @@ const UserInfoScreen = (props: any) => {
                 keyboardType="name-phone-pad"
                 placeholder="01012345678"
                 errorMsg={errors.phone}
+                returnKeyType="done"
+                onSubmitEditing={() => {
+                    Keyboard.dismiss();
+                }}
             />
         </KeyboardAvoidingView>
     );
