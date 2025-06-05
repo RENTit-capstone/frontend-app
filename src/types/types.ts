@@ -87,7 +87,6 @@ export type MineCardProps = {
 
 export type AccordionCardProps = {
     type: historyType;
-    rentalId: number;
     itemId: number;
     requestDate: string;
     status: RentalStatusType;

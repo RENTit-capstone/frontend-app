@@ -17,7 +17,10 @@ const FILTER_OPTIONS = ['전체', '요청 중', '승인됨', '거절됨', '취�
 const AccordionCardContainer = (props: AccordionContainerProps) => {
     const { type } = props;
     const page = useRef(0);
-    const [data, setData] = useState<AccordionCardProps[]>([]);
+    const [itemData, setItemData] = useState<any[]>([]);
+    // const [ownData, setOwnData] = useState<any[]>([]);
+    // const [rentData, setRentData] = useState<any[]>([]);
+    const [data, setData] = useState<any[]>([]);
     const [selected, setSelected] = useState(SORT_OPTIONS[0]);
     const [filtered, setFiltered] = useState(FILTER_OPTIONS[0]);
     const [refreshing, setRefreshing] = useState(false);
@@ -51,7 +54,10 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
         console.log(params);
         try {
             const response = await axiosGet(`/api/v1/members/me`);
+            setItemData(response.data.items);
             setData(response.data.ownedRentals);
+            console.log('MineItem:', response.data.items);
+            console.log('ownData:', response.data.ownData);
         } catch (error) {
             Alert.alert(`${error}`);
             console.error(error);
@@ -63,6 +69,8 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
         try {
             const response = await axiosGet(`/api/v1/members/me`);
             setData(response.data.rentedRentals);
+            console.log('OthersItem:', response.data.items);
+            console.log('rentedRentals:', response.data.rentedRentals);
         } catch (error) {
             Alert.alert(`${error}`);
             console.error(error);
@@ -133,6 +141,7 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
                                 itemId={item.itemId}
                                 requestDate={item.requestDate}
                                 status={item.status}
+                                imageUrl={item.thumbnailUrl}
 
                                 // itemId={item.itemId}
                                 // nickname={item.nickname}
@@ -146,7 +155,7 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
                             <View
                                 style={[
                                     itemList.rowDivider,
-                                    { alignSelf: 'center', marginTop: 10 },
+                                    { alignSelf: 'center', marginBottom: 10, width: '100%' },
                                 ]}
                             />
                         </View>

@@ -14,8 +14,8 @@ import formatISOToDate from '@/utils/formatDateString';
 import determineMineAction from '@/utils/determineMineAction';
 import RentalDetails from './RentalDetails';
 
-const AccordionCard = (props: AccordionCardProps) => {
-    const { type, rentalId, itemId, requestDate, status } = props;
+const AccordionCard = (props: any) => {
+    const { type, rentalId, itemId, requestDate, status, imageUrl } = props;
     const { onCancelRequest, onReturn, onApprove, onReject, onCabinet } = useRentalActions();
     const [isOpened, setIsOpened] = useState(false);
     const [itemDetails, setItemDetails] = useState<ItemDetailsProp>();
@@ -96,10 +96,7 @@ const AccordionCard = (props: AccordionCardProps) => {
     return (
         <View>
             <View style={[Common.XStack, itemList.cardWrapper]}>
-                <Image
-                    source={require('@/assets/images/icon.png')}
-                    style={itemList.listItemImage}
-                />
+                <Image source={{ uri: imageUrl }} style={itemList.listItemImage} />
 
                 <View style={[Common.wideView, { gap: 5 }]}>
                     <Badge status={status} />
