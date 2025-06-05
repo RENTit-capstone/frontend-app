@@ -11,14 +11,15 @@ import useRequestStore from '@/stores/useRequestStore';
 import { axiosGet } from '@/api';
 import usePayment from '@/hooks/usePayment';
 import { itemList } from '@/styles/components/itemList';
+import { TextThemes } from '@/styles/theme';
+import { useRouter } from 'expo-router';
 
 const PaymentModal = (props: ModalProps) => {
     const { visible, onClose } = props;
     const { handleRequest } = usePostings();
     const { name, price } = useRequestStore();
     const { getBalance, data } = usePayment();
-
-    const screen = Dimensions.get('screen');
+    const router = useRouter();
 
     const [screenWidth, setScreenWidth] = useState(0);
     const [screenHeight, setScreenHeight] = useState(0);
@@ -128,6 +129,11 @@ const PaymentModal = (props: ModalProps) => {
                             {price && (data.balance - price).toLocaleString()}{' '}
                         </Text>
                     </View>
+                    {data.balance < price && (
+                        <View style={[Common.XStack, { alignSelf: 'flex-end' }]}>
+                            <Text style={TextThemes.error}>잔액이 부족합니다.</Text>
+                        </View>
+                    )}
                 </View>
                 <Pressable
                     onPress={handleCancel}
@@ -146,9 +152,18 @@ const PaymentModal = (props: ModalProps) => {
                     <Button type="secondary" onPress={handleCancel}>
                         취소
                     </Button>
-                    <Button type="primary" onPress={handlePayment}>
-                        결제
-                    </Button>
+                    {data.balance < price ? (
+                        <Button
+                            type="primary"
+                            onPress={() => router.push('/myPage/payment/product')}
+                        >
+                            충전하기
+                        </Button>
+                    ) : (
+                        <Button type="primary" onPress={handlePayment}>
+                            결제
+                        </Button>
+                    )}
                 </View>
             </View>
         </View>

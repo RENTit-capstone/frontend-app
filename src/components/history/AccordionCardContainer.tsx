@@ -24,10 +24,11 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
     }, []);
 
     useEffect(() => {
-        console.log(selected);
+        // console.log(selected);
         const params = generateUrl({
-            statuses: filtered,
-            sort: selected || ['requestDate', 'desc'],
+            // statuses: filtered,
+            // sort: selected || ['requestDate', 'desc'],
+            sort: ['requestDate', 'desc'],
             page: 0,
             size: 20,
         });
