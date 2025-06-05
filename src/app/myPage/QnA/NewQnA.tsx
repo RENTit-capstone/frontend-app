@@ -4,7 +4,7 @@ import { Alert, ScrollView, Text, View } from 'react-native';
 import KeyboardAvoidingView from '../../../components/KeyboardAvoidingView';
 import { useState } from 'react';
 import { Common } from '@/styles/common';
-import TextInput from '../../../components/TextInput';
+import TextInput from '../../../components/CustomTextInput';
 import Button from '../../../components/Button';
 import { useRouter } from 'expo-router';
 

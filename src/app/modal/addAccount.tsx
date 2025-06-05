@@ -5,7 +5,7 @@ import { Text } from 'react-native';
 import Button from '@/components/Button';
 import { useEffect, useState } from 'react';
 import { Dimensions } from 'react-native';
-import TextInput from '@/components/TextInput';
+import TextInput from '@/components/CustomTextInput';
 import { TextThemes } from '@/styles/theme';
 import { axiosPost } from '@/api';
 import useAuthStore from '@/stores/useAuthStore';

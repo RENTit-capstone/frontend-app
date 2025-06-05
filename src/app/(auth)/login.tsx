@@ -1,7 +1,7 @@
 import { Link, useRouter } from 'expo-router';
 import { LoginType } from '@/types/types';
 import { useState } from 'react';
-import TextInput from '@/components/TextInput';
+import TextInput from '@/components/CustomTextInput';
 import { Text, View } from 'react-native';
 import Button from '@/components/Button';
 import { Common } from '@/styles/common';

@@ -1,5 +1,5 @@
 import Button from '@/components/Button';
-import TextInput from '@/components/TextInput';
+import TextInput from '@/components/CustomTextInput';
 import { Common } from '@/styles/common';
 import { View, Text, ScrollView, Image } from 'react-native';
 import { itemList } from '@/styles/components/itemList';

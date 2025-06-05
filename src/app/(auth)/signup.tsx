@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Link } from 'expo-router';
 import Button from '@/components/Button';
 import { Common } from '@/styles/common';
@@ -9,6 +9,7 @@ import EmailInfoScreen from '@/components/signup/EmailInfoScreen';
 import UserInfoScreen from '@/components/signup/UserInfoScreen';
 import { useSignupVerificationStore } from '@/stores/useSignupVerificationStore';
 import { UserInfoType } from '@/types/types';
+import KeyboardAvoidingView from '@/components/KeyboardAvoidingView';
 
 const Signup = () => {
     const lastPage = 1;
@@ -26,7 +27,7 @@ const Signup = () => {
         studentId: '',
         emailVerifyCode: '',
     });
-    const { values, errors, handleChange, blockNext } = validate;
+    const { values, errors, handleChange, handleGenderChange, blockNext } = validate;
 
     const handleSubmit = async () => {
         const userInfo: UserInfoType = {
@@ -50,14 +51,14 @@ const Signup = () => {
     };
 
     return (
-        <KeyboardAvoidingView style={[Common.container, Common.wrapper]}>
+        <View style={[Common.wrapper, Common.container]}>
             <View style={[Common.YStack, { justifyContent: 'flex-start' }]}>
                 <View style={{ paddingVertical: '10%' }}>
                     <Logo />
                 </View>
 
-                {page == 0 && <EmailInfoScreen validate={validate} />}
-                {page === 1 && <UserInfoScreen validate={validate} />}
+                {page === 1 && <EmailInfoScreen validate={validate} />}
+                {page === 0 && <UserInfoScreen validate={validate} />}
 
                 <View style={Common.XStack}>
                     <Button onPress={() => setPage(page - 1)} disabled={page <= 0} type="option">
@@ -83,7 +84,7 @@ const Signup = () => {
                     <Text style={[Common.textOption]}>로그인</Text>
                 </Link>
             </View>
-        </KeyboardAvoidingView>
+        </View>
     );
 };
 

@@ -1,5 +1,5 @@
 import ItemListTab from '@/components/itemList/ItemListTab';
-import TextInput from '@/components/TextInput';
+import TextInput from '@/components/CustomTextInput';
 import { useState } from 'react';
 import { Pressable, SafeAreaView } from 'react-native';
 import SearchIcon from '@/assets/images/search.svg';

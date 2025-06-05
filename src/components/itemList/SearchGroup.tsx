@@ -4,7 +4,7 @@ import { Common } from '@/styles/common';
 import { useEffect, useState } from 'react';
 import Calendar from '@/assets/images/calendar.svg';
 import DownArrow from '@/assets/images/down-arrow.svg';
-import TextInput from '../TextInput';
+import TextInput from '../CustomTextInput';
 import SearchIcon from '@/assets/images/search.svg';
 import formatISOToDate from '@/utils/formatDateString';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';

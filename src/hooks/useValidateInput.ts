@@ -1,4 +1,4 @@
-import { SignupInputType } from '@/types/types';
+import { Gender, SignupInputType } from '@/types/types';
 import { useState } from 'react';
 
 function useValidateInput(initialValues: SignupInputType) {
@@ -14,9 +14,13 @@ function useValidateInput(initialValues: SignupInputType) {
         validateField(name, text);
     };
 
+    const handleGenderChange = (option: Gender) => {
+        setValues((prev) => ({ ...prev, gender: option }));
+    };
+
     const validateField = (name: string, value: string) => {
         let error = '';
-        if (!value) error = `${name}을 입력해주세요.`;
+        // if (!value) error = `${name}을 입력해주세요.`;
         if (name === 'pw' && !pwRegex.test(value))
             error = '비밀번호는 8자 이상, 문자, 숫자, 특수문자(!@#$%&?)을 포함해야 합니다.';
         if (name === 'pwConfirm' && value !== values.pw) error = '비밀번호가 일치하지 않습니다.';
@@ -62,6 +66,6 @@ function useValidateInput(initialValues: SignupInputType) {
             return isError;
         }
     };
-    return { values, errors, handleChange, blockNext };
+    return { values, errors, handleChange, handleGenderChange, blockNext };
 }
 export default useValidateInput;

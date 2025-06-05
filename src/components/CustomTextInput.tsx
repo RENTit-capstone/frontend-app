@@ -4,11 +4,11 @@ import {
     TextInput as DefaultTextInput,
     KeyboardTypeOptions,
     TextStyle,
-    TextInputProperties,
     TextInputProps,
 } from 'react-native';
 import { Common } from '@/styles/common';
 import { TextThemes } from '@/styles/theme';
+import { forwardRef } from 'react';
 
 type CustomTextInputProps = {
     label: string;
@@ -22,7 +22,8 @@ type CustomTextInputProps = {
     multiline?: boolean;
     style?: TextStyle[];
 } & TextInputProps;
-const TextInput = (props: CustomTextInputProps) => {
+
+const CustomTextInput = forwardRef<DefaultTextInput, CustomTextInputProps>((props, ref) => {
     const {
         label,
         name,
@@ -34,12 +35,14 @@ const TextInput = (props: CustomTextInputProps) => {
         errorMsg = '',
         multiline = false,
         style,
+        ...restProps
     } = props;
 
     return (
         <View style={{ width: '100%' }}>
             {label && <Text>{label}</Text>}
             <DefaultTextInput
+                ref={ref}
                 onChangeText={(text) => handleChangeText(text, name)}
                 placeholder={placeholder}
                 placeholderTextColor="#767676"
@@ -50,11 +53,13 @@ const TextInput = (props: CustomTextInputProps) => {
                 autoCorrect={false}
                 autoCapitalize="none"
                 style={[Common.textInput, multiline && Common.textArea, style]}
+                {...restProps}
             />
             {errorMsg?.length > 0 && (
                 <Text style={[Common.errorMsg, TextThemes.error]}>{errorMsg}</Text>
             )}
         </View>
     );
-};
-export default TextInput;
+});
+
+export default CustomTextInput;
