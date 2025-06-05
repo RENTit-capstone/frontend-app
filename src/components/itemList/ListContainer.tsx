@@ -1,18 +1,21 @@
-import { useEffect, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { useEffect, useState, useCallback } from 'react';
+import { View, FlatList, RefreshControl } from 'react-native';
 import { ListItemProps, ListContainerProps } from '@/types/types';
 import ListItem from './ListItem';
 import { itemList } from '@/styles/components/itemList';
 import SearchGroup from './SearchGroup';
 import { axiosGet } from '@/api';
 import generateUrl from '@/utils/generateUrl';
-import { Common } from '@/styles/common';
+import { Colors } from '@/styles/tokens';
 
 const ListContainer = (props: ListContainerProps) => {
     const { type } = props;
-    const [last, setLast] = useState(false);
+
+    const [data, setData] = useState<ListItemProps[]>([]);
     const [page, setPage] = useState(0);
-    const [data, setData] = useState([]);
+    const [last, setLast] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
+
     const [searchOptions, setSearchOptions] = useState({
         keyword: '',
         startDate: '',
@@ -23,11 +26,9 @@ const ListContainer = (props: ListContainerProps) => {
         sort: '',
     });
 
-    useEffect(() => {
-        fetchResult();
-    }, [type, searchOptions]);
+    const fetchResult = useCallback(async () => {
+        setRefreshing(true);
 
-    const fetchResult = async () => {
         const role = type === 'INDIVIDUAL' ? 'STUDENT' : ['COMPANY', 'COUNCIL'];
         const params = generateUrl({
             keyword: searchOptions.keyword || '',
@@ -37,7 +38,6 @@ const ListContainer = (props: ListContainerProps) => {
             endDate: searchOptions.endDate
                 ? new Date(new Date(searchOptions.endDate).setHours(23, 59, 59, 999)).toISOString()
                 : '',
-
             minPrice: searchOptions.minPrice || '',
             maxPrice: searchOptions.maxPrice || '',
             status: searchOptions.status ? 'AVAILABLE' : '',
@@ -46,6 +46,7 @@ const ListContainer = (props: ListContainerProps) => {
             size: 20,
             sort: searchOptions.sort ? searchOptions.sort : ['createdAt', 'desc'],
         });
+
         try {
             const response = await axiosGet(`/api/v1/items?${params}`);
             setPage(response.data.pageable.pageNumber + 1);
@@ -53,8 +54,14 @@ const ListContainer = (props: ListContainerProps) => {
             setLast(response.data.last);
         } catch (error) {
             console.error(error);
+        } finally {
+            setRefreshing(false);
         }
-    };
+    }, [type, searchOptions]);
+
+    useEffect(() => {
+        fetchResult();
+    }, [fetchResult]);
 
     const handleChangeOptions = (newOptions: any) => {
         setSearchOptions((prev) => ({
@@ -63,14 +70,25 @@ const ListContainer = (props: ListContainerProps) => {
         }));
     };
 
-    if (!data) return;
+    if (!data) return null;
 
     return (
         <View style={{ flex: 1 }}>
             <SearchGroup onChange={handleChangeOptions} />
-            <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 64 }}>
-                {data.map((item: ListItemProps, index: number) => (
-                    <View key={index} style={itemList.listContainer}>
+            <FlatList
+                data={data}
+                keyExtractor={(item, index) => `${item.itemId}-${index}`}
+                contentContainerStyle={{ paddingBottom: 64 }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={fetchResult}
+                        colors={[Colors.darkGray]}
+                        tintColor={Colors.darkGray}
+                    />
+                }
+                renderItem={({ item }) => (
+                    <View style={itemList.listContainer}>
                         <ListItem
                             itemId={item.itemId}
                             nickname={item.nickname}
@@ -83,8 +101,8 @@ const ListContainer = (props: ListContainerProps) => {
                         />
                         <View style={[itemList.rowDivider, { marginTop: 10 }]} />
                     </View>
-                ))}
-            </ScrollView>
+                )}
+            />
         </View>
     );
 };
