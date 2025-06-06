@@ -80,7 +80,6 @@ const Product = () => {
 
     return (
         <View style={[Common.container, Common.wrapper]}>
-            <Text style={[Common.bold, { fontSize: 20, marginBottom: 12 }]}>포인트 구매</Text>
             <View style={{ marginBottom: 24 }}>
                 <Text style={[Common.bold, { fontSize: 16 }]}>
                     현재 나의 포인트: {balance} 포인트
