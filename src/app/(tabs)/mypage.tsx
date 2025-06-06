@@ -52,9 +52,9 @@ const Mypage = () => {
 
     return (
         <View style={[Common.container, Common.wrapper]}>
-            {options.map((item) => (
+            {options.map((item, index) => (
                 <View
-                    key={`${item}`}
+                    key={index}
                     style={{
                         gap: 16,
                         alignItems: 'flex-start',
@@ -81,7 +81,7 @@ const Mypage = () => {
                     >
                         {item.category}
                     </Text>
-                    {item.contents.map((subpage) => (
+                    {item.contents.map((subpage, index) => (
                         <>
                             <Pressable
                                 onPress={() => router.push(subpage.link)}
