@@ -23,7 +23,7 @@ const MyQnA = () => {
     const fetchMyQnA = async () => {
         try {
             const response = await axiosGet(`/api/v1/inquiries?type=SERVICE`);
-            setData(response.data);
+            setData(response.data.content);
         } catch (error) {
             console.error(error);
             Alert.alert(`${error}`);
@@ -34,20 +34,21 @@ const MyQnA = () => {
         fetchMyQnA();
     }, []);
 
+    if (!data) return;
+
     return (
         <ScrollView style={[Common.container, Common.wrapper]}>
-            {data &&
-                data.map((item) => (
-                    <>
-                        <Pressable onPress={() => router.push(`/myPage/QnA/${item.inquiryId}`)}>
-                            <View style={[Common.XStack, { alignSelf: 'flex-start' }]}>
-                                <Badge status={item.processed ? 'PROCESSED' : 'NOTPROCESSED'} />
-                                <Text>{item.title}</Text>
-                            </View>
-                        </Pressable>
-                        <View style={itemList.rowDivider} />
-                    </>
-                ))}
+            {data.map((item) => (
+                <>
+                    <Pressable onPress={() => router.push(`/myPage/QnA/${item.inquiryId}`)}>
+                        <View style={[Common.XStack, { alignSelf: 'flex-start' }]}>
+                            <Badge status={item.processed ? 'PROCESSED' : 'NOTPROCESSED'} />
+                            <Text>{item.title}</Text>
+                        </View>
+                    </Pressable>
+                    <View style={itemList.rowDivider} />
+                </>
+            ))}
         </ScrollView>
     );
 };
