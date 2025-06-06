@@ -22,7 +22,7 @@ const ItemLayout = () => {
                     options={{
                         title: '물품 등록',
                         headerShown: true,
-                        header: () => <BackButtonHeader />,
+                        header: () => <BackButtonHeader title="물품 등록" />,
                     }}
                 />
             </Stack>

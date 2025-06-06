@@ -74,9 +74,6 @@ const NewQnA = () => {
     return (
         <KeyboardAvoidingView>
             <ScrollView style={Common.wrapper}>
-                <Text style={[Common.bold, { alignSelf: 'center', marginVertical: 16 }]}>
-                    문의 작성
-                </Text>
                 <TextInput
                     label="제목"
                     name="title"

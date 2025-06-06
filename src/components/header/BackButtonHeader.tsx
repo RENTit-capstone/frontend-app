@@ -1,5 +1,5 @@
 import { Common } from '@/styles/common';
-import { Pressable, SafeAreaView, Text } from 'react-native';
+import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LeftArrow from '@/assets/images/left-arrow.svg';
 import { useRouter } from 'expo-router';
@@ -10,13 +10,14 @@ const BackButtonHeader = ({ title = '' }: { title?: string }) => {
     const router = useRouter();
 
     return (
-        <SafeAreaView
+        <View
             style={[
                 Common.headerWrapper,
                 Common.XStack,
                 {
                     backgroundColor: Colors.background,
                     paddingTop: insets.top,
+                    paddingBottom: 16,
                 },
             ]}
         >
@@ -35,7 +36,7 @@ const BackButtonHeader = ({ title = '' }: { title?: string }) => {
             >
                 {title}
             </Text>
-        </SafeAreaView>
+        </View>
     );
 };
 
