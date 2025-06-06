@@ -3,27 +3,27 @@ import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-nati
 import DropDown from '../Dropdown';
 import DownArrow from '@/assets/images/down-arrow.svg';
 import { itemList } from '@/styles/components/itemList';
+import { FilterOption, SortOption } from '@/types/types';
 
 type DropdownSortProps = {
-    sortOptions?: string[];
-    selected?: string;
-    setSelected?: (option: string) => void;
+    sortOptions?: SortOption[];
+    selected?: SortOption;
+    setSelected?: (option: SortOption) => void;
 
-    filterOptions?: string[];
-    filtered?: string;
-    setFiltered?: (option: string) => void;
+    filterOptions?: FilterOption[];
+    filtered?: FilterOption;
+    setFiltered?: (option: FilterOption) => void;
 };
 
 const DropdownSort = (props: DropdownSortProps) => {
     const { selected, setSelected, sortOptions, filterOptions, setFiltered, filtered } = props;
     const [isOpen, setIsOpen] = useState(false);
-    // const [selected, setSelected] = useState(SORT_OPTIONS[0]);
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
 
-    const handleSort = (option: string) => {
+    const handleSort = (option: any) => {
         setSelected && setSelected(option);
         setFiltered && setFiltered(option);
         setIsOpen(false);

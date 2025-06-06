@@ -12,8 +12,7 @@ import { Colors } from '@/styles/tokens';
 import DropdownSort from './DropdownSort';
 import Checkbox from 'expo-checkbox';
 import { Text } from 'react-native';
-
-const SORT_OPTIONS = ['최신순', '인기순', '가격 낮은순', '가격 높은순'];
+import { SORT_OPTIONS, SortOption } from '@/types/types';
 
 const SearchGroup = (props: any) => {
     const { onChange } = props;
@@ -23,7 +22,7 @@ const SearchGroup = (props: any) => {
     const [minPrice, setMinPrice] = useState<number>(0);
     const [maxPrice, setMaxPrice] = useState<number>(0);
     const [keyword, setKeyword] = useState('');
-    const [selected, setSelected] = useState(SORT_OPTIONS[0]);
+    const [selected, setSelected] = useState<SortOption>('최신순');
     const [availableOnly, setAvailableOnly] = useState(false);
 
     useEffect(() => {
@@ -125,7 +124,7 @@ const SearchGroup = (props: any) => {
                 <DropdownSort
                     selected={selected}
                     setSelected={setSelected}
-                    sortOptions={SORT_OPTIONS}
+                    sortOptions={Object.keys(SORT_OPTIONS) as SortOption[]}
                 />
             </View>
         </View>

@@ -149,3 +149,22 @@ export type ModalProps = {
     visible: boolean;
     onClose: () => void;
 };
+
+export const SORT_OPTIONS = {
+    최신순: ['createdAt', 'desc'],
+    '가격 낮은순': ['price', 'asc'],
+    '가격 높은순': ['price', 'desc'],
+} as const;
+
+export type SortOption = keyof typeof SORT_OPTIONS;
+
+export const FILTER_OPTIONS = {
+    '요청 중': 'REQUESTED',
+    승인됨: 'APPROVED',
+    거절됨: 'REJECTED',
+    취소됨: 'CANCELLED',
+    대여중: ['LEFT_IN_LOCKER', 'PICKED_UP', 'RETURNED_TO_LOCKER'],
+    완료됨: 'COMPLETED',
+};
+
+export type FilterOption = keyof typeof FILTER_OPTIONS;

@@ -36,6 +36,7 @@ const EmailInfoScreen = (props: any) => {
                 values.emailVerifyCode,
             );
             console.log(response); //TODO: dialog
+            Alert.alert('인증되었습니다');
         } catch (error) {
             console.error(error);
         }
