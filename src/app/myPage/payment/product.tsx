@@ -10,19 +10,19 @@ import { Alert, Text, View } from 'react-native';
 const products = [
     {
         point: 1000,
-        price: 1200,
+        price: 1000,
     },
     {
         point: 2000,
-        price: 2400,
+        price: 2000,
     },
     {
         point: 3000,
-        price: 3500,
+        price: 3000,
     },
     {
         point: 5000,
-        price: 5500,
+        price: 5000,
     },
 ];
 
@@ -80,34 +80,42 @@ const Product = () => {
 
     return (
         <View style={[Common.container, Common.wrapper]}>
-            <Text style={Common.bold}>포인트 구매</Text>
-            <View>
-                <Text style={Common.bold}>현재 나의 포인트: {balance} 포인트</Text>
+            <Text style={[Common.bold, { fontSize: 20, marginBottom: 12 }]}>포인트 구매</Text>
+            <View style={{ marginBottom: 24 }}>
+                <Text style={[Common.bold, { fontSize: 16 }]}>
+                    현재 나의 포인트: {balance} 포인트
+                </Text>
             </View>
+
             <View style={Common.YStack}>
                 {products.map((item) => (
-                    <>
-                        <View
-                            style={[
-                                Common.XStack,
-                                {
-                                    justifyContent: 'space-around',
-                                    alignSelf: 'stretch',
-                                    alignItems: 'center',
-                                },
-                            ]}
+                    <View
+                        key={item.point}
+                        style={{
+                            width: '100%',
+                            backgroundColor: '#fff',
+                            padding: 16,
+                            marginBottom: 12,
+                            borderRadius: 12,
+                            shadowColor: '#000',
+                            shadowOffset: { width: 0, height: 1 },
+                            shadowOpacity: 0.1,
+                            shadowRadius: 4,
+                            elevation: 2, // Android shadow
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text style={{ fontSize: 16 }}>{item.point} 포인트</Text>
+                        <Button
+                            type="primary"
+                            onPress={() => showAlert(item.point)}
+                            style={{ paddingHorizontal: 16, paddingVertical: 8, flexGrow: 0 }}
                         >
-                            <Text>{item.point}포인트</Text>
-                            <Button
-                                type="primary"
-                                onPress={() => showAlert(item.point)}
-                                style={{ flex: 0, paddingHorizontal: 12 }}
-                            >
-                                {item.price}원
-                            </Button>
-                        </View>
-                        <View style={itemList.rowDivider} />
-                    </>
+                            {item.price.toLocaleString()}원
+                        </Button>
+                    </View>
                 ))}
             </View>
         </View>
