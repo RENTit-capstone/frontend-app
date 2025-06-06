@@ -24,11 +24,11 @@ const options = [
         contents: [
             {
                 name: 'OTP 발급',
-                link: '/myPage/otp',
+                link: '/myPage/locker/otp',
             },
             {
                 name: '사물함 이용 안내',
-                link: '/myPage/otp',
+                link: '/myPage/locker/method',
             },
         ],
     },
