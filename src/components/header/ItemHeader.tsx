@@ -1,5 +1,5 @@
 import { Common } from '@/styles/common';
-import { Pressable, SafeAreaView, View } from 'react-native';
+import { Dimensions, Pressable, SafeAreaView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LeftArrowWhite from '@/assets/images/left-arrow-white.svg';
 import Menu from '@/assets/images/dots-vertical.svg';
@@ -10,6 +10,7 @@ const ItemHeader = () => {
     const insets = useSafeAreaInsets();
     const router = useRouter();
     const backgroundColor = 'rgba(0, 0, 0, 0)';
+    const screenHeight = Dimensions.get('window').height;
 
     return (
         <SafeAreaView
@@ -18,10 +19,15 @@ const ItemHeader = () => {
                 {
                     backgroundColor: backgroundColor,
                     paddingTop: insets.top,
+                    height: screenHeight * 0.07,
+                    marginHorizontal: 12,
                 },
             ]}
         >
-            <Pressable onPress={() => router.back()}>
+            <Pressable
+                onPress={() => router.back()}
+                hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+            >
                 <LeftArrowWhite width={32} height={32} />
             </Pressable>
             <View style={Common.XStack}>
