@@ -4,6 +4,10 @@
         "appVersionSource": "remote"
     },
     "build": {
+        "custom-apk": {
+            "developmentClient": false,
+            "distribution": "internal"
+        },
         "development": {
             "developmentClient": true,
             "distribution": "internal"
