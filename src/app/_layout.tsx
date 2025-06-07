@@ -13,6 +13,7 @@ import { Common } from '@/styles/common';
 import BaseBottomSheet from '@/components/bottomSheet/BaseBottomSheet';
 import { Colors } from '@/styles/tokens';
 import BackButtonHeader from '@/components/header/BackButtonHeader';
+import useNotification from '@/hooks/useNotification';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -53,6 +54,7 @@ function RootLayoutNav() {
     const isAllowedPage = pathname.includes('login') || pathname.includes('signup');
     const isWeb = Platform.OS === 'web';
     const contentWidth = isWeb ? 414 : '100%';
+    useNotification();
 
     if (!token && !isAllowedPage) {
         return <Redirect href={'/(auth)/login'} />;
