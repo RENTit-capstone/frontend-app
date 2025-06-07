@@ -41,7 +41,7 @@ const DamageReport = () => {
             images: imageKeys,
         };
         try {
-            const response = await axiosPost(`/api/v1/inquiries`, payload);
+            const response = await axiosPost(`/api/v1/inquiries/damage`, payload);
             Alert.alert('파손 신고 작성이 완료되었습니다');
             router.replace('/myPage/qna/MyQnA');
         } catch (error) {
@@ -98,7 +98,10 @@ const DamageReport = () => {
                 </View>
                 <ScrollView
                     horizontal
-                    contentContainerStyle={[Common.XStack, { paddingVertical: 16 }]}
+                    contentContainerStyle={[
+                        Common.XStack,
+                        { paddingVertical: 16, marginBottom: 16 },
+                    ]}
                 >
                     <Button
                         type="option"

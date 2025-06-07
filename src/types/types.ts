@@ -142,7 +142,15 @@ export type PostingType = {
     returnPolicy: string;
 };
 
-export type QnAType = 'SERVICE' | 'REPORT';
+export const QnA_Options = {
+    '서비스 이용': 'SERVICE',
+    '신고/제보': 'REPORT',
+    '파손 신고': 'DAMAGE',
+} as const;
+
+export type QnAOption = keyof typeof QnA_Options;
+export type QnAType = 'SERVICE' | 'DAMAGE' | 'REPORT';
+
 export type QnAProcessedType = 'PROCESSED' | 'NOTPROCESSED';
 
 export type ModalProps = {

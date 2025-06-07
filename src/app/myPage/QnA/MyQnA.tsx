@@ -1,7 +1,9 @@
 import { axiosGet } from '@/api';
 import Badge from '@/components/Badge';
+import useAuthStore from '@/stores/useAuthStore';
 import { Common } from '@/styles/common';
 import { itemList } from '@/styles/components/itemList';
+import { QnAOption, QnAType } from '@/types/types';
 import formatISOtoDate from '@/utils/formatDateString';
 import generateUrl from '@/utils/generateUrl';
 import { useRouter } from 'expo-router';
@@ -11,15 +13,16 @@ import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 type QnAListType = {
     inquiryId: number;
     memberId: number;
-    type: string;
     title: string;
     content: string;
     processed: false;
     createdAt: string;
+    type: QnAType;
 };
 
 const MyQnA = () => {
     const router = useRouter();
+    const { userId } = useAuthStore();
     const [data, setData] = useState<QnAListType[]>();
 
     const fetchMyQnA = async () => {
@@ -32,7 +35,7 @@ const MyQnA = () => {
 
         try {
             const response = await axiosGet(`/api/v1/inquiries?${params}`);
-            console.log(response.data);
+            console.log(response.data.content);
             setData(response.data.content);
         } catch (error) {
             console.error(error);
@@ -43,6 +46,19 @@ const MyQnA = () => {
     useEffect(() => {
         fetchMyQnA();
     }, []);
+
+    const getTypeLabel = (type: QnAListType['type']) => {
+        switch (type) {
+            case 'SERVICE':
+                return '이용 문의';
+            case 'REPORT':
+                return '신고';
+            case 'DAMAGE':
+                return '파손 신고';
+            default:
+                return type;
+        }
+    };
 
     if (!data) return;
 
@@ -82,6 +98,7 @@ const MyQnA = () => {
                                 }}
                                 numberOfLines={1}
                             >
+                                {`[${getTypeLabel(item.type)}]  `}
                                 {item.title}
                             </Text>
                             <Badge status={item.processed ? 'PROCESSED' : 'NOTPROCESSED'} />
