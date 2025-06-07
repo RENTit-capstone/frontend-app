@@ -2,14 +2,18 @@ import Constants from 'expo-constants';
 import useAuthStore from '@/stores/useAuthStore';
 import axios from 'axios';
 
+console.log('API BASE URL:', process.env.EXPO_PUBLIC_API_URL);
+
 export const axiosNoInterceptor = axios.create({
     // baseURL: Constants.expoConfig?.extra?.apiUrl,
-    baseURL: process.env.EXPO_PUBLIC_API_URL,
+    // baseURL: process.env.EXPO_PUBLIC_API_URL,
+    baseURL: 'http://223.130.147.103:8080',
 });
 
 export const axiosInstance = axios.create({
-    baseURL: process.env.EXPO_PUBLIC_API_URL,
+    // baseURL: process.env.EXPO_PUBLIC_API_URL,
     // baseURL: Constants.expoConfig?.extra?.apiUrl,
+    baseURL: 'http://223.130.147.103:8080',
 });
 
 const getNewToken = async () => {
