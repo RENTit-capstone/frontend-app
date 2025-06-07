@@ -116,25 +116,14 @@ const QnAPosting = () => {
                         ))}
                     <Text style={{ fontSize: 15, lineHeight: 22 }}>{data.content}</Text>
                 </View>
-                <View style={[itemList.rowDivider, { marginVertical: 12, width: '100%' }]} />
 
                 {/* 답변 */}
                 {data.answer ? (
-                    <View
-                        style={{
-                            marginTop: 24,
-                            padding: 16,
-                            backgroundColor: '#f9f9f9',
-                            borderRadius: 12,
-                            borderWidth: 1,
-                            borderColor: '#ddd',
-                        }}
-                    >
-                        <Text style={{ fontWeight: 'bold', marginBottom: 8 }}>운영자 답변</Text>
-                        <Text style={{ fontSize: 14, lineHeight: 20 }}>{data.answer}</Text>
-                    </View>
-                ) : (
                     <>
+                        <View
+                            style={[itemList.rowDivider, { marginVertical: 12, width: '100%' }]}
+                        />
+
                         <View
                             style={{
                                 marginTop: 24,
@@ -150,7 +139,7 @@ const QnAPosting = () => {
                             <Text style={{ fontSize: 14, lineHeight: 20 }}>{'임시 텍스트'}</Text>
                         </View>
                     </>
-                )}
+                ) : null}
                 {shouldAnswer && (
                     <View
                         style={{

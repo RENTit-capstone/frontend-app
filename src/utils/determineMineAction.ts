@@ -26,12 +26,11 @@ export const determineMineAction = ({
     onReportDamage,
 }: DetermineActionParamType): DetereminedActionType => {
     switch (rentalStatus) {
-        // case 'REQUESTED':
-        //     return {
-        //         action: [() => onApprove(id), () => onReject(id)],
-        //         buttonText: ['승인', '거절'],
-        //     };
-
+        case 'REQUESTED':
+            return {
+                action: [() => onApprove(id), () => onReject(id)],
+                buttonText: ['승인', '거절'],
+            };
         case 'APPROVED':
             return { action: [onCabinet], buttonText: ['물건 맡기기'] };
 
@@ -50,8 +49,7 @@ export const determineMineAction = ({
         case 'RETURNED_TO_LOCKER':
             return { action: [onCabinet], buttonText: ['회수하기'] };
 
-        case 'REQUESTED':
-            // case 'COMPLETED':
+        case 'COMPLETED':
             return {
                 action: [() => onReportDamage(id)],
                 buttonText: ['파손 신고'],

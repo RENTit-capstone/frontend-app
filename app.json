@@ -4,12 +4,12 @@
         "slug": "com-rentit",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./src/assets/images/logo.svg",
+        "icon": "./src/assets/images/logo.png",
         "scheme": "myapp",
         "userInterfaceStyle": "automatic",
         "newArchEnabled": true,
         "splash": {
-            "image": "./src/assets/images/logo.svg",
+            "image": "./src/assets/images/logo.png",
             "resizeMode": "contain",
             "backgroundColor": "#ffffff"
         },
@@ -20,7 +20,7 @@
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./src/assets/images/logo.svg",
+                "foregroundImage": "./src/assets/images/logo.png",
                 "backgroundColor": "#ffffff"
             },
             "package": "com.rentit",
@@ -29,7 +29,7 @@
         "web": {
             "bundler": "metro",
             "output": "static",
-            "favicon": "./src/assets/images/logo.svg"
+            "favicon": "./src/assets/images/logo.png"
         },
         "plugins": ["expo-router", "expo-secure-store", "expo-notifications"],
         "experiments": {
