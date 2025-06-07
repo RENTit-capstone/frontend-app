@@ -8,13 +8,16 @@ import { axiosGet } from '@/api';
 import generateUrl from '@/utils/generateUrl';
 import { Colors } from '@/styles/tokens';
 
+const PAGE_SIZE = 20;
+
 const ListContainer = (props: ListContainerProps) => {
     const { type } = props;
 
     const [data, setData] = useState<ListItemProps[]>([]);
-    const [page, setPage] = useState(0);
-    const [last, setLast] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [page, setPage] = useState(0);
+    const [hasNextPage, setHasNextPage] = useState(true);
 
     const [searchOptions, setSearchOptions] = useState({
         keyword: '',
@@ -26,41 +29,61 @@ const ListContainer = (props: ListContainerProps) => {
         sort: '',
     });
 
-    const fetchResult = useCallback(async () => {
-        setRefreshing(true);
+    const fetchResult = useCallback(
+        async (pageNum = 0, isRefreshing = false) => {
+            if (isRefreshing) {
+                setRefreshing(true);
+            } else {
+                setLoadingMore(true);
+            }
 
-        const role = type === 'INDIVIDUAL' ? 'STUDENT' : ['COMPANY', 'COUNCIL'];
-        const params = generateUrl({
-            keyword: searchOptions.keyword || '',
-            startDate: searchOptions.startDate
-                ? new Date(searchOptions.startDate).toISOString()
-                : '',
-            endDate: searchOptions.endDate
-                ? new Date(new Date(searchOptions.endDate).setHours(23, 59, 59, 999)).toISOString()
-                : '',
-            minPrice: searchOptions.minPrice || '',
-            maxPrice: searchOptions.maxPrice || '',
-            status: searchOptions.status ? 'AVAILABLE' : '',
-            ownerRoles: role,
-            page: 0,
-            size: 20,
-            sort: searchOptions.sort ? searchOptions.sort : ['createdAt', 'desc'],
-        });
+            const role = type === 'INDIVIDUAL' ? 'STUDENT' : ['COMPANY', 'COUNCIL'];
+            const params = generateUrl({
+                keyword: searchOptions.keyword || '',
+                startDate: searchOptions.startDate
+                    ? new Date(searchOptions.startDate).toISOString()
+                    : '',
+                endDate: searchOptions.endDate
+                    ? new Date(
+                          new Date(searchOptions.endDate).setHours(23, 59, 59, 999),
+                      ).toISOString()
+                    : '',
+                minPrice: searchOptions.minPrice || '',
+                maxPrice: searchOptions.maxPrice || '',
+                status: searchOptions.status ? 'AVAILABLE' : '',
+                ownerRoles: role,
+                page: pageNum,
+                size: PAGE_SIZE,
+                sort: searchOptions.sort ? searchOptions.sort : ['createdAt', 'desc'],
+            });
 
-        try {
-            const response = await axiosGet(`/api/v1/items?${params}`);
-            setPage(response.data.pageable.pageNumber + 1);
-            setData(response.data.content);
-            setLast(response.data.last);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setRefreshing(false);
-        }
-    }, [type, searchOptions]);
+            try {
+                const response = await axiosGet(`/api/v1/items?${params}`);
+                const newData = response.data.content;
+                const lastPage = response.data.last;
+                console.log(response.data);
 
+                if (isRefreshing) {
+                    setData(newData);
+                } else {
+                    setData((prev) => [...prev, ...newData]);
+                }
+
+                setHasNextPage(!lastPage);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setRefreshing(false);
+                setLoadingMore(false);
+            }
+        },
+        [type, searchOptions],
+    );
+
+    // 첫 로딩 & 검색옵션 바뀔 때
     useEffect(() => {
-        fetchResult();
+        setPage(0);
+        fetchResult(0, true);
     }, [fetchResult]);
 
     const handleChangeOptions = (newOptions: any) => {
@@ -70,7 +93,15 @@ const ListContainer = (props: ListContainerProps) => {
         }));
     };
 
-    if (!data) return null;
+    const loadMore = () => {
+        if (!loadingMore && hasNextPage) {
+            console.log('loading more');
+
+            const nextPage = page + 1;
+            setPage(nextPage);
+            fetchResult(nextPage);
+        }
+    };
 
     return (
         <View style={{ flex: 1 }}>
@@ -82,26 +113,22 @@ const ListContainer = (props: ListContainerProps) => {
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
-                        onRefresh={fetchResult}
+                        onRefresh={() => {
+                            setPage(0);
+                            fetchResult(0, true);
+                        }}
                         colors={[Colors.darkGray]}
                         tintColor={Colors.darkGray}
                     />
                 }
                 renderItem={({ item }) => (
                     <View style={itemList.listContainer}>
-                        <ListItem
-                            itemId={item.itemId}
-                            nickname={item.nickname}
-                            name={item.name}
-                            imageUrls={item.imageUrls}
-                            price={item.price}
-                            status={item.status}
-                            startDate={item.startDate}
-                            endDate={item.endDate}
-                        />
+                        <ListItem {...item} />
                         <View style={[itemList.rowDivider, { marginTop: 10 }]} />
                     </View>
                 )}
+                onEndReached={loadMore}
+                onEndReachedThreshold={0.5}
             />
         </View>
     );

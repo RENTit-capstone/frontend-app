@@ -87,7 +87,36 @@ const QnAPosting = () => {
                     <Text style={{ fontWeight: 'bold', marginBottom: 8 }}>운영자 답변</Text>
                     <Text style={{ fontSize: 14, lineHeight: 20 }}>{data.answer}</Text>
                 </View>
-            ) : null}
+            ) : (
+                <>
+                    <View
+                        style={{
+                            marginTop: 24,
+                            padding: 16,
+                            backgroundColor: '#f9f9f9',
+                            borderRadius: 12,
+                            borderWidth: 1,
+                            borderColor: '#ddd',
+                        }}
+                    >
+                        <Text style={{ fontWeight: 'bold', marginBottom: 8 }}>운영자 답변</Text>
+                        <Text style={{ fontSize: 14, lineHeight: 20 }}>{'임시 텍스트'}</Text>
+                    </View>
+                    <View
+                        style={{
+                            marginTop: 24,
+                            padding: 16,
+                            backgroundColor: '#f9f9f9',
+                            borderRadius: 12,
+                            borderWidth: 1,
+                            borderColor: '#ddd',
+                        }}
+                    >
+                        <Text style={{ fontWeight: 'bold', marginBottom: 8 }}>사용자 답변</Text>
+                        <Text style={{ fontSize: 14, lineHeight: 20 }}>{'임시 텍스트'}</Text>
+                    </View>
+                </>
+            )}
         </View>
     );
 };
