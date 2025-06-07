@@ -12,6 +12,7 @@ import Toast, { BaseToast } from 'react-native-toast-message';
 import { Common } from '@/styles/common';
 import BaseBottomSheet from '@/components/bottomSheet/BaseBottomSheet';
 import { Colors } from '@/styles/tokens';
+import BackButtonHeader from '@/components/header/BackButtonHeader';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -71,6 +72,14 @@ function RootLayoutNav() {
                         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                         <Stack.Screen name="modal" options={{ headerShown: false }} />
+                        <Stack.Screen
+                            name="notification"
+                            options={{
+                                title: '알림',
+                                headerShown: true,
+                                header: () => <BackButtonHeader title="알림" />,
+                            }}
+                        />
                     </Stack>
                     <BaseBottomSheet />
                 </GestureHandlerRootView>

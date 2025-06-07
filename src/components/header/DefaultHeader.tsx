@@ -17,9 +17,9 @@ const DefaultHeader = () => {
                 <Logo />
             </Pressable>
             <View style={Common.headerWrapper}>
-                <Pressable onPress={() => router.navigate('/search')}>
+                {/* <Pressable onPress={() => router.navigate('/search')}>
                     <SearchIcon />
-                </Pressable>
+                </Pressable> */}
                 <Pressable>
                     <Notification onPress={() => router.push('/notification')} />
                 </Pressable>

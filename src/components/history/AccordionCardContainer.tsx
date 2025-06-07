@@ -1,6 +1,11 @@
 import { Alert, ScrollView, Text, View } from 'react-native';
 import AccordionCard from './AccordionCard';
-import { AccordionCardProps, AccordionContainerProps } from '@/types/types';
+import {
+    AccordionCardProps,
+    AccordionContainerProps,
+    FilterOption,
+    SortOption,
+} from '@/types/types';
 import { itemList } from '@/styles/components/itemList';
 import { useEffect, useRef, useState } from 'react';
 import { axiosGet } from '@/api';
@@ -11,8 +16,16 @@ import { FlatList } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { Colors } from '@/styles/tokens';
 
-const SORT_OPTIONS = ['최신순', '가격 낮은순', '가격 높은순'];
-const FILTER_OPTIONS = ['전체', '요청 중', '승인됨', '거절됨', '취소됨', '대여 중', '완료됨'];
+const SORT_OPTIONS: SortOption[] = ['최신순', '가격 낮은순', '가격 높은순'];
+const FILTER_OPTIONS: FilterOption[] = [
+    '전체',
+    '요청중',
+    '승인됨',
+    '거절됨',
+    '취소됨',
+    '대여중',
+    '완료됨',
+];
 
 const AccordionCardContainer = (props: AccordionContainerProps) => {
     const { type } = props;
@@ -35,9 +48,8 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
     }, []);
 
     useEffect(() => {
-        // console.log(selected);
         const params = generateUrl({
-            // statuses: filtered,
+            statuses: filtered,
             // sort: selected || ['requestDate', 'desc'],
             sort: ['requestDate', 'desc'],
             page: 0,
@@ -51,13 +63,10 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
     }, [selected, filtered]);
 
     const fetchMine = async (params?: any) => {
-        console.log(params);
         try {
             const response = await axiosGet(`/api/v1/members/me`);
-            setItemData(response.data.items);
+            // setItemData(response.data.items);
             setData(response.data.ownedRentals);
-            console.log('MineItem:', response.data.items);
-            console.log('ownData:', response.data.ownData);
         } catch (error) {
             Alert.alert(`${error}`);
             console.error(error);
@@ -65,12 +74,9 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
     };
 
     const fetchHistory = async (params?: any) => {
-        console.log(params);
         try {
             const response = await axiosGet(`/api/v1/members/me`);
             setData(response.data.rentedRentals);
-            console.log('OthersItem:', response.data.items);
-            console.log('rentedRentals:', response.data.rentedRentals);
         } catch (error) {
             Alert.alert(`${error}`);
             console.error(error);

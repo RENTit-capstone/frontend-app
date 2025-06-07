@@ -159,7 +159,8 @@ export const SORT_OPTIONS = {
 export type SortOption = keyof typeof SORT_OPTIONS;
 
 export const FILTER_OPTIONS = {
-    '요청 중': 'REQUESTED',
+    전체: '',
+    요청중: 'REQUESTED',
     승인됨: 'APPROVED',
     거절됨: 'REJECTED',
     취소됨: 'CANCELLED',
