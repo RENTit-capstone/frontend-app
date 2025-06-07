@@ -1,10 +1,57 @@
-import 'dotenv/config';
-
-export default ({ config }) => {
-    return {
-        ...config,
-        extra: {
-            apiUrl: process.env.EXPO_PUBLIC_API_URL,
+// app.config.js
+export default ({ config }) => ({
+    ...config,
+    expo: {
+        name: 'com.rentit',
+        slug: 'com-rentit',
+        version: '1.0.0',
+        orientation: 'portrait',
+        icon: './src/assets/images/rentit-icon.png',
+        scheme: 'myapp',
+        userInterfaceStyle: 'automatic',
+        newArchEnabled: true,
+        splash: {
+            image: './src/assets/images/logo.png',
+            resizeMode: 'contain',
+            backgroundColor: '#ffffff',
         },
-    };
-};
+        ios: {
+            supportsTablet: true,
+            bundleIdentifier: 'com.rentit',
+            googleServicesFile: './GoogleService-Info.plist',
+        },
+        android: {
+            adaptiveIcon: {
+                foregroundImage: './src/assets/images/rentit-icon.png',
+                backgroundColor: '#ffffff',
+            },
+            package: 'com.rentit',
+            googleServicesFile: './google-services.json',
+            permissions: ['NOTIFICATIONS', 'INTERNET'],
+            config: {
+                usesCleartextTraffic: true,
+            },
+        },
+        web: {
+            bundler: 'metro',
+            output: 'static',
+            favicon: './src/assets/images/logo.png',
+        },
+        plugins: ['expo-router', 'expo-secure-store', 'expo-notifications'],
+        experiments: {
+            typedRoutes: true,
+        },
+        notification: {
+            icon: './src/assets/images/rentit-icon.png',
+            color: '#ffffff',
+        },
+        extra: {
+            router: {},
+            eas: {
+                projectId: 'b7d1a56b-f6d7-4462-a6fa-825f17961503',
+            },
+            apiUrl: 'http://223.130.147.103:8080',
+        },
+        owner: 'darlian0889',
+    },
+});

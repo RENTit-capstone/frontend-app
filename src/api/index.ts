@@ -3,13 +3,13 @@ import useAuthStore from '@/stores/useAuthStore';
 import axios from 'axios';
 
 export const axiosNoInterceptor = axios.create({
-    baseURL: Constants.expoConfig?.extra?.apiUrl,
-    // baseURL: process.env.EXPO_PUBLIC_API_URL,
+    // baseURL: Constants.expoConfig?.extra?.apiUrl,
+    baseURL: process.env.EXPO_PUBLIC_API_URL,
 });
 
 export const axiosInstance = axios.create({
-    // baseURL: process.env.EXPO_PUBLIC_API_URL,
-    baseURL: Constants.expoConfig?.extra?.apiUrl,
+    baseURL: process.env.EXPO_PUBLIC_API_URL,
+    // baseURL: Constants.expoConfig?.extra?.apiUrl,
 });
 
 const getNewToken = async () => {
