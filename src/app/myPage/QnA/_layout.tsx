@@ -4,8 +4,6 @@ import { Stack, usePathname } from 'expo-router';
 export default function QnALayout() {
     return (
         <>
-            {/* <Stack.Screen options={{ headerShown: false }} /> */}
-
             <Stack screenOptions={{ headerShown: false }}>
                 <Stack.Screen
                     name="MyQnA"
@@ -21,6 +19,14 @@ export default function QnALayout() {
                         title: '문의 작성',
                         headerShown: true,
                         header: () => <BackButtonHeader title="문의 작성" />,
+                    }}
+                />
+                <Stack.Screen
+                    name="[id]"
+                    options={{
+                        title: '문의 게시글',
+                        headerShown: true,
+                        header: () => <BackButtonHeader />,
                     }}
                 />
             </Stack>

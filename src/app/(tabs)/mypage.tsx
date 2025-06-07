@@ -66,7 +66,6 @@ const Mypage = () => {
                         paddingHorizontal: 16,
                     }}
                 >
-                    <>{console.log(item)}</>
                     <Text
                         style={[
                             {

@@ -40,12 +40,10 @@ const NewQnA = () => {
             content: form.content,
             type: selectedType,
         };
-        console.log(payload);
         try {
             const response = await axiosPost(`/api/v1/inquiries`, payload);
-            console.log(response.data);
             Alert.alert('문의글 작성이 완료되었습니다');
-            router.replace('mypage/QnA/MyQnA');
+            router.replace('/myPage/qna/MyQnA');
         } catch (error) {
             Alert.alert(`누락된 항목이 없는지 확인해주세요`);
             console.error(error);
@@ -59,7 +57,6 @@ const NewQnA = () => {
             [
                 {
                     text: '취소',
-                    onPress: () => console.log('취소'),
                     style: 'cancel',
                 },
                 {
