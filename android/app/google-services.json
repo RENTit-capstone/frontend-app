@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "676198873652",
+    "project_id": "rentit-5b36b",
+    "storage_bucket": "rentit-5b36b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676198873652:android:0966ea0f44fe2cf712a861",
+        "android_client_info": {
+          "package_name": "com.rentit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCccAecbDD67yo-srS9F8ET_gppVNynHfA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676198873652:android:9d839029168ff74c12a861",
+        "android_client_info": {
+          "package_name": "com.rentit.andtest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCccAecbDD67yo-srS9F8ET_gppVNynHfA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

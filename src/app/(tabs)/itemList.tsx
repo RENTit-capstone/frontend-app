@@ -5,9 +5,11 @@ import ItemListTab from '@/components/itemList/ItemListTab';
 import Button from '@/components/Button';
 import { useRouter } from 'expo-router';
 import Plus from '@/assets/images/plus.svg';
+import useNotification from '@/hooks/useNotification';
 
 const ItemList = () => {
     const router = useRouter();
+    useNotification();
 
     return (
         <View style={Common.container}>

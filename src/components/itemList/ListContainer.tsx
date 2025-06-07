@@ -61,7 +61,7 @@ const ListContainer = (props: ListContainerProps) => {
                 const response = await axiosGet(`/api/v1/items?${params}`);
                 const newData = response.data.content;
                 const lastPage = response.data.last;
-                console.log(response.data);
+                // console.log(response.data);
 
                 if (isRefreshing) {
                     setData(newData);
