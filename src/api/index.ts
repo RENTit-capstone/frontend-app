@@ -8,14 +8,14 @@ export const axiosNoInterceptor = axios.create({
     // baseURL: Constants.expoConfig?.extra?.apiUrl,
     // baseURL: process.env.EXPO_PUBLIC_API_URL,
     // baseURL: 'http://223.130.147.103:8080',
-    baseURL: 'http://223.130.147.103:8443',
+    baseURL: 'http://223.130.147.103:8080',
 });
 
 export const axiosInstance = axios.create({
     // baseURL: process.env.EXPO_PUBLIC_API_URL,
     // baseURL: Constants.expoConfig?.extra?.apiUrl,
     // baseURL: 'http://223.130.147.103:8080',
-    baseURL: 'http://223.130.147.103:8443',
+    baseURL: 'http://223.130.147.103:8080',
 });
 
 const getNewToken = async () => {
