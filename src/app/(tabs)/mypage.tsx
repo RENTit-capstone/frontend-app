@@ -11,11 +11,11 @@ const options = [
         contents: [
             {
                 name: '문의 작성',
-                link: '/myPage/QnA/NewQnA',
+                link: '/myPage/qna/NewQnA',
             },
             {
                 name: '내 문의 보기',
-                link: '/myPage/QnA/MyQnA',
+                link: '/myPage/qna/MyQnA',
             },
         ],
     },

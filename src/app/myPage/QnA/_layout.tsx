@@ -29,6 +29,14 @@ export default function QnALayout() {
                         header: () => <BackButtonHeader />,
                     }}
                 />
+                <Stack.Screen
+                    name="damageReport"
+                    options={{
+                        title: '파손 신고',
+                        headerShown: true,
+                        header: () => <BackButtonHeader title="파손 신고" />,
+                    }}
+                />
             </Stack>
         </>
     );

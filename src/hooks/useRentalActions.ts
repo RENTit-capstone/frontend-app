@@ -1,10 +1,13 @@
 import useToast from './useToast';
 import { axiosPost } from '@/api';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
+import { useRouter } from 'expo-router';
 import { Alert } from 'react-native';
 
 const useRentalActions = () => {
     const toast = useToast();
+    const router = useRouter();
+
     const { openBottomSheet, onPrev, onNext, clearCallbacks } = useBottomSheetStore();
 
     const onCancelRequest = async (id: number) => {
@@ -47,6 +50,15 @@ const useRentalActions = () => {
         await openBottomSheet('otp');
     };
 
-    return { onCancelRequest, onReturn, onApprove, onReject, onCabinet };
+    const onReportDamage = async (id: number) => {
+        router.push({
+            pathname: `/myPage/qna/damageReport`,
+            params: {
+                rentalId: id,
+            },
+        });
+    };
+
+    return { onCancelRequest, onReturn, onApprove, onReject, onCabinet, onReportDamage };
 };
 export default useRentalActions;

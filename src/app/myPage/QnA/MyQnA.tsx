@@ -52,7 +52,7 @@ const MyQnA = () => {
                 <>
                     <Pressable
                         key={item.inquiryId}
-                        onPress={() => router.push(`/myPage/QnA/${item.inquiryId}`)}
+                        onPress={() => router.push(`/myPage/qna/${item.inquiryId}`)}
                         style={{
                             backgroundColor: '#fff',
                             borderRadius: 8,

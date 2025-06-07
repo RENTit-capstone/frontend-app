@@ -16,7 +16,8 @@ import RentalDetails from './RentalDetails';
 
 const AccordionCard = (props: any) => {
     const { type, rentalId, itemId, requestDate, status, imageUrl } = props;
-    const { onCancelRequest, onReturn, onApprove, onReject, onCabinet } = useRentalActions();
+    const { onCancelRequest, onReturn, onApprove, onReject, onCabinet, onReportDamage } =
+        useRentalActions();
     const [isOpened, setIsOpened] = useState(false);
     const [itemDetails, setItemDetails] = useState<ItemDetailsProp>();
     const [details, setDetails] = useState<RentalDetailsType>();
@@ -67,6 +68,7 @@ const AccordionCard = (props: any) => {
             onApprove,
             onReject,
             onCabinet,
+            onReportDamage,
         }));
     } else {
         ({

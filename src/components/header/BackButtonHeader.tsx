@@ -1,5 +1,5 @@
 import { Common } from '@/styles/common';
-import { Pressable, SafeAreaView, Text, View } from 'react-native';
+import { Dimensions, Pressable, SafeAreaView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LeftArrow from '@/assets/images/left-arrow.svg';
 import { useRouter } from 'expo-router';
@@ -8,6 +8,7 @@ import { Colors } from '@/styles/tokens';
 const BackButtonHeader = ({ title = '' }: { title?: string }) => {
     const insets = useSafeAreaInsets();
     const router = useRouter();
+    const screenHeight = Dimensions.get('window').height;
 
     return (
         <View
@@ -17,13 +18,13 @@ const BackButtonHeader = ({ title = '' }: { title?: string }) => {
                 {
                     backgroundColor: Colors.background,
                     paddingTop: insets.top,
-                    paddingBottom: 16,
+                    height: screenHeight * 0.07,
                 },
             ]}
         >
             <Pressable
                 onPress={() => router.back()}
-                style={{ position: 'absolute', left: 10, top: 20 }}
+                style={{ position: 'absolute', left: 10, top: screenHeight * 0.03 }}
             >
                 <LeftArrow width={32} height={32} />
             </Pressable>

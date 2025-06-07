@@ -8,14 +8,16 @@ type DropDownProps = {
     icon?: ReactNode;
     onPress?: () => void;
     selectedColor: string | undefined;
+    disabled?: boolean;
     style?: StyleProps | StyleProps[];
 };
 
 const DropDown = (props: DropDownProps) => {
-    const { label, icon, onPress, selectedColor, style } = props;
+    const { label, icon, onPress, selectedColor, disabled, style } = props;
     return (
         <TouchableOpacity
             onPress={onPress}
+            disabled={disabled}
             style={[
                 Common.XStack,
                 Common.badge,

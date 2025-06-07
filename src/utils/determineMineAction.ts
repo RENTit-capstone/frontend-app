@@ -13,6 +13,7 @@ type DetermineActionParamType = {
     onApprove: (id: number) => Promise<void>;
     onReject: (id: number) => Promise<void>;
     onCabinet: () => Promise<void>;
+    onReportDamage: (rentalId: number) => Promise<void>;
 };
 
 export const determineMineAction = ({
@@ -22,13 +23,14 @@ export const determineMineAction = ({
     onApprove,
     onReject,
     onCabinet,
+    onReportDamage,
 }: DetermineActionParamType): DetereminedActionType => {
     switch (rentalStatus) {
-        case 'REQUESTED':
-            return {
-                action: [() => onApprove(id), () => onReject(id)],
-                buttonText: ['승인', '거절'],
-            };
+        // case 'REQUESTED':
+        //     return {
+        //         action: [() => onApprove(id), () => onReject(id)],
+        //         buttonText: ['승인', '거절'],
+        //     };
 
         case 'APPROVED':
             return { action: [onCabinet], buttonText: ['물건 맡기기'] };
@@ -48,8 +50,13 @@ export const determineMineAction = ({
         case 'RETURNED_TO_LOCKER':
             return { action: [onCabinet], buttonText: ['회수하기'] };
 
-        case 'COMPLETED':
-            return { description: '거래가 종료되었습니다' };
+        case 'REQUESTED':
+            // case 'COMPLETED':
+            return {
+                action: [() => onReportDamage(id)],
+                buttonText: ['파손 신고'],
+                description: '거래가 종료되었습니다',
+            };
 
         default:
             return {};
