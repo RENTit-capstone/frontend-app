@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { Colors } from '@/styles/tokens';
 import formatISOToDateTime from '@/utils/formatISOToDateTime';
 
@@ -68,6 +68,11 @@ const RentalDetails = ({ details }: { details: any }) => {
                         : (rawValue?.toString() ?? '-');
                 return <InfoRow key={key} label={label} value={value} />;
             })}
+            <Image
+                source={{ uri: details.returnImageUrl }}
+                key={details.returnImageUrl}
+                style={{ width: '100%', minHeight: 500, resizeMode: 'contain' }}
+            />
         </View>
     );
 };
