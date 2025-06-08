@@ -67,7 +67,7 @@ const Profile = () => {
                 가입일: {new Date(data.createdAt).toLocaleDateString()}
             </Text>
             <View style={Common.XStack}>
-                <Button type="primary" onPress={() => router.push('/myPage/editProfile')}>
+                <Button type="primary" onPress={() => router.push('/myPage/user/editProfile')}>
                     회원 정보 수정
                 </Button>
             </View>

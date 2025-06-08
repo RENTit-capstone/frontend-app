@@ -98,9 +98,6 @@ const EditProfile = () => {
 
     return (
         <View style={[Common.container, Common.wrapper]}>
-            <Text style={{ fontWeight: 'bold', fontSize: 20, marginVertical: 24 }}>
-                회원 정보 수정
-            </Text>
             <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 8 }}>이름</Text>
             <TextInput
                 style={Common.textInput}
