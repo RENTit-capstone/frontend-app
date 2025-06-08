@@ -10,6 +10,7 @@ import { TextThemes } from '@/styles/theme';
 import { axiosPost } from '@/api';
 import useAuthStore from '@/stores/useAuthStore';
 import { ModalProps } from '@/types/types';
+import KeyboardAvoidingView from '@/components/KeyboardAvoidingView';
 
 const AddAccountModal = (props: ModalProps) => {
     const { visible, onClose } = props;
@@ -44,7 +45,7 @@ const AddAccountModal = (props: ModalProps) => {
             const payload = {
                 memberId: userId,
                 finAcno: accountNumber,
-                backCode: '011',
+                bankCode: '011',
             };
             console.log('계좌 등록 요청:', payload);
             const response = await axiosPost('/api/v1/wallet', payload);
@@ -73,7 +74,7 @@ const AddAccountModal = (props: ModalProps) => {
     if (!visible) return null;
 
     return (
-        <View
+        <KeyboardAvoidingView
             style={{
                 // backgroundColor: 'red',
                 position: 'absolute',
@@ -135,7 +136,7 @@ const AddAccountModal = (props: ModalProps) => {
                     </Button>
                 </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 export default AddAccountModal;

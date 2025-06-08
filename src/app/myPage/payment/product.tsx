@@ -1,6 +1,8 @@
 import { axiosGet, axiosPost } from '@/api';
 import Mypage from '@/app/(tabs)/mypage';
+import AddAccountModal from '@/app/modal/addAccount';
 import Button from '@/components/Button';
+import useAuthStore from '@/stores/useAuthStore';
 import { Common } from '@/styles/common';
 import { itemList } from '@/styles/components/itemList';
 import { useRouter } from 'expo-router';
@@ -26,10 +28,22 @@ const products = [
     },
 ];
 
+type WalletType = {
+    memberId: number;
+    balance: number;
+    finAcno: string;
+    bankCode: string;
+    consentAt: string;
+    expiresAt: string;
+};
+
 const Product = () => {
     const router = useRouter();
     const memberId = useRef<number>(null);
+    const [data, setData] = useState<WalletType>();
     const [balance, setBalance] = useState(0);
+    const { userId } = useAuthStore();
+    const [addAccountVisible, setAddAccountVisible] = useState(false);
 
     useEffect(() => {
         fetchWallet();
@@ -38,6 +52,7 @@ const Product = () => {
     const fetchWallet = async () => {
         try {
             const response = await axiosGet(`/api/v1/wallet`);
+            setData(response.data);
             setBalance(response.data.balance);
             memberId.current = response.data.memberId;
         } catch (error) {
@@ -81,6 +96,12 @@ const Product = () => {
     return (
         <View style={[Common.container, Common.wrapper]}>
             <View style={{ marginBottom: 24 }}>
+                <View style={Common.XStack}>
+                    <Button type="primary" onPress={() => setAddAccountVisible(true)}>
+                        계좌 등록
+                    </Button>
+                </View>
+                <Text style={[Common.bold, { fontSize: 16 }]}>나의 계좌: {data?.finAcno}</Text>
                 <Text style={[Common.bold, { fontSize: 16 }]}>
                     현재 나의 포인트: {balance} 포인트
                 </Text>
@@ -117,6 +138,10 @@ const Product = () => {
                     </View>
                 ))}
             </View>
+            <AddAccountModal
+                visible={addAccountVisible}
+                onClose={() => setAddAccountVisible(false)}
+            />
         </View>
     );
 };
