@@ -2,9 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import messaging from '@react-native-firebase/messaging';
 import { axiosPost } from '@/api';
 import { Alert } from 'react-native';
+import useToast from './useToast';
 
 const useFirebaseNotification = () => {
     const [fcmToken, setFcmToken] = useState<string>('');
+    const toast = useToast();
 
     const saveTokenToServer = useCallback(async (token: string) => {
         try {
@@ -49,6 +51,10 @@ const useFirebaseNotification = () => {
         // 포그라운드 메시지 처리
         const unsubscribe = messaging().onMessage(async (remoteMessage) => {
             console.log('포그라운드 메시지:', remoteMessage);
+            toast.show(
+                remoteMessage.notification?.title || '알림',
+                remoteMessage.notification?.body || '새 메시지가 도착했습니다.',
+            );
             // Alert.alert(
             //     remoteMessage.notification?.title || '알림',
             //     remoteMessage.notification?.body || '새 메시지가 도착했습니다.',
