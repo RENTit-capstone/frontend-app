@@ -15,7 +15,7 @@ import determineMineAction from '@/utils/determineMineAction';
 import RentalDetails from './RentalDetails';
 
 const AccordionCard = (props: any) => {
-    const { type, rentalId, itemId, requestDate, status, imageUrl } = props;
+    const { type, rentalId, itemId, requestDate, status, imageUrl, onRefresh } = props;
     const { onCancelRequest, onReturn, onApprove, onReject, onCabinet, onReportDamage } =
         useRentalActions();
     const [isOpened, setIsOpened] = useState(false);
@@ -92,6 +92,7 @@ const AccordionCard = (props: any) => {
                 console.error(error);
             }
         }
+        onRefresh();
     };
 
     if (!itemDetails) return null;

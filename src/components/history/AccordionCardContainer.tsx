@@ -137,6 +137,7 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
                                 requestDate={item.requestDate}
                                 status={item.status}
                                 imageUrl={item.thumbnailUrl}
+                                onRefresh={fetchResult}
 
                                 // itemId={item.itemId}
                                 // nickname={item.nickname}
