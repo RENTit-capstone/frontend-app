@@ -10,7 +10,7 @@ import Profile from '@/components/Profile';
 
 const Mypage = () => {
     const router = useRouter();
-    const { refreshToken } = useAuthStore();
+    const { refreshToken, accessToken } = useAuthStore();
     const options = [
         {
             category: '문의',
@@ -63,8 +63,12 @@ const Mypage = () => {
     ];
 
     const handleLogout = async () => {
+        const payload = {
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+        };
         try {
-            const response = await axiosNoInterceptor.post(`/api/v1/auth/logout`);
+            const response = await axiosNoInterceptor.post(`/api/v1/auth/logout`, payload);
             console.log(response);
         } catch (error) {
             console.error(error);
