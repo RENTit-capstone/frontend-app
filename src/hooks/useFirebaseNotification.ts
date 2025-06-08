@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import messaging from '@react-native-firebase/messaging';
 import { axiosPost } from '@/api';
 import { Alert } from 'react-native';
@@ -6,16 +6,15 @@ import { Alert } from 'react-native';
 const useFirebaseNotification = () => {
     const [fcmToken, setFcmToken] = useState<string>('');
 
-    const saveTokentoServer = async (token: string) => {
+    const saveTokenToServer = useCallback(async (token: string) => {
         try {
-            console.log('토큰전송');
+            console.log('FCM 토큰 서버 전송:', token);
             const response = await axiosPost(`/api/v1/device-token`, { token });
-            console.log(response);
-            // await SecureStorage.setItemAsync('expoPushToken', token);
+            console.log('토큰 저장 성공:', response);
         } catch (error) {
-            console.error(error);
+            console.error('토큰 저장 실패:', error);
         }
-    };
+    }, []);
 
     useEffect(() => {
         const initializeFirebase = async () => {
@@ -30,12 +29,13 @@ const useFirebaseNotification = () => {
 
                     // FCM 토큰 받기
                     const token = await messaging().getToken();
-                    console.log('FCM Token:', token);
-                    setFcmToken(token);
-
-                    // 토큰을 서버에 저장
-                    // await saveFCMTokenToServer(token);
-                    // saveTokentoServer(token);
+                    if (token) {
+                        console.log('FCM Token:', token);
+                        setFcmToken(token);
+                        await saveTokenToServer(token); // 토큰 즉시 서버 전송
+                    } else {
+                        console.log('FCM 토큰 생성 실패');
+                    }
                 } else {
                     console.log('알림 권한 거부됨');
                 }
@@ -54,7 +54,7 @@ const useFirebaseNotification = () => {
         });
 
         // 백그라운드/종료 상태에서 앱 열림 처리
-        messaging().onNotificationOpenedApp((remoteMessage) => {
+        const notificationOpenedListener = messaging().onNotificationOpenedApp((remoteMessage) => {
             console.log('백그라운드에서 알림으로 앱 열림:', remoteMessage);
         });
 
@@ -68,15 +68,16 @@ const useFirebaseNotification = () => {
             });
 
         // 토큰 갱신 처리
-        const tokenRefreshListener = messaging().onTokenRefresh((token) => {
+        const tokenRefreshListener = messaging().onTokenRefresh(async (token) => {
             console.log('FCM 토큰 갱신:', token);
             setFcmToken(token);
             // 갱신된 토큰을 서버에 저장
-            // saveTokentoServer(token);
+            await saveTokenToServer(token); // 갱신된 토큰도 서버 전송
         });
 
         return () => {
             unsubscribe();
+            notificationOpenedListener();
             tokenRefreshListener();
         };
     }, []);

@@ -24,23 +24,6 @@ const Login = () => {
 
     const { fcmToken } = useFirebaseNotification();
 
-    // fcmToken을 서버에 저장하는 함수
-    const saveFCMTokenToServer = async (token: string) => {
-        try {
-            console.log('토큰전송');
-            const response = await axiosPost(`/api/v1/device-token`, { token });
-            console.log(response);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    useEffect(() => {
-        if (fcmToken) {
-            saveFCMTokenToServer(fcmToken);
-        }
-    }, [fcmToken]);
-
     const login = async (payload: LoginType) => {
         try {
             const res = await axiosNoInterceptor.post(`/api/v1/auth/login`, payload);
