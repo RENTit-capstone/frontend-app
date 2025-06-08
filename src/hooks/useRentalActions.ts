@@ -20,6 +20,7 @@ const useRentalActions = () => {
         }
     };
     const onReturn = async (id: number) => {
+        onPrev(() => {});
         onNext(async () => {
             const objectKey = await openBottomSheet('returnImage');
             try {
