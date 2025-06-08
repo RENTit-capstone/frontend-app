@@ -40,12 +40,6 @@ const Login = () => {
             setUserProfileImg(userInfo.data.profileImg);
             setUniversity(userInfo.data.university);
 
-            if (fcmToken) {
-                await axiosPost('/api/v1/device-token', { token: fcmToken });
-                console.log('FCM 토큰 전송 완료');
-                Alert.alert('FCM 토큰 전송 완료');
-            }
-
             router.replace('/(tabs)/itemList');
             toast.show('로그인에 성공했습니다.');
         } catch (error) {
