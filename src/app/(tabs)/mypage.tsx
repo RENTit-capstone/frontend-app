@@ -127,7 +127,11 @@ const Mypage = () => {
                 ))}
                 <Pressable
                     onPress={handleLogout}
-                    style={{ justifyContent: 'center', alignItems: 'center' }}
+                    style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: 100,
+                    }}
                 >
                     <Text style={[Common.textOption]}>로그아웃</Text>
                 </Pressable>

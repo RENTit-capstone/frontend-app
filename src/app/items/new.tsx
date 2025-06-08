@@ -97,10 +97,7 @@ const NewPosting = () => {
                     <Text>대여 가능 기간</Text>
                     <View style={[Common.XStack, Common.fullScreen, { alignItems: 'center' }]}>
                         <View
-                            style={[
-                                Common.textInput,
-                                { width: '80%', backgroundColor: Colors.option },
-                            ]}
+                            style={[Common.textInput, { width: '80%', justifyContent: 'center' }]}
                         >
                             {startDate && endDate && (
                                 <Text>
