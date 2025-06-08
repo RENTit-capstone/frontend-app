@@ -1,5 +1,21 @@
+import { useEffect, useState } from 'react';
+import messaging from '@react-native-firebase/messaging';
+import { axiosPost } from '@/api';
+import { Alert } from 'react-native';
+
 const useFirebaseNotification = () => {
-    const [fcmToken, setFcmToken] = useState(null);
+    const [fcmToken, setFcmToken] = useState<string>('');
+
+    const saveTokentoServer = async (token: string) => {
+        try {
+            console.log('토큰전송');
+            const response = await axiosPost(`/api/v1/device-token`, { token });
+            console.log(response);
+            // await SecureStorage.setItemAsync('expoPushToken', token);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
         const initializeFirebase = async () => {
@@ -19,6 +35,7 @@ const useFirebaseNotification = () => {
 
                     // 토큰을 서버에 저장
                     // await saveFCMTokenToServer(token);
+                    // saveTokentoServer(token);
                 } else {
                     console.log('알림 권한 거부됨');
                 }
@@ -55,7 +72,7 @@ const useFirebaseNotification = () => {
             console.log('FCM 토큰 갱신:', token);
             setFcmToken(token);
             // 갱신된 토큰을 서버에 저장
-            // saveFCMTokenToServer(token);
+            // saveTokentoServer(token);
         });
 
         return () => {
@@ -66,3 +83,4 @@ const useFirebaseNotification = () => {
 
     return { fcmToken };
 };
+export default useFirebaseNotification;

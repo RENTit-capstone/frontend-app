@@ -1,16 +1,17 @@
 import { Link, useRouter } from 'expo-router';
 import { LoginType } from '@/types/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextInput from '@/components/CustomTextInput';
 import { ScrollView, Text, View } from 'react-native';
 import Button from '@/components/Button';
 import { Common } from '@/styles/common';
 import Logo from '@/assets/images/logo.svg';
-import { axiosGet, axiosNoInterceptor } from '@/api';
+import { axiosGet, axiosNoInterceptor, axiosPost } from '@/api';
 import useAuthStore from '@/stores/useAuthStore';
 import useToast from '@/hooks/useToast';
 import useNotification from '@/hooks/useNotification';
 import KeyboardAvoidingView from '@/components/KeyboardAvoidingView';
+import useFirebaseNotification from '@/hooks/useFirebaseNotification';
 
 const Login = () => {
     const router = useRouter();
@@ -20,6 +21,25 @@ const Login = () => {
         email: '',
         password: '',
     });
+
+    const { fcmToken } = useFirebaseNotification();
+
+    // fcmToken을 서버에 저장하는 함수
+    const saveFCMTokenToServer = async (token: string) => {
+        try {
+            console.log('토큰전송');
+            const response = await axiosPost(`/api/v1/device-token`, { token });
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        if (fcmToken) {
+            saveFCMTokenToServer(fcmToken);
+        }
+    }, [fcmToken]);
 
     const login = async (payload: LoginType) => {
         try {
