@@ -49,13 +49,17 @@ const Mypage = () => {
                     name: '결제 내역',
                     onPress: () => router.push('/myPage/payment/payHistory'),
                 },
+                {
+                    name: '포인트 인출',
+                    onPress: () => router.push('/myPage/payment/withdraw'),
+                },
             ],
         },
         {
             category: '내 게시글',
             contents: [
                 {
-                    name: '내 게시글 보기',
+                    name: '내 게시글 관리',
                     onPress: () => router.push('/myPage/item/myItems'),
                 },
             ],

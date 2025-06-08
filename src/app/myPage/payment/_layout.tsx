@@ -26,6 +26,14 @@ export default function PaymentLayout() {
                         header: () => <BackButtonHeader title="포인트 결제" />,
                     }}
                 />
+                <Stack.Screen
+                    name="withdraw"
+                    options={{
+                        title: '포인트 인출',
+                        headerShown: true,
+                        header: () => <BackButtonHeader title="포인트 인출" />,
+                    }}
+                />
             </Stack>
         </>
     );
