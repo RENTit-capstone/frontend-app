@@ -42,7 +42,9 @@ const useNotification = () => {
             console.log('storedToken: ', storedToken);
 
             if (!storedToken || storedToken !== token) {
-                await axiosPost(`/api/v1/device-token`, { token });
+                console.log('토큰전송');
+                const response = await axiosPost(`/api/v1/device-token`, { token });
+                console.log(response);
                 await SecureStorage.setItemAsync('expoPushToken', token);
             }
         } catch (error) {

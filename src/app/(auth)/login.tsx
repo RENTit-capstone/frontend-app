@@ -34,7 +34,6 @@ const Login = () => {
 
             router.replace('/(tabs)/itemList');
             toast.show('로그인에 성공했습니다.');
-            useNotification();
         } catch (error) {
             toast.show('이메일, 비밀번호를 다시 확인해주세요.');
             console.log(error);
@@ -52,7 +51,6 @@ const Login = () => {
                 contentContainerStyle={{ justifyContent: 'flex-start', alignItems: 'center' }}
             >
                 <View style={[Common.YStack, { flex: 1, width: '100%' }]}>
-                    {' '}
                     <View style={{ paddingVertical: '10%' }}>
                         <Logo />
                     </View>

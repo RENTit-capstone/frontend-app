@@ -9,6 +9,7 @@ import useNotification from '@/hooks/useNotification';
 
 const ItemList = () => {
     const router = useRouter();
+    useNotification();
 
     return (
         <View style={Common.container}>
