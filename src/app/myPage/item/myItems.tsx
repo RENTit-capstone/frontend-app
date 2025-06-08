@@ -15,7 +15,7 @@ type ItemType = {
     name: string;
     price: number;
     status: ItemStatusType;
-    thumbnail: string[];
+    thumbnailUrl: string[];
     createdAt: string;
 };
 
@@ -31,6 +31,7 @@ const MyItems = () => {
         try {
             const response = await axiosGet(`/api/v1/members/me`);
             setData(response.data.items);
+            console.log(response.data);
         } catch (error) {
             console.error(error);
             Alert.alert(`${error}`);
@@ -57,8 +58,8 @@ const MyItems = () => {
                 ]}
             >
                 {data.map((item, index) => {
-                    const imgSrc = item.thumbnail
-                        ? { uri: item.thumbnail[0] }
+                    const imgSrc = item.thumbnailUrl
+                        ? { uri: item.thumbnailUrl }
                         : require('@/assets/images/icon.png');
 
                     return (
