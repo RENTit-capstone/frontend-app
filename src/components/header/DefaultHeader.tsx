@@ -29,7 +29,10 @@ const DefaultHeader = () => {
                 <Pressable hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}>
                     <Notification onPress={() => router.push('/notification')} />
                 </Pressable>
-                <Pressable hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}>
+                <Pressable
+                    hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                    onPress={() => router.push('/mypage')}
+                >
                     <Avatar />
                 </Pressable>
             </View>
