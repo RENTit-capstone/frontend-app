@@ -69,7 +69,7 @@ const ItemHeader = () => {
                             >
                                 <Text>{option.label}</Text>
                             </TouchableOpacity>
-                        ))}{' '}
+                        ))}
                     </View>
                 )}
             </View>

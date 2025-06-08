@@ -7,8 +7,10 @@ import { Colors } from '@/styles/tokens';
 import { useNewPosting } from '@/hooks/useNewPosting';
 import KeyboardAvoidingView from '@/components/KeyboardAvoidingView';
 import formatISOtoDate from '@/utils/formatDateString';
+import { useLocalSearchParams } from 'expo-router';
 
 const NewPosting = () => {
+    const params = useLocalSearchParams();
     const {
         values,
         handleChange,
@@ -19,6 +21,7 @@ const NewPosting = () => {
         handleDateSelect,
         handleSubmit,
         handleCancel,
+        handleModify,
     } = useNewPosting();
 
     return (
@@ -119,7 +122,7 @@ const NewPosting = () => {
                     <Button type="option" onPress={handleCancel}>
                         취소
                     </Button>
-                    <Button type="primary" onPress={handleSubmit}>
+                    <Button type="primary" onPress={params?.itemId ? handleModify : handleSubmit}>
                         업로드
                     </Button>
                 </View>

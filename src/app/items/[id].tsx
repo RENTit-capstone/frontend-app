@@ -20,14 +20,32 @@ const Postings = () => {
     const router = useRouter();
 
     const setMenuItems = useMenuStore((state) => state.setMenuItems);
+    const isMine = userId === data?.owner.memberId;
 
     useEffect(() => {
-        console.log(id);
+        if (!data) return;
+
+        console.log('id: ', id);
         const menu = isMine
             ? [
                   {
                       label: '수정',
-                      onPress: () => router.push('myPage/item/modify'),
+                      onPress: () => {
+                          router.push({
+                              pathname: '/items/new',
+                              params: {
+                                  itemId: id,
+                                  name: data.name,
+                                  itemImg: JSON.stringify(data.imageUrls),
+                                  imageKeys: JSON.stringify(data.imageKeys),
+                                  damagedDescription: data.damagedDescription,
+                                  description: data.description,
+                                  price: data.price,
+                                  damagedPolicy: data.damagedPolicy,
+                                  returnPolicy: data.returnPolicy,
+                              },
+                          });
+                      },
                   },
                   {
                       label: '삭제',
@@ -43,7 +61,9 @@ const Postings = () => {
         setMenuItems(menu);
 
         return () => setMenuItems([]); // 페이지 떠날 때 정리
-    }, []);
+    }, [data, isMine]);
+
+    if (!data) return null;
 
     const handleDelete = async () => {
         try {
@@ -54,9 +74,6 @@ const Postings = () => {
         }
     };
 
-    if (!data) return;
-
-    const isMine = userId === data.owner.memberId;
     const handleScrollBegin = () => setIsScrolling(true);
     const handleScrollEnd = () => setIsScrolling(false);
 

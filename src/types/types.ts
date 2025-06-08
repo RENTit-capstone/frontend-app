@@ -113,6 +113,7 @@ export type ItemDetailsProp = {
     itemId: number;
     name: string;
     imageUrls: string[];
+    imageKeys: string[];
     description: string;
     damagedDescription: string;
     price: number;
@@ -133,8 +134,10 @@ export type ItemDetailsProp = {
 };
 
 export type PostingType = {
+    itemId?: string;
     name: string;
     itemImg: string;
+    imageKeys: string;
     damagedDescription: string;
     description: string;
     price: string;

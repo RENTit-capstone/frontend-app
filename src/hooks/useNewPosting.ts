@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
-import { useRouter } from 'expo-router';
-import { axiosPost } from '@/api';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { axiosPost, axiosPut } from '@/api';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
 import { ImagePickerAsset } from 'expo-image-picker';
 import toISOStringWithoutMs from '@/utils/toISOStringWithoutMS';
@@ -10,8 +10,10 @@ import useFormInput from './useFormInput';
 import { PostingType } from '@/types/types';
 import DefaultDamagePolicy from '@/components/items/DefaultDamagePolicy';
 import UploadToStorage from '@/utils/uploadToStorage';
+import { parseAsync } from '@babel/core';
 
 export const useNewPosting = () => {
+    const params: PostingType = useLocalSearchParams();
     const { openBottomSheet } = useBottomSheetStore();
     const router = useRouter();
 
@@ -19,14 +21,23 @@ export const useNewPosting = () => {
     const [endDate, setEndDate] = useState<Date | null>(null);
     const [selectedImages, setSelectedImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
 
+    function safeJsonParse<T>(input: string | undefined | null, fallback: T): T {
+        try {
+            return input ? JSON.parse(input) : fallback;
+        } catch {
+            return fallback;
+        }
+    }
+
     const { values, handleChange } = useFormInput<PostingType>({
-        name: '',
-        itemImg: '',
-        damagedDescription: '',
-        description: '',
-        price: '',
-        damagedPolicy: DefaultDamagePolicy,
-        returnPolicy: '',
+        name: params?.name || '',
+        itemImg: safeJsonParse(params?.itemImg, ''),
+        imageKeys: safeJsonParse(params?.imageKeys, ''),
+        damagedDescription: params?.damagedDescription || '',
+        description: params?.description || '',
+        price: params?.price || '',
+        damagedPolicy: params?.damagedPolicy || DefaultDamagePolicy,
+        returnPolicy: params?.returnPolicy || '',
     });
 
     const handleImageSelect = async () => {
@@ -47,6 +58,28 @@ export const useNewPosting = () => {
         setEndDate(endDate);
     };
 
+    const handleModify = async () => {
+        console.log('modifying');
+        try {
+            const uploadPromises = selectedImages.map(async (img) => {
+                const key = await UploadToStorage(img);
+                console.log('key', key);
+                return key;
+            });
+
+            const imageKeys = await Promise.all(uploadPromises);
+
+            const formData = getPostingFormData(values, startDate, endDate, imageKeys);
+
+            await axiosPut(`/api/v1/items/${params.itemId}`, formData);
+            Alert.alert('게시글이 수정되었습니다.');
+            router.replace('/(tabs)/itemList');
+        } catch (error) {
+            Alert.alert('누락된 사항이 없는지 확인해주세요');
+            console.error(error);
+        }
+    };
+
     const handleSubmit = async () => {
         try {
             const uploadPromises = selectedImages.map(async (img) => {
@@ -63,7 +96,7 @@ export const useNewPosting = () => {
             router.replace('/(tabs)/itemList');
         } catch (err) {
             console.error(err);
-            Alert.alert('업로드에 실패했습니다.');
+            Alert.alert('누락된 사항이 없는지 확인해주세요');
         }
     };
 
@@ -101,5 +134,6 @@ export const useNewPosting = () => {
         handleDateSelect,
         handleSubmit,
         handleCancel,
+        handleModify,
     };
 };
