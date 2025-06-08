@@ -1,12 +1,15 @@
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { Common } from '@/styles/common';
 import ArrowRight from '@/assets/images/right-arrow.svg';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { itemList } from '@/styles/components/itemList';
 import { Colors } from '@/styles/tokens';
+import useAuthStore from '@/stores/useAuthStore';
+import { axiosNoInterceptor, axiosPost } from '@/api';
 
 const Mypage = () => {
     const router = useRouter();
+    const { refreshToken } = useAuthStore();
     const options = [
         {
             category: '문의',
@@ -57,6 +60,17 @@ const Mypage = () => {
             ],
         },
     ];
+
+    const handleLogout = async () => {
+        try {
+            const response = await axiosNoInterceptor.post(`/api/v1/auth/logout`);
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+        Alert.alert('로그아웃 되었습니다.');
+        router.replace('/(auth)/login');
+    };
 
     return (
         <ScrollView style={[Common.container, Common.wrapper, { marginBottom: 64 }]}>
@@ -110,6 +124,9 @@ const Mypage = () => {
                     ))}
                 </View>
             ))}
+            <Pressable onPress={handleLogout}>
+                <Text style={[Common.textOption]}>로그아웃</Text>
+            </Pressable>
         </ScrollView>
     );
 };
