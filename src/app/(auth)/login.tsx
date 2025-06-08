@@ -15,8 +15,14 @@ import useFirebaseNotification from '@/hooks/useFirebaseNotification';
 const Login = () => {
     const router = useRouter();
     const toast = useToast();
-    const { setAccessToken, setRefreshToken, setUserId, setUserName, setUserProfileImg } =
-        useAuthStore();
+    const {
+        setAccessToken,
+        setRefreshToken,
+        setUserId,
+        setUniversity,
+        setUserName,
+        setUserProfileImg,
+    } = useAuthStore();
     const [form, setForm] = useState({
         email: '',
         password: '',
@@ -35,6 +41,7 @@ const Login = () => {
             const userInfo = await axiosGet(`/api/v1/members/me`);
             setUserName(userInfo.data.nickname);
             setUserProfileImg(userInfo.data.profileImg);
+            setUniversity(userInfo.data.university);
 
             if (fcmToken) {
                 await axiosPost('/api/v1/device-token', { token: fcmToken });

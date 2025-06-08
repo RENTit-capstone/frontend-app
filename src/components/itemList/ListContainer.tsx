@@ -7,6 +7,7 @@ import SearchGroup from './SearchGroup';
 import { axiosGet } from '@/api';
 import generateUrl from '@/utils/generateUrl';
 import { Colors } from '@/styles/tokens';
+import useAuthStore from '@/stores/useAuthStore';
 
 const PAGE_SIZE = 20;
 
@@ -18,6 +19,7 @@ const ListContainer = (props: ListContainerProps) => {
     const [loadingMore, setLoadingMore] = useState(false);
     const [page, setPage] = useState(0);
     const [hasNextPage, setHasNextPage] = useState(true);
+    const { university } = useAuthStore();
 
     const [searchOptions, setSearchOptions] = useState({
         keyword: '',
@@ -52,6 +54,7 @@ const ListContainer = (props: ListContainerProps) => {
                 maxPrice: searchOptions.maxPrice || '',
                 status: searchOptions.status ? 'AVAILABLE' : '',
                 ownerRoles: role,
+                university: university,
                 page: pageNum,
                 size: PAGE_SIZE,
                 sort: searchOptions.sort ? searchOptions.sort : ['createdAt', 'desc'],

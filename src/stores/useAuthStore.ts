@@ -5,11 +5,13 @@ type AuthType = {
     userId: number | null;
     userName: string | null;
     profileImg: string | null;
+    university: string | null;
     accessToken: string | null;
     refreshToken: string | null;
     setUserId: (id: number) => void;
     setUserName: (name: string) => void;
     setUserProfileImg: (url: string) => void;
+    setUniversity: (university: string) => void;
     setAccessToken: (accessToken: string) => Promise<void>;
     setRefreshToken: (refreshToken: string) => Promise<void>;
     clearTokens: () => Promise<void>;
@@ -19,6 +21,7 @@ const useAuthStore = create<AuthType>()((set, get) => ({
     userId: null,
     userName: null,
     profileImg: null,
+    university: null,
     accessToken: null,
     refreshToken: null,
     setUserId: (id) => {
@@ -30,7 +33,9 @@ const useAuthStore = create<AuthType>()((set, get) => ({
     setUserProfileImg: (url) => {
         set({ profileImg: url });
     },
-
+    setUniversity: (university) => {
+        set({ university: university });
+    },
     setAccessToken: async (accessToken) => {
         await SecureStore.setItemAsync('accesstoken', accessToken);
         set({ accessToken: accessToken });
