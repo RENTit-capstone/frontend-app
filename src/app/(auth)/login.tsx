@@ -22,7 +22,7 @@ const Login = () => {
         password: '',
     });
 
-    const { fcmToken } = useFirebaseNotification();
+    // const { fcmToken } = useFirebaseNotification();
 
     const login = async (payload: LoginType) => {
         try {

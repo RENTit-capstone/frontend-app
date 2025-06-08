@@ -135,7 +135,7 @@ const QnAPosting = () => {
                             }}
                         >
                             <Text style={{ fontWeight: 'bold', marginBottom: 8 }}>답변</Text>
-                            <Text style={{ fontSize: 14, lineHeight: 20 }}>{'임시 텍스트'}</Text>
+                            <Text style={{ fontSize: 14, lineHeight: 20 }}>{data.answer}</Text>
                         </View>
                     </>
                 ) : null}

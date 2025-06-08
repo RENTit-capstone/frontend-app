@@ -90,28 +90,28 @@ const Product = () => {
                 {products.map((item) => (
                     <View
                         key={item.point}
-                        style={{
-                            width: '100%',
-                            backgroundColor: '#fff',
-                            padding: 16,
-                            marginBottom: 12,
-                            borderRadius: 12,
-                            shadowColor: '#000',
-                            shadowOffset: { width: 0, height: 1 },
-                            shadowOpacity: 0.1,
-                            shadowRadius: 4,
-                            elevation: 2, // Android shadow
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}
+                        style={[
+                            Common.XStack,
+                            {
+                                width: '100%',
+                                backgroundColor: '#fff',
+                                padding: 16,
+                                marginBottom: 12,
+                                borderRadius: 12,
+                                // height: 50,
+                                shadowColor: '#000',
+                                shadowOffset: { width: 0, height: 1 },
+                                shadowOpacity: 0.1,
+                                shadowRadius: 4,
+                                elevation: 2, // Android shadow
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                            },
+                        ]}
                     >
                         <Text style={{ fontSize: 16 }}>{item.point} 포인트</Text>
-                        <Button
-                            type="primary"
-                            onPress={() => showAlert(item.point)}
-                            style={{ paddingHorizontal: 16, paddingVertical: 8, flexGrow: 0 }}
-                        >
+                        <Button type="primary" onPress={() => showAlert(item.point)}>
                             {item.price.toLocaleString()}원
                         </Button>
                     </View>
