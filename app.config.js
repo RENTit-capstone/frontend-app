@@ -37,7 +37,21 @@ export default ({ config }) => ({
             output: 'static',
             favicon: './src/assets/images/logo.png',
         },
-        plugins: ['expo-router', 'expo-secure-store', 'expo-notifications'],
+        plugins: [
+            'expo-router',
+            'expo-secure-store',
+            'expo-notifications',
+            '@react-native-firebase/app',
+            [
+                '@react-native-firebase/messaging',
+                {
+                    androidNotificationChannelId: 'default',
+                    androidNotificationChannelName: 'Default',
+                    iosNSUserNotificationUsageDescription:
+                        'This app uses notifications to send you updates.',
+                },
+            ],
+        ],
         experiments: {
             typedRoutes: true,
         },
