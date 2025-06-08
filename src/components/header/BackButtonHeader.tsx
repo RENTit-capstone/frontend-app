@@ -18,13 +18,13 @@ const BackButtonHeader = ({ title = '' }: { title?: string }) => {
                 {
                     backgroundColor: Colors.background,
                     paddingTop: insets.top,
-                    height: screenHeight * 0.07,
+                    height: screenHeight * 0.1,
                 },
             ]}
         >
             <Pressable
                 onPress={() => router.back()}
-                style={{ position: 'absolute', left: 10, top: screenHeight * 0.03 }}
+                style={{ position: 'absolute', left: 10, top: screenHeight * 0.05 }}
                 hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
             >
                 <LeftArrow width={32} height={32} />

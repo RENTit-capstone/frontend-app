@@ -15,8 +15,8 @@ const DefaultHeader = () => {
     const { profileImg } = useAuthStore();
 
     return (
-        <SafeAreaView
-            style={[Common.headerWrapper, { paddingTop: insets.top, height: screenHeight * 0.07 }]}
+        <View
+            style={[Common.headerWrapper, { paddingTop: insets.top, height: screenHeight * 0.1 }]}
         >
             <Pressable
                 style={Common.headerWrapper}
@@ -38,7 +38,7 @@ const DefaultHeader = () => {
                     {profileImg ? <Avatar url={profileImg} /> : <Avatar />}
                 </Pressable>
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 
