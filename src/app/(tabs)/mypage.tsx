@@ -45,6 +45,15 @@ const options = [
             },
         ],
     },
+    {
+        category: '내 게시글',
+        contents: [
+            {
+                name: '내 게시글 보기',
+                link: 'myPage/item/myItemList',
+            },
+        ],
+    },
 ];
 
 const Mypage = () => {

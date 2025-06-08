@@ -9,6 +9,7 @@ import Logo from '@/assets/images/logo.svg';
 import { axiosGet, axiosNoInterceptor } from '@/api';
 import useAuthStore from '@/stores/useAuthStore';
 import useToast from '@/hooks/useToast';
+import useNotification from '@/hooks/useNotification';
 
 const Login = () => {
     const router = useRouter();
@@ -32,6 +33,7 @@ const Login = () => {
 
             router.replace('/(tabs)/itemList');
             toast.show('로그인에 성공했습니다.');
+            useNotification();
         } catch (error) {
             toast.show('이메일, 비밀번호를 다시 확인해주세요.');
             console.log(error);
