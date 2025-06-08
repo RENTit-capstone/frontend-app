@@ -23,16 +23,24 @@ const Postings = () => {
 
     useEffect(() => {
         console.log(id);
-        setMenuItems([
-            {
-                label: '수정',
-                onPress: () => router.push('myPage/item/modify'),
-            },
-            {
-                label: '삭제',
-                onPress: handleDelete,
-            },
-        ]);
+        const menu = isMine
+            ? [
+                  {
+                      label: '수정',
+                      onPress: () => router.push('myPage/item/modify'),
+                  },
+                  {
+                      label: '삭제',
+                      onPress: handleDelete,
+                  },
+              ]
+            : [
+                  {
+                      label: '신고',
+                      onPress: () => router.push('/myPage/qna/NewQnA'),
+                  },
+              ];
+        setMenuItems(menu);
 
         return () => setMenuItems([]); // 페이지 떠날 때 정리
     }, []);
