@@ -52,7 +52,7 @@ const Mypage = () => {
             contents: [
                 {
                     name: '내 게시글 보기',
-                    onPress: () => router.push('myPage/item/myItems'),
+                    onPress: () => router.push('/myPage/item/myItems'),
                 },
             ],
         },
@@ -91,6 +91,7 @@ const Mypage = () => {
                     {item.contents.map((subpage, index) => (
                         <>
                             <Pressable
+                                key={index}
                                 onPress={subpage.onPress}
                                 style={[
                                     Common.XStack,

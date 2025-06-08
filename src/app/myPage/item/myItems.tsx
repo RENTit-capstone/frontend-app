@@ -30,9 +30,9 @@ const MyItems = () => {
             const response = await axiosGet(`/api/v1/members/me`);
             console.log(response.data.items.itemId);
             itemId.current = response.data.items.itemId;
-            const itemResponse = await axiosGet(`/api/v1/items/${itemId.current}`);
-            console.log(itemResponse.data);
-            setData(itemResponse.data);
+            // const itemResponse = await axiosGet(`/api/v1/items/${itemId.current}`);
+            // console.log(itemResponse.data);
+            // setData(itemResponse.data);
         } catch (error) {
             console.error(error);
             Alert.alert(`${error}`);
