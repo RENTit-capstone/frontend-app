@@ -16,9 +16,9 @@ import { Text } from 'react-native';
 type SortOption = { label: string; value: string };
 
 const SORT_OPTIONS: SortOption[] = [
-    { label: '최신순', value: 'requestDate, desc' },
-    { label: '가격 높은순', value: 'price, desc' },
-    { label: '가격 낮은순', value: 'price, asc' },
+    { label: '최신순', value: 'createdAt,desc' },
+    { label: '가격 높은순', value: 'price,desc' },
+    { label: '가격 낮은순', value: 'price,asc' },
 ];
 
 const SearchGroup = (props: any) => {
@@ -31,7 +31,7 @@ const SearchGroup = (props: any) => {
     const [keyword, setKeyword] = useState('');
     const [selected, setSelected] = useState<SortOption>({
         label: '최신순',
-        value: 'requestDate, desc',
+        value: 'createdAt,desc',
     });
     const [availableOnly, setAvailableOnly] = useState(false);
 
