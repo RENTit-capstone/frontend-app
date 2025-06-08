@@ -9,6 +9,8 @@ type ProfileType = {
     memberId: number;
     email: string;
     name: string;
+    university: string;
+    phoneNumber: string;
     nickname: string;
     role: string;
     profileImg: string;
@@ -57,7 +59,9 @@ const Profile = () => {
             <Text style={{ fontSize: 20, fontWeight: '600', marginBottom: 4 }}>
                 {data.name} ({data.nickname})
             </Text>
+            <Text style={{ fontSize: 16, color: '#555', marginBottom: 8 }}>{data.university}</Text>
             <Text style={{ fontSize: 16, color: '#555', marginBottom: 8 }}>{data.email}</Text>
+            <Text style={{ fontSize: 16, color: '#555', marginBottom: 8 }}>{data.phoneNumber}</Text>
             <Text style={{ fontSize: 14, color: '#333', marginBottom: 4 }}>역할: {data.role}</Text>
             <Text style={{ fontSize: 14, color: '#666' }}>
                 가입일: {new Date(data.createdAt).toLocaleDateString()}
