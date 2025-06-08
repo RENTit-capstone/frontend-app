@@ -1,5 +1,6 @@
 import { axiosGet } from '@/api';
 import Chip from '@/components/Chip';
+import useAuthStore from '@/stores/useAuthStore';
 import { Common } from '@/styles/common';
 import { itemList } from '@/styles/components/itemList';
 import { useEffect, useState } from 'react';
@@ -26,6 +27,7 @@ type PayHistoryType = {
 
 const PayHistory = () => {
     const [data, setData] = useState<PayHistoryType[]>();
+    const { userId } = useAuthStore();
 
     useEffect(() => {
         fetchPayHistory();
@@ -33,7 +35,7 @@ const PayHistory = () => {
 
     const fetchPayHistory = async () => {
         try {
-            const response = await axiosGet(`/api/v1/payments`);
+            const response = await axiosGet(`/api/v1/payments?memberId=${userId}`);
             setData(response.data);
         } catch (error) {
             console.error(error);
