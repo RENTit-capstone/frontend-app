@@ -8,13 +8,26 @@ import { useEffect } from 'react';
 
 const DateSelectorModal = () => {
     const { startDate, endDate, onDayPress, markedDates, resetPeriod } = useDateSelector();
-    const { visible, setResult } = useBottomSheetStore();
+    const { visible, result, setResult } = useBottomSheetStore();
+
+    const selectableStartDate = result?.selectableStartDate ?? null;
+    const selectableEndDate = result?.selectableEndDate ?? null;
 
     useEffect(() => {
-        setResult({ startDate: startDate, endDate: endDate });
+        setResult({ ...result, startDate: startDate, endDate: endDate });
     }, [startDate, endDate]);
 
     if (!visible) return null;
+
+    const formatDateToString = (date: Date) => {
+        const year = date.getFullYear();
+        const month = `${date.getMonth() + 1}`.padStart(2, '0'); // 0-based
+        const day = `${date.getDate()}`.padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const minDate = selectableStartDate ? formatDateToString(selectableStartDate) : undefined;
+    const maxDate = selectableEndDate ? formatDateToString(selectableEndDate) : undefined;
 
     return (
         <>
@@ -31,6 +44,8 @@ const DateSelectorModal = () => {
                     theme={{
                         arrowColor: '#5B5B5B',
                     }}
+                    minDate={minDate}
+                    maxDate={maxDate}
                 />
                 <View style={Common.chips}>
                     <Chip startDate={startDate} endDate={endDate} onCancel={resetPeriod} />

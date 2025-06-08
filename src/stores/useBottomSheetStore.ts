@@ -2,7 +2,12 @@ import { create } from 'zustand';
 
 type ResultType = {
     none: void;
-    dateSelector: { startDate: Date | null; endDate: Date | null };
+    dateSelector: {
+        selectableStartDate: Date | null;
+        selectableEndDate: Date | null;
+        startDate: Date | null;
+        endDate: Date | null;
+    };
     policy: { damagedDescriptionPolicy: boolean; damagePolicy: boolean; returnPolicy: boolean };
     otp: void;
     priceSelector: { maxPrice: number; minPrice: number };
@@ -17,7 +22,10 @@ type BottomSheetType = {
     prevCallback?: () => void;
     nextCallback?: () => void;
 
-    openBottomSheet: <T extends keyof ResultType>(type: T) => Promise<{ result: ResultType[T] }>;
+    openBottomSheet: <T extends keyof ResultType>(
+        type: T,
+        initialResult?: ResultType[T],
+    ) => Promise<{ result: ResultType[T] }>;
 
     cancelResult: () => void;
     submitResult: () => void;
@@ -32,9 +40,14 @@ export const useBottomSheetStore = create<BottomSheetType>((set, get) => ({
     type: 'none',
     result: null,
 
-    openBottomSheet: (type) => {
+    openBottomSheet: (type, initialResult) => {
         return new Promise((resolve) => {
-            set({ visible: true, type: type, resolve });
+            set({
+                visible: true,
+                type,
+                result: initialResult ?? null,
+                resolve,
+            });
         });
     },
 

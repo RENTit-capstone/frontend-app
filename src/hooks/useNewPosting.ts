@@ -51,9 +51,15 @@ export const useNewPosting = () => {
     };
 
     const handleDateSelect = async () => {
+        const today = new Date();
         const {
             result: { startDate, endDate },
-        } = await openBottomSheet('dateSelector');
+        } = await openBottomSheet('dateSelector', {
+            selectableStartDate: today,
+            selectableEndDate: null,
+            startDate: null,
+            endDate: null,
+        });
         setStartDate(startDate);
         setEndDate(endDate);
     };

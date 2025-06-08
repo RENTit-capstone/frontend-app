@@ -6,7 +6,7 @@ import Button from '../Button';
 import Cancel from '@/assets/images/cancel.svg';
 import { Common } from '@/styles/common';
 import PolicyScreen from './Policy';
-import CanendarScreen from './DateSelector';
+import CalendarScreen from './DateSelector';
 import OTPScreen from './Otp';
 import SliderScreen from './PriceSelector';
 import ReturnImageScreen from './ReturnImage';
@@ -14,7 +14,7 @@ import ReturnImageScreen from './ReturnImage';
 const bottomSheetMap = {
     none: () => <></>,
     policy: PolicyScreen,
-    dateSelector: CanendarScreen,
+    dateSelector: CalendarScreen,
     otp: OTPScreen,
     priceSelector: SliderScreen,
     returnImage: ReturnImageScreen,
