@@ -3,6 +3,7 @@ import { View, Image, Alert } from 'react-native';
 import { useState } from 'react';
 import UploadToStorage from '@/utils/uploadToStorage';
 import Button from '../Button';
+import { axiosPost } from '@/api';
 
 const ReturnImageUpload = () => {
     const [imageUri, setImageUri] = useState<string | null>(null);
@@ -23,7 +24,8 @@ const ReturnImageUpload = () => {
 
         const asset = result.assets[0];
         setImageUri(asset.uri);
-        UploadToStorage(asset.uri);
+        const objectKey = UploadToStorage(asset.uri);
+        return objectKey;
     };
 
     return (

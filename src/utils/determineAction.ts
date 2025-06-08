@@ -10,7 +10,7 @@ type DetermineActionParamType = {
     id?: number;
     rentalStatus: RentalStatusType;
     onCancelRequest: (id: number) => Promise<void>;
-    onReturn: () => Promise<void>;
+    onReturn: (id: number) => Promise<void>;
     onCabinet: () => Promise<void>;
 };
 
@@ -39,7 +39,7 @@ export const determineAction = ({
             return { action: [onCabinet], buttonText: ['수령하기'] };
 
         case 'PICKED_UP':
-            return { action: [onReturn], buttonText: ['반납하기'] };
+            return { action: [() => onReturn(id)], buttonText: ['반납하기'] };
 
         case 'RETURNED_TO_LOCKER':
             return { description: '반납을 완료하였습니다' };

@@ -19,8 +19,20 @@ const useRentalActions = () => {
             Alert.alert(`${error}`);
         }
     };
-    const onReturn = async () => {
-        onNext(async () => await openBottomSheet('returnImage'));
+    const onReturn = async (id: number) => {
+        onNext(async () => {
+            const objectKey = await openBottomSheet('returnImage');
+            try {
+                const response = await axiosPost(
+                    `/api/v1//rentals/${id}}/return-image?${objectKey}`,
+                );
+                console.log(response.data);
+                Alert.alert('이미지가 업로드되었습니다');
+            } catch (error) {
+                console.error(error);
+                Alert.alert(`${error}`);
+            }
+        });
         await openBottomSheet('otp');
 
         clearCallbacks();
