@@ -97,3 +97,11 @@ export const axiosPut = async (url: string, payload?: any, headerOption?: any) =
     }
     return res.data;
 };
+
+export const axiosDelete = async (url: string, headerOption?: any) => {
+    const res = await axiosInstance.delete(url, headerOption);
+    if (!res.data.success) {
+        throw new Error(res.data.message);
+    }
+    return res.data;
+};

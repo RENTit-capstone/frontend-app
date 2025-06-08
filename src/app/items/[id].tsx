@@ -1,17 +1,19 @@
 import { Common } from '@/styles/common';
-import { Pressable } from 'react-native';
+import { Alert, Pressable } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomScrollSheet from '@/components/BottomScrollSheet';
 import ItemDetails from '@/components/items/ItemDetails';
 import ItemDetailsButtonBar from '@/components/items/ItemDetailsButtonBar';
 import ImageGallery from '@/components/items/ImageGallery';
 import usePostings from '@/hooks/usePostings';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import useAuthStore from '@/stores/useAuthStore';
 import { useMenuStore } from '@/stores/useMenuStore';
+import { axiosDelete } from '@/api';
 
 const Postings = () => {
+    const { id } = useLocalSearchParams();
     const { data } = usePostings();
     const [isScrolling, setIsScrolling] = useState(false);
     const { userId } = useAuthStore();
@@ -20,6 +22,7 @@ const Postings = () => {
     const setMenuItems = useMenuStore((state) => state.setMenuItems);
 
     useEffect(() => {
+        console.log(id);
         setMenuItems([
             {
                 label: '수정',
@@ -27,12 +30,21 @@ const Postings = () => {
             },
             {
                 label: '삭제',
-                onPress: () => router.push('myPage/item/delete'),
+                onPress: handleDelete,
             },
         ]);
 
         return () => setMenuItems([]); // 페이지 떠날 때 정리
     }, []);
+
+    const handleDelete = async () => {
+        try {
+            const response = await axiosDelete(`/api/v1/items/${id}`);
+        } catch (error) {
+            Alert.alert('게시글을 삭제할 수 없습니다', '잠시 후 다시 시도해주세요');
+            console.error(error);
+        }
+    };
 
     if (!data) return;
 

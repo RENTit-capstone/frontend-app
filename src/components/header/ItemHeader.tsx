@@ -61,7 +61,7 @@ const ItemHeader = () => {
                         {menuItems.map((option, index) => (
                             <TouchableOpacity
                                 key={index}
-                                onPress={() => console.log(option.label)}
+                                onPress={option.onPress}
                                 style={[
                                     itemList.sortOption,
                                     { alignItems: 'center', paddingVertical: 16 },
