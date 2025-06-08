@@ -104,18 +104,7 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={[itemList.listContainer, { paddingBottom: 64 }]}>
-                <View style={[Common.XStack, { gap: 0, alignSelf: 'flex-end' }]}>
-                    <DropdownSort
-                        filtered={filtered}
-                        setFiltered={setFiltered}
-                        filterOptions={FILTER_OPTIONS}
-                    />
-                    <DropdownSort
-                        selected={selected}
-                        setSelected={setSelected}
-                        sortOptions={SORT_OPTIONS}
-                    />
-                </View>
+                <View style={[Common.XStack, { gap: 0, alignSelf: 'flex-end' }]}></View>
                 <FlatList
                     data={data}
                     keyExtractor={(item, index) => `${item.itemId}-${index}`}

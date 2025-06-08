@@ -108,9 +108,10 @@ const QnAPosting = () => {
                 {/* 내용 */}
                 <View style={{ paddingVertical: 4 }}>
                     {data.images &&
-                        data.images.map((item) => (
+                        data.images.map((item, index) => (
                             <Image
                                 source={{ uri: item }}
+                                key={index}
                                 style={{ width: '100%', minHeight: '500', resizeMode: 'contain' }}
                             />
                         ))}

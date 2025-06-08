@@ -1,5 +1,6 @@
 import { axiosGet } from '@/api';
 import Badge from '@/components/Badge';
+import DropdownSort from '@/components/itemList/DropdownSort';
 import useAuthStore from '@/stores/useAuthStore';
 import { Common } from '@/styles/common';
 import { itemList } from '@/styles/components/itemList';
@@ -8,7 +9,8 @@ import formatISOtoDate from '@/utils/formatDateString';
 import generateUrl from '@/utils/generateUrl';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator } from 'react-native';
+import { Alert, FlatList, Pressable, ScrollView, Text, View } from 'react-native';
 
 type QnAListType = {
     inquiryId: number;
@@ -20,32 +22,80 @@ type QnAListType = {
     type: QnAType;
 };
 
+type TypeOption = { label: string; value: string };
+type ProcessedOption = { label: string; value: string };
+
+const SORT_OPTIONS: ProcessedOption[] = [
+    { label: '전체', value: '' },
+    { label: '처리 완료', value: 'true' },
+    { label: '미처리', value: 'false' },
+];
+
+const FILTER_OPTIONS: TypeOption[] = [
+    { label: '전체', value: '' },
+    { label: '서비스 문의', value: 'SERVICE' },
+    { label: '신고', value: 'REPORT' },
+    { label: '파손', value: 'DAMAGE' },
+];
 const MyQnA = () => {
     const router = useRouter();
     const { userId } = useAuthStore();
-    const [data, setData] = useState<QnAListType[]>();
+    const [data, setData] = useState<QnAListType[]>([]);
+    const [page, setPage] = useState(0);
+    const [hasNextPage, setHasNextPage] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [typeFilter, setTypeFilter] = useState<TypeOption>({
+        label: '전체',
+        value: '',
+    });
+    const [processedFilter, setProcessedFilter] = useState<ProcessedOption>({
+        label: '전체',
+        value: '',
+    });
 
-    const fetchMyQnA = async () => {
-        const params = generateUrl({
-            type: '',
-            processed: '',
-            page: 0,
-            size: 20,
-        });
+    const pageSize = 20;
+
+    const fetchQnA = async (reset = false) => {
+        if (isLoading) return;
+        if (!hasNextPage && !reset) return;
+
+        setIsLoading(true);
+        const currentPage = reset ? 0 : page;
 
         try {
+            const params = generateUrl({
+                processed: typeFilter.value,
+                type: processedFilter.value,
+                page: currentPage,
+                size: pageSize,
+            });
+
             const response = await axiosGet(`/api/v1/inquiries?${params}`);
-            console.log(response.data.content);
-            setData(response.data.content);
+
+            if (reset) {
+                setData(response.data.content); // 초기 또는 필터 변경 시 덮어쓰기
+            } else {
+                setData((prev) => [...prev, ...response.data.content]); // 추가 로딩 시 붙이기
+            }
+
+            setPage(currentPage + 1);
+            setHasNextPage(!response.data.last);
         } catch (error) {
-            console.error(error);
-            Alert.alert(`${error}`);
+            console.warn(error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchMyQnA();
-    }, []);
+        fetchQnA(true); // reset = true
+        console.log('t', typeFilter);
+        console.log(processedFilter);
+    }, [typeFilter, processedFilter]);
+
+    const handleLoadMore = () => {
+        fetchQnA(false);
+    };
 
     const getTypeLabel = (type: QnAListType['type']) => {
         switch (type) {
@@ -63,11 +113,27 @@ const MyQnA = () => {
     if (!data) return;
 
     return (
-        <ScrollView style={[Common.container, Common.wrapper]}>
-            {data.map((item) => (
-                <>
+        <View style={[Common.container, Common.wrapper]}>
+            <View style={[Common.XStack, { justifyContent: 'flex-end' }]}>
+                <DropdownSort
+                    options={SORT_OPTIONS}
+                    selected={typeFilter}
+                    setSelected={setTypeFilter}
+                    getLabel={(option) => option.label}
+                />
+                <DropdownSort
+                    options={FILTER_OPTIONS}
+                    selected={processedFilter}
+                    setSelected={setProcessedFilter}
+                    getLabel={(option) => option.label}
+                />
+            </View>
+            <FlatList
+                data={data}
+                style={[Common.container, Common.wrapper]}
+                keyExtractor={(item) => item.inquiryId.toString()}
+                renderItem={({ item }) => (
                     <Pressable
-                        key={item.inquiryId}
                         onPress={() => router.push(`/myPage/qna/${item.inquiryId}`)}
                         style={{
                             backgroundColor: '#fff',
@@ -113,9 +179,18 @@ const MyQnA = () => {
                             작성일: {formatISOtoDate(item.createdAt)}
                         </Text>
                     </Pressable>
-                </>
-            ))}
-        </ScrollView>
+                )}
+                onEndReached={handleLoadMore}
+                onEndReachedThreshold={0.3}
+                ListFooterComponent={
+                    isLoading ? (
+                        <View style={{ paddingVertical: 20 }}>
+                            <ActivityIndicator />
+                        </View>
+                    ) : null
+                }
+            />
+        </View>
     );
 };
 export default MyQnA;
