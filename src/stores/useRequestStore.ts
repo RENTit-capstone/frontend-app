@@ -15,6 +15,8 @@ type RequestType = {
         returnPolicy: string;
         damagedDescription: string;
         price: number;
+        startDate: string;
+        endDate: string;
     };
 
     setPhase: (nextPhase: RequestPhaseType) => void;
@@ -24,7 +26,13 @@ type RequestType = {
     setEndDate: (endDate: Date | null) => void;
     setPolicyChecked: (checked: boolean) => void;
     setItemData: (
-        type: 'damagedDescription' | 'returnPolicy' | 'damagePolicy' | 'price',
+        type:
+            | 'damagedDescription'
+            | 'returnPolicy'
+            | 'damagePolicy'
+            | 'price'
+            | 'startDate'
+            | 'endDate',
         text: string | number,
     ) => void;
     clearRecord: () => void;
@@ -32,7 +40,7 @@ type RequestType = {
 };
 
 const useRequestStore = create<RequestType>()((set, get) => ({
-    phase: 'viewing',
+    phase: 'viewing' as const,
     name: null,
     price: null,
     startDate: null,
@@ -44,6 +52,8 @@ const useRequestStore = create<RequestType>()((set, get) => ({
         returnPolicy: '',
         damagedDescription: '',
         price: 0,
+        startDate: '',
+        endDate: '',
     },
     setPhase: (nextPhase) => set({ phase: nextPhase }),
     setName: (name) => set({ name }),
@@ -75,6 +85,8 @@ const useRequestStore = create<RequestType>()((set, get) => ({
                 returnPolicy: '',
                 damagedDescription: '',
                 price: 0,
+                startDate: '',
+                endDate: '',
             },
         }),
 }));

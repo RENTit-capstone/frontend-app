@@ -100,7 +100,12 @@ const ItemDetailsButtonBar = (props: any) => {
     const handleDateSelector = async () => {
         const {
             result: { startDate, endDate },
-        } = await openBottomSheet('dateSelector');
+        } = await openBottomSheet('dateSelector', {
+            selectableStartDate: new Date(itemData.startDate),
+            selectableEndDate: new Date(itemData.endDate),
+            startDate: null,
+            endDate: null,
+        });
         setStartDate(startDate);
         setEndDate(endDate);
         dateSelected.current = !!startDate && !!endDate;

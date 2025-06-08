@@ -26,11 +26,14 @@ const usePostings = () => {
     const fetchItemDetails = async () => {
         try {
             const response = await axiosGet(`/api/v1/items/${parseInt(id)}`);
+            // console.log(response.data);
             setData(response.data);
             setItemData('damagedDescription', response.data.damagedDescription);
             setItemData('returnPolicy', response.data.returnPolicy);
             setItemData('damagePolicy', response.data.damagePolicy);
             setItemData('price', response.data.price.toString());
+            setItemData('startDate', response.data.startDate);
+            setItemData('endDate', response.data.endDate);
         } catch (error) {
             toast.show(`${error}`);
             console.error(error);
