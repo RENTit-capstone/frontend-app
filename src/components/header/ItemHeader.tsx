@@ -8,11 +8,12 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { itemList } from '@/styles/components/itemList';
 import { useMenuStore } from '@/stores/useMenuStore';
+import { Colors } from '@/styles/tokens';
 
 const ItemHeader = () => {
     const insets = useSafeAreaInsets();
     const router = useRouter();
-    const backgroundColor = 'rgba(0, 0, 0, 0)';
+    const backgroundColor = Colors.black;
     const screenHeight = Dimensions.get('window').height;
     const [isOpen, setIsOpen] = useState(false);
     const menuItems = useMenuStore((state) => state.menuItems);
@@ -24,24 +25,24 @@ const ItemHeader = () => {
                 {
                     backgroundColor: backgroundColor,
                     paddingTop: insets.top,
-                    height: screenHeight * 0.07,
-                    marginHorizontal: 12,
+                    height: screenHeight * 0.1,
+                    // marginHorizontal: 12,
                 },
             ]}
         >
             <Pressable
                 onPress={() => router.back()}
-                hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
             >
                 <LeftArrowWhite width={32} height={32} />
             </Pressable>
             <View style={[Common.XStack, { gap: 20 }]}>
-                <Pressable>
+                {/* <Pressable>
                     <Share />
-                </Pressable>
+                </Pressable> */}
                 <Pressable
                     onPress={() => setIsOpen(!isOpen)}
-                    hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                    hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
                 >
                     <Menu />
                 </Pressable>
