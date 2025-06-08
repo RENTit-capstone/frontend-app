@@ -10,7 +10,7 @@ type ResultType = {
     };
     policy: { damagedDescriptionPolicy: boolean; damagePolicy: boolean; returnPolicy: boolean };
     otp: void;
-    priceSelector: { maxPrice: number; minPrice: number };
+    priceSelector: { maxPrice: string; minPrice: string };
     returnImage: void;
 };
 

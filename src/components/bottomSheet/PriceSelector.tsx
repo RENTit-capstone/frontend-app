@@ -8,7 +8,7 @@ const PriceSelector = () => {
     const { visible, result, setResult } = useBottomSheetStore();
 
     useEffect(() => {
-        setResult({ ...result, minValue: minValue, maxValue: maxValue });
+        setResult({ ...result, minPrice: minValue, maxPrice: maxValue });
     }, [minValue, maxValue]);
 
     if (!visible) return null;
@@ -18,7 +18,7 @@ const PriceSelector = () => {
             <Text style={styles.label}>최소 가격</Text>
             <TextInput
                 style={styles.input}
-                value={String(minValue)}
+                value={minValue}
                 onChangeText={setMinValue}
                 keyboardType="numeric"
             />
@@ -26,7 +26,7 @@ const PriceSelector = () => {
             <Text style={styles.label}>최대 가격</Text>
             <TextInput
                 style={styles.input}
-                value={String(maxValue)}
+                value={maxValue}
                 onChangeText={setMaxValue}
                 keyboardType="numeric"
             />

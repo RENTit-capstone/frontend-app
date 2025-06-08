@@ -26,8 +26,8 @@ const SearchGroup = (props: any) => {
     const { openBottomSheet } = useBottomSheetStore();
     const [startDate, setStartDate] = useState<Date | null>();
     const [endDate, setEndDate] = useState<Date | null>();
-    const [minPrice, setMinPrice] = useState<number>(0);
-    const [maxPrice, setMaxPrice] = useState<number>(0);
+    const [minPrice, setMinPrice] = useState<string>();
+    const [maxPrice, setMaxPrice] = useState<string>();
     const [keyword, setKeyword] = useState('');
     const [selected, setSelected] = useState<SortOption>({
         label: '최신순',
