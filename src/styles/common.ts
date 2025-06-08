@@ -18,7 +18,7 @@ export const Common = StyleSheet.create({
         borderRadius: 8,
         borderWidth: 1,
         marginVertical: 8,
-        padding: 12,
+        paddingHorizontal: 8,
         height: 40,
     },
     componentWrapper: {

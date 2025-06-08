@@ -103,7 +103,7 @@ const Postings = () => {
             <BottomScrollSheet snapPointList={['50%', '60%', '70%', '80%']}>
                 <ItemDetails {...data} />
             </BottomScrollSheet>
-            {!isMine && <ItemDetailsButtonBar />}
+            {!isMine && data.status === 'AVAILABLE' && <ItemDetailsButtonBar />}
         </GestureHandlerRootView>
     );
 };
