@@ -8,17 +8,21 @@ type DetereminedActionType = {
 
 type DetermineActionParamType = {
     id?: number;
+    returnImage: boolean;
     rentalStatus: RentalStatusType;
     onCancelRequest: (id: number) => Promise<void>;
     onReturn: (id: number) => Promise<void>;
+    onReturnImage: (id: number) => Promise<void>;
     onCabinet: () => Promise<void>;
 };
 
 export const determineAction = ({
     id = 0,
+    returnImage = false,
 
     rentalStatus,
     onCancelRequest,
+    onReturnImage,
     onReturn,
     onCabinet,
 }: DetermineActionParamType): DetereminedActionType => {
@@ -42,6 +46,8 @@ export const determineAction = ({
             return { action: [() => onReturn(id)], buttonText: ['반납하기'] };
 
         case 'RETURNED_TO_LOCKER':
+            if (!returnImage)
+                return { action: [() => onReturnImage(id)], buttonText: ['반납 사진 제출'] };
             return { description: '반납을 완료하였습니다' };
         // return { action: onWriteReview, buttonText: '후기 작성' };
 

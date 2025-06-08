@@ -72,6 +72,26 @@ const useRentalActions = () => {
         });
     };
 
-    return { onCancelRequest, onReturn, onApprove, onReject, onCabinet, onReportDamage };
+    const onReturnImage = async (id: number) => {
+        const objectKey = await openBottomSheet('returnImage');
+        try {
+            const response = await axiosPost(`/api/v1//rentals/${id}}/return-image?${objectKey}`);
+            console.log(response.data);
+            Alert.alert('이미지가 업로드되었습니다');
+        } catch (error) {
+            console.error(error);
+            Alert.alert(`${error}`);
+        }
+    };
+
+    return {
+        onCancelRequest,
+        onReturnImage,
+        onReturn,
+        onApprove,
+        onReject,
+        onCabinet,
+        onReportDamage,
+    };
 };
 export default useRentalActions;

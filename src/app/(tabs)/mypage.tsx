@@ -32,10 +32,10 @@ const Mypage = () => {
                     name: 'OTP 발급',
                     onPress: () => router.push('/myPage/locker/otp'),
                 },
-                {
-                    name: '사물함 이용 안내',
-                    onPress: () => router.push('/myPage/locker/method'),
-                },
+                // {
+                //     name: '사물함 이용 안내',
+                //     onPress: () => router.push('/myPage/locker/method'),
+                // },
             ],
         },
         {

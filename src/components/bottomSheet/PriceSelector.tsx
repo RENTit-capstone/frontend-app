@@ -11,6 +11,8 @@ const PriceSelector = () => {
         setResult({ ...result, minValue: minValue, maxValue: maxValue });
     }, [minValue, maxValue]);
 
+    if (!visible) return null;
+
     return (
         <View style={styles.container}>
             <Text style={styles.label}>최소 가격</Text>
