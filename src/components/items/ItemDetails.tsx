@@ -8,6 +8,7 @@ import formatISOToDate from '@/utils/formatDateString';
 import useRequestStore from '@/stores/useRequestStore';
 import { useEffect } from 'react';
 import { setItem } from 'expo-secure-store';
+import useAuthStore from '@/stores/useAuthStore';
 
 const ItemDetails = (props: ItemDetailsProp) => {
     const {
@@ -28,6 +29,7 @@ const ItemDetails = (props: ItemDetailsProp) => {
         updatedAt,
     } = props;
     const { setName, setPrice, setItemData } = useRequestStore();
+    const { userId } = useAuthStore();
     useEffect(() => {
         setName(name);
         setPrice(price);
