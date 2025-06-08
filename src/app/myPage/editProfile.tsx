@@ -6,6 +6,7 @@ import { Image } from 'react-native';
 import { View, Text, TextInput, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import UploadToStorage from '@/utils/uploadToStorage';
+import { useRouter } from 'expo-router';
 
 type ProfileType = {
     name: string;
@@ -26,6 +27,7 @@ const EditProfile = () => {
 
     const [selectedImage, setSelectedImage] = useState<ImagePicker.ImagePickerAsset>();
     const [selectedImageKey, setSelectedImageKey] = useState<string>('');
+    const router = useRouter();
 
     const [loading, setLoading] = useState(false);
 
@@ -69,6 +71,7 @@ const EditProfile = () => {
             });
 
             Alert.alert('수정 완료', '프로필이 성공적으로 수정되었습니다.');
+            router.replace('/mypage');
         } catch (error) {
             console.error('업데이트 실패:', error);
             Alert.alert('수정 실패', '프로필을 수정하지 못했습니다.');
