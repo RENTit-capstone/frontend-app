@@ -2,14 +2,13 @@ import { Link, useRouter } from 'expo-router';
 import { LoginType } from '@/types/types';
 import { useEffect, useState } from 'react';
 import TextInput from '@/components/CustomTextInput';
-import { ScrollView, Text, View } from 'react-native';
+import { Alert, ScrollView, Text, View } from 'react-native';
 import Button from '@/components/Button';
 import { Common } from '@/styles/common';
 import Logo from '@/assets/images/logo.svg';
 import { axiosGet, axiosNoInterceptor, axiosPost } from '@/api';
 import useAuthStore from '@/stores/useAuthStore';
 import useToast from '@/hooks/useToast';
-import useNotification from '@/hooks/useNotification';
 import KeyboardAvoidingView from '@/components/KeyboardAvoidingView';
 import useFirebaseNotification from '@/hooks/useFirebaseNotification';
 
@@ -36,6 +35,12 @@ const Login = () => {
             const userInfo = await axiosGet(`/api/v1/members/me`);
             setUserName(userInfo.data.nickname);
             setUserProfileImg(userInfo.data.profileImg);
+
+            if (fcmToken) {
+                await axiosPost('/api/v1/device-token', { token: fcmToken });
+                console.log('FCM 토큰 전송 완료');
+                Alert.alert('FCM 토큰 전송 완료');
+            }
 
             router.replace('/(tabs)/itemList');
             toast.show('로그인에 성공했습니다.');
