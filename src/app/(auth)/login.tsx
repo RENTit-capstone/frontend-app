@@ -2,7 +2,7 @@ import { Link, useRouter } from 'expo-router';
 import { LoginType } from '@/types/types';
 import { useState } from 'react';
 import TextInput from '@/components/CustomTextInput';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import Button from '@/components/Button';
 import { Common } from '@/styles/common';
 import Logo from '@/assets/images/logo.svg';
@@ -10,6 +10,7 @@ import { axiosGet, axiosNoInterceptor } from '@/api';
 import useAuthStore from '@/stores/useAuthStore';
 import useToast from '@/hooks/useToast';
 import useNotification from '@/hooks/useNotification';
+import KeyboardAvoidingView from '@/components/KeyboardAvoidingView';
 
 const Login = () => {
     const router = useRouter();
@@ -45,41 +46,46 @@ const Login = () => {
     };
 
     return (
-        <View style={[Common.container, Common.wrapper]}>
-            <View style={[Common.YStack, { justifyContent: 'flex-start' }]}>
-                <View style={{ paddingVertical: '10%' }}>
-                    <Logo />
+        <KeyboardAvoidingView>
+            <ScrollView
+                style={[Common.container, Common.wrapper]}
+                contentContainerStyle={{ justifyContent: 'flex-start', alignItems: 'center' }}
+            >
+                <View style={[Common.YStack, { flex: 1, width: '100%' }]}>
+                    {' '}
+                    <View style={{ paddingVertical: '10%' }}>
+                        <Logo />
+                    </View>
+                    <TextInput
+                        name="email"
+                        label="email"
+                        handleChangeText={handleChange('email')}
+                        value={form.email}
+                        placeholder="email@email.com"
+                        keyboardType="email-address"
+                    />
+                    <TextInput
+                        name="password"
+                        label="password"
+                        handleChangeText={handleChange('password')}
+                        value={form.password}
+                        secureTextEntry={true}
+                    />
+                    <View style={[Common.XStack, { alignSelf: 'stretch' }]}>
+                        <Button
+                            onPress={() => login(form)}
+                            disabled={form.email === '' || form.password === ''}
+                            type="primary"
+                        >
+                            로그인
+                        </Button>
+                    </View>
+                    <Link href={{ pathname: '/(auth)/signup' }}>
+                        <Text style={[Common.textOption]}>회원가입</Text>
+                    </Link>
                 </View>
-                <TextInput
-                    name="email"
-                    label="email"
-                    handleChangeText={handleChange('email')}
-                    value={form.email}
-                    placeholder="email@email.com"
-                    keyboardType="email-address"
-                />
-                <TextInput
-                    name="password"
-                    label="password"
-                    handleChangeText={handleChange('password')}
-                    value={form.password}
-                    secureTextEntry={true}
-                />
-                <View style={[Common.XStack, { alignSelf: 'stretch' }]}>
-                    <Button
-                        onPress={() => login(form)}
-                        disabled={form.email === '' || form.password === ''}
-                        type="primary"
-                    >
-                        로그인
-                    </Button>
-                </View>
-
-                <Link href={{ pathname: '/(auth)/signup' }}>
-                    <Text style={[Common.textOption]}>회원가입</Text>
-                </Link>
-            </View>
-        </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
