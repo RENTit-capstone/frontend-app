@@ -16,7 +16,8 @@ import useFirebaseNotification from '@/hooks/useFirebaseNotification';
 const Login = () => {
     const router = useRouter();
     const toast = useToast();
-    const { setAccessToken, setRefreshToken, setUserId, setUserName } = useAuthStore();
+    const { setAccessToken, setRefreshToken, setUserId, setUserName, setUserProfileImg } =
+        useAuthStore();
     const [form, setForm] = useState({
         email: '',
         password: '',
@@ -34,6 +35,7 @@ const Login = () => {
             await setRefreshToken(res.data.data.refreshToken);
             const userInfo = await axiosGet(`/api/v1/members/me`);
             setUserName(userInfo.data.nickname);
+            setUserProfileImg(userInfo.data.profileImg);
 
             router.replace('/(tabs)/itemList');
             toast.show('로그인에 성공했습니다.');

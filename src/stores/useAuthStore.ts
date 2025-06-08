@@ -4,10 +4,12 @@ import * as SecureStore from 'expo-secure-store';
 type AuthType = {
     userId: number | null;
     userName: string | null;
+    profileImg: string | null;
     accessToken: string | null;
     refreshToken: string | null;
     setUserId: (id: number) => void;
     setUserName: (name: string) => void;
+    setUserProfileImg: (url: string) => void;
     setAccessToken: (accessToken: string) => Promise<void>;
     setRefreshToken: (refreshToken: string) => Promise<void>;
     clearTokens: () => Promise<void>;
@@ -16,6 +18,7 @@ type AuthType = {
 const useAuthStore = create<AuthType>()((set, get) => ({
     userId: null,
     userName: null,
+    profileImg: null,
     accessToken: null,
     refreshToken: null,
     setUserId: (id) => {
@@ -24,6 +27,10 @@ const useAuthStore = create<AuthType>()((set, get) => ({
     setUserName: (name) => {
         set({ userName: name });
     },
+    setUserProfileImg: (url) => {
+        set({ profileImg: url });
+    },
+
     setAccessToken: async (accessToken) => {
         await SecureStore.setItemAsync('accesstoken', accessToken);
         set({ accessToken: accessToken });

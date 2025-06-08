@@ -6,11 +6,13 @@ import Avatar from '@/components/Avatar';
 import { Common } from '@/styles/common';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import useAuthStore from '@/stores/useAuthStore';
 
 const DefaultHeader = () => {
     const router = useRouter();
     const insets = useSafeAreaInsets();
     const screenHeight = Dimensions.get('window').height;
+    const { profileImg } = useAuthStore();
 
     return (
         <SafeAreaView
@@ -33,7 +35,7 @@ const DefaultHeader = () => {
                     hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
                     onPress={() => router.push('/mypage')}
                 >
-                    <Avatar />
+                    {profileImg ? <Avatar url={profileImg} /> : <Avatar />}
                 </Pressable>
             </View>
         </SafeAreaView>
