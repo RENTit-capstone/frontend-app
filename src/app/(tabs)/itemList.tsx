@@ -5,11 +5,11 @@ import ItemListTab from '@/components/itemList/ItemListTab';
 import Button from '@/components/Button';
 import { useRouter } from 'expo-router';
 import Plus from '@/assets/images/plus.svg';
-import useNotification from '@/hooks/useNotification';
+import useFirebaseNotification from '@/hooks/useFirebaseNotification';
 
 const ItemList = () => {
     const router = useRouter();
-    useNotification();
+    const { fcmToken } = useFirebaseNotification();
 
     return (
         <View style={Common.container}>

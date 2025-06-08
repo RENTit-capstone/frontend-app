@@ -10,7 +10,6 @@ import { axiosGet, axiosNoInterceptor, axiosPost } from '@/api';
 import useAuthStore from '@/stores/useAuthStore';
 import useToast from '@/hooks/useToast';
 import KeyboardAvoidingView from '@/components/KeyboardAvoidingView';
-import useFirebaseNotification from '@/hooks/useFirebaseNotification';
 
 const Login = () => {
     const router = useRouter();
@@ -27,8 +26,6 @@ const Login = () => {
         email: '',
         password: '',
     });
-
-    const { fcmToken } = useFirebaseNotification();
 
     const login = async (payload: LoginType) => {
         try {
