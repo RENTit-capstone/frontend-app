@@ -1,4 +1,4 @@
-import { Alert, Text, View } from 'react-native';
+import { Alert, ScrollView, Text, View } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import Button from '@/components/Button';
 import { Common } from '@/styles/common';
@@ -55,40 +55,50 @@ const Signup = () => {
     };
 
     return (
-        <View style={[Common.wrapper, Common.container]}>
-            <View style={[Common.YStack, { justifyContent: 'flex-start' }]}>
-                <View style={{ paddingVertical: '10%' }}>
-                    <Logo />
-                </View>
+        <KeyboardAvoidingView>
+            <ScrollView style={[Common.wrapper, Common.container]}>
+                <View style={[Common.YStack, { justifyContent: 'flex-start' }]}>
+                    <View style={{ paddingVertical: '10%' }}>
+                        <Logo />
+                    </View>
 
-                {page === 0 && <EmailInfoScreen validate={validate} />}
-                {page === 1 && <UserInfoScreen validate={validate} />}
+                    {page === 0 && <EmailInfoScreen validate={validate} />}
+                    {page === 1 && <UserInfoScreen validate={validate} />}
 
-                <View style={Common.XStack}>
-                    <Button onPress={() => setPage(page - 1)} disabled={page <= 0} type="option">
-                        이전
-                    </Button>
-
-                    {page === lastPage ? (
-                        <Button onPress={handleSubmit} disabled={blockNext(page)} type="primary">
-                            가입하기
-                        </Button>
-                    ) : (
+                    <View style={Common.XStack}>
                         <Button
-                            onPress={() => setPage(page + 1)}
-                            disabled={!emailVerified || blockNext(page)}
-                            type="primary"
+                            onPress={() => setPage(page - 1)}
+                            disabled={page <= 0}
+                            type="option"
                         >
-                            다음
+                            이전
                         </Button>
-                    )}
-                </View>
 
-                <Link href={{ pathname: '/(auth)/login' }}>
-                    <Text style={[Common.textOption]}>로그인</Text>
-                </Link>
-            </View>
-        </View>
+                        {page === lastPage ? (
+                            <Button
+                                onPress={handleSubmit}
+                                disabled={blockNext(page)}
+                                type="primary"
+                            >
+                                가입하기
+                            </Button>
+                        ) : (
+                            <Button
+                                onPress={() => setPage(page + 1)}
+                                disabled={!emailVerified || blockNext(page)}
+                                type="primary"
+                            >
+                                다음
+                            </Button>
+                        )}
+                    </View>
+
+                    <Link href={{ pathname: '/(auth)/login' }}>
+                        <Text style={[Common.textOption]}>로그인</Text>
+                    </Link>
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
