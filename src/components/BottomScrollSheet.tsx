@@ -14,7 +14,7 @@ type BottomScrollSheetProps = {
 };
 
 const BottomScrollSheet = (props: BottomScrollSheetProps) => {
-    const { snapPointList, children, style, bottomInsent = 64 } = props;
+    const { snapPointList, children, style, bottomInsent = 0 } = props;
 
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => snapPointList, []);
@@ -35,7 +35,7 @@ const BottomScrollSheet = (props: BottomScrollSheetProps) => {
             animationConfigs={animationConfigs}
             enableDynamicSizing={false}
             bottomInset={bottomInsent}
-            backgroundStyle={[itemList.bottomSheet, style]}
+            backgroundStyle={[itemList.bottomSheet, style, { marginBottom: 64 }]}
         >
             <BottomSheetScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 {children}

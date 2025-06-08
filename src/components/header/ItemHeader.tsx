@@ -35,11 +35,14 @@ const ItemHeader = () => {
             >
                 <LeftArrowWhite width={32} height={32} />
             </Pressable>
-            <View style={Common.XStack}>
+            <View style={[Common.XStack, { gap: 20 }]}>
                 <Pressable>
                     <Share />
                 </Pressable>
-                <Pressable>
+                <Pressable
+                    onPress={() => setIsOpen(!isOpen)}
+                    hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                >
                     <Menu />
                 </Pressable>
                 {isOpen && (

@@ -6,7 +6,7 @@ export default function ItemLayout() {
         <>
             <Stack screenOptions={{ headerShown: false }}>
                 <Stack.Screen
-                    name="myItemList"
+                    name="myItems"
                     options={{
                         title: '나의 게시글',
                         headerShown: true,

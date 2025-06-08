@@ -17,24 +17,24 @@ const Postings = () => {
     const { userId } = useAuthStore();
     const router = useRouter();
 
-    if (!data) return;
-
     const setMenuItems = useMenuStore((state) => state.setMenuItems);
 
     useEffect(() => {
         setMenuItems([
             {
-                label: '수정하기',
+                label: '수정',
                 onPress: () => router.push('myPage/item/modify'),
             },
             {
-                label: '삭제하기',
+                label: '삭제',
                 onPress: () => router.push('myPage/item/delete'),
             },
         ]);
 
         return () => setMenuItems([]); // 페이지 떠날 때 정리
     }, []);
+
+    if (!data) return;
 
     const isMine = userId === data.owner.memberId;
     const handleScrollBegin = () => setIsScrolling(true);

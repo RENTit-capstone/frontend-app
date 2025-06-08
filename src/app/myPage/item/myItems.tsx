@@ -1,25 +1,27 @@
 import { axiosGet } from '@/api';
+import Badge from '@/components/Badge';
 import Chip from '@/components/Chip';
 import ListItem from '@/components/itemList/ListItem';
 import useAuthStore from '@/stores/useAuthStore';
 import { Common } from '@/styles/common';
 import { itemList } from '@/styles/components/itemList';
 import { ItemDetailsProp, ItemStatusType, ListItemProps } from '@/types/types';
+import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { Alert, ScrollView, Text, View } from 'react-native';
+import { Alert, Image, Pressable, ScrollView, Text, View } from 'react-native';
 
-// type ItemType = {
-//     itemId: number;
-//     name: string;
-//     price: number;
-//     status: ItemStatusType;
-//     thumbnail: string[];
-//     createdAt: string;
-// };
+type ItemType = {
+    itemId: number;
+    name: string;
+    price: number;
+    status: ItemStatusType;
+    thumbnail: string[];
+    createdAt: string;
+};
 
 const MyItems = () => {
-    const [data, setData] = useState<ItemDetailsProp[]>();
-    const itemId = useRef(0);
+    const [data, setData] = useState<ItemType[]>();
+    const router = useRouter();
 
     useEffect(() => {
         fetchMyItem();
@@ -28,11 +30,7 @@ const MyItems = () => {
     const fetchMyItem = async () => {
         try {
             const response = await axiosGet(`/api/v1/members/me`);
-            console.log(response.data.items.itemId);
-            itemId.current = response.data.items.itemId;
-            // const itemResponse = await axiosGet(`/api/v1/items/${itemId.current}`);
-            // console.log(itemResponse.data);
-            // setData(itemResponse.data);
+            setData(response.data.items);
         } catch (error) {
             console.error(error);
             Alert.alert(`${error}`);
@@ -54,22 +52,42 @@ const MyItems = () => {
                         shadowOpacity: 0.15,
                         shadowRadius: 8,
                         elevation: 4,
+                        padding: 16,
                     },
                 ]}
             >
-                {data.map((item, index) => (
-                    <ListItem
-                        key={index}
-                        itemId={item.itemId}
-                        nickname={item.owner.nickname}
-                        name={item.name}
-                        imageUrls={item.imageUrls}
-                        price={item.price}
-                        status={item.status}
-                        startDate={item.startDate}
-                        endDate={item.endDate}
-                    />
-                ))}
+                {data.map((item, index) => {
+                    const imgSrc = item.thumbnail
+                        ? { uri: item.thumbnail[0] }
+                        : require('@/assets/images/icon.png');
+
+                    return (
+                        <>
+                            <Pressable
+                                key={index}
+                                style={[Common.XStack, itemList.cardWrapper]}
+                                onPress={() => router.push(`/items/${item.itemId}`)}
+                            >
+                                <Image source={imgSrc} style={itemList.listItemImage} />
+
+                                <View style={[Common.wideView, { gap: 5 }]}>
+                                    <Badge status={item.status} />
+                                    <Text style={{ fontSize: 19 }}>{item.name}</Text>
+                                    <View style={[Common.textWrapper]}>
+                                        <Text style={{ fontSize: 19, fontWeight: 600 }}>
+                                            {item.price}
+                                        </Text>
+                                        <Text style={{ fontSize: 19 }}> 원</Text>
+                                        {/* <Text style={[{fontSize: }, TextThemes.option]}>  |  </Text> */}
+                                    </View>
+                                </View>
+                            </Pressable>
+                            <View
+                                style={[itemList.rowDivider, { marginVertical: 16, width: '100%' }]}
+                            />
+                        </>
+                    );
+                })}
             </ScrollView>
         </View>
     );
