@@ -19,13 +19,16 @@ const ItemHeader = () => {
     const menuItems = useMenuStore((state) => state.menuItems);
 
     return (
-        <SafeAreaView
+        // <SafeAreaView>
+        <View
             style={[
                 Common.headerWrapper,
                 {
                     backgroundColor: backgroundColor,
                     paddingTop: insets.top,
                     height: screenHeight * 0.1,
+                    paddingHorizontal: 16,
+                    justifyContent: 'space-between',
                     // marginHorizontal: 12,
                 },
             ]}
@@ -53,9 +56,10 @@ const ItemHeader = () => {
                             {
                                 position: 'absolute',
                                 zIndex: 1000,
-                                top: 64,
+                                top: 32,
+                                right: 12,
                                 // justifyContent: 'center',
-                                width: '100%',
+                                // width: '100%',
                             },
                         ]}
                     >
@@ -65,7 +69,7 @@ const ItemHeader = () => {
                                 onPress={option.onPress}
                                 style={[
                                     itemList.sortOption,
-                                    { alignItems: 'center', paddingVertical: 16 },
+                                    { alignItems: 'center', paddingVertical: 16, width: 100 },
                                 ]}
                             >
                                 <Text>{option.label}</Text>
@@ -74,7 +78,8 @@ const ItemHeader = () => {
                     </View>
                 )}
             </View>
-        </SafeAreaView>
+        </View>
+        // </SafeAreaView>
     );
 };
 export default ItemHeader;
