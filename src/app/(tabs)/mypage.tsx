@@ -6,6 +6,7 @@ import { itemList } from '@/styles/components/itemList';
 import { Colors } from '@/styles/tokens';
 import useAuthStore from '@/stores/useAuthStore';
 import { axiosNoInterceptor, axiosPost } from '@/api';
+import Profile from '@/components/Profile';
 
 const Mypage = () => {
     const router = useRouter();
@@ -75,6 +76,7 @@ const Mypage = () => {
     return (
         <View style={[Common.container]}>
             <ScrollView style={[Common.wrapper, { marginBottom: 100 }]}>
+                <Profile />
                 {options.map((item, index) => (
                     <View
                         key={index}
