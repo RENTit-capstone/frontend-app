@@ -73,61 +73,66 @@ const Mypage = () => {
     };
 
     return (
-        <ScrollView style={[Common.container, Common.wrapper, { marginBottom: 64 }]}>
-            {options.map((item, index) => (
-                <View
-                    key={index}
-                    style={{
-                        gap: 16,
-                        alignItems: 'flex-start',
-                        backgroundColor: 'white',
-                        marginVertical: 16,
-                        justifyContent: 'flex-start',
-                        paddingVertical: 26,
-                        borderRadius: 8,
-                        paddingHorizontal: 16,
-                    }}
-                >
-                    <Text
-                        style={[
-                            {
-                                fontSize: 16,
-                                padding: 16,
-                                borderRadius: 8,
-                                backgroundColor: Colors.navy,
-                                color: Colors.white,
-                                alignSelf: 'stretch',
-                            },
-                        ]}
+        <View style={[Common.container]}>
+            <ScrollView style={[Common.wrapper, { marginBottom: 100 }]}>
+                {options.map((item, index) => (
+                    <View
+                        key={index}
+                        style={{
+                            gap: 16,
+                            alignItems: 'flex-start',
+                            backgroundColor: 'white',
+                            marginVertical: 16,
+                            justifyContent: 'flex-start',
+                            paddingVertical: 26,
+                            borderRadius: 8,
+                            paddingHorizontal: 16,
+                        }}
                     >
-                        {item.category}
-                    </Text>
-                    {item.contents.map((subpage, index) => (
-                        <>
-                            <Pressable
-                                key={index}
-                                onPress={subpage.onPress}
-                                style={[
-                                    Common.XStack,
-                                    {
-                                        alignSelf: 'stretch',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                    },
-                                ]}
-                            >
-                                <Text style={Common.bold}>{subpage.name}</Text>
-                                <ArrowRight />
-                            </Pressable>
-                            <View style={[itemList.rowDivider, { width: '100%' }]} />
-                        </>
-                    ))}
-                </View>
-            ))}
-            <Pressable onPress={handleLogout}>
-                <Text style={[Common.textOption]}>로그아웃</Text>
-            </Pressable>
-        </ScrollView>
+                        <Text
+                            style={[
+                                {
+                                    fontSize: 16,
+                                    padding: 16,
+                                    borderRadius: 8,
+                                    backgroundColor: Colors.navy,
+                                    color: Colors.white,
+                                    alignSelf: 'stretch',
+                                },
+                            ]}
+                        >
+                            {item.category}
+                        </Text>
+                        {item.contents.map((subpage, index) => (
+                            <>
+                                <Pressable
+                                    key={index}
+                                    onPress={subpage.onPress}
+                                    style={[
+                                        Common.XStack,
+                                        {
+                                            alignSelf: 'stretch',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                        },
+                                    ]}
+                                >
+                                    <Text style={Common.bold}>{subpage.name}</Text>
+                                    <ArrowRight />
+                                </Pressable>
+                                <View style={[itemList.rowDivider, { width: '100%' }]} />
+                            </>
+                        ))}
+                    </View>
+                ))}
+                <Pressable
+                    onPress={handleLogout}
+                    style={{ justifyContent: 'center', alignItems: 'center' }}
+                >
+                    <Text style={[Common.textOption]}>로그아웃</Text>
+                </Pressable>
+            </ScrollView>
+        </View>
     );
 };
 

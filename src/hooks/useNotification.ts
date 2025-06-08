@@ -41,7 +41,7 @@ const useNotification = () => {
             console.log('token: ', token);
             console.log('storedToken: ', storedToken);
 
-            if (storedToken !== token) {
+            if (!storedToken || storedToken !== token) {
                 await axiosPost(`/api/v1/device-token`, { token });
                 await SecureStorage.setItemAsync('expoPushToken', token);
             }
