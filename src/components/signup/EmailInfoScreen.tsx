@@ -17,11 +17,8 @@ const EmailInfoScreen = (props: any) => {
     const emailRef = useRef<TextInput>(null);
 
     const handleSendCode = async () => {
-        if (errors.email) console.log('email error'); //TODO: 이메일, 학교정보 오류 시 에러처리
-
         try {
             const response = await sendCode(values.email, values.university);
-            console.log(response); //TODO: dialog로 띄우기
             Alert.alert(`${values.email}로 확인 코드가 전송되었습니다.`);
         } catch (error) {
             console.error(error);
@@ -35,7 +32,6 @@ const EmailInfoScreen = (props: any) => {
                 values.university,
                 values.emailVerifyCode,
             );
-            console.log(response); //TODO: dialog
             Alert.alert('인증되었습니다');
         } catch (error) {
             console.error(error);

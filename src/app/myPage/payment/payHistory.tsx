@@ -34,7 +34,6 @@ const PayHistory = () => {
     const fetchPayHistory = async () => {
         try {
             const response = await axiosGet(`/api/v1/payments`);
-            console.log(response.data);
             setData(response.data);
         } catch (error) {
             console.error(error);

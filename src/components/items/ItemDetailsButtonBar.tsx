@@ -104,7 +104,6 @@ const ItemDetailsButtonBar = (props: any) => {
         setStartDate(startDate);
         setEndDate(endDate);
         dateSelected.current = !!startDate && !!endDate;
-        console.log('Selected Dates:', dateSelected.current);
     };
 
     const handlePolicyConsentor = async () => {
@@ -113,7 +112,6 @@ const ItemDetailsButtonBar = (props: any) => {
         } = await openBottomSheet('policy');
         setPolicyChecked(damagedDescriptionPolicy && damagePolicy && returnPolicy);
         policyConsented.current = damagedDescriptionPolicy && damagePolicy && returnPolicy;
-        console.log('Policy Consent:', policyConsented.current);
     };
 
     const handlePayment = () => {

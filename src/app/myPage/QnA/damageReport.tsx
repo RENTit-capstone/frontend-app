@@ -28,7 +28,6 @@ const DamageReport = () => {
     const handleSubmit = async () => {
         const uploadPromises = selectedImages.map(async (img) => {
             const key = await UploadToStorage(img);
-            console.log('key', key);
             return key;
         });
 

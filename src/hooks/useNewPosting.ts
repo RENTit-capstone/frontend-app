@@ -59,11 +59,9 @@ export const useNewPosting = () => {
     };
 
     const handleModify = async () => {
-        console.log('modifying');
         try {
             const uploadPromises = selectedImages.map(async (img) => {
                 const key = await UploadToStorage(img);
-                console.log('key', key);
                 return key;
             });
 
@@ -84,7 +82,6 @@ export const useNewPosting = () => {
         try {
             const uploadPromises = selectedImages.map(async (img) => {
                 const key = await UploadToStorage(img);
-                console.log('key', key);
                 return key;
             });
 

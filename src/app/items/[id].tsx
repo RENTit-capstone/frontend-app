@@ -25,7 +25,6 @@ const Postings = () => {
     useEffect(() => {
         if (!data) return;
 
-        console.log('id: ', id);
         const menu = isMine
             ? [
                   {

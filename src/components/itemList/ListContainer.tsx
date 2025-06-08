@@ -61,7 +61,6 @@ const ListContainer = (props: ListContainerProps) => {
                 const response = await axiosGet(`/api/v1/items?${params}`);
                 const newData = response.data.content;
                 const lastPage = response.data.last;
-                // console.log(response.data);
 
                 if (isRefreshing) {
                     setData(newData);
@@ -95,8 +94,6 @@ const ListContainer = (props: ListContainerProps) => {
 
     const loadMore = () => {
         if (!loadingMore && hasNextPage) {
-            console.log('loading more');
-
             const nextPage = page + 1;
             setPage(nextPage);
             fetchResult(nextPage);

@@ -20,7 +20,6 @@ const OtpContianer = () => {
         try {
             setResetKey((prev) => prev + 1);
             const response = await axiosPost(`/api/v1/auth/otp`);
-            console.log(response.data);
 
             setOtpCode(response.data);
         } catch (error) {

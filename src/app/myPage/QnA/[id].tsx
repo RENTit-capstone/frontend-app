@@ -37,7 +37,6 @@ const QnAPosting = () => {
         try {
             const response = await axiosGet(`/api/v1/inquiries/${id}`);
             setData(response.data);
-            console.log(response.data);
             processed.current = response.data.processed ? 'PROCESSED' : 'NOTPROCESSED';
         } catch (error) {
             Alert.alert(`${error}`);
@@ -47,7 +46,6 @@ const QnAPosting = () => {
 
     const submitAnswer = async () => {
         try {
-            console.log(answer);
             const reponse = await axiosPost(`/api/v1/inquiries/${id}/answer`, answer);
             Alert.alert('파손 신고에 대한 답변 작성이 완료되었습니다');
         } catch (error) {

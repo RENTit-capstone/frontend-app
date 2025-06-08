@@ -37,7 +37,6 @@ const SearchGroup = (props: any) => {
 
     useEffect(() => {
         onChange({ status: availableOnly, sort: selected.value });
-        console.log(selected);
     }, [selected, availableOnly]);
 
     const handleDateSelect = async () => {

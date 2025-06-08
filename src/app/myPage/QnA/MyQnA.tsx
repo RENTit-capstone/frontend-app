@@ -89,8 +89,6 @@ const MyQnA = () => {
 
     useEffect(() => {
         fetchQnA(true); // reset = true
-        console.log('t', typeFilter);
-        console.log(processedFilter);
     }, [typeFilter, processedFilter]);
 
     const handleLoadMore = () => {
