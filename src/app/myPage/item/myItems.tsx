@@ -17,7 +17,7 @@ import { Alert, ScrollView, Text, View } from 'react-native';
 //     createdAt: string;
 // };
 
-const MyItemList = () => {
+const MyItems = () => {
     const [data, setData] = useState<ItemDetailsProp[]>();
     const itemId = useRef(0);
 
@@ -74,4 +74,4 @@ const MyItemList = () => {
         </View>
     );
 };
-export default MyItemList;
+export default MyItems;
