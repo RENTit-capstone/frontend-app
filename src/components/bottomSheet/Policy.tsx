@@ -27,7 +27,7 @@ const PolicyModal = () => {
     if (!visible) return null;
 
     return (
-        <ScrollView style={[Common.wrapper, { marginBottom: 64 }]}>
+        <ScrollView style={[Common.wrapper, { marginBottom: 120 }]}>
             <View style={{ alignItems: 'center', paddingVertical: 15 }}>
                 <Text style={{ fontSize: 18, fontWeight: 500 }}>하자 및 파손정책 동의</Text>
             </View>

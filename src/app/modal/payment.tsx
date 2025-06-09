@@ -103,15 +103,15 @@ const PaymentModal = (props: ModalProps) => {
                         { justifyContent: 'space-evenly', alignContent: 'center' },
                     ]}
                 >
-                    <View style={[Common.XStack, Common.spaceBetween]}>
+                    <View style={[Common.XStack, Common.spaceBetween, { alignItems: 'center' }]}>
                         <Text>상품명</Text>
-                        <Text style={[Common.bold]}> {name} </Text>
+                        <Text style={[Common.bold, { flexShrink: 1 }]}> {name} </Text>
                     </View>
-                    <View style={[Common.XStack, Common.spaceBetween]}>
+                    <View style={[Common.XStack, Common.spaceBetween, { alignItems: 'center' }]}>
                         <Text>현재 잔액</Text>
                         <Text style={[Common.bold]}> {data.balance.toLocaleString()} </Text>
                     </View>
-                    <View style={[Common.XStack, Common.spaceBetween]}>
+                    <View style={[Common.XStack, Common.spaceBetween, { alignItems: 'center' }]}>
                         <Text>결제 금액</Text>
                         <Text style={[Common.bold]}> {price} </Text>
                     </View>
@@ -123,7 +123,7 @@ const PaymentModal = (props: ModalProps) => {
                         </Text>
                     </View> */}
                     <View style={[itemList.rowDivider, { width: '100%' }]} />
-                    <View style={[Common.XStack, Common.spaceBetween]}>
+                    <View style={[Common.XStack, Common.spaceBetween, { alignItems: 'center' }]}>
                         <Text>결제 후 포인트 </Text>
                         <Text style={[Common.bold]}>
                             {price && (data.balance - price).toLocaleString()}{' '}

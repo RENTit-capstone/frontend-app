@@ -15,6 +15,10 @@ const PriceSelector = () => {
 
     return (
         <View style={styles.container}>
+            <View style={{ alignItems: 'center', paddingVertical: 15 }}>
+                <Text style={{ fontSize: 18, fontWeight: 500 }}>가격 검색</Text>
+            </View>
+
             <Text style={styles.label}>최소 가격</Text>
             <TextInput
                 style={styles.input}
