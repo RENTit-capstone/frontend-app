@@ -11,7 +11,7 @@ type ResultType = {
     policy: { damagedDescriptionPolicy: boolean; damagePolicy: boolean; returnPolicy: boolean };
     otp: void;
     priceSelector: { maxPrice: string; minPrice: string };
-    returnImage: void;
+    returnImage: { key: string };
 };
 
 type BottomSheetType = {

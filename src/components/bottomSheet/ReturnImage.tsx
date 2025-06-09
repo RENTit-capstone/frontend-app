@@ -1,12 +1,19 @@
 import * as ImagePicker from 'expo-image-picker';
 import { View, Image, Alert } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UploadToStorage from '@/utils/uploadToStorage';
 import Button from '../Button';
 import { axiosPost } from '@/api';
+import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
 
 const ReturnImageUpload = () => {
     const [imageUri, setImageUri] = useState<string | null>(null);
+    const { visible, result, setResult } = useBottomSheetStore();
+    const [key, setKey] = useState<string>();
+
+    useEffect(() => {
+        setResult({ ...result, key: key });
+    }, [key]);
 
     const takePhotoAndUpload = async () => {
         const { status } = await ImagePicker.requestCameraPermissionsAsync();
@@ -24,7 +31,9 @@ const ReturnImageUpload = () => {
 
         const asset = result.assets[0];
         setImageUri(asset.uri);
-        const objectKey = UploadToStorage(asset.uri);
+        const objectKey = await UploadToStorage(asset);
+        setKey(objectKey);
+
         return objectKey;
     };
 

@@ -52,7 +52,9 @@ export const determineAction = ({
         // return { action: onWriteReview, buttonText: '후기 작성' };
 
         case 'COMPLETED':
-            return { description: '거래가 종료되었습니다' };
+            return { action: [() => onReturnImage(id)], buttonText: ['반납 사진 제출'] };
+
+        // return { description: '거래가 종료되었습니다' };
         // if (hasWrittenReview) return { buttonText: '후기 보기' };
         // else  return { action: onWriteReview, buttonText: '후기 작성' };
 
