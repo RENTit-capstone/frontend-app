@@ -26,6 +26,10 @@ const products = [
         point: 5000,
         price: 5000,
     },
+    {
+        point: 10000,
+        price: 10000,
+    },
 ];
 
 type WalletType = {
