@@ -37,7 +37,7 @@ const FILTER_OPTIONS: TypeOption[] = [
     { label: '신고', value: 'REPORT' },
     { label: '파손', value: 'DAMAGE' },
 ];
-const MyQnA = () => {
+const ReportedIssue = () => {
     const router = useRouter();
     const { userId } = useAuthStore();
     const [data, setData] = useState<QnAListType[]>([]);
@@ -73,7 +73,7 @@ const MyQnA = () => {
             const response = await axiosGet(`/api/v1/inquiries?${params}`);
 
             const filtered = response.data.content.filter(
-                (item: QnAListType) => item.memberId === userId,
+                (item: QnAListType) => item.memberId !== userId,
             );
 
             if (reset) {
@@ -195,4 +195,4 @@ const MyQnA = () => {
         </View>
     );
 };
-export default MyQnA;
+export default ReportedIssue;

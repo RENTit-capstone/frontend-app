@@ -23,6 +23,10 @@ const Mypage = () => {
                     name: '내 문의 보기',
                     onPress: () => router.push('/myPage/qna/MyQnA'),
                 },
+                {
+                    name: '내가 받은 신고 내역',
+                    onPress: () => router.push('/myPage/qna/reportedIssue'),
+                },
             ],
         },
         {

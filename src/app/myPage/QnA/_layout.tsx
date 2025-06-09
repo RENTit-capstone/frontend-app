@@ -37,6 +37,14 @@ export default function QnALayout() {
                         header: () => <BackButtonHeader title="파손 신고" />,
                     }}
                 />
+                <Stack.Screen
+                    name="reportedIssue"
+                    options={{
+                        title: '내가 받은 신고 내역',
+                        headerShown: true,
+                        header: () => <BackButtonHeader title="내가 받은 신고 내역" />,
+                    }}
+                />
             </Stack>
         </>
     );
