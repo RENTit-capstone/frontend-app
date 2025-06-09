@@ -8,31 +8,28 @@ on:
     branches: [main]
 
 jobs:
-  eas-build-android:
-    if: github.event.pull_request.merged == true || github.event_name == 'push'
+  build:
     runs-on: ubuntu-latest
-    env:
-      EXPO_TOKEN: ${{ secrets.EAS_ACCESS_TOKEN }}
-
     steps:
-      - name: Checkout repository
+      - name: 🏗 Setup repo
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: 🏗 Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 18.x
+          cache: yarn
 
-      - name: Install dependencies
-        run: npm install
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EAS_ACCESS_TOKEN }}
 
-      - name: Install EAS CLI
-        run: npm install -g eas-cli
+      - name: 📦 Install dependencies
+        run: yarn install
 
-      - name: Check auth
-        run: eas whoami
-
-      - name: Build app
+      - name: 🚀 Build app
         run: |
           BUILD_URL=$(eas build --platform android --profile preview --non-interactive --json | jq -r '.[0].url')
           echo "Build URL: $BUILD_URL"
