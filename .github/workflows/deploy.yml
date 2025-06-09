@@ -12,7 +12,7 @@ jobs:
     if: github.event.pull_request.merged == true || github.event_name == 'push'
     runs-on: ubuntu-latest
     env:
-      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      EXPO_TOKEN: ${{ secrets.EAS_ACCESS_TOKEN }}
 
     steps:
       - name: Checkout repository
