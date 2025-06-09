@@ -83,7 +83,10 @@ const RentalDetails = ({ details }: { details: any }) => {
                 elevation: 4,
             }}
         >
+            <InfoRow key={userName} label={'소유자'} value={userName} />
+            <InfoRow key={renter} label={'대여자'} value={renter || ''} />
             {fields.map(({ key, label, formatDate }) => {
+                if (key === 'renterId' || key === 'ownerId') return;
                 const rawValue = details[key];
                 const value =
                     rawValue && formatDate

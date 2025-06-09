@@ -79,7 +79,7 @@ const useRentalActions = () => {
         console.log(key);
         try {
             const response = await axiosPost(
-                `/api/v1/rentals/${id}}/return-image?returnImageKey=${key}`,
+                `/api/v1/rentals/${id}/return-image?returnImageKey=${key}`,
             );
             console.log(response.data);
             Alert.alert('이미지가 업로드되었습니다');
