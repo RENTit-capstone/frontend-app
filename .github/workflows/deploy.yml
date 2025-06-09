@@ -1,0 +1,67 @@
+name: EAS Build and Notify Slack
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  eas-build-android:
+    if: github.event.pull_request.merged == true || github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+
+      - name: Authenticate with EAS
+        run: eas whoami || eas login --token ${{ secrets.EAS_ACCESS_TOKEN }}
+
+      - name: Start EAS Build (Android Preview)
+        id: eas_build
+        run: |
+          BUILD_URL=$(eas build --platform android --profile preview --non-interactive --json | jq -r '.[0].url')
+          echo "BUILD_URL=$BUILD_URL" >> $GITHUB_ENV
+          echo "::set-output name=build_url::$BUILD_URL"
+
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "🚀 *EAS Android Build Started!*",
+              "attachments": [
+                {
+                  "color": "#36a64f",
+                  "title": "View build in EAS",
+                  "title_link": "${{ steps.eas_build.outputs.build_url }}",
+                  "fields": [
+                    {
+                      "title": "Branch",
+                      "value": "${{ github.ref_name }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Triggered by",
+                      "value": "${{ github.actor }}",
+                      "short": true
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
