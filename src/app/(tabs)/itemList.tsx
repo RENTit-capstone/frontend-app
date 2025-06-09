@@ -21,7 +21,7 @@ const ItemList = () => {
             >
                 <View style={[Common.XStack, { alignItems: 'center', gap: 4 }]}>
                     <Plus />
-                    <Text style={{ color: 'white', fontSize: 16 }}>글쓰기</Text>
+                    <Text style={{ color: 'white', fontSize: 16 }}>물품 등록</Text>
                 </View>
             </Button>
             <ItemListTab />

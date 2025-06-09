@@ -27,8 +27,8 @@ const HistoryTab = () => {
 
     const [index, setIndex] = useState(0);
     const [routes] = useState([
-        { key: 'others', title: '나의 대여' },
-        { key: 'mine', title: '나의 물품' },
+        { key: 'others', title: '빌린 이력' },
+        { key: 'mine', title: '빌려준 이력' },
     ]);
     return (
         <TabView

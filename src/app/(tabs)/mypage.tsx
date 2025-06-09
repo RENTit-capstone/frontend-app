@@ -60,10 +60,10 @@ const Mypage = () => {
             ],
         },
         {
-            category: '내 게시글',
+            category: '나의 물품',
             contents: [
                 {
-                    name: '내 게시글 관리',
+                    name: '내 물품 관리',
                     onPress: () => router.push('/myPage/item/myItems'),
                 },
             ],
