@@ -20,20 +20,20 @@ const useRentalActions = () => {
         }
     };
     const onReturn = async (id: number) => {
-        onPrev(() => {});
-        onNext(async () => {
-            const objectKey = await openBottomSheet('returnImage');
-            try {
-                const response = await axiosPost(
-                    `/api/v1//rentals/${id}}/return-image?${objectKey}`,
-                );
-                console.log(response.data);
-                Alert.alert('이미지가 업로드되었습니다');
-            } catch (error) {
-                console.error(error);
-                Alert.alert(`${error}`);
-            }
-        });
+        // onPrev(() => {});
+        // onNext(async () => {
+        // const objectKey = await openBottomSheet('returnImage');
+        // try {
+        //     const response = await axiosPost(
+        //         `/api/v1//rentals/${id}}/return-image?${objectKey}`,
+        //     );
+        //     console.log(response.data);
+        //     Alert.alert('이미지가 업로드되었습니다');
+        // } catch (error) {
+        //     console.error(error);
+        //     Alert.alert(`${error}`);
+        // }
+        // });
         await openBottomSheet('otp');
 
         clearCallbacks();
@@ -73,10 +73,12 @@ const useRentalActions = () => {
     };
 
     const onReturnImage = async (id: number) => {
+        clearCallbacks();
         const {
             result: { key },
         } = await openBottomSheet('returnImage');
         console.log(key);
+        if (!key) throw Error('이미지가 없습니다.');
         try {
             const response = await axiosPost(
                 `/api/v1/rentals/${id}/return-image?returnImageKey=${key}`,
