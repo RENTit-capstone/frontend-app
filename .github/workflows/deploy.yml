@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-          cache: yarn
+          cache: npm
 
       - name: 🏗 Setup EAS
         uses: expo/expo-github-action@v8
@@ -27,13 +27,8 @@ jobs:
           token: ${{ secrets.EAS_ACCESS_TOKEN }}
 
       - name: 📦 Install dependencies
-        run: yarn install
-
-      - name: 🚀 Build app
-        run: |
-          BUILD_URL=$(eas build --platform android --profile preview --non-interactive --json | jq -r '.[0].url')
-          echo "Build URL: $BUILD_URL"
-
+        run: npm install
+        
       - name: Notify Slack
         uses: slackapi/slack-github-action@v1.24.0
         with:
