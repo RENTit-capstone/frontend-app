@@ -60,7 +60,8 @@ const useRequestStore = create<RequestType>()((set, get) => ({
     setPrice: (price) => set({ price: price ? Number(price) : null }),
 
     setStartDate: (startDate) => set({ startDate: startDate ? new Date(startDate) : null }),
-    setEndDate: (endDate) => set({ endDate: endDate ? new Date(endDate) : null }),
+    setEndDate: (endDate) =>
+        set({ endDate: endDate ? new Date(new Date(endDate).setHours(23, 59, 0, 0)) : null }),
 
     setPolicyChecked: (checked) => set({ policyChecked: checked }),
     setItemData: (type, text) =>
