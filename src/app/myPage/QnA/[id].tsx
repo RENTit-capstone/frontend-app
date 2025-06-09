@@ -1,4 +1,4 @@
-import { axiosGet, axiosPost } from '@/api';
+import { axiosGet, axiosPost, axiosPut } from '@/api';
 import Badge from '@/components/Badge';
 import Button from '@/components/Button';
 import CustomTextInput from '@/components/CustomTextInput';
@@ -46,7 +46,7 @@ const QnAPosting = () => {
 
     const submitAnswer = async () => {
         try {
-            const reponse = await axiosPost(`/api/v1/inquiries/${id}/answer`, answer);
+            const reponse = await axiosPut(`/api/v1/inquiries/${id}/answer`, answer);
             Alert.alert('파손 신고에 대한 답변 작성이 완료되었습니다');
         } catch (error) {
             Alert.alert('답변은 공백일 수 없습니다.');
