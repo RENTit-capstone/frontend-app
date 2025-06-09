@@ -29,6 +29,9 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
         
+      - name: 🚀 Create update
+        run: eas build --platform android --profile preview 
+        
       - name: Notify Slack
         uses: slackapi/slack-github-action@v1.24.0
         with:
