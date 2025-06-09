@@ -43,7 +43,11 @@ export const determineAction = ({
             return { action: [onCabinet], buttonText: ['수령하기'] };
 
         case 'PICKED_UP':
-            return { action: [() => onReturn(id)], buttonText: ['반납하기'] };
+            return {
+                action: [() => onReturn(id), () => onReturnImage(id)],
+                buttonText: ['반납', '반납 사진 제출'],
+            };
+        // return { action: [() => onReturn(id)], buttonText: ['반납하기'] }};
 
         case 'RETURNED_TO_LOCKER':
             if (!returnImage)
