@@ -14,7 +14,7 @@ import { itemList } from '@/styles/components/itemList';
 const inquiryTypes = [
     { label: '서비스 이용 문의', value: 'SERVICE' },
     { label: '신고/제보 문의', value: 'REPORT' },
-    { label: '파손 신고', value: 'DAMAGE' },
+    // { label: '파손 신고', value: 'DAMAGE' },
 ];
 
 const NewQnA = () => {
