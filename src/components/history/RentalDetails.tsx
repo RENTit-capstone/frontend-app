@@ -36,36 +36,29 @@ const fields: {
     label: string;
     formatDate?: boolean;
 }[] = [
-    { key: 'renterId', label: '대여자' },
-    { key: 'ownerId', label: '소유자' },
+    { key: 'renterName', label: '대여자' },
+    { key: 'ownerName', label: '소유자' },
+
     { key: 'requestDate', label: '대여 요청 일시', formatDate: true },
     { key: 'approvedDate', label: '대여 승인 일시', formatDate: true },
     { key: 'rejectedDate', label: '대여 거절 일시', formatDate: true },
     { key: 'startDate', label: '대여 시작 일시', formatDate: true },
     { key: 'dueDate', label: '반납 예정 일시', formatDate: true },
-    { key: 'leftByOwnerAt', label: '사물함 보관 일시', formatDate: true },
-    { key: 'pickedUpByRenterAt', label: '물건 수령 일시', formatDate: true },
-    { key: 'returnedByRenterAt', label: '반납 일시', formatDate: true },
-    { key: 'retrievedByOwnerAt', label: '물건 회수 일시', formatDate: true },
-    { key: 'lockerId', label: '사물함 번호' },
+
+    { key: 'leftAt', label: '사물함 보관 일시', formatDate: true },
+    { key: 'pickedUpAt', label: '물건 수령 일시', formatDate: true },
+    { key: 'returnedAt', label: '반납 일시', formatDate: true },
+
+    { key: 'retrievedAt', label: '물건 회수 일시', formatDate: true },
+    { key: 'lockerUniversity', label: '사물함 학교' },
+    { key: 'lockerLocation', label: '사물함 상세 위치' },
+    { key: 'lockerNumber', label: '사물함 번호' },
 ];
 
-const RentalDetails = ({ details }: { details: any }) => {
-    console.log(details.returnImageUrl.length);
-    const [renter, setRenter] = useState<string>();
-    const { userName } = useAuthStore();
-
+const RentalDetails = ({ data }: { data: any }) => {
     useEffect(() => {
-        const fetchRenterInfo = async () => {
-            try {
-                const renterInfo = await axiosGet(`/api/v1/members/${details.renterId}`);
-                setRenter(renterInfo.data.nickname);
-                console.log(renterInfo.data.nickname);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchRenterInfo();
+        console.log('image', data.returnImageUrl);
+        console.log(data[0]);
     }, []);
 
     return (
@@ -83,24 +76,21 @@ const RentalDetails = ({ details }: { details: any }) => {
                 elevation: 4,
             }}
         >
-            <InfoRow key={userName} label={'소유자'} value={userName} />
-            <InfoRow key={renter} label={'대여자'} value={renter || ''} />
             {fields.map(({ key, label, formatDate }) => {
-                if (key === 'renterId' || key === 'ownerId') return;
-                const rawValue = details[key];
+                const rawValue = data[0][key];
                 const value =
                     rawValue && formatDate
                         ? formatISOToDateTime(rawValue)
                         : (rawValue?.toString() ?? '-');
                 return <InfoRow key={key} label={label} value={value} />;
             })}
-            {details.returnImageUrl.length > 0 && (
+            {/* {data.returnImageUrl > 0 && (
                 <Image
-                    source={{ uri: details.returnImageUrl }}
-                    key={details.returnImageUrl}
+                    source={{ uri: data.returnImageUrl }}
+                    key={data.returnImageUrl}
                     style={{ width: '100%', minHeight: 500, resizeMode: 'contain' }}
                 />
-            )}
+            )} */}
         </View>
     );
 };

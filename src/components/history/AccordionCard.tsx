@@ -15,7 +15,7 @@ import determineMineAction from '@/utils/determineMineAction';
 import RentalDetails from './RentalDetails';
 
 const AccordionCard = (props: any) => {
-    const { type, rentalId, itemId, requestDate, status, imageUrl, onRefresh } = props;
+    const { data, type, rentalId, itemId, requestDate, status, imageUrl, onRefresh } = props;
     const {
         onCancelRequest,
         onReturn,
@@ -135,7 +135,7 @@ const AccordionCard = (props: any) => {
                         <Text></Text>
                     ) : (
                         <>
-                            <RentalDetails details={details} />
+                            <RentalDetails data={data} />
                         </>
                     )}
                 </View>

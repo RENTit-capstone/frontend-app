@@ -130,6 +130,7 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
                             }}
                         >
                             <AccordionCard
+                                data={data}
                                 type={type}
                                 key={item.rentalId}
                                 rentalId={item.rentalId}
