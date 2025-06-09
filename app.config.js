@@ -61,11 +61,8 @@ export default ({ config }) => ({
         },
         extra: {
             router: {},
-            eas: {
-                projectId: 'b7d1a56b-f6d7-4462-a6fa-825f17961503',
-            },
             apiUrl: 'http://223.130.147.103:8080',
         },
-        owner: 'darlian0889',
+        owner: 'kloud035',
     },
 });
