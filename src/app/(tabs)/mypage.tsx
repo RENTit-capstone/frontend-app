@@ -30,18 +30,27 @@ const Mypage = () => {
             ],
         },
         {
-            category: '사물함',
+            category: '나의 물품',
             contents: [
                 {
-                    name: 'OTP 발급',
-                    onPress: () => router.push('/myPage/locker/otp'),
+                    name: '내 물품 관리',
+                    onPress: () => router.push('/myPage/item/myItems'),
                 },
-                // {
-                //     name: '사물함 이용 안내',
-                //     onPress: () => router.push('/myPage/locker/method'),
-                // },
             ],
         },
+        // {
+        //     category: '사물함',
+        //     contents: [
+        //         {
+        //             name: 'OTP 발급',
+        //             onPress: () => router.push('/myPage/locker/otp'),
+        //         },
+        //         // {
+        //         //     name: '사물함 이용 안내',
+        //         //     onPress: () => router.push('/myPage/locker/method'),
+        //         // },
+        //     ],
+        // },
         {
             category: '결제',
             contents: [
@@ -56,15 +65,6 @@ const Mypage = () => {
                 {
                     name: '포인트 인출',
                     onPress: () => router.push('/myPage/payment/withdraw'),
-                },
-            ],
-        },
-        {
-            category: '나의 물품',
-            contents: [
-                {
-                    name: '내 물품 관리',
-                    onPress: () => router.push('/myPage/item/myItems'),
                 },
             ],
         },

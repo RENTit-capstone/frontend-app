@@ -24,6 +24,7 @@ const getNewToken = async () => {
     const payload = { accessToken: oldAccessToken, refreshToken: oldRefreshToken };
     const response = await axiosNoInterceptor.post(`/api/v1/auth/login/refresh`, payload);
     if (response.data.success) {
+        console.log('getNewToken: ', response.data);
         useAuthStore.setState({
             accessToken: response.data.accessToken,
             refreshToken: response.data.refreshToken,
@@ -66,6 +67,7 @@ axiosInstance.interceptors.response.use(
             console.log('403Error');
             const originalRequest = error.config;
             const newAccessToken = await getNewToken();
+            console.log('newAccessToken', newAccessToken);
 
             originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
             return axiosInstance(originalRequest);
