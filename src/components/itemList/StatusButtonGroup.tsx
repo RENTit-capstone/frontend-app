@@ -59,7 +59,7 @@ const StatusButtonGroup = () => {
                                 onPress={() => {}}
                                 style={itemList.statusButton}
                             >
-                                <View style={Common.YStack}>
+                                <View style={[Common.YStack, { width: '100%' }]}>
                                     <Text>{option}</Text>
                                     <Text style={[itemList.statusNumber, themes[index]]}>
                                         {statusCounts[index]}
