@@ -73,7 +73,6 @@ const useRentalActions = () => {
     };
 
     const onReturnImage = async (id: number) => {
-        clearCallbacks();
         const {
             result: { key },
         } = await openBottomSheet('returnImage');

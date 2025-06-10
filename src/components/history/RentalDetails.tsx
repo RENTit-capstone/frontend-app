@@ -84,13 +84,13 @@ const RentalDetails = ({ data }: { data: any }) => {
                         : (rawValue?.toString() ?? '-');
                 return <InfoRow key={key} label={label} value={value} />;
             })}
-            {/* {data.returnImageUrl > 0 && (
+            {data.returnImageUrl > 0 && (
                 <Image
                     source={{ uri: data.returnImageUrl }}
                     key={data.returnImageUrl}
                     style={{ width: '100%', minHeight: 500, resizeMode: 'contain' }}
                 />
-            )} */}
+            )}
         </View>
     );
 };

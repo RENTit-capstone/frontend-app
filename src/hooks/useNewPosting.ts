@@ -85,6 +85,10 @@ export const useNewPosting = () => {
     };
 
     const handleSubmit = async () => {
+        if (parseInt(values.price) < 0 || parseInt(values.price) > 1000001) {
+            Alert.alert('가격은 0~10000원 사이로 입력해주세요.');
+            return;
+        }
         try {
             const uploadPromises = selectedImages.map(async (img) => {
                 const key = await UploadToStorage(img);

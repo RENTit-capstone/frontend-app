@@ -13,6 +13,7 @@ const ReturnImageUpload = () => {
     const [key, setKey] = useState<string>();
 
     useEffect(() => {
+        console.log('key: ', key);
         setResult({ ...result, key: key });
     }, [key]);
 
@@ -32,10 +33,11 @@ const ReturnImageUpload = () => {
 
         const asset = result.assets[0];
         setImageUri(asset.uri);
-        const objectKey = await UploadToStorage(asset);
-        setKey(objectKey);
+        const key = await UploadToStorage(asset);
+        setKey(key);
+        console.log(key);
 
-        return objectKey;
+        return key;
     };
 
     return (
