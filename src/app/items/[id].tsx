@@ -74,7 +74,7 @@ const Postings = () => {
         try {
             const response = await axiosDelete(`/api/v1/items/${id}`);
         } catch (error) {
-            Alert.alert('게시글을 삭제할 수 없습니다', '잠시 후 다시 시도해주세요');
+            Alert.alert(`${error}`);
             console.error(error);
         }
     };
