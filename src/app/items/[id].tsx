@@ -30,6 +30,10 @@ const Postings = () => {
                   {
                       label: '수정',
                       onPress: () => {
+                          if (data.status !== 'AVAILABLE') {
+                              Alert.alert('대여 가능 상태가 아닌 물품은 수정할 수 없습니다');
+                              return;
+                          }
                           router.push({
                               pathname: '/items/new',
                               params: {
