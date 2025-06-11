@@ -53,6 +53,7 @@ const fields: {
 ];
 
 const RentalDetails = ({ data }: { data: any }) => {
+    console.log(data[0].returnImageUrl);
     return (
         <View
             style={{
@@ -76,7 +77,7 @@ const RentalDetails = ({ data }: { data: any }) => {
                         : (rawValue?.toString() ?? '-');
                 return <InfoRow key={key} label={label} value={value} />;
             })}
-            {data[0].returnImageUrl && (
+            {data[0].returnImageUrl && data[0].returnImageUrl.length > 0 && (
                 <Image
                     source={{ uri: data[0].returnImageUrl }}
                     key={data.returnImageUrl?.[0]}
