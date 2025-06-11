@@ -13,23 +13,6 @@ const Mypage = () => {
     const { refreshToken, accessToken } = useAuthStore();
     const options = [
         {
-            category: '문의',
-            contents: [
-                {
-                    name: '문의 작성',
-                    onPress: () => router.push('/myPage/qna/NewQnA'),
-                },
-                {
-                    name: '내 문의 보기',
-                    onPress: () => router.push('/myPage/qna/MyQnA'),
-                },
-                {
-                    name: '내가 받은 신고 내역',
-                    onPress: () => router.push('/myPage/qna/reportedIssue'),
-                },
-            ],
-        },
-        {
             category: '나의 물품',
             contents: [
                 {
@@ -65,6 +48,23 @@ const Mypage = () => {
                 {
                     name: '포인트 인출',
                     onPress: () => router.push('/myPage/payment/withdraw'),
+                },
+            ],
+        },
+        {
+            category: '문의',
+            contents: [
+                {
+                    name: '문의 작성',
+                    onPress: () => router.push('/myPage/qna/NewQnA'),
+                },
+                {
+                    name: '내 문의 보기',
+                    onPress: () => router.push('/myPage/qna/MyQnA'),
+                },
+                {
+                    name: '내가 받은 신고 내역',
+                    onPress: () => router.push('/myPage/qna/reportedIssue'),
                 },
             ],
         },
@@ -134,7 +134,10 @@ const Mypage = () => {
                                     <Text style={Common.bold}>{subpage.name}</Text>
                                     <ArrowRight />
                                 </Pressable>
-                                <View style={[itemList.rowDivider, { width: '100%' }]} />
+                                <View
+                                    key={`${index}+${index}`}
+                                    style={[itemList.rowDivider, { width: '100%' }]}
+                                />
                             </>
                         ))}
                     </View>
