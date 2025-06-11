@@ -5,6 +5,7 @@ import { Colors } from '@/styles/tokens';
 import formatISOtoDate from '@/utils/formatDateString';
 import generateUrl from '@/utils/generateUrl';
 import Checkbox from 'expo-checkbox';
+import { useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { Alert, FlatList, Pressable, ScrollView, Text, View } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
@@ -43,6 +44,7 @@ const Notification = () => {
     const [hasNextPage, setHasNextPage] = useState(true);
     const [selected, setSelected] = useState('');
     const [notReadOnly, setNotReadOnly] = useState(false);
+    const router = useRouter();
 
     const fetchNotification = useCallback(
         async (pageNum = 0, isRefreshing = false) => {
@@ -76,10 +78,13 @@ const Notification = () => {
         [selected],
     );
 
-    const readNotification = async (id: number) => {
+    const readNotification = async (id: number, type: NotificationType) => {
         try {
             const response = await axiosPut(`/api/v1/notifications/${id}/read`);
-            console.log(response.data);
+            if (type === 'ITEM_DAMAGED_REQUEST' || type === 'INQUIRY_RESPONSE') {
+                router.push('/myPage/qna/MyQna');
+            } else if (type === 'ITEM_DAMAGED_RESPONSE') router.push('/mypage/qna/reportedIssue');
+            else router.push('/(tabs)/history');
         } catch (error) {
             console.error(error);
             Alert.alert(`${error}`);
@@ -104,7 +109,7 @@ const Notification = () => {
     const NotificationCard = (item: NotificationDataType) => {
         return (
             <Pressable
-                onPress={() => readNotification(item.id)}
+                onPress={() => readNotification(item.id, item.type)}
                 style={{
                     backgroundColor: item.read ? '#F8F8F8' : '#FFFFFF',
                     paddingVertical: 16,
