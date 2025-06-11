@@ -11,7 +11,6 @@ import { useLocalSearchParams } from 'expo-router';
 
 const NewPosting = () => {
     const params = useLocalSearchParams();
-    console.log('params', params.startDate);
     const {
         values,
         handleChange,
@@ -60,7 +59,7 @@ const NewPosting = () => {
                     name="price"
                     handleChangeText={handleChange('price')}
                     value={values.price}
-                    keyboardType="numeric"
+                    keyboardType="phone-pad"
                 />
                 <TextInput
                     label="물품 설명"

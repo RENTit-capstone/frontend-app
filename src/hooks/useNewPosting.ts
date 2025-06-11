@@ -88,8 +88,12 @@ export const useNewPosting = () => {
     };
 
     const handleSubmit = async () => {
+        if (!/^\d+$/.test(values.price)) {
+            Alert.alert('가격은 숫자로만 입력해주세요');
+            return;
+        }
         if (parseInt(values.price) < 0 || parseInt(values.price) > 1000001) {
-            Alert.alert('가격은 0~10000원 사이로 입력해주세요.');
+            Alert.alert('가격은 0~10000원 사이로 입력해주세요');
             return;
         }
         try {
