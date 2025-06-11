@@ -53,7 +53,7 @@ const fields: {
 ];
 
 const RentalDetails = ({ data }: { data: any }) => {
-    console.log(data[0].returnImageUrl);
+    console.log('data: ', data);
     return (
         <View
             style={{
@@ -70,17 +70,17 @@ const RentalDetails = ({ data }: { data: any }) => {
             }}
         >
             {fields.map(({ key, label, formatDate }) => {
-                const rawValue = data[0][key];
+                const rawValue = data[key];
                 const value =
                     rawValue && formatDate
                         ? formatISOToDateTime(rawValue)
                         : (rawValue?.toString() ?? '-');
                 return <InfoRow key={key} label={label} value={value} />;
             })}
-            {data[0].returnImageUrl && data[0].returnImageUrl.length > 0 && (
+            {data.returnImageUrl && data.returnImageUrl.length > 0 && (
                 <Image
-                    source={{ uri: data[0].returnImageUrl }}
-                    key={data.returnImageUrl?.[0]}
+                    source={{ uri: data.returnImageUrl }}
+                    key={data.returnImageUrl}
                     style={{ width: '100%', minHeight: 500, resizeMode: 'contain' }}
                 />
             )}
