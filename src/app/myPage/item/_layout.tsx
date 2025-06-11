@@ -8,9 +8,9 @@ export default function ItemLayout() {
                 <Stack.Screen
                     name="myItems"
                     options={{
-                        title: '나의 게시글',
+                        title: '내 물품 관리',
                         headerShown: true,
-                        header: () => <BackButtonHeader title="나의 게시글" />,
+                        header: () => <BackButtonHeader title="내 물품 관리" />,
                     }}
                 />
             </Stack>
