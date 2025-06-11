@@ -1,7 +1,7 @@
 import Button from '@/components/Button';
 import TextInput from '@/components/CustomTextInput';
 import { Common } from '@/styles/common';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { itemList } from '@/styles/components/itemList';
 import { Colors } from '@/styles/tokens';
 import { useNewPosting } from '@/hooks/useNewPosting';
@@ -22,6 +22,7 @@ const NewPosting = () => {
         handleSubmit,
         handleCancel,
         handleModify,
+        removeImage,
     } = useNewPosting();
 
     return (
@@ -40,11 +41,35 @@ const NewPosting = () => {
                     </Button>
 
                     {selectedImages.map((img) => (
-                        <Image
-                            key={img.uri}
-                            source={{ uri: img.uri }}
-                            style={{ width: 100, height: 100 }}
-                        />
+                        <View key={img.uri} style={{ position: 'relative', margin: 5 }}>
+                            <Image
+                                source={{ uri: img.uri }}
+                                style={{ width: 100, height: 100, borderRadius: 8 }}
+                            />
+                            <TouchableOpacity
+                                style={{
+                                    position: 'absolute',
+                                    top: -8,
+                                    right: -8,
+                                    width: 24,
+                                    height: 24,
+                                    borderRadius: 12,
+                                    backgroundColor: Colors.red,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    shadowColor: '#000',
+                                    shadowOffset: { width: 0, height: 2 },
+                                    shadowOpacity: 0.25,
+                                    shadowRadius: 3.84,
+                                    elevation: 5,
+                                }}
+                                onPress={() => removeImage(img.uri)}
+                            >
+                                <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
+                                    ×
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     ))}
                 </ScrollView>
 

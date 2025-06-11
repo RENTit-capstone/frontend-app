@@ -140,6 +140,10 @@ export const useNewPosting = () => {
         return payload;
     };
 
+    const removeImage = (imageUri: string) => {
+        setSelectedImages((prev) => prev.filter((img) => img.uri !== imageUri));
+    };
+
     return {
         values,
         handleChange,
@@ -151,5 +155,6 @@ export const useNewPosting = () => {
         handleSubmit,
         handleCancel,
         handleModify,
+        removeImage,
     };
 };
