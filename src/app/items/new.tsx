@@ -101,7 +101,7 @@ const NewPosting = () => {
                         >
                             {(startDate && endDate) || (params.startDate && params.endDate) ? (
                                 <Text>
-                                    {formatISOtoDate(startDate || params.startDate)} ~{' '}
+                                    {formatISOtoDate(startDate || params.startDate)} ~
                                     {formatISOtoDate(endDate || params.endDate)}
                                 </Text>
                             ) : null}

@@ -72,7 +72,6 @@ const Product = () => {
                 memberId: memberId.current,
                 amount: amount,
             });
-            console.log(res);
             Alert.alert('출금 완료', `${amount.toLocaleString()}원이 출금되었습니다.`);
             setBalance(balance - parseInt(amount));
         } catch (error) {

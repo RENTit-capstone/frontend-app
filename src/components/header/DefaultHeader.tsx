@@ -23,7 +23,8 @@ const DefaultHeader = () => {
             const existNew = response.data.content.filter((item: any) => item?.read === false);
             setUnread(!!existNew.length);
         };
-    });
+        newNotification();
+    }, []);
 
     return (
         <View style={[Common.headerWrapper, { paddingTop: insets.top, height: height * 0.1 }]}>

@@ -50,7 +50,6 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
     useEffect(() => {
         const params = generateUrl({
             statuses: filtered,
-            // sort: selected || ['requestDate', 'desc'],
             sort: ['requestDate', 'desc'],
             page: 0,
             size: 20,
@@ -81,22 +80,6 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
             Alert.alert(`${error}`);
             console.error(error);
         }
-
-        // if (!params) {
-        //     params = generateUrl({
-        //         // stautses: ['REQUESTED', 'APPROVED', 'RejECTED', 'COMPLETED'],
-        //         page: 0,
-        //         size: 20,
-        //         sort: ['requestDate', 'desc'],
-        //     });
-        // }
-        // try {
-        //     const response = await axiosGet(`/api/v1/rentals?${params}`);
-        //     setData(response.data.content);
-        // } catch (error) {
-        //     Alert.alert(`${error}`);
-        //     console.error(error);
-        // }
     };
 
     if (!data) return;
@@ -139,15 +122,6 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
                                 status={item.status}
                                 imageUrl={item.thumbnailUrl}
                                 onRefresh={fetchResult}
-
-                                // itemId={item.itemId}
-                                // nickname={item.nickname}
-                                // name={item.name}
-                                // imageUrls={item.imageUrls}
-                                // price={item.price}
-                                // status={item.status}
-                                // startDate={item.startDate}
-                                // endDate={item.endDate}
                             />
                             <View
                                 style={[
@@ -158,20 +132,6 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
                         </View>
                     )}
                 />
-
-                {/* {data.map((item: AccordionCardProps) => (
-                    <>
-                        <AccordionCard
-                            type={type}
-                            key={item.rentalId}
-                            rentalId={item.rentalId}
-                            itemId={item.itemId}
-                            requestDate={item.requestDate}
-                            status={item.status}
-                        />
-                        <View style={[itemList.rowDivider, { marginBottom: 16 }]} />
-                    </>
-                ))} */}
             </View>
         </View>
     );

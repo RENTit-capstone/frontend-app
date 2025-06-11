@@ -18,7 +18,6 @@ const ItemHeader = () => {
     const menuItems = useMenuStore((state) => state.menuItems);
 
     return (
-        // <SafeAreaView>
         <View
             style={[
                 Common.headerWrapper,
@@ -28,7 +27,6 @@ const ItemHeader = () => {
                     height: height * 0.1,
                     paddingHorizontal: 16,
                     justifyContent: 'space-between',
-                    // marginHorizontal: 12,
                 },
             ]}
         >
@@ -39,9 +37,6 @@ const ItemHeader = () => {
                 <LeftArrowWhite width={32} height={32} />
             </Pressable>
             <View style={[Common.XStack, { gap: 20 }]}>
-                {/* <Pressable>
-                    <Share />
-                </Pressable> */}
                 <Pressable
                     onPress={() => setIsOpen(!isOpen)}
                     hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
@@ -57,8 +52,6 @@ const ItemHeader = () => {
                                 zIndex: 1000,
                                 top: 32,
                                 right: 12,
-                                // justifyContent: 'center',
-                                // width: '100%',
                             },
                         ]}
                     >
@@ -78,7 +71,6 @@ const ItemHeader = () => {
                 )}
             </View>
         </View>
-        // </SafeAreaView>
     );
 };
 export default ItemHeader;

@@ -1,7 +1,7 @@
 import { Stack, usePathname } from 'expo-router';
 
 export default function MypageLayout() {
-    const pathname = usePathname(); // 예: "/mypage/payment"
+    const pathname = usePathname();
 
     return (
         <>

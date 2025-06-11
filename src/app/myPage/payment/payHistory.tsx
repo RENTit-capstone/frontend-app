@@ -181,19 +181,6 @@ const PayHistory = () => {
                     <PaymentItem key={item.paymentId} payment={item} />
                 ))}
             </ScrollView>
-
-            {/*
-         {data.map((item) => (
-             <>
-                 <View>
-                     <Text>{item.createdAt}</Text>
-                     <Text>{item.itemName}</Text>
-                     <Text>{item.amount}원</Text>
-                     <Text>{item.status}</Text>
-                 </View>
-                 <View style={itemList.rowDivider} />
-             </>
-         ))} */}
         </View>
     );
 };

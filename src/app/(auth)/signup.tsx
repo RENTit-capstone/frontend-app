@@ -44,9 +44,7 @@ const Signup = () => {
             profileImg: null,
         };
         try {
-            console.log(userInfo);
             const response = await signup(userInfo);
-            console.log(response); //TODO: dialog로 "회원가입 완료" 띄우기
             Alert.alert('회원가입이 완료되었습니다', '로그인한 뒤 서비스를 이용해주세요');
             router.push('/(auth)/login');
         } catch (error) {

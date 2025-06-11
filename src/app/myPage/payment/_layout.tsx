@@ -2,12 +2,10 @@ import BackButtonHeader from '@/components/header/BackButtonHeader';
 import { Stack, usePathname } from 'expo-router';
 
 export default function PaymentLayout() {
-    const pathname = usePathname(); // 예: "/mypage/payment"
+    const pathname = usePathname();
 
     return (
         <>
-            {/* <Stack.Screen options={{ headerShown: false }} /> */}
-
             <Stack screenOptions={{ headerShown: false }}>
                 <Stack.Screen
                     name="payHistory"
@@ -15,7 +13,6 @@ export default function PaymentLayout() {
                         title: '결제 내역',
                         headerShown: true,
                         header: () => <BackButtonHeader title="결제 내역" />,
-                        // headerTransparent: true,
                     }}
                 />
                 <Stack.Screen

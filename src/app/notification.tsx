@@ -27,7 +27,7 @@ type NotificationType =
 
 type NotificationDataType = {
     id: number;
-    type: string;
+    type: NotificationType;
     title: string;
     body: string;
     read: boolean;

@@ -52,7 +52,6 @@ const AddAccountModal = (props: ModalProps) => {
     return (
         <KeyboardAvoidingView
             style={{
-                // backgroundColor: 'red',
                 position: 'absolute',
                 width: width,
                 height: height,
@@ -93,7 +92,6 @@ const AddAccountModal = (props: ModalProps) => {
                     value={'농협'}
                     handleChangeText={() => {}}
                     keyboardType="number-pad"
-                    // style={{ marginBottom: 0 }}
                 />
                 <Text style={[TextThemes.error]}>현재 은행은 농협만 제공됩니다</Text>
                 <TextInput

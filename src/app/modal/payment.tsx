@@ -1,11 +1,10 @@
-import { View, Pressable, Alert, useWindowDimensions } from 'react-native';
+import { View, Pressable, useWindowDimensions } from 'react-native';
 import Cancel from '@/assets/images/cancel.svg';
 import { Common } from '@/styles/common';
 import { Text } from 'react-native';
 import Button from '@/components/Button';
 import { useEffect } from 'react';
 import { ModalProps } from '@/types/types';
-import usePostings from '@/hooks/usePostings';
 import useRequestStore from '@/stores/useRequestStore';
 import usePayment from '@/hooks/usePayment';
 import { itemList } from '@/styles/components/itemList';

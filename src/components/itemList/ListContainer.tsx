@@ -59,7 +59,6 @@ const ListContainer = (props: ListContainerProps) => {
                 size: PAGE_SIZE,
                 sort: searchOptions.sort ? searchOptions.sort : ['createdAt', 'desc'],
             });
-            // console.log(params);
 
             try {
                 const response = await axiosGet(`/api/v1/items?${params}`);

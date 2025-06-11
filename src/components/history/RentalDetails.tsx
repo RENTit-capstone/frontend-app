@@ -56,11 +56,6 @@ const fields: {
 ];
 
 const RentalDetails = ({ data }: { data: any }) => {
-    useEffect(() => {
-        console.log('image', data.returnImageUrl);
-        console.log(data[0]);
-    }, []);
-
     return (
         <View
             style={{
@@ -84,7 +79,7 @@ const RentalDetails = ({ data }: { data: any }) => {
                         : (rawValue?.toString() ?? '-');
                 return <InfoRow key={key} label={label} value={value} />;
             })}
-            {data.returnImageUrl > 0 && (
+            {data.returnImageUrl.length > 0 && (
                 <Image
                     source={{ uri: data.returnImageUrl }}
                     key={data.returnImageUrl}

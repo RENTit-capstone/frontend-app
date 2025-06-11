@@ -21,19 +21,6 @@ const Mypage = () => {
                 },
             ],
         },
-        // {
-        //     category: '사물함',
-        //     contents: [
-        //         {
-        //             name: 'OTP 발급',
-        //             onPress: () => router.push('/myPage/locker/otp'),
-        //         },
-        //         // {
-        //         //     name: '사물함 이용 안내',
-        //         //     onPress: () => router.push('/myPage/locker/method'),
-        //         // },
-        //     ],
-        // },
         {
             category: '결제',
             contents: [
@@ -77,7 +64,6 @@ const Mypage = () => {
         };
         try {
             const response = await axiosNoInterceptor.post(`/api/v1/auth/logout`, payload);
-            console.log(response);
         } catch (error) {
             console.error(error);
         }
