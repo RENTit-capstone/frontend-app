@@ -25,9 +25,7 @@ const AddAccountModal = (props: ModalProps) => {
                 finAcno: accountNumber,
                 bankCode: '011',
             };
-            console.log('계좌 등록 요청:', payload);
             const response = await axiosPost('/api/v1/wallet', payload);
-            console.log(response.data);
             Alert.alert('계좌 등록이 완료되었습니다.', '결제를 진행해주세요');
             onClose();
         } catch (error) {

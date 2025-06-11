@@ -68,7 +68,7 @@ export const useBottomSheetStore = create<BottomSheetType>((set, get) => ({
     onNext: (callback) => set({ nextCallback: callback }),
 
     setResult: (result) => {
-        console.log(result);
+        console.log('result', result);
         set({ result: result });
     },
     clearCallbacks: () => set({ prevCallback: undefined, nextCallback: undefined }),

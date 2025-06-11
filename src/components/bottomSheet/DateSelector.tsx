@@ -4,11 +4,18 @@ import { Calendar } from 'react-native-calendars';
 import Chip from '../Chip';
 import useDateSelector from '@/hooks/useDateSelector';
 import { useBottomSheetStore } from '@/stores/useBottomSheetStore';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const DateSelectorModal = () => {
     const { startDate, endDate, onDayPress, markedDates, resetPeriod } = useDateSelector();
     const { visible, result, setResult } = useBottomSheetStore();
+    const [limitDate, setLimitDate] = useState<{
+        minDate?: string;
+        maxDate?: string;
+    }>({
+        minDate: undefined,
+        maxDate: undefined,
+    });
 
     const selectableStartDate = result?.selectableStartDate ?? null;
     const selectableEndDate = result?.selectableEndDate ?? null;
@@ -26,8 +33,16 @@ const DateSelectorModal = () => {
         return `${year}-${month}-${day}`;
     };
 
-    const minDate = selectableStartDate ? formatDateToString(selectableStartDate) : undefined;
-    const maxDate = selectableEndDate ? formatDateToString(selectableEndDate) : undefined;
+    useEffect(() => {
+        console.log('왜안됨:', result);
+        const newLimit = {
+            minDate: result?.selectableStartDate
+                ? formatDateToString(selectableStartDate)
+                : undefined,
+            maxDate: result?.selectableEndDate ? formatDateToString(selectableEndDate) : undefined,
+        };
+        setLimitDate(newLimit);
+    }, [result]);
 
     return (
         <>
@@ -44,8 +59,8 @@ const DateSelectorModal = () => {
                     theme={{
                         arrowColor: '#5B5B5B',
                     }}
-                    minDate={minDate}
-                    maxDate={maxDate}
+                    minDate={limitDate.minDate}
+                    maxDate={limitDate.maxDate}
                 />
                 <View style={Common.chips}>
                     <Chip startDate={startDate} endDate={endDate} onCancel={resetPeriod} />
