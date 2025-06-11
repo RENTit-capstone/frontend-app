@@ -73,6 +73,7 @@ const Postings = () => {
     const handleDelete = async () => {
         try {
             const response = await axiosDelete(`/api/v1/items/${id}`);
+            Alert.alert('삭제완료되었습니다.');
         } catch (error) {
             Alert.alert(`${error}`);
             console.error(error);

@@ -9,7 +9,7 @@ import useFirebaseNotification from '@/hooks/useFirebaseNotification';
 
 const ItemList = () => {
     const router = useRouter();
-    useFirebaseNotification();
+    // useFirebaseNotification();
 
     return (
         <View style={Common.container}>
