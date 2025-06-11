@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { axiosPost, axiosPut } from '@/api';
@@ -11,6 +11,10 @@ import { PostingType } from '@/types/types';
 import DefaultDamagePolicy from '@/components/items/DefaultDamagePolicy';
 import UploadToStorage from '@/utils/uploadToStorage';
 
+type SelectedImage =
+    | ({ isNew: false; key: string } & { uri: string }) // 기존 이미지
+    | ({ isNew: true } & ImagePickerAsset);
+
 export const useNewPosting = () => {
     const params: PostingType = useLocalSearchParams();
     const { openBottomSheet } = useBottomSheetStore();
@@ -18,7 +22,18 @@ export const useNewPosting = () => {
 
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
-    const [selectedImages, setSelectedImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
+    const [selectedImages, setSelectedImages] = useState<SelectedImage[]>([]);
+
+    useEffect(() => {
+        if (params.itemImg && params.imageKeys) {
+            const oldImages = (JSON.parse(params.itemImg) as string[]).map((uri, index) => ({
+                uri,
+                key: (JSON.parse(params.imageKeys) as string[])[index],
+                isNew: false as const,
+            }));
+            setSelectedImages(oldImages);
+        }
+    }, []);
 
     function safeJsonParse<T>(input: string | undefined | null, fallback: T): T {
         try {
@@ -46,7 +61,13 @@ export const useNewPosting = () => {
             quality: 1,
         });
 
-        if (!result.canceled) setSelectedImages(result.assets);
+        if (!result.canceled) {
+            const newImages: SelectedImage[] = result.assets.map((asset) => ({
+                ...asset,
+                isNew: true,
+            }));
+            setSelectedImages((prev) => [...prev, ...newImages]);
+        }
     };
 
     const handleDateSelect = async () => {
@@ -68,8 +89,11 @@ export const useNewPosting = () => {
 
         try {
             const uploadPromises = selectedImages.map(async (img) => {
-                const key = await UploadToStorage(img);
-                return key;
+                if (img.isNew) {
+                    const key = await UploadToStorage(img);
+                    return key;
+                }
+                return img.key;
             });
 
             const imageKeys = await Promise.all(uploadPromises);
@@ -98,8 +122,11 @@ export const useNewPosting = () => {
         }
         try {
             const uploadPromises = selectedImages.map(async (img) => {
-                const key = await UploadToStorage(img);
-                return key;
+                if (img.isNew) {
+                    const key = await UploadToStorage(img);
+                    return key;
+                }
+                return img.key;
             });
 
             const imageKeys = await Promise.all(uploadPromises);
