@@ -8,10 +8,6 @@
             "developmentClient": false,
             "distribution": "internal"
         },
-        "development": {
-            "developmentClient": true,
-            "distribution": "internal"
-        },
         "preview": {
             "developmentClient": false,
             "distribution": "internal"
@@ -23,10 +19,17 @@
         },
         "production": {
             "autoIncrement": true
+        },
+        "development": {
+            "developmentClient": false,
+            "distribution": "internal",
+            "android": {
+                "gradleCommand": ":app:assembleDebug",
+                "buildType": "apk"
+            }
         }
     },
     "submit": {
         "production": {}
     }
 }
-
