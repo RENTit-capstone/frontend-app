@@ -14,9 +14,8 @@ import { useRouter } from 'expo-router';
 
 const PaymentModal = (props: ModalProps) => {
     const { visible, onClose } = props;
-    const { handleRequest } = usePostings();
     const { name, price } = useRequestStore();
-    const { getBalance, data } = usePayment();
+    const { getBalance, data, handleCancel, handlePayment } = usePayment(onClose);
     const router = useRouter();
 
     const { width, height } = useWindowDimensions();
@@ -25,38 +24,11 @@ const PaymentModal = (props: ModalProps) => {
         getBalance();
     }, []);
 
-    const handleCancel = () => {
-        Alert.alert('결제를 취소하시겠습니까?', '', [
-            {
-                text: '아니요',
-                style: 'cancel',
-            },
-            {
-                text: '네',
-                onPress: () => onClose(),
-            },
-        ]);
-    };
-
-    const handlePayment = async () => {
-        Alert.alert('결제하시겠습니까?', '', [
-            {
-                text: '아니요',
-                style: 'cancel',
-            },
-            {
-                text: '네',
-                onPress: async () => handleRequest(),
-            },
-        ]);
-    };
-
     if (!data) return;
     if (!visible) return null;
     return (
         <View
             style={{
-                // backgroundColor: 'red',
                 position: 'absolute',
                 width: width,
                 height: height,
@@ -97,13 +69,6 @@ const PaymentModal = (props: ModalProps) => {
                         <Text>결제 금액</Text>
                         <Text style={[Common.bold]}> {price} </Text>
                     </View>
-                    {/* <View style={[Common.XStack, Common.spaceBetween]}>
-                        <Text>결제 계좌</Text>
-                        <Text style={[Common.bold]}>
-                            {data.bankCode === 110 ? '농협  ' : '농협  '}
-                            {data.finAcno}
-                        </Text>
-                    </View> */}
                     <View style={[itemList.rowDivider, { width: '100%' }]} />
                     <View style={[Common.XStack, Common.spaceBetween, { alignItems: 'center' }]}>
                         <Text>결제 후 포인트 </Text>
