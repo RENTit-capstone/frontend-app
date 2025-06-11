@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import DropDown from '../Dropdown';
 import DownArrow from '@/assets/images/down-arrow.svg';
 import { itemList } from '@/styles/components/itemList';

@@ -1,14 +1,12 @@
-import { View, Pressable, Dimensions, Alert } from 'react-native';
+import { View, Pressable, Alert, useWindowDimensions } from 'react-native';
 import Cancel from '@/assets/images/cancel.svg';
 import { Common } from '@/styles/common';
 import { Text } from 'react-native';
 import Button from '@/components/Button';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ModalProps } from '@/types/types';
 import usePostings from '@/hooks/usePostings';
-import useAuthStore from '@/stores/useAuthStore';
 import useRequestStore from '@/stores/useRequestStore';
-import { axiosGet } from '@/api';
 import usePayment from '@/hooks/usePayment';
 import { itemList } from '@/styles/components/itemList';
 import { TextThemes } from '@/styles/theme';
@@ -21,26 +19,10 @@ const PaymentModal = (props: ModalProps) => {
     const { getBalance, data } = usePayment();
     const router = useRouter();
 
-    const [screenWidth, setScreenWidth] = useState(0);
-    const [screenHeight, setScreenHeight] = useState(0);
+    const { width, height } = useWindowDimensions();
 
     useEffect(() => {
         getBalance();
-        const checkDimensions = () => {
-            setTimeout(() => {
-                const screen = Dimensions.get('screen');
-                setScreenWidth(screen.width);
-                setScreenHeight(screen.height);
-                console.log('Screen dimensions updated:', screen.width, screen.height);
-            }, 50);
-        };
-
-        checkDimensions();
-
-        const subscription = Dimensions.addEventListener('change', checkDimensions);
-        return () => {
-            subscription?.remove();
-        };
     }, []);
 
     const handleCancel = () => {
@@ -76,8 +58,8 @@ const PaymentModal = (props: ModalProps) => {
             style={{
                 // backgroundColor: 'red',
                 position: 'absolute',
-                width: screenWidth,
-                height: screenHeight,
+                width: width,
+                height: height,
                 flex: 1,
                 justifyContent: 'center',
                 backgroundColor: 'rgba(0,0,0,0.5)',

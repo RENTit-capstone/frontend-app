@@ -1,6 +1,5 @@
-import { Dimensions, Pressable, SafeAreaView, View } from 'react-native';
+import { Pressable, useWindowDimensions, View } from 'react-native';
 import Logo from '@/assets/images/logo.svg';
-import SearchIcon from '@/assets/images/search.svg';
 import Notification from '@/assets/images/notification.svg';
 import Avatar from '@/components/Avatar';
 import { Common } from '@/styles/common';
@@ -11,13 +10,11 @@ import useAuthStore from '@/stores/useAuthStore';
 const DefaultHeader = () => {
     const router = useRouter();
     const insets = useSafeAreaInsets();
-    const screenHeight = Dimensions.get('window').height;
+    const { height } = useWindowDimensions();
     const { profileImg } = useAuthStore();
 
     return (
-        <View
-            style={[Common.headerWrapper, { paddingTop: insets.top, height: screenHeight * 0.1 }]}
-        >
+        <View style={[Common.headerWrapper, { paddingTop: insets.top, height: height * 0.1 }]}>
             <Pressable
                 style={Common.headerWrapper}
                 hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}

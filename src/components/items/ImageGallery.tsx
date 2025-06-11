@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
     View,
-    Dimensions,
     Image,
     NativeScrollEvent,
     NativeSyntheticEvent,
@@ -19,41 +18,14 @@ type ImageGalleryProps = {
 };
 
 const ImageGallery = (props: ImageGalleryProps) => {
-    const windowDims = useWindowDimensions();
-    const [screenWidth, setScreenWidth] = useState(windowDims.width); // 아이패드 기본값
-    const [screenHeight, setScreenHeight] = useState(windowDims.height);
+    const { width, height } = useWindowDimensions();
 
     const { imgUrls, fullScreen } = props;
     const [current, setCurrent] = useState(0);
     const flatListRef = useRef<FlatList>(null);
 
-    useEffect(() => {
-        const checkDimensions = () => {
-            setTimeout(() => {
-                const screen = Dimensions.get('screen');
-                setScreenWidth(screen.width);
-                setScreenHeight(screen.height);
-                console.log('Screen dimensions updated:', screen.width, screen.height);
-            }, 50);
-        };
-        checkDimensions();
-
-        // const updateDimensions = () => {
-        //     const screen = Dimensions.get('screen');
-        //     setScreenWidth(screen.height);
-        //     setScreenHeight(screen.width);
-        // };
-
-        // 화면 회전 감지
-        // const subscription = Dimensions.addEventListener('change', updateDimensions);
-        const subscription = Dimensions.addEventListener('change', checkDimensions);
-        return () => {
-            subscription?.remove();
-        };
-    }, []);
-
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        const slide = Math.round(event.nativeEvent.contentOffset.x / screenWidth);
+        const slide = Math.round(event.nativeEvent.contentOffset.x / width);
         setCurrent(slide);
     };
 
@@ -65,7 +37,6 @@ const ImageGallery = (props: ImageGalleryProps) => {
             style={{
                 flex: 1,
                 backgroundColor: fullScreen ? 'rgba(0,0,0,0.9)' : 'black',
-                // width: '100%',
             }}
         >
             <FlatList
@@ -82,14 +53,14 @@ const ImageGallery = (props: ImageGalleryProps) => {
                 renderItem={({ item }) => (
                     <View
                         style={{
-                            width: screenWidth,
+                            width: width,
                         }}
                     >
                         <Image
                             source={{ uri: item }}
                             style={{
-                                width: screenWidth,
-                                height: fullScreen ? screenHeight : screenHeight / 2,
+                                width: width,
+                                height: fullScreen ? height : height / 2,
                             }}
                             resizeMode="contain"
                         />

@@ -4,7 +4,6 @@ import { Common } from '@/styles/common';
 import { Text } from 'react-native';
 import Button from '@/components/Button';
 import { useEffect, useState } from 'react';
-import { Dimensions } from 'react-native';
 import TextInput from '@/components/CustomTextInput';
 import { TextThemes } from '@/styles/theme';
 import { axiosPost } from '@/api';
@@ -15,31 +14,10 @@ import KeyboardAvoidingView from '@/components/KeyboardAvoidingView';
 const AddAccountModal = (props: ModalProps) => {
     const { visible, onClose } = props;
     const [accountNumber, setAccountNumber] = useState('');
-    const [bankName, setBankName] = useState('농협');
     const { userId } = useAuthStore();
 
-    const screen = Dimensions.get('screen');
+    const { width, height } = useWindowDimensions();
 
-    const [screenWidth, setScreenWidth] = useState(0);
-    const [screenHeight, setScreenHeight] = useState(0);
-
-    useEffect(() => {
-        const checkDimensions = () => {
-            setTimeout(() => {
-                const screen = Dimensions.get('screen');
-                setScreenWidth(screen.width);
-                setScreenHeight(screen.height);
-                console.log('Screen dimensions updated:', screen.width, screen.height);
-            }, 50);
-        };
-
-        checkDimensions();
-
-        const subscription = Dimensions.addEventListener('change', checkDimensions);
-        return () => {
-            subscription?.remove();
-        };
-    }, []);
     const handleRegister = async () => {
         try {
             const payload = {
@@ -78,8 +56,8 @@ const AddAccountModal = (props: ModalProps) => {
             style={{
                 // backgroundColor: 'red',
                 position: 'absolute',
-                width: screenWidth,
-                height: screenHeight,
+                width: width,
+                height: height,
                 flex: 1,
                 justifyContent: 'center',
                 backgroundColor: 'rgba(0,0,0,0.5)',
@@ -115,7 +93,7 @@ const AddAccountModal = (props: ModalProps) => {
                     label="은행"
                     name="bankName"
                     value={'농협'}
-                    handleChangeText={setBankName}
+                    handleChangeText={() => {}}
                     keyboardType="number-pad"
                     // style={{ marginBottom: 0 }}
                 />

@@ -1,9 +1,8 @@
 import { Common } from '@/styles/common';
-import { Dimensions, Pressable, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { Pressable, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LeftArrowWhite from '@/assets/images/left-arrow-white.svg';
 import Menu from '@/assets/images/dots-vertical.svg';
-import Share from '@/assets/images/share.svg';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { itemList } from '@/styles/components/itemList';
@@ -14,7 +13,7 @@ const ItemHeader = () => {
     const insets = useSafeAreaInsets();
     const router = useRouter();
     const backgroundColor = Colors.black;
-    const screenHeight = Dimensions.get('window').height;
+    const { height } = useWindowDimensions();
     const [isOpen, setIsOpen] = useState(false);
     const menuItems = useMenuStore((state) => state.menuItems);
 
@@ -26,7 +25,7 @@ const ItemHeader = () => {
                 {
                     backgroundColor: backgroundColor,
                     paddingTop: insets.top,
-                    height: screenHeight * 0.1,
+                    height: height * 0.1,
                     paddingHorizontal: 16,
                     justifyContent: 'space-between',
                     // marginHorizontal: 12,
