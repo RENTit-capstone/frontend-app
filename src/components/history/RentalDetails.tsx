@@ -1,9 +1,6 @@
 import { View, Text, Image } from 'react-native';
 import { Colors } from '@/styles/tokens';
 import formatISOToDateTime from '@/utils/formatISOToDateTime';
-import { useEffect, useState } from 'react';
-import { axiosGet } from '@/api';
-import useAuthStore from '@/stores/useAuthStore';
 
 const InfoRow = ({ label, value }: { label: string; value: string | null }) => {
     return (
@@ -79,10 +76,10 @@ const RentalDetails = ({ data }: { data: any }) => {
                         : (rawValue?.toString() ?? '-');
                 return <InfoRow key={key} label={label} value={value} />;
             })}
-            {data.returnImageUrl.length > 0 && (
+            {data[0].returnImageUrl && (
                 <Image
-                    source={{ uri: data.returnImageUrl }}
-                    key={data.returnImageUrl}
+                    source={{ uri: data[0].returnImageUrl }}
+                    key={data.returnImageUrl?.[0]}
                     style={{ width: '100%', minHeight: 500, resizeMode: 'contain' }}
                 />
             )}
