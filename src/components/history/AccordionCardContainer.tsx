@@ -65,7 +65,7 @@ const AccordionCardContainer = (props: AccordionContainerProps) => {
     const fetchMine = async (params?: any) => {
         try {
             const response = await axiosGet(`/api/v1/members/me`);
-            // setItemData(response.data.items);
+            console.log(response.data.ownedRentals);
             setData(response.data.ownedRentals);
         } catch (error) {
             Alert.alert(`${error}`);

@@ -30,8 +30,7 @@ const MyItems = () => {
     const fetchMyItem = async () => {
         try {
             const response = await axiosGet(`/api/v1/members/me`);
-            setData(response.data.items);
-            console.log(response.data);
+            setData(response.data.items.filter((item: any) => item.status !== 'REMOVED'));
         } catch (error) {
             console.error(error);
             Alert.alert(`${error}`);
