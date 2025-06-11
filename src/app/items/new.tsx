@@ -11,6 +11,7 @@ import { useLocalSearchParams } from 'expo-router';
 
 const NewPosting = () => {
     const params = useLocalSearchParams();
+    console.log('params', params.startDate);
     const {
         values,
         handleChange,
@@ -99,11 +100,12 @@ const NewPosting = () => {
                         <View
                             style={[Common.textInput, { width: '80%', justifyContent: 'center' }]}
                         >
-                            {startDate && endDate && (
+                            {(startDate && endDate) || (params.startDate && params.endDate) ? (
                                 <Text>
-                                    {formatISOtoDate(startDate)} ~ {formatISOtoDate(endDate)}
+                                    {formatISOtoDate(startDate || params.startDate)} ~{' '}
+                                    {formatISOtoDate(endDate || params.endDate)}
                                 </Text>
-                            )}
+                            ) : null}
                         </View>
                         <Button
                             type="primary"

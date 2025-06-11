@@ -42,6 +42,8 @@ const Postings = () => {
                                   price: data.price,
                                   damagedPolicy: data.damagedPolicy,
                                   returnPolicy: data.returnPolicy,
+                                  startDate: data.startDate,
+                                  endDate: data.endDate,
                               },
                           });
                       },

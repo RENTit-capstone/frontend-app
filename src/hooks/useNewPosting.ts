@@ -10,7 +10,6 @@ import useFormInput from './useFormInput';
 import { PostingType } from '@/types/types';
 import DefaultDamagePolicy from '@/components/items/DefaultDamagePolicy';
 import UploadToStorage from '@/utils/uploadToStorage';
-import { parseAsync } from '@babel/core';
 
 export const useNewPosting = () => {
     const params: PostingType = useLocalSearchParams();
@@ -65,6 +64,8 @@ export const useNewPosting = () => {
     };
 
     const handleModify = async () => {
+        console.log(startDate);
+
         try {
             const uploadPromises = selectedImages.map(async (img) => {
                 const key = await UploadToStorage(img);
@@ -74,8 +75,10 @@ export const useNewPosting = () => {
             const imageKeys = await Promise.all(uploadPromises);
 
             const formData = getPostingFormData(values, startDate, endDate, imageKeys);
+            console.log(formData);
 
-            await axiosPut(`/api/v1/items/${params.itemId}`, formData);
+            const response = await axiosPut(`/api/v1/items/${params.itemId}`, formData);
+            console.log(response);
             Alert.alert('게시글이 수정되었습니다.');
             router.replace('/(tabs)/itemList');
         } catch (error) {
@@ -124,7 +127,9 @@ export const useNewPosting = () => {
             ...values,
             status: 'AVAILABLE',
             startDate: toISOStringWithoutMs(startDate ? new Date(startDate) : new Date()),
-            endDate: toISOStringWithoutMs(endDate ? new Date(endDate) : new Date()),
+            endDate: toISOStringWithoutMs(
+                endDate ? new Date(new Date(endDate).setHours(23 + 9, 59, 0, 0)) : new Date(),
+            ),
             imageKeys: imageKeys,
         };
 
