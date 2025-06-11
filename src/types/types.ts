@@ -107,7 +107,7 @@ export type RentalDetailsType = {
     returnImageUrl: string | null;
 };
 
-export type ItemStatusType = 'AVAILABLE' | 'OUT';
+export type ItemStatusType = 'AVAILABLE' | 'OUT' | 'REQUESTED' | 'REMOVED';
 
 export type ItemDetailsProp = {
     itemId: number;
