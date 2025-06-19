@@ -2,7 +2,7 @@ name: EAS Build and Notify Slack
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main]
   pull_request:
     types: [closed]
     branches: [main]
