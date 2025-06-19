@@ -43,15 +43,15 @@ const Mypage = () => {
             contents: [
                 {
                     name: '문의 작성',
-                    onPress: () => router.push('/myPage/qna/NewQnA'),
+                    onPress: () => router.push('/myPage/QnA/NewQnA'),
                 },
                 {
                     name: '내 문의 보기',
-                    onPress: () => router.push('/myPage/qna/MyQnA'),
+                    onPress: () => router.push('/myPage/QnA/MyQnA'),
                 },
                 {
                     name: '내가 받은 신고 내역',
-                    onPress: () => router.push('/myPage/qna/reportedIssue'),
+                    onPress: () => router.push('/myPage/QnA/reportedIssue'),
                 },
             ],
         },

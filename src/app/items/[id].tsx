@@ -60,7 +60,7 @@ const Postings = () => {
             : [
                   {
                       label: '신고',
-                      onPress: () => router.push('/myPage/qna/NewQnA'),
+                      onPress: () => router.push('/myPage/QnA/NewQnA'),
                   },
               ];
         setMenuItems(menu);
